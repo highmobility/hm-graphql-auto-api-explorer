@@ -10,5 +10,8 @@
     {
       "url": "heroku-community/static"
     }
+  ],
+  "addons": [
+    "heroku-postgresql:hobby-dev"
   ]
 }
