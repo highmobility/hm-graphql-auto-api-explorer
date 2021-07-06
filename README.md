@@ -1,5 +1,7 @@
 # hm-graphql-scaffold
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 This app uses [create-frontend](https://github.com/optimistdigital/create-frontend/blob/master/readme.md).
 
 ## Development
