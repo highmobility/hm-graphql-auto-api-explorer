@@ -1,0 +1,32 @@
+{
+  "name": "hm-graphql-scaffold",
+  "version": "0.1.0",
+  "private": true,
+  "create-frontend": {},
+  "browserslist": [
+    "> 0.2%",
+    "last 1 version",
+    "not dead"
+  ],
+  "scripts": {
+    "dev": "frontend-scripts dev",
+    "build": "frontend-scripts build",
+    "build:debug": "frontend-scripts build --debug"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/@optimistdigital/create-frontend/eslint-config.js"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.9.2",
+    "@optimistdigital/create-frontend": "^17.0.3",
+    "core-js": "^3.6.4",
+    "normalize.css": "8.x.x",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
