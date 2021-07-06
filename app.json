@@ -5,6 +5,9 @@
   "logo": "https://avatars.githubusercontent.com/u/16898942",
   "buildpacks": [
     {
+      "url": "heroku/nodejs"
+    },
+    {
       "url": "heroku-community/static"
     }
   ]
