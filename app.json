@@ -1,0 +1,6 @@
+{
+  "name": "High Mobility GraphQL sample app",
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ]
+}
