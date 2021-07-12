@@ -10,10 +10,5 @@
   ],
   "addons": [
     "heroku-postgresql:hobby-dev"
-  ],
-  "env": {
-    "SERVER_PORT": {
-      "value": 80
-    }
-  }
+  ]
 }
