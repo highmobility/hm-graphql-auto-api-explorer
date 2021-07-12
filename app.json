@@ -1,5 +1,6 @@
 {
   "name": "High Mobility GraphQL sample app",
+  "description": "Example app showing how to use the High Mobility GraphQL API",
   "repository": "https://github.com/jane-doe/small-sharp-tool",
   "logo": "https://avatars.githubusercontent.com/u/16898942",
   "addons": [
