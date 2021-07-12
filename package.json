@@ -21,6 +21,7 @@
     "dev": "frontend-scripts dev-universal-react",
     "build": "frontend-scripts build-universal-react",
     "build:debug": "frontend-scripts build-universal-react --debug",
+    "heroku-postbuild": "frontend-scripts build-universal-react",
     "start": "frontend-scripts start-universal-react"
   },
   "eslintConfig": {
