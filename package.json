@@ -7,7 +7,7 @@
   "private": true,
   "create-frontend": {
     "publicDirectory": "build",
-    "buildPath": "client",
+    "buildPath": "/client",
     "entryPoints": {
       "app": "client/entry.js"
     }
@@ -21,9 +21,9 @@
     "dev": "frontend-scripts dev-universal-react",
     "build": "frontend-scripts build-universal-react",
     "build:debug": "frontend-scripts build-universal-react --debug",
-    "heroku-postbuild": "frontend-scripts build-universal-react",
     "start": "frontend-scripts start-universal-react"
   },
+  "heroku-run-build-script": false,
   "eslintConfig": {
     "extends": "./node_modules/@optimistdigital/create-frontend/eslint-config.js"
   },
