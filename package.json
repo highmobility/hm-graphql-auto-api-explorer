@@ -21,7 +21,7 @@
     "dev": "frontend-scripts dev-universal-react",
     "build": "frontend-scripts build-universal-react",
     "build:debug": "frontend-scripts build-universal-react --debug",
-    "start": "SERVER_PORT=$(grep PORT .env | cut -d '=' -f2) frontend-scripts start-universal-react"
+    "start": "frontend-scripts start-universal-react"
   },
   "eslintConfig": {
     "extends": "./node_modules/@optimistdigital/create-frontend/eslint-config.js"
