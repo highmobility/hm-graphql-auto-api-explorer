@@ -1,0 +1,89 @@
+h1 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 72px;
+  line-height: 84px;
+  color: #152536;
+}
+
+h2 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 56px;
+  color: #152536;
+}
+
+h3 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 37px;
+  color: #152536;
+}
+
+h4 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 30px;
+  color: #152536;
+}
+
+h5 {
+  margin: 0;
+  font-size: 21px;
+  line-height: 23px;
+  color: #152536;
+}
+
+h6 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 18px;
+  color: #152536;
+}
+
+p {
+  margin: 0;
+  font-size: 21px;
+  line-height: 36px;
+  color: #152536;
+
+  &.small {
+    font-size: 16px;
+    line-height: 28px;
+  }
+}
+
+.Num1 {
+  font-weight: 300;
+  font-size: 56px;
+  line-height: 60px;
+  text-align: center;
+  letter-spacing: -0.03em;
+  color: #3B3E42;
+}
+
+.Num2 {
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 47px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #3B3E42;
+}
+
+.Num3 {
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 33px;
+  text-align: center;
+  color: #3B3E42;
+}
+
+.Num4 {
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+  color: #3B3E42;
+}

@@ -1,8 +1,10 @@
-# Getting Started with Create React App
+# High Mobility GraphQL sample app
+#### Example app showing how to use the High Mobility GraphQL API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Deploy instantly
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kaareloun/hm-graphql-scaffold)
 
-## Setup
+## Local setup
 
 `npm run build`
 

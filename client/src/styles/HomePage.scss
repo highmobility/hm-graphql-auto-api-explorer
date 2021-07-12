@@ -1,0 +1,28 @@
+.HomePage {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(#fff 50%, #f7f8fc 50%);
+  height: 100vh;
+
+  .HomePageContent {
+    position: absolute;
+    top: calc(50% - 40px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .Description {
+    margin-bottom: 63px;
+  }
+
+  .GrayCircles {
+    margin-bottom: 63px;
+  }
+
+  .PrimaryButton {
+    width: 280px;
+    margin: 0 auto;
+  }
+}
