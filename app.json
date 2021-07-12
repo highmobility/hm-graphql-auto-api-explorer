@@ -1,6 +1,13 @@
 {
   "name": "High Mobility GraphQL sample app",
+  "repository": "https://github.com/jane-doe/small-sharp-tool",
+  "logo": "https://avatars.githubusercontent.com/u/16898942",
   "addons": [
     "heroku-postgresql:hobby-dev"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
   ]
 }
