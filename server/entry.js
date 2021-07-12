@@ -5,6 +5,8 @@ import getConfig from 'server/config';
 import helmet from '@optimistdigital/create-frontend/universal-react/helmet';
 import compression from 'compression';
 
+process.env.SERVER_PORT = process.env.PORT; // Heroku takes port from process.env.PORT
+
 const server = express();
 const staticOpts = { maxAge: 604800000 };
 
