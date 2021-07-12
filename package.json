@@ -1,20 +1,24 @@
 {
-  "name": "hm-graphql-scaffold",
+  "name": "test",
   "version": "0.1.0",
-  "engines": {
-    "node": "16.x"
-  },
   "private": true,
-  "create-frontend": {},
+  "create-frontend": {
+    "publicDirectory": "build",
+    "buildPath": "client",
+    "entryPoints": {
+      "app": "client/entry.js"
+    }
+  },
   "browserslist": [
     "> 0.2%",
     "last 1 version",
     "not dead"
   ],
   "scripts": {
-    "dev": "frontend-scripts dev",
-    "build": "frontend-scripts build",
-    "build:debug": "frontend-scripts build --debug"
+    "dev": "frontend-scripts dev-universal-react",
+    "build": "frontend-scripts build-universal-react",
+    "build:debug": "frontend-scripts build-universal-react --debug",
+    "start": "frontend-scripts start-universal-react"
   },
   "eslintConfig": {
     "extends": "./node_modules/@optimistdigital/create-frontend/eslint-config.js"
@@ -27,9 +31,14 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.9.2",
     "@optimistdigital/create-frontend": "^17.0.3",
+    "compression": "^1.7.4",
     "core-js": "^3.6.4",
+    "express": "^4.17.1",
     "normalize.css": "8.x.x",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-helmet-async": "^1.0.4",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
   }
 }
