@@ -1,6 +1,9 @@
 {
   "name": "test",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.x"
+  },
   "private": true,
   "create-frontend": {
     "publicDirectory": "build",

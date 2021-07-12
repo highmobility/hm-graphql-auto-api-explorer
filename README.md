@@ -1,4 +1,4 @@
-# test
+# High Mobility GraphQL sample app
 
 This is a server-rendered React app that uses [create-frontend](https://github.com/optimistdigital/create-frontend/blob/master/docs/universal-react.md).
 
