@@ -16,9 +16,10 @@ const client = new Client({
 client.connect();
 
 app.get("/api", async (req, res) => {
-  const { rows } = await client.query('select * from cars');
+  // const { rows } = await client.query('select * from cars');
 
-  res.json(rows);
+  // res.json(rows);
+  res.json([{ name: 'test'} ]);
 });
 
 app.get('*', (req, res) => {
