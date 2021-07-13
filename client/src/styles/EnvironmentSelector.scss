@@ -1,0 +1,29 @@
+.EnvironmentSelector {
+  max-width: 540px;
+  background: white;
+  border-radius: 12px;
+  margin: 10px 0px;
+  display: flex;
+  padding: 20px;
+  border: 2px solid white;
+  transition: border-color 300ms ease;
+
+  &:hover {
+    cursor: pointer;
+    border-color: #E9ECEF;
+  }
+
+  &.active {
+    border-color: #037BE7;
+  }
+
+  .EnvironmentSelectorContent {
+
+  }
+
+  .EnvironmentSelectorRadio {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+}

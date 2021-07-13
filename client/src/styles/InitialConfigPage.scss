@@ -1,0 +1,17 @@
+.InitialConfigPage {
+  .InitialConfigHeader {
+    background: white;
+    padding: 90px 260px 50px;
+  }
+
+  .InitialConfigContent {
+    padding: 50px 260px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .SubHeader {
+    color: #6C757D;
+    margin-bottom: 20px;
+  }
+}

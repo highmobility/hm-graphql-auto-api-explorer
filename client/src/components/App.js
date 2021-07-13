@@ -10,10 +10,10 @@ import routes from "../routes";
 export default function App() {
   return (
     <Router>
-      <div class="App">
+      <div className="App">
         <Switch>
           {routes.map(route => (
-            <Route exact path={route.path}>
+            <Route exact path={route.path} key={route.name}>
               <route.component />
             </Route>
           ))}
