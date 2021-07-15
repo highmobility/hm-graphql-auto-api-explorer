@@ -1,9 +1,9 @@
 import '../styles/PrimaryButton.scss';
 
-export default function PrimaryButton() {
+export default function PrimaryButton({ children }) {
   return (
     <button className="PrimaryButton">
-      Filter properties
+      {children}
     </button>
   );
 }

@@ -1,0 +1,15 @@
+.TextArea.TextInput {
+  height: 150px;
+
+  .TextInputInput {
+    width: 100%;
+    height: 100%;
+    resize: none;
+  }
+
+  .TextInputIcon {
+    align-items: flex-start;
+    height: 100%;
+    padding-top: 10px;
+  }
+}

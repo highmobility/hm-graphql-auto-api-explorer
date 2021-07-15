@@ -1,0 +1,16 @@
+.ConfigGroup {
+  display: flex;
+
+  .ConfigGroupContent {
+    display: flex;
+    flex-direction: column;
+    width: 540px;
+    min-width: 540px;
+  }
+
+  .ConfigGroupTips {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+  }
+}

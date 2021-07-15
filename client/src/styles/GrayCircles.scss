@@ -1,38 +1,9 @@
-@keyframes fadeIn {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInDelayed {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-
-  30% {
-    transform: scale(0);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
 .GrayCircles {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 85px;
+  margin-right: 55px;
 
   .GrayCirclesBig {
     border-radius: 50%;
@@ -40,7 +11,7 @@
     z-index: 1;
     width: 233px;
     height: 233px;
-    animation: fadeIn 500ms ease;
+    animation: fadeScaleIn 500ms ease;
   }
 
   .GrayCirclesSmall {
@@ -51,6 +22,6 @@
     position: absolute;
     right: -55px;
     top: calc((233px - 170px) / 2);
-    animation: fadeInDelayed 500ms ease;
+    animation: fadeScaleInDelayed 500ms ease;
   }
 }

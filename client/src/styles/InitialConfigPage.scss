@@ -5,7 +5,8 @@
   }
 
   .InitialConfigContent {
-    padding: 50px 260px;
+    max-width: 928px;
+    margin: 0 auto 50px;
     display: flex;
     flex-direction: column;
   }
@@ -13,5 +14,15 @@
   .SubHeader {
     color: #6C757D;
     margin-bottom: 20px;
+    margin-top: 50px;
+  }
+
+  .TokenInfo {
+    padding-left: 18px;
+    margin-bottom: 50px;
+
+    label {
+      margin-bottom: 10px;
+    }
   }
 }

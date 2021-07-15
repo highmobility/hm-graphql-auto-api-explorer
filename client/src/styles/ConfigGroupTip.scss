@@ -1,0 +1,22 @@
+
+.ConfigGroupTip {
+  padding: 18px;
+  background: #F2F3F7;
+  border-radius: 12px;
+  animation: fadeIn 500ms ease;
+
+  .ConfigGroupTipTitle {
+    color: #6C757D;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+
+  .ConfigGroupTipText {
+    color: #6C757D;
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: -0.01em;
+  }
+}

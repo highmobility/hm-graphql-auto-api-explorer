@@ -1,0 +1,57 @@
+.TextInput {
+  background: #FFFFFF;
+  border: 2px solid #E9ECEF;
+  box-sizing: border-box;
+  border-radius: 12px;
+  color: #6C757D;
+  letter-spacing: -0.01em;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 28px;
+  transition: border 250ms ease;
+  padding: 10px 10px 10px 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+
+  &.Focus {
+    border-color: #037BE7;
+  }
+
+  &.NotEmpty.NotError {
+    .TextInputIcon {
+      opacity: 1;
+    }
+  }
+
+  .TextInputInput {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    outline: none;
+    display: block;
+    font-size: 16px;
+    line-height: 28px;
+    height: 24px;
+    padding-right: 24px;
+  }
+
+  .TextInputIcon {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    pointer-events: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 250ms ease;
+
+    svg path {
+      fill: #037BE7;
+    }
+  }
+}
