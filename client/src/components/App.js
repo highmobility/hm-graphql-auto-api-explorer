@@ -1,24 +1,19 @@
 import React from "react";
 import '../styles/App.scss';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import routes from "../routes";
+import { BrowserRouter as Router } from "react-router-dom";
+import Routes from "./Routes";
+import { createStore, MobxStoreProvider } from "../store/mobx";
 
 export default function App() {
+  const store = createStore();
+
   return (
-    <Router>
-      <div className="App">
-        <Switch>
-          {routes.map(route => (
-            <Route exact path={route.path} key={route.name}>
-              <route.component />
-            </Route>
-          ))}
-        </Switch>
-      </div>
-    </Router>
+    <MobxStoreProvider store={store}>
+      <Router>
+        <div className="App">
+          <Routes />
+        </div>
+      </Router>
+    </MobxStoreProvider>
   );
 }
