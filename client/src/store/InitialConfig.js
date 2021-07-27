@@ -21,12 +21,10 @@ export default class InitialConfig {
   }
 
   setFocusedInput(value) {
-    console.log('setting focusedInput', value)
     this.focusedInput = value
   }
 
   setEnv(value) {
-    console.log('setting env', value)
     this.env = value
   }
 
