@@ -1,12 +1,16 @@
-$primary: #037BE7;
-$secondary: #90E0EF;
-$primaryAngular: conic-gradient(from 180deg at 50% 50%, #0085FF 0deg, #90E0EF 360deg);
-$primaryLinear: linear-gradient(180deg, #90E0EF 0%, #0085FF 100%);
+$primary: #037be7;
+$secondary: #90e0ef;
+$primaryAngular: conic-gradient(
+  from 180deg at 50% 50%,
+  #0085ff 0deg,
+  #90e0ef 360deg
+);
+$primaryLinear: linear-gradient(180deg, #90e0ef 0%, #0085ff 100%);
 
 $darkLow: #212529;
 $darkHigh: #495057;
-$grayLow: #6C757D;
-$grayMid: #ADB5BD;
-$grayHigh: #CED4DA;
-$lightLow: #E9ECEF;
-$lightHigh: #F8F9FA;
+$grayLow: #6c757d;
+$grayMid: #adb5bd;
+$grayHigh: #ced4da;
+$lightLow: #e9ecef;
+$lightHigh: #f8f9fa;

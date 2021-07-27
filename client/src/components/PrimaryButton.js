@@ -1,9 +1,5 @@
-import '../styles/PrimaryButton.scss';
+import '../styles/PrimaryButton.scss'
 
 export default function PrimaryButton({ children }) {
-  return (
-    <button className="PrimaryButton">
-      {children}
-    </button>
-  );
+  return <button className="PrimaryButton">{children}</button>
 }

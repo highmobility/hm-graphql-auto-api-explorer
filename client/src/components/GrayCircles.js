@@ -1,4 +1,4 @@
-import '../styles/GrayCircles.scss';
+import '../styles/GrayCircles.scss'
 
 export default function GrayCircles() {
   return (
@@ -6,5 +6,5 @@ export default function GrayCircles() {
       <div className="GrayCirclesBig" />
       <div className="GrayCirclesSmall" />
     </div>
-  );
+  )
 }

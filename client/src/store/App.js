@@ -1,13 +1,13 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable } from 'mobx'
 
 export default class App {
   loading = false
 
   constructor() {
-      makeAutoObservable(this)
+    makeAutoObservable(this)
   }
 
   setLoading(loading) {
-    this.loading = !!loading;
+    this.loading = !!loading
   }
 }

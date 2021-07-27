@@ -1,11 +1,11 @@
-import React from "react";
-import '../styles/App.scss';
-import { BrowserRouter as Router } from "react-router-dom";
-import Routes from "./Routes";
-import { createStore, MobxStoreProvider } from "../store/mobx";
+import React from 'react'
+import '../styles/App.scss'
+import { BrowserRouter as Router } from 'react-router-dom'
+import Routes from './Routes'
+import { createStore, MobxStoreProvider } from '../store/mobx'
 
 export default function App() {
-  const store = createStore();
+  const store = createStore()
 
   return (
     <MobxStoreProvider store={store}>
@@ -15,5 +15,5 @@ export default function App() {
         </div>
       </Router>
     </MobxStoreProvider>
-  );
+  )
 }

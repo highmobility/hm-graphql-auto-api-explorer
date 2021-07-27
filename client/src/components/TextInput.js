@@ -1,41 +1,53 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
-import '../styles/TextInput.scss';
-import { ReactComponent as Check } from '../images/check.svg';
+import { useCallback, useMemo, useRef, useState } from 'react'
+import '../styles/TextInput.scss'
+import { ReactComponent as Check } from '../images/check.svg'
 
-export default function TextInput({ className, onBlur, onFocus, onChange, value, required, disabled, name, type = 'text', placeholder, error }) {
+export default function TextInput({
+  className,
+  onBlur,
+  onFocus,
+  onChange,
+  value,
+  required,
+  disabled,
+  name,
+  type = 'text',
+  placeholder,
+  error,
+}) {
   const [isFocused, setIsFocused] = useState(false)
   const [isTouched, setIsTouched] = useState(false)
   const inputRef = useRef()
-  const showError = !isFocused && isTouched && error;
+  const showError = !isFocused && isTouched && error
 
   const _onBlur = useCallback(
-    e => {
+    (e) => {
       setIsFocused(false)
       setIsTouched(true)
       if (onBlur) onBlur(e)
     },
     [onBlur]
-  );
+  )
 
   const _onFocus = useCallback(
-    e => {
+    (e) => {
       setIsFocused(true)
       setIsTouched(false)
       if (onFocus) onFocus(e)
     },
     [onFocus]
-  );
+  )
 
   const stateClasses = useMemo(() => {
-    const classNames = [className];
-    classNames.push(isFocused ? 'Focus' : 'Blur');
-    classNames.push(!value ? 'Empty' : 'NotEmpty');
-    classNames.push(showError ? 'Error' : 'NotError');
-    if (required) classNames.push('Required');
-    if (disabled) classNames.push('Disabled');
-    if (isTouched) classNames.push('Touched');
-    return classNames.join(' ');
-  }, [isFocused, value, required, disabled, isTouched, className, showError]);
+    const classNames = [className]
+    classNames.push(isFocused ? 'Focus' : 'Blur')
+    classNames.push(!value ? 'Empty' : 'NotEmpty')
+    classNames.push(showError ? 'Error' : 'NotError')
+    if (required) classNames.push('Required')
+    if (disabled) classNames.push('Disabled')
+    if (isTouched) classNames.push('Touched')
+    return classNames.join(' ')
+  }, [isFocused, value, required, disabled, isTouched, className, showError])
 
   return (
     <div className={`TextInput ${stateClasses}`}>
@@ -56,5 +68,5 @@ export default function TextInput({ className, onBlur, onFocus, onChange, value,
         <Check />
       </div>
     </div>
-  );
+  )
 }

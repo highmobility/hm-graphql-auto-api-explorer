@@ -1,5 +1,5 @@
-import { createContext, useContext } from 'react';
-import stores from '.';
+import { createContext, useContext } from 'react'
+import stores from '.'
 
 const storeContext = createContext(null)
 

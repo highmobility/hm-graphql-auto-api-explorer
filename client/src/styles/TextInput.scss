@@ -1,9 +1,9 @@
 .TextInput {
-  background: #FFFFFF;
-  border: 2px solid #E9ECEF;
+  background: #ffffff;
+  border: 2px solid #e9ecef;
   box-sizing: border-box;
   border-radius: 12px;
-  color: #6C757D;
+  color: #6c757d;
   letter-spacing: -0.01em;
   font-style: normal;
   font-weight: normal;
@@ -17,7 +17,7 @@
   position: relative;
 
   &.Focus {
-    border-color: #037BE7;
+    border-color: #037be7;
   }
 
   &.NotEmpty.NotError {
@@ -51,7 +51,7 @@
     transition: opacity 250ms ease;
 
     svg path {
-      fill: #037BE7;
+      fill: #037be7;
     }
   }
 }

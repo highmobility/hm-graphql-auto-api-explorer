@@ -2,8 +2,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid #CED4DA;
-  background: #F8F9FA;
+  border: 1px solid #ced4da;
+  background: #f8f9fa;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -12,16 +12,18 @@
   cursor: pointer;
   transition: background-color 250ms ease, border-color 250ms ease;
 
-  &:hover, &:active {
-    background: #E0E3E5;
-    border: 1px solid #CED4DA;
+  &:hover,
+  &:active {
+    background: #e0e3e5;
+    border: 1px solid #ced4da;
   }
-  
-  &.checked {
-    background: #037BE7;
 
-    &:hover, &:active {
-      background: #0375DB;
+  &.checked {
+    background: #037be7;
+
+    &:hover,
+    &:active {
+      background: #0375db;
     }
 
     .RadioButtonCheck {
