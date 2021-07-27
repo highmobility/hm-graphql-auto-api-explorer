@@ -3,8 +3,9 @@ import routes, { PAGES } from '../routes'
 import '../styles/HomePage.scss'
 import GrayCircles from './GrayCircles'
 import PrimaryButton from './PrimaryButton'
+import { observer } from 'mobx-react'
 
-export default function HomePage() {
+function HomePage() {
   return (
     <div className="HomePage">
       <div className="HomePageContent">
@@ -20,3 +21,5 @@ export default function HomePage() {
     </div>
   )
 }
+
+export default observer(HomePage)

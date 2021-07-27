@@ -1,7 +1,13 @@
 .InitialConfigPage {
   .InitialConfigHeader {
     background: white;
-    padding: 90px 260px 50px;
+    width: 100%;
+  }
+
+  .InitialConfigHeaderContent {
+    max-width: 928px;
+    margin: 0 auto;
+    padding: 90px 0 50px;
   }
 
   .InitialConfigContent {

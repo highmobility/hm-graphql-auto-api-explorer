@@ -1,3 +1,6 @@
+import { observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
+import routes, { PAGES } from '../routes'
 import { ENVIRONMENTS } from '../store/InitialConfig'
 import { useMobx } from '../store/mobx'
 import '../styles/InitialConfigPage.scss'
@@ -7,9 +10,11 @@ import PrimaryButton from './PrimaryButton'
 import TextArea from './TextArea'
 import TextInput from './TextInput'
 
-export default function InitialConfigPage() {
+function InitialConfigPage() {
   const { initialConfig } = useMobx()
+  const history = useHistory()
 
+  const errors = {}
   const inputTips = {
     ENV: {},
     APP_CONFIG: {
@@ -30,14 +35,26 @@ export default function InitialConfigPage() {
     },
   }
 
+  const onSubmit = () => {
+    if (Object.keys(errors).length > 0) {
+      return
+    }
+
+    history.push(
+      routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
+    )
+  }
+
   return (
     <div className="InitialConfigPage">
       <header className="InitialConfigHeader">
-        <h2>Set the configuration</h2>
-        <p>
-          Configure the app to get started. You can find detailed instructions
-          in the README of where to find the information.
-        </p>
+        <div className="InitialConfigHeaderContent">
+          <h2>Set the configuration</h2>
+          <p>
+            Configure the app to get started. You can find detailed instructions
+            in the README of where to find the information.
+          </p>
+        </div>
       </header>
       <section className="InitialConfigContent">
         <h5 className="SubHeader">Work environment</h5>
@@ -115,9 +132,11 @@ export default function InitialConfigPage() {
           </div>
         </ConfigGroup>
         <ConfigGroup>
-          <PrimaryButton>Get started</PrimaryButton>
+          <PrimaryButton onClick={onSubmit}>Get started</PrimaryButton>
         </ConfigGroup>
       </section>
     </div>
   )
 }
+
+export default observer(InitialConfigPage)

@@ -9,15 +9,23 @@ export default function Routes() {
 
   return (
     <TransitionGroup>
-      <CSSTransition timeout={800} classNames="fade" key={location.key}>
-        <Switch>
-          {routes.map((route) => (
-            <Route exact path={route.path} key={route.name}>
-              <route.component />
-            </Route>
-          ))}
-        </Switch>
-      </CSSTransition>
+      <Switch>
+        {routes.map((route) => (
+          <Route exact path={route.path} key={route.name}>
+            {({ match }) => (
+              <CSSTransition
+                in={match != null}
+                timeout={300}
+                classNames="page"
+                key={location.key}
+                unmountOnExit
+              >
+                <route.component />
+              </CSSTransition>
+            )}
+          </Route>
+        ))}
+      </Switch>
     </TransitionGroup>
   )
 }

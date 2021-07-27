@@ -1,4 +1,4 @@
-.HomePage {
+.ConnectVehiclePage {
   text-align: center;
   display: flex;
   align-items: center;
@@ -8,16 +8,16 @@
   width: 100vw;
   overflow: hidden;
 
-  .HomePageContent {
+  .ConnectVehiclePageContent {
     position: absolute;
     top: calc(50% - 40px);
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  .Description {
+  .Header {
     margin-bottom: 63px;
-    color: #6c757d;
+    margin-top: 49px;
   }
 
   .PrimaryButton {
