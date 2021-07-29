@@ -1,0 +1,29 @@
+.PinButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+
+  svg path {
+    fill: #ced4da;
+    transition: fill 250ms ease;
+  }
+
+  &:hover {
+    svg path {
+      fill: #adb5bd;
+    }
+  }
+
+  &.active {
+    svg path {
+      fill: #037be7;
+    }
+
+    &:hover {
+      svg path {
+        fill: #0375db;
+      }
+    }
+  }
+}
