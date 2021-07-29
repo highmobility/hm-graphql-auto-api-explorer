@@ -6,6 +6,8 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kaareloun/hm-graphql-scaffold)
 
+## TODO: where to find config information
+
 ## Local setup
 
 #### 1. Start API

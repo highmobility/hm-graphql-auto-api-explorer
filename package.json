@@ -7,8 +7,9 @@
     "node": "16"
   },
   "scripts": {
-    "start": "node server/index.js",
-    "build": "cd client && npm install && npm run build"
+    "start": "node -r esm server/index.js",
+    "build": "cd client && npm install && npm run build",
+    "migrate": "node-pg-migrate --m='server/migrations' -t 'migrations'"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,9 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "node-pg-migrate": "^5.10.0",
     "pg": "^8.6.0"
   }
 }

@@ -1,8 +1,8 @@
 import '../styles/PrimaryButton.scss'
 
-export default function PrimaryButton({ children, onClick = () => {} }) {
+export default function PrimaryButton({ children, ...props }) {
   return (
-    <button className="PrimaryButton" onClick={onClick}>
+    <button className="PrimaryButton" {...props}>
       {children}
     </button>
   )
