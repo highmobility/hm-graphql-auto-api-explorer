@@ -1,0 +1,33 @@
+.BatteryLevelPropertyBlock {
+  svg {
+    margin-right: 8px;
+
+    path#ValuePath {
+      transform: scaleY(0);
+      transform-origin: center bottom;
+      animation: draw 1.5s ease;
+    }
+  }
+
+  .BatteryLevelPropertyBlockContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+  }
+
+  .BatterLevelPropertyBlockText {
+  }
+
+  .BatteryLevelPropertyBlockValue {
+    display: inline;
+  }
+
+  .BatteryLevelPropertyBlockUnit {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    display: inline;
+  }
+}
