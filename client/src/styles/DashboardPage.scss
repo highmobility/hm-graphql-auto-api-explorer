@@ -12,10 +12,12 @@
       overflow: hidden;
       will-change: transform, width, height, opacity;
       display: flex;
+      box-sizing: border-box;
     }
 
     .GridItem {
       width: 100%;
+      box-sizing: border-box;
     }
   }
 }

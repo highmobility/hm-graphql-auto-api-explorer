@@ -1,11 +1,11 @@
 import '../styles/DashboardPage.scss'
 import { observer } from 'mobx-react-lite'
-import PropertyBlock from './PropertyBlock'
 import useMedia from '../hooks/useMedia'
 import useMeasure from 'react-use-measure'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTransition, a } from '@react-spring/web'
 import { shuffle } from 'lodash'
+import { getPropertyComponent } from '../utils/properties'
 
 const BLOCKS = {
   TWO_BY_TWO: {
@@ -31,85 +31,95 @@ const BLOCKS = {
 function DashboardPage() {
   const properties = [
     {
-      id: 1,
-      name: 'Property',
-      capabilityName: 'TwoByTwo',
-      value: 500.0,
-      unit: 'Km',
+      id: 0,
+      name: 'engine_oil_temperature',
+      name_pretty: 'Engine oil temperature',
+      capabilityName: 'Diagnostics',
+      value: 34,
+      type: 'unit.temperature',
+      unit: 'celsius',
       block: BLOCKS.TWO_BY_TWO,
     },
-    {
-      id: 2,
-      name: 'Property',
-      capabilityName: 'TwoByTwo',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.TWO_BY_TWO,
-    },
-    {
-      id: 3,
-      name: 'Property',
-      capabilityName: 'TwoByTwo',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.TWO_BY_TWO,
-    },
-    {
-      id: 4,
-      name: 'Property',
-      capabilityName: 'TwoByTwo',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.TWO_BY_TWO,
-    },
-    {
-      id: 5,
-      name: 'Property',
-      capabilityName: 'TwoByTwo',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.TWO_BY_TWO,
-    },
-    {
-      id: 6,
-      name: 'Property',
-      capabilityName: 'TwoByOne',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.TWO_BY_ONE,
-    },
-    {
-      id: 7,
-      name: 'Property',
-      capabilityName: 'TwoByOne',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.TWO_BY_ONE,
-    },
-    {
-      id: 8,
-      name: 'Property',
-      capabilityName: 'TwoByOne',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.TWO_BY_ONE,
-    },
-    {
-      id: 9,
-      name: 'Property',
-      capabilityName: 'TwoByOne',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.TWO_BY_ONE,
-    },
-    {
-      id: 10,
-      name: 'Property',
-      capabilityName: 'FourByOne',
-      value: 500.0,
-      unit: 'Km',
-      block: BLOCKS.SIX_BY_ONE,
-    },
+    // {
+    //   id: 1,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByTwo',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_TWO,
+    // },
+    // {
+    //   id: 2,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByTwo',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_TWO,
+    // },
+    // {
+    //   id: 3,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByTwo',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_TWO,
+    // },
+    // {
+    //   id: 4,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByTwo',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_TWO,
+    // },
+    // {
+    //   id: 5,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByTwo',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_TWO,
+    // },
+    // {
+    //   id: 6,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByOne',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_ONE,
+    // },
+    // {
+    //   id: 7,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByOne',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_ONE,
+    // },
+    // {
+    //   id: 8,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByOne',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_ONE,
+    // },
+    // {
+    //   id: 9,
+    //   name: 'Property',
+    //   capabilityName: 'TwoByOne',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.TWO_BY_ONE,
+    // },
+    // {
+    //   id: 10,
+    //   name: 'Property',
+    //   capabilityName: 'FourByOne',
+    //   value: 500.0,
+    //   unit: 'Km',
+    //   block: BLOCKS.SIX_BY_ONE,
+    // },
   ]
 
   const numberOfColumns = useMedia(
@@ -123,10 +133,10 @@ function DashboardPage() {
   const gridPadding = 10
   const [items, setItems] = useState(properties)
 
-  useEffect(() => {
-    const t = setInterval(() => setItems(shuffle([...items])), 2000)
-    return () => clearInterval(t)
-  }, [])
+  // useEffect(() => {
+  //   const t = setInterval(() => setItems(shuffle([...items])), 2000)
+  //   return () => clearInterval(t)
+  // }, [])
 
   const [heights, gridItems] = useMemo(() => {
     let gridItems = [] // Added items
@@ -198,13 +208,17 @@ function DashboardPage() {
         ref={ref}
         style={{ height: Math.max(...heights) }}
       >
-        {transitions((style, item) => (
-          <a.div className="GridItemContainer" style={style}>
-            <div className="GridItem" style={{ padding: `${gridPadding}px` }}>
-              <PropertyBlock property={item} />
-            </div>
-          </a.div>
-        ))}
+        {transitions((style, item) => {
+          const PropertyComponent = getPropertyComponent(item)
+
+          return (
+            <a.div className="GridItemContainer" style={style}>
+              <div className="GridItem" style={{ padding: `${gridPadding}px` }}>
+                <PropertyComponent property={item} />
+              </div>
+            </a.div>
+          )
+        })}
       </div>
     </div>
   )

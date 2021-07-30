@@ -1,0 +1,31 @@
+.TemperaturePropertyBlock {
+  .TemperaturePropertyBlockContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .TemperaturePropertyBlockOuterCircle {
+    path {
+      transition: stroke-dashoffset 500ms ease-out;
+    }
+  }
+
+  .TemperaturePropertyBlockInnerCircle {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: #e9ecef;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .TemperaturePropertyBlockValue {
+  }
+
+  .TemperaturePropertyBlockUnit {
+  }
+}
