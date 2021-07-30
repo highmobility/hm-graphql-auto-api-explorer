@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/TemperaturePropertyBlock.scss'
 import UNITS from '../utils/units'
 import PropertyBlock from './PropertyBlock'
-import { ReactComponent as CircleSvg } from '../images/circle.svg'
+import useSpring from 'react-use/lib/useSpring'
 
 export default function TemperaturePropertyBlock({ property }) {
   const unitSymbol = UNITS[property.unit] || property.unit
-  const percentValue = Math.min(Math.abs(property.value || 0), 100)
   const dashArraySize = 530
+
+  const [value, setValue] = useState(0)
+  const springValue = useSpring(value, 50, 10)
+  const percentValue = Math.trunc(Math.min(Math.abs(springValue), 100))
+
+  useEffect(() => {
+    setValue(property.value || 0)
+  }, [property])
 
   return (
     <PropertyBlock className="TemperaturePropertyBlock" property={property}>
@@ -21,12 +28,12 @@ export default function TemperaturePropertyBlock({ property }) {
         >
           <defs>
             <linearGradient id="Gradient1" gradientTransform="rotate(90)">
-              <stop offset="0%" stop-color="#47b2f7" />
-              <stop offset="100%" stop-color="#0085FF" />
+              <stop offset="0%" stopColor="#47b2f7" />
+              <stop offset="100%" stopColor="#0085FF" />
             </linearGradient>
             <linearGradient id="Gradient2" gradientTransform="rotate(90)">
-              <stop offset="0%" stop-color="#47b2f7" />
-              <stop offset="100%" stop-color="#90E0EF" />
+              <stop offset="0%" stopColor="#47b2f7" />
+              <stop offset="100%" stopColor="#90E0EF" />
             </linearGradient>
             <pattern
               id="Pattern"
@@ -38,7 +45,7 @@ export default function TemperaturePropertyBlock({ property }) {
             >
               <g transform="rotate(0, 300, 300)">
                 <rect
-                  shape-rendering="crispEdges"
+                  shapeRendering="crispEdges"
                   x="0"
                   y="0"
                   width="198"
@@ -46,7 +53,7 @@ export default function TemperaturePropertyBlock({ property }) {
                   fill="url(#Gradient1)"
                 />
                 <rect
-                  shape-rendering="crispEdges"
+                  shapeRendering="crispEdges"
                   x="99"
                   y="0"
                   width="99"
@@ -65,8 +72,8 @@ export default function TemperaturePropertyBlock({ property }) {
           />
           <path
             style={{
-              'stroke-dasharray': dashArraySize,
-              'stroke-dashoffset': `${
+              strokeDasharray: dashArraySize,
+              strokeDashoffset: `${
                 -dashArraySize + (dashArraySize / 100) * percentValue
               }`,
             }}
@@ -78,7 +85,7 @@ export default function TemperaturePropertyBlock({ property }) {
           />
         </svg>
         <div className="TemperaturePropertyBlockInnerCircle">
-          <div className="Num2">{property.value}</div>
+          <div className="Num2">{percentValue}</div>
           <div className="Num4">{unitSymbol}</div>
         </div>
       </div>

@@ -40,6 +40,15 @@ function DashboardPage() {
       unit: 'celsius',
       block: BLOCKS.TWO_BY_TWO,
     },
+    {
+      id: 1,
+      name: 'battery_level',
+      name_pretty: 'Battery level',
+      capabilityName: 'Diagnostics',
+      value: 100,
+      type: 'types.percentage',
+      block: BLOCKS.TWO_BY_TWO,
+    },
     // {
     //   id: 1,
     //   name: 'Property',
