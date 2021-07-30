@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router-dom'
 import { setInitialConfig } from '../requests'
 import routes, { PAGES } from '../routes'

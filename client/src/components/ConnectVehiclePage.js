@@ -1,6 +1,5 @@
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useMobx } from '../store/mobx'
 import '../styles/ConnectVehiclePage.scss'
 import GrayCircles from './GrayCircles'

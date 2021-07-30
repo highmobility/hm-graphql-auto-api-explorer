@@ -8,13 +8,15 @@ export const ENVIRONMENTS = {
 export default class InitialConfig {
   focusedInput = null
   env = ENVIRONMENTS.DEVELOP
-  appId = ''
+  appId = '40AAAAC3C6467F0393FFD528'
   clientPrivateKey = ''
-  clientCertificate = ''
-  clientId = ''
-  clientSecret = ''
-  authUrl = ''
-  tokenUrl = ''
+  clientCertificate = ``
+  clientId = 'a415c1ec-ca0b-4340-a3fd-dbad217608ed'
+  clientSecret = 'G7ioWDWJlRHvRTD6zV0dcaMS2822FxeS'
+  authUrl =
+    'https://sandbox.owner-panel.develop.high-mobility.net/hm_cloud/o/d36635af-a403-425e-82dd-1415557e376e/oauth'
+  tokenUrl =
+    'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
 
   constructor() {
     makeAutoObservable(this)

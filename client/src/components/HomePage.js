@@ -3,7 +3,7 @@ import routes, { PAGES } from '../routes'
 import '../styles/HomePage.scss'
 import GrayCircles from './GrayCircles'
 import PrimaryButton from './PrimaryButton'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 
 function HomePage() {
   return (

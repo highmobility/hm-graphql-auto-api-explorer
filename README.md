@@ -12,9 +12,11 @@
 
 #### 1. Start API
 
+`npm i`
 `npm start`
 
 #### 2. Start client
 
 `cd client`
+`npm i`
 `npm start`
