@@ -124,7 +124,7 @@ function DashboardPage() {
   const [items, setItems] = useState(properties)
 
   useEffect(() => {
-    const t = setInterval(() => setItems(shuffle(items)), 2000)
+    const t = setInterval(() => setItems(shuffle([...items])), 2000)
     return () => clearInterval(t)
   }, [])
 
@@ -144,6 +144,7 @@ function DashboardPage() {
     let loop = 0
     while (gridItems.length < items.length) {
       if (loop > 100) break
+
       const itemToAdd = items.find((item) => {
         return (
           !gridItems.some((addedItem) => item.id === addedItem.id) &&
