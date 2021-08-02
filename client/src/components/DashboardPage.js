@@ -35,24 +35,22 @@ function DashboardPage() {
       type: 'unit.speed',
       unit: 'kilometers_per_hour',
     },
-    // {
-    //   id: 3,
-    //   name: 'coordinates',
-    //   name_pretty: 'Coordinates',
-    //   capabilityName: 'vehicle_location',
-    //   value: {
-    //     coordinates: {
-    //       latitude: 48.7,
-    //       longitude: -32.1,
-    //     },
-    //     heading: {
-    //       value: 13.370123,
-    //       unit: 'degrees',
-    //     },
-    //   },
-    // },
+    {
+      id: 3,
+      name: 'heading',
+      name_pretty: 'Coordinates',
+      capabilityName: 'vehicle_location',
+      unit: 'degrees',
+      coordinates: {
+        latitude: 59.4075791,
+        longitude: 24.7240193,
+      },
+      heading: {
+        value: 13.370123,
+        unit: 'degrees',
+      },
+    },
   ]
-
   const parsedProperties = properties.map((p) => ({
     ...p,
     block: getBlockData(p),

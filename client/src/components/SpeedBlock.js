@@ -23,7 +23,7 @@ export default function SpeedBlock({ property }) {
     )
 
     setValueInMetersPerSecond(
-      property.value * propertyUnitType.conversion_linear
+      property.value * (propertyUnitType.conversion_linear || 1)
     )
   }, [property])
 

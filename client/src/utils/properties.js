@@ -2,6 +2,7 @@ import BatteryLevelBlock from '../components/BatteryLevelBlock'
 import Block from '../components/Block'
 import SpeedBlock from '../components/SpeedBlock'
 import TemperatureBlock from '../components/TemperatureBlock'
+import CoordinatesBlock from '../components/CoordinatesBlock'
 import CAPABILITIES from '../data/capabilities.json'
 
 export const BLOCKS = {
@@ -44,6 +45,13 @@ export function getBlockData(property) {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: SpeedBlock,
+    }
+  }
+
+  if (property.capabilityName === 'vehicle_location') {
+    return {
+      ...BLOCKS.TWO_BY_TWO,
+      component: CoordinatesBlock,
     }
   }
 
