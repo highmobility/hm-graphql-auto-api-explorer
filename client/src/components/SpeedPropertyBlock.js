@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import '../styles/TemperaturePropertyBlock.scss'
+import '../styles/SpeedPropertyBlock.scss'
 import UNITS from '../utils/units'
 import PropertyBlock from './PropertyBlock'
 import AnimatedNumber from 'animated-number-react'
 
-export default function TemperaturePropertyBlock({ property }) {
+export default function SpeedPropertyBlock({ property }) {
   const unitSymbol = UNITS[property.unit] || property.unit
-  const dashArraySize = 530
+  const maxValue = 140 // Max value is 140m/s
 
-  const [value, setValue] = useState(0)
-  const percentValue = Math.min(value, 100)
+  const [valueInMetersPerSecond, setValueInMetersPerSecond] = useState(0)
+  const percentValue = Math.min(
+    (valueInMetersPerSecond / maxValue) * 100,
+    maxValue
+  )
+
+  const dashArraySize = 530
+  const dashOffset = dashArraySize + (dashArraySize / 100) * percentValue
+  console.log('dashOffset', dashOffset)
 
   useEffect(() => {
-    setValue(property.value || 0)
+    const propertyUnitType = property.config.unit.unit_types.find(
+      (unitType) => unitType.name === property.unit
+    )
+    const valueInMetersPerSecond =
+      property.value * propertyUnitType.conversion_linear
+
+    setValueInMetersPerSecond(valueInMetersPerSecond || 0)
   }, [property])
 
   return (
-    <PropertyBlock className="TemperaturePropertyBlock" property={property}>
-      <div className="TemperaturePropertyBlockContent">
+    <PropertyBlock className="SpeedPropertyBlock" property={property}>
+      <div className="SpeedPropertyBlockContent">
         <svg
           width="198"
           height="192"
@@ -25,6 +38,43 @@ export default function TemperaturePropertyBlock({ property }) {
           className="TemperaturePropertyBlockOuterCircle"
           fill="none"
         >
+          <rect
+            x="64.6279"
+            y="62.0068"
+            width="6"
+            height="3"
+            rx="1.5"
+            transform="rotate(45 64.6279 62.0068)"
+            fill="#E9ECEF"
+          />
+          <rect
+            x="186.25"
+            y="183.629"
+            width="6"
+            height="3"
+            rx="1.5"
+            transform="rotate(45 186.25 183.629)"
+            fill="#E9ECEF"
+          />
+          <rect
+            x="62.5068"
+            y="187.872"
+            width="6"
+            height="3"
+            rx="1.5"
+            transform="rotate(-45 62.5068 187.872)"
+            fill="#E9ECEF"
+          />
+          <rect
+            x="184.129"
+            y="66.2495"
+            width="6"
+            height="3"
+            rx="1.5"
+            transform="rotate(-45 184.129 66.2495)"
+            fill="#E9ECEF"
+          />
+
           <defs>
             <linearGradient id="Gradient1" gradientTransform="rotate(90)">
               <stop offset="0%" stopColor="#47b2f7" />
@@ -70,12 +120,10 @@ export default function TemperaturePropertyBlock({ property }) {
             strokeLinejoin="bevel"
           />
           <path
-            id="TemperaturePropertyValueCircle"
+            id="SpeedPropertyValueCircle"
             style={{
               strokeDasharray: dashArraySize,
-              strokeDashoffset: `${
-                -dashArraySize + (dashArraySize / 100) * percentValue
-              }`,
+              strokeDashoffset: `${dashOffset}`,
             }}
             d="M133.5 187.542C168.91 173.734 194 139.297 194 99C194 46.5329 151.467 4 99 4C46.5329 4 4 46.5329 4 99C4 139.297 29.0898 173.734 64.5 187.542"
             stroke="url(#Pattern)"
@@ -84,10 +132,10 @@ export default function TemperaturePropertyBlock({ property }) {
             strokeLinejoin="bevel"
           />
         </svg>
-        <div className="TemperaturePropertyBlockInnerCircle">
+        <div className="SpeedPropertyBlockInnerContent">
           <div className="Num2">
             <AnimatedNumber
-              value={value}
+              value={property.value}
               formatValue={(value) => value.toFixed(0)}
             />
           </div>

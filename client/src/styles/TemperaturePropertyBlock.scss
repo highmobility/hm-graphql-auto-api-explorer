@@ -7,10 +7,8 @@
     flex: 1;
   }
 
-  .TemperaturePropertyBlockOuterCircle {
-    path {
-      transition: stroke-dashoffset 500ms ease-out;
-    }
+  #TemperaturePropertyValueCircle {
+    transition: stroke-dashoffset 500ms ease-out;
   }
 
   .TemperaturePropertyBlockInnerCircle {

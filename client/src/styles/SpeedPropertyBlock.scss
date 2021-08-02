@@ -1,0 +1,21 @@
+.SpeedPropertyBlock {
+  .SpeedPropertyBlockContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+  }
+
+  #SpeedPropertyValueCircle {
+    transition: stroke-dashoffset 500ms ease-out;
+  }
+
+  .SpeedPropertyBlockInnerContent {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

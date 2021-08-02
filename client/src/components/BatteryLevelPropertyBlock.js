@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import UNITS from '../utils/units'
 import PropertyBlock from './PropertyBlock'
 import '../styles/BatteryLevelPropertyBlock.scss'
-import useSpring from 'react-use/lib/useSpring'
+import AnimatedNumber from 'animated-number-react'
 
 export default function BatteryLevelPropertyBlock({ property }) {
   const [value, setValue] = useState(0)
-  const springValue = useSpring(value, 50, 10)
-  const percentValue = Math.trunc(Math.min(Math.abs(springValue), 100))
+  const percentValue = Math.trunc(Math.min(Math.abs(value), 100))
 
   useEffect(() => {
     setValue(property.value || 0)
@@ -62,7 +61,10 @@ export default function BatteryLevelPropertyBlock({ property }) {
 
         <div className="BatterLevelPropertyBlockText">
           <div className="Num2 BatteryLevelPropertyBlockValue">
-            {percentValue}{' '}
+            <AnimatedNumber
+              value={percentValue}
+              formatValue={(value) => value.toFixed(0)}
+            />{' '}
           </div>
           <div className="BatteryLevelPropertyBlockUnit">
             {UNITS.percentage}

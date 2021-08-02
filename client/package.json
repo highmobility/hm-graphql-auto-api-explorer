@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "animated-number-react": "^0.1.2",
     "axios": "^0.21.1",
     "lodash": "^4.17.21",
     "mobx": "^6.3.2",
@@ -21,12 +22,13 @@
     "react-use": "^17.2.4",
     "react-use-measure": "^2.0.4",
     "rebound": "^0.1.0",
-    "web-vitals": "^1.1.2"
+    "yamljs": "^0.3.0"
   },
   "proxy": "http://localhost:3001",
   "scripts": {
     "start": "BROWSER=none react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "generateConfig": "node src/scripts/generateConfig.js"
   },
   "eslintConfig": {
     "extends": [

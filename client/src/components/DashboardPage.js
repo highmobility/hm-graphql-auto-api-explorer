@@ -5,28 +5,7 @@ import useMeasure from 'react-use-measure'
 import { useMemo, useState } from 'react'
 import { useTransition, a } from '@react-spring/web'
 import { shuffle } from 'lodash'
-import { getPropertyComponent } from '../utils/properties'
-
-const BLOCKS = {
-  TWO_BY_TWO: {
-    columns: 2,
-    rows: 2,
-    width: 330,
-    height: 330,
-  },
-  TWO_BY_ONE: {
-    columns: 2,
-    rows: 1,
-    width: 330,
-    height: 165,
-  },
-  SIX_BY_ONE: {
-    columns: 6,
-    rows: 1,
-    width: 680,
-    height: 165,
-  },
-}
+import { getPropertyBlockData, getPropertyConfig } from '../utils/properties'
 
 function DashboardPage() {
   const properties = [
@@ -34,102 +13,35 @@ function DashboardPage() {
       id: 0,
       name: 'engine_oil_temperature',
       name_pretty: 'Engine oil temperature',
-      capabilityName: 'Diagnostics',
+      capabilityName: 'diagnostics',
       value: 34,
       type: 'unit.temperature',
       unit: 'celsius',
-      block: BLOCKS.TWO_BY_TWO,
     },
     {
       id: 1,
       name: 'battery_level',
       name_pretty: 'Battery level',
-      capabilityName: 'Diagnostics',
-      value: 100,
+      capabilityName: 'diagnostics',
+      value: 60,
       type: 'types.percentage',
-      block: BLOCKS.TWO_BY_TWO,
     },
-    // {
-    //   id: 1,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByTwo',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_TWO,
-    // },
-    // {
-    //   id: 2,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByTwo',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_TWO,
-    // },
-    // {
-    //   id: 3,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByTwo',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_TWO,
-    // },
-    // {
-    //   id: 4,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByTwo',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_TWO,
-    // },
-    // {
-    //   id: 5,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByTwo',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_TWO,
-    // },
-    // {
-    //   id: 6,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByOne',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_ONE,
-    // },
-    // {
-    //   id: 7,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByOne',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_ONE,
-    // },
-    // {
-    //   id: 8,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByOne',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_ONE,
-    // },
-    // {
-    //   id: 9,
-    //   name: 'Property',
-    //   capabilityName: 'TwoByOne',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.TWO_BY_ONE,
-    // },
-    // {
-    //   id: 10,
-    //   name: 'Property',
-    //   capabilityName: 'FourByOne',
-    //   value: 500.0,
-    //   unit: 'Km',
-    //   block: BLOCKS.SIX_BY_ONE,
-    // },
+    {
+      id: 2,
+      name: 'speed',
+      name_pretty: 'Speed',
+      capabilityName: 'diagnostics',
+      value: 300,
+      type: 'unit.speed',
+      unit: 'kilometers_per_hour',
+    },
   ]
+
+  const parsedProperties = properties.map((p) => ({
+    ...p,
+    block: getPropertyBlockData(p),
+    config: getPropertyConfig(p),
+  }))
 
   const numberOfColumns = useMedia(
     ['(min-width: 1500px)', '(min-width: 1000px)', '(min-width: 600px)'],
@@ -140,7 +52,7 @@ function DashboardPage() {
   const [ref, { width }] = useMeasure()
   const columnWidth = width / numberOfColumns
   const gridPadding = 10
-  const [items, setItems] = useState(properties)
+  const [items, setItems] = useState(parsedProperties)
 
   // useEffect(() => {
   //   const t = setInterval(() => setItems(shuffle([...items])), 2000)
@@ -218,7 +130,7 @@ function DashboardPage() {
         style={{ height: Math.max(...heights) }}
       >
         {transitions((style, item) => {
-          const PropertyComponent = getPropertyComponent(item)
+          const PropertyComponent = item.block.component
 
           return (
             <a.div className="GridItemContainer" style={style}>
