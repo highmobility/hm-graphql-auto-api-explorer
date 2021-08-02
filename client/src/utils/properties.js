@@ -1,7 +1,7 @@
-import BatteryLevelPropertyBlock from '../components/BatteryLevelPropertyBlock'
-import PropertyBlock from '../components/PropertyBlock'
-import SpeedPropertyBlock from '../components/SpeedPropertyBlock'
-import TemperaturePropertyBlock from '../components/TemperaturePropertyBlock'
+import BatteryLevelBlock from '../components/BatteryLevelBlock'
+import Block from '../components/Block'
+import SpeedBlock from '../components/SpeedBlock'
+import TemperatureBlock from '../components/TemperatureBlock'
 import CAPABILITIES from '../data/capabilities.json'
 
 export const BLOCKS = {
@@ -25,31 +25,31 @@ export const BLOCKS = {
   },
 }
 
-export function getPropertyBlockData(property) {
+export function getBlockData(property) {
   if (property.type === 'unit.temperature') {
     return {
       ...BLOCKS.TWO_BY_TWO,
-      component: TemperaturePropertyBlock,
+      component: TemperatureBlock,
     }
   }
 
   if (property.name === 'battery_level') {
     return {
       ...BLOCKS.TWO_BY_TWO,
-      component: BatteryLevelPropertyBlock,
+      component: BatteryLevelBlock,
     }
   }
 
   if (property.type === 'unit.speed') {
     return {
       ...BLOCKS.TWO_BY_TWO,
-      component: SpeedPropertyBlock,
+      component: SpeedBlock,
     }
   }
 
   return {
     ...BLOCKS.TWO_BY_TWO,
-    component: PropertyBlock,
+    component: Block,
   }
 }
 

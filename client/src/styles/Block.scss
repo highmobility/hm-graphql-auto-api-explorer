@@ -1,11 +1,11 @@
-.PropertyBlock {
+.Block {
   position: relative;
   display: flex;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
 
-  .PropertyBlockContent {
+  .BlockContent {
     padding: 20px 20px 26px;
     background: #ffffff;
     box-shadow: 0px 3px 27px rgba(0, 0, 0, 0.06);
@@ -17,7 +17,7 @@
     width: 100%;
     box-sizing: border-box;
 
-    .PropertyBlockCapabilityLabel {
+    .BlockCapabilityLabel {
       display: inline-flex;
       flex-direction: row;
       align-items: flex-start;
@@ -34,7 +34,7 @@
       margin-bottom: 5px;
     }
 
-    .PropertyBlockPropertyName {
+    .BlockPropertyName {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -43,7 +43,7 @@
       margin-bottom: 10px;
     }
 
-    .PropertyBlockValue {
+    .BlockValue {
       margin-top: auto;
     }
   }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import UNITS from '../utils/units'
-import PropertyBlock from './PropertyBlock'
-import '../styles/BatteryLevelPropertyBlock.scss'
+import Block from './Block'
+import '../styles/BatteryLevelBlock.scss'
 import AnimatedNumber from 'animated-number-react'
 
-export default function BatteryLevelPropertyBlock({ property }) {
+export default function BatteryLevelBlock({ property }) {
   const [value, setValue] = useState(0)
   const percentValue = Math.trunc(Math.min(Math.abs(value), 100))
 
@@ -13,8 +13,8 @@ export default function BatteryLevelPropertyBlock({ property }) {
   }, [property])
 
   return (
-    <PropertyBlock className="BatteryLevelPropertyBlock" property={property}>
-      <div className="BatteryLevelPropertyBlockContent">
+    <Block className="BatteryLevelBlock" property={property}>
+      <div className="BatteryLevelBlockContent">
         <svg
           width="57"
           height="95"
@@ -59,18 +59,16 @@ export default function BatteryLevelPropertyBlock({ property }) {
           </defs>
         </svg>
 
-        <div className="BatterLevelPropertyBlockText">
-          <div className="Num2 BatteryLevelPropertyBlockValue">
+        <div className="BatterLevelBlockText">
+          <div className="Num2 BatteryLevelBlockValue">
             <AnimatedNumber
               value={percentValue}
               formatValue={(value) => value.toFixed(0)}
             />{' '}
           </div>
-          <div className="BatteryLevelPropertyBlockUnit">
-            {UNITS.percentage}
-          </div>
+          <div className="BatteryLevelBlockUnit">{UNITS.percentage}</div>
         </div>
       </div>
-    </PropertyBlock>
+    </Block>
   )
 }

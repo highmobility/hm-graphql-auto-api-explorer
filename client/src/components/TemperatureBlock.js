@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import '../styles/TemperaturePropertyBlock.scss'
+import '../styles/TemperatureBlock.scss'
 import UNITS from '../utils/units'
-import PropertyBlock from './PropertyBlock'
+import Block from './Block'
 import AnimatedNumber from 'animated-number-react'
 
-export default function TemperaturePropertyBlock({ property }) {
+export default function TemperatureBlock({ property }) {
   const unitSymbol = UNITS[property.unit] || property.unit
   const dashArraySize = 530
 
@@ -16,13 +16,13 @@ export default function TemperaturePropertyBlock({ property }) {
   }, [property])
 
   return (
-    <PropertyBlock className="TemperaturePropertyBlock" property={property}>
-      <div className="TemperaturePropertyBlockContent">
+    <Block className="TemperatureBlock" property={property}>
+      <div className="TemperatureBlockContent">
         <svg
           width="198"
           height="192"
           viewBox="0 0 198 192"
-          className="TemperaturePropertyBlockOuterCircle"
+          className="TemperatureBlockOuterCircle"
           fill="none"
         >
           <defs>
@@ -84,7 +84,7 @@ export default function TemperaturePropertyBlock({ property }) {
             strokeLinejoin="bevel"
           />
         </svg>
-        <div className="TemperaturePropertyBlockInnerCircle">
+        <div className="TemperatureBlockInnerCircle">
           <div className="Num2">
             <AnimatedNumber
               value={value}
@@ -94,6 +94,6 @@ export default function TemperaturePropertyBlock({ property }) {
           <div className="Num4">{unitSymbol}</div>
         </div>
       </div>
-    </PropertyBlock>
+    </Block>
   )
 }

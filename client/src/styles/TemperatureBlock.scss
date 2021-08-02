@@ -1,5 +1,5 @@
-.TemperaturePropertyBlock {
-  .TemperaturePropertyBlockContent {
+.TemperatureBlock {
+  .TemperatureBlockContent {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,7 @@
     transition: stroke-dashoffset 500ms ease-out;
   }
 
-  .TemperaturePropertyBlockInnerCircle {
+  .TemperatureBlockInnerCircle {
     position: absolute;
     width: 110px;
     height: 110px;
@@ -23,9 +23,9 @@
     align-items: center;
   }
 
-  .TemperaturePropertyBlockValue {
+  .TemperatureBlockValue {
   }
 
-  .TemperaturePropertyBlockUnit {
+  .TemperatureBlockUnit {
   }
 }

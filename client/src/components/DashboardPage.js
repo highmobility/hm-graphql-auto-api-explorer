@@ -5,7 +5,7 @@ import useMeasure from 'react-use-measure'
 import { useMemo, useState } from 'react'
 import { useTransition, a } from '@react-spring/web'
 import { shuffle } from 'lodash'
-import { getPropertyBlockData, getPropertyConfig } from '../utils/properties'
+import { getBlockData, getPropertyConfig } from '../utils/properties'
 
 function DashboardPage() {
   const properties = [
@@ -35,11 +35,27 @@ function DashboardPage() {
       type: 'unit.speed',
       unit: 'kilometers_per_hour',
     },
+    // {
+    //   id: 3,
+    //   name: 'coordinates',
+    //   name_pretty: 'Coordinates',
+    //   capabilityName: 'vehicle_location',
+    //   value: {
+    //     coordinates: {
+    //       latitude: 48.7,
+    //       longitude: -32.1,
+    //     },
+    //     heading: {
+    //       value: 13.370123,
+    //       unit: 'degrees',
+    //     },
+    //   },
+    // },
   ]
 
   const parsedProperties = properties.map((p) => ({
     ...p,
-    block: getPropertyBlockData(p),
+    block: getBlockData(p),
     config: getPropertyConfig(p),
   }))
 

@@ -1,5 +1,5 @@
-.SpeedPropertyBlock {
-  .SpeedPropertyBlockContent {
+.SpeedBlock {
+  .SpeedBlockContent {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,7 @@
     transition: stroke-dashoffset 500ms ease-out;
   }
 
-  .SpeedPropertyBlockInnerContent {
+  .SpeedBlockInnerContent {
     position: absolute;
     display: flex;
     flex-direction: column;

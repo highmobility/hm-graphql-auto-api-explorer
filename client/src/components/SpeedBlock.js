@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import '../styles/SpeedPropertyBlock.scss'
+import '../styles/SpeedBlock.scss'
 import UNITS from '../utils/units'
-import PropertyBlock from './PropertyBlock'
+import Block from './Block'
 import AnimatedNumber from 'animated-number-react'
 
-export default function SpeedPropertyBlock({ property }) {
+export default function SpeedBlock({ property }) {
   const unitSymbol = UNITS[property.unit] || property.unit
   const maxValue = 140 // Max value is 140m/s
 
@@ -16,21 +16,20 @@ export default function SpeedPropertyBlock({ property }) {
 
   const dashArraySize = 530
   const dashOffset = dashArraySize + (dashArraySize / 100) * percentValue
-  console.log('dashOffset', dashOffset)
 
   useEffect(() => {
     const propertyUnitType = property.config.unit.unit_types.find(
       (unitType) => unitType.name === property.unit
     )
-    const valueInMetersPerSecond =
-      property.value * propertyUnitType.conversion_linear
 
-    setValueInMetersPerSecond(valueInMetersPerSecond || 0)
+    setValueInMetersPerSecond(
+      property.value * propertyUnitType.conversion_linear
+    )
   }, [property])
 
   return (
-    <PropertyBlock className="SpeedPropertyBlock" property={property}>
-      <div className="SpeedPropertyBlockContent">
+    <Block className="SpeedBlock" property={property}>
+      <div className="SpeedBlockContent">
         <div className="Tacometer">
           <div className="TacometerLine">
             <div className="TacometerPin" />
@@ -57,7 +56,7 @@ export default function SpeedPropertyBlock({ property }) {
             width="198"
             height="192"
             viewBox="0 0 198 192"
-            className="TemperaturePropertyBlockOuterCircle"
+            className="TemperatureBlockOuterCircle"
             fill="none"
           >
             <defs>
@@ -118,7 +117,7 @@ export default function SpeedPropertyBlock({ property }) {
             />
           </svg>
         </div>
-        <div className="SpeedPropertyBlockInnerContent">
+        <div className="SpeedBlockInnerContent">
           <div className="Num2">
             <AnimatedNumber
               value={property.value}
@@ -128,6 +127,6 @@ export default function SpeedPropertyBlock({ property }) {
           <div className="SpeedPropertyUnit">{unitSymbol}</div>
         </div>
       </div>
-    </PropertyBlock>
+    </Block>
   )
 }
