@@ -50,6 +50,14 @@ function DashboardPage() {
         unit: 'degrees',
       },
     },
+    {
+      id: 4,
+      name: 'odometer',
+      name_pretty: 'Odometer',
+      capabilityName: 'diagnostics',
+      unit: 'kilometers',
+      value: 4339,
+    },
   ]
   const parsedProperties = properties.map((p) => ({
     ...p,

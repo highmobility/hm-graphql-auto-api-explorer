@@ -1,0 +1,44 @@
+.OdometerBlock {
+  .OdometerBlockContent {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .OdometerBlockDigits {
+    display: flex;
+    width: 100%;
+    background: #ced4da;
+    border: 2px solid #ced4da;
+    border-radius: 11px;
+    margin-bottom: 10px;
+  }
+
+  .OdometerBlockDigit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8f9fa;
+    flex: 1;
+    border: 2px solid #ced4da;
+
+    &:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+
+    &:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+  }
+
+  .OdometerBlockUnit {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    line-height: 19px;
+    color: #495057;
+  }
+}
