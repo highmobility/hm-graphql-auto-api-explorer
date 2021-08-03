@@ -58,6 +58,29 @@ function DashboardPage() {
       unit: 'kilometers',
       value: 4339,
     },
+    {
+      id: 5,
+      name: 'positions',
+      capabilityName: 'doors',
+      positions: [
+        {
+          location: 'front_left',
+          value: 'open',
+        },
+        {
+          location: 'front_right',
+          value: 'open',
+        },
+        {
+          location: 'rear_left',
+          value: 'closed',
+        },
+        {
+          location: 'rear_right',
+          value: 'closed',
+        },
+      ],
+    },
   ]
   const parsedProperties = properties.map((p) => ({
     ...p,

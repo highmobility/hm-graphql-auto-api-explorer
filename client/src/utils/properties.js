@@ -5,6 +5,7 @@ import TemperatureBlock from '../components/TemperatureBlock'
 import CoordinatesBlock from '../components/CoordinatesBlock'
 import CAPABILITIES from '../data/capabilities.json'
 import OdometerBlock from '../components/OdometerBlock'
+import DoorsBlock from '../components/DoorsBlock'
 
 export const BLOCKS = {
   TWO_BY_TWO: {
@@ -60,6 +61,13 @@ export function getBlockData(property) {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: OdometerBlock,
+    }
+  }
+
+  if (property.capabilityName === 'doors') {
+    return {
+      ...BLOCKS.TWO_BY_TWO,
+      component: DoorsBlock,
     }
   }
 

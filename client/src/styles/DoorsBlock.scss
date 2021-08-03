@@ -1,0 +1,78 @@
+.DoorsBlock {
+  .DoorsBlockContent {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    position: relative;
+  }
+
+  .DoorsBlockCar {
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .DoorsBlockCarImage {
+    position: relative;
+  }
+
+  .DoorsBlockLabel {
+    position: absolute;
+    background: #e9ecef;
+    border-radius: 25px;
+    padding: 5px 20px;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #6c757d;
+    transition: background-color 250ms ease, color 250ms ease;
+
+    &.DoorsBlockLabelFrontLeft {
+      top: 64px;
+      right: 84px;
+    }
+
+    &.DoorsBlockLabelRearLeft {
+      top: 102px;
+      right: 84px;
+    }
+
+    &.DoorsBlockLabelFrontRight {
+      top: 64px;
+      left: 86px;
+    }
+
+    &.DoorsBlockLabelRearRight {
+      top: 102px;
+      left: 86px;
+    }
+
+    &.DoorsBlockLabelOpen {
+      color: white;
+    }
+
+    &.DoorsBlockLabelFrontLeft,
+    &.DoorsBlockLabelRearLeft {
+      border-top-right-radius: 100%;
+      border-bottom-right-radius: 100%;
+      padding-right: 25px;
+
+      &.DoorsBlockLabelOpen {
+        background: linear-gradient(90deg, #90e0ef -5.07%, #0085ff 106.53%);
+      }
+    }
+
+    &.DoorsBlockLabelFrontRight,
+    &.DoorsBlockLabelRearRight {
+      border-top-left-radius: 100%;
+      border-bottom-left-radius: 100%;
+      padding-left: 25px;
+
+      &.DoorsBlockLabelOpen {
+        background: linear-gradient(261.03deg, #90e0ef -5.07%, #0085ff 106.53%);
+      }
+    }
+  }
+}
