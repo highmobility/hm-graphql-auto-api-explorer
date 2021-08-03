@@ -6,7 +6,7 @@ import AnimatedNumber from 'animated-number-react'
 
 export default function BatteryLevelBlock({ property }) {
   const [value, setValue] = useState(0)
-  const percentValue = Math.trunc(Math.min(Math.abs(value), 100))
+  const percentValue = value * 100
 
   useEffect(() => {
     setValue(property.value || 0)
