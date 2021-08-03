@@ -4,6 +4,7 @@ import googleMapsTheme from '../data/mapsTheme.json'
 import '../styles/GoogleMap.scss'
 
 const loader = new Loader({
+  // apiKey: 'AIzaSyDHGGCWUgVV7elhOTnJSawnzUu1nDu1fo0',
   apiKey: '',
   version: 'weekly',
 })
@@ -18,6 +19,7 @@ export default function GoogleMap({
   const domRef = React.useRef()
   const [mapInstance, setMapInstance] = React.useState()
   const [activeMarkers, setActiveMarkers] = React.useState([])
+  const [hasError, setHasError] = React.useState(false)
 
   React.useEffect(() => {
     loader.load().then(() => {
@@ -34,6 +36,12 @@ export default function GoogleMap({
 
         return
       }
+
+      mapInstance.addListener('tilesloaded', () => {
+        if (domRef.current.children.length > 1) {
+          setHasError(true)
+        }
+      })
 
       const currentActiveMarkers = [...activeMarkers]
 
@@ -92,10 +100,12 @@ export default function GoogleMap({
   }, [center, zoom, markers, mapInstance]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div
-      ref={domRef}
-      className={`GoogleMap ${className || ''}`}
-      {...props}
-    ></div>
+    <div ref={domRef} className={`GoogleMap ${className || ''}`} {...props}>
+      {hasError && (
+        <div className="GoogleMapError">
+          Failed to load Google map. Check your maps API key
+        </div>
+      )}
+    </div>
   )
 }
