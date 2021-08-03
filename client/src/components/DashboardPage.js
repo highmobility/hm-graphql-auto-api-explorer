@@ -14,7 +14,7 @@ function DashboardPage() {
       name: 'engine_oil_temperature',
       name_pretty: 'Engine oil temperature',
       capabilityName: 'diagnostics',
-      value: 34,
+      value: 34.5,
       type: 'unit.temperature',
       unit: 'celsius',
     },
@@ -23,7 +23,7 @@ function DashboardPage() {
       name: 'battery_level',
       name_pretty: 'Battery level',
       capabilityName: 'diagnostics',
-      value: 60,
+      value: 0.65,
       type: 'types.percentage',
     },
     {
@@ -37,17 +37,12 @@ function DashboardPage() {
     },
     {
       id: 3,
-      name: 'heading',
+      name: 'coordinates',
       name_pretty: 'Coordinates',
       capabilityName: 'vehicle_location',
-      unit: 'degrees',
-      coordinates: {
+      value: {
         latitude: 59.4075791,
         longitude: 24.7240193,
-      },
-      heading: {
-        value: 13.370123,
-        unit: 'degrees',
       },
     },
     {
@@ -80,6 +75,19 @@ function DashboardPage() {
           value: 'closed',
         },
       ],
+    },
+    {
+      id: 6,
+      name: 'fuel_level',
+      capabilityName: 'diagnostics',
+      value: 0.9,
+    },
+    {
+      id: 7,
+      name: 'heading',
+      capabilityName: 'vehicle_location',
+      unit: 'degrees',
+      value: 170.370123,
     },
   ]
   const parsedProperties = properties.map((p) => ({
