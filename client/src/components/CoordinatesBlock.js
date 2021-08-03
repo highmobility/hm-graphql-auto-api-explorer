@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '../styles/CoordinatesBlock.scss'
 import Block from './Block'
 import AnimatedNumber from 'animated-number-react'
@@ -6,29 +6,11 @@ import GoogleMap from './GoogleMap'
 import { ReactComponent as MapIcon } from '../images/map.svg'
 
 export default function CoordinatesBlock({ property }) {
-  const [headingInDegrees, setHeadingInDegrees] = useState(0)
-  const [coordinates, setCoordinates] = useState({
-    latitude: null,
-    longitude: null,
-  })
-
-  useEffect(() => {
-    const propertyUnitType = property.config.unit.unit_types.find(
-      (unitType) => unitType.name === property.unit
-    )
-
-    setHeadingInDegrees(
-      property.heading.value * (propertyUnitType?.conversion_linear || 1)
-    )
-
-    setCoordinates(property.coordinates)
-  }, [property])
-
   const marker = {
     id: 1,
     position: {
-      lat: Number(coordinates.latitude),
-      lng: Number(coordinates.longitude),
+      lat: Number(property.value.latitude),
+      lng: Number(property.value.longitude),
     },
   }
 
@@ -38,7 +20,7 @@ export default function CoordinatesBlock({ property }) {
         <div className="CoordinatesBlockTopItem">
           <div className="Num2">
             <AnimatedNumber
-              value={coordinates.latitude}
+              value={property.value.latitude}
               formatValue={(value) => value.toFixed(1)}
             />
           </div>
@@ -47,7 +29,7 @@ export default function CoordinatesBlock({ property }) {
         <div className="CoordinatesBlockTopItem">
           <div className="Num2">
             <AnimatedNumber
-              value={coordinates.longitude}
+              value={property.value.longitude}
               formatValue={(value) => value.toFixed(1)}
             />
           </div>
@@ -57,8 +39,8 @@ export default function CoordinatesBlock({ property }) {
       <div className="CoordinatesBlockMap">
         <GoogleMap
           center={{
-            lat: Number(coordinates.latitude),
-            lng: Number(coordinates.longitude),
+            lat: Number(property.value.latitude),
+            lng: Number(property.value.longitude),
           }}
           markers={[marker]}
           zoom={15}
