@@ -103,7 +103,9 @@ export default function GoogleMap({
     <div ref={domRef} className={`GoogleMap ${className || ''}`} {...props}>
       {hasError && (
         <div className="GoogleMapError">
-          Failed to load Google map. Check your maps API key
+          Failed to load Google map
+          <br />
+          Check your API key
         </div>
       )}
     </div>
