@@ -87,8 +87,17 @@ export function getBlockData(property) {
     }
   }
 
+  if (property.type === 'string') {
+    return {
+      ...BLOCKS.TWO_BY_TWO,
+      component: Block,
+    }
+  }
+
+  // if properties count > 1, use SIX_BY_ONE
+
   return {
-    ...BLOCKS.TWO_BY_TWO,
+    ...BLOCKS.TWO_BY_ONE,
     component: Block,
   }
 }
