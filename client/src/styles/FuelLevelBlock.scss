@@ -6,4 +6,28 @@
     justify-content: center;
     align-items: center;
   }
+
+  .FuelLevelSvgWrapper {
+    width: 226px;
+    height: 154px;
+  }
+
+  .FuelLevelBlockPercentValue {
+    position: absolute;
+    bottom: 24%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  svg {
+    .cls-1 {
+      fill: #adb5bd;
+    }
+    .cls-2 {
+      fill: #e9ecef;
+    }
+    .cls-3 {
+      fill: #495057;
+    }
+  }
 }

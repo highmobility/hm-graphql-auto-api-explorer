@@ -9,7 +9,7 @@ export default function Block({ children, property, className = '' }) {
         <PinButton />
         <span className="BlockCapabilityLabel">{property.capabilityName}</span>
         <h4 className="BlockPropertyName">
-          {property.name_pretty || property.name}
+          {property.name_pretty || property.name.replace(/_/g, ' ')}
         </h4>
         {children || (
           <div className="BlockValue">
