@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router-dom'
-import { setInitialConfig } from '../requests'
+import { setConfig } from '../requests'
 import routes, { PAGES } from '../routes'
-import { ENVIRONMENTS } from '../store/InitialConfig'
+import { ENVIRONMENTS } from '../store/Config'
 import { useMobx } from '../store/mobx'
 import '../styles/InitialConfigPage.scss'
 import ConfigGroup from './ConfigGroup'
@@ -12,7 +12,7 @@ import TextArea from './TextArea'
 import TextInput from './TextInput'
 
 function InitialConfigPage() {
-  const { initialConfig } = useMobx()
+  const { config } = useMobx()
   const history = useHistory()
 
   const errors = {}
@@ -42,7 +42,7 @@ function InitialConfigPage() {
       return
     }
 
-    await setInitialConfig(initialConfig)
+    await setConfig(config)
 
     history.push(
       routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
@@ -63,77 +63,73 @@ function InitialConfigPage() {
       <section className="InitialConfigContent">
         <form noValidate spellCheck="false" onSubmit={(e) => onSubmit(e)}>
           <h5 className="SubHeader">Work environment</h5>
-          <ConfigGroup tip={inputTips.ENV[initialConfig.focusedInput]}>
+          <ConfigGroup tip={inputTips.ENV[config.focusedInput]}>
             <EnvironmentSelector
               title="Develop"
               subtitle="Working with virtual simulators to test out High Mobility"
-              checked={initialConfig.env === ENVIRONMENTS.DEVELOP}
-              onClick={() => initialConfig.setEnv(ENVIRONMENTS.DEVELOP)}
+              checked={config.env === ENVIRONMENTS.DEVELOP}
+              onClick={() => config.setEnv(ENVIRONMENTS.DEVELOP)}
             />
             <EnvironmentSelector
               title="Production"
               subtitle="Working with your car to gather real data"
-              checked={initialConfig.env === ENVIRONMENTS.PRODUCTION}
-              onClick={() => initialConfig.setEnv(ENVIRONMENTS.PRODUCTION)}
+              checked={config.env === ENVIRONMENTS.PRODUCTION}
+              onClick={() => config.setEnv(ENVIRONMENTS.PRODUCTION)}
             />
           </ConfigGroup>
           <h5 className="SubHeader">App configuration</h5>
-          <ConfigGroup tip={inputTips.APP_CONFIG[initialConfig.focusedInput]}>
+          <ConfigGroup tip={inputTips.APP_CONFIG[config.focusedInput]}>
             <TextInput
               name="appId"
-              value={initialConfig.appId}
+              value={config.appId}
               placeholder="App ID"
-              onChange={(e) => initialConfig.setAppId(e.target.value)}
-              onFocus={() => initialConfig.setFocusedInput('appId')}
+              onChange={(e) => config.setAppId(e.target.value)}
+              onFocus={() => config.setFocusedInput('appId')}
             />
             <TextInput
               name="clientPrivateKey"
-              value={initialConfig.clientPrivateKey}
+              value={config.clientPrivateKey}
               placeholder="Client private key"
-              onChange={(e) =>
-                initialConfig.setClientPrivateKey(e.target.value)
-              }
-              onFocus={() => initialConfig.setFocusedInput('clientPrivateKey')}
+              onChange={(e) => config.setClientPrivateKey(e.target.value)}
+              onFocus={() => config.setFocusedInput('clientPrivateKey')}
             />
             <TextArea
               name="clientPrivateKey"
-              value={initialConfig.clientCertificate}
+              value={config.clientCertificate}
               placeholder="Client certificate"
-              onChange={(e) =>
-                initialConfig.setClientCertificate(e.target.value)
-              }
-              onFocus={() => initialConfig.setFocusedInput('clientCertificate')}
+              onChange={(e) => config.setClientCertificate(e.target.value)}
+              onFocus={() => config.setFocusedInput('clientCertificate')}
             />
           </ConfigGroup>
           <h5 className="SubHeader">OAuth credentials</h5>
-          <ConfigGroup tip={inputTips.OAUTH[initialConfig.focusedInput]}>
+          <ConfigGroup tip={inputTips.OAUTH[config.focusedInput]}>
             <TextInput
               name="clientId"
-              value={initialConfig.clientId}
+              value={config.clientId}
               placeholder="OAuth2 client ID"
-              onChange={(e) => initialConfig.setClientId(e.target.value)}
-              onFocus={() => initialConfig.setFocusedInput('clientId')}
+              onChange={(e) => config.setClientId(e.target.value)}
+              onFocus={() => config.setFocusedInput('clientId')}
             />
             <TextInput
               name="clientSecret"
-              value={initialConfig.clientSecret}
+              value={config.clientSecret}
               placeholder="OAuth2 client secret"
-              onChange={(e) => initialConfig.setClientSecret(e.target.value)}
-              onFocus={() => initialConfig.setFocusedInput('clientSecret')}
+              onChange={(e) => config.setClientSecret(e.target.value)}
+              onFocus={() => config.setFocusedInput('clientSecret')}
             />
             <TextInput
               name="authUrl"
-              value={initialConfig.authUrl}
+              value={config.authUrl}
               placeholder="OAuth2 Auth URI"
-              onChange={(e) => initialConfig.setAuthUrl(e.target.value)}
-              onFocus={() => initialConfig.setFocusedInput('authUrl')}
+              onChange={(e) => config.setAuthUrl(e.target.value)}
+              onFocus={() => config.setFocusedInput('authUrl')}
             />
             <TextInput
               name="tokenUrl"
-              value={initialConfig.tokenUrl}
+              value={config.tokenUrl}
               placeholder="OAuth2 Token URI"
-              onChange={(e) => initialConfig.setTokenUrl(e.target.value)}
-              onFocus={() => initialConfig.setFocusedInput('tokenUrl')}
+              onChange={(e) => config.setTokenUrl(e.target.value)}
+              onFocus={() => config.setFocusedInput('tokenUrl')}
             />
             <div className="TokenInfo">
               <label>Add the following URI</label>

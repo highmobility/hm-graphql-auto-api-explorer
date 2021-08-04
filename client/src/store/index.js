@@ -1,10 +1,10 @@
 import App from './App'
-import InitialConfig from './InitialConfig'
+import Config from './Config'
 import Properties from './Properties'
 
 const stores = {
   app: new App(),
-  initialConfig: new InitialConfig(),
+  config: new Config(),
   properties: new Properties(),
 }
 

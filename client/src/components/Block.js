@@ -1,3 +1,4 @@
+import { upperFirst } from 'lodash'
 import React from 'react'
 import '../styles/Block.scss'
 import PinButton from './PinButton'
@@ -9,7 +10,11 @@ export default function Block({ children, property, className = '' }) {
         <PinButton />
         <span className="BlockCapabilityLabel">{property.capabilityName}</span>
         <h4 className="BlockPropertyName">
-          {property.name_pretty || property.name.replace(/_/g, ' ')}
+          {upperFirst(
+            (
+              property.name_pretty || property.name.replace(/_/g, ' ')
+            ).toLowerCase()
+          )}
         </h4>
         {children || (
           <div className="BlockValue">

@@ -1,0 +1,35 @@
+@import 'config.scss';
+
+.Dropdown {
+  position: relative;
+  z-index: $dropdownZ;
+  user-select: none;
+}
+
+.DropdownButton {
+  cursor: pointer;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  color: #6c757d;
+
+  span {
+    margin-right: 10px;
+  }
+}
+
+.DropdownContent {
+  position: absolute;
+  top: calc(100% + 40px);
+  background: white;
+}
+
+.DropdownItem {
+  cursor: pointer;
+}

@@ -5,7 +5,13 @@ export const ENVIRONMENTS = {
   PRODUCTION: 'PRODUCTION',
 }
 
-export default class InitialConfig {
+export const VIEWS = {
+  GRID: 'GRID',
+  LIST: 'LIST',
+  MAP: 'MAP',
+}
+
+export default class Config {
   focusedInput = null
   env = ENVIRONMENTS.DEVELOP
   appId = '40AAAAC3C6467F0393FFD528'
@@ -17,6 +23,8 @@ export default class InitialConfig {
     'https://sandbox.owner-panel.develop.high-mobility.net/hm_cloud/o/d36635af-a403-425e-82dd-1415557e376e/oauth'
   tokenUrl =
     'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
+
+  view = VIEWS.GRID
 
   constructor() {
     makeAutoObservable(this)
@@ -56,5 +64,9 @@ export default class InitialConfig {
 
   setTokenUrl(value) {
     this.tokenUrl = value
+  }
+
+  setView(view) {
+    this.view = VIEWS[view] || VIEWS.GRID
   }
 }

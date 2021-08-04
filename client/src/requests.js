@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const setInitialConfig = async (data) => {
+export const setConfig = async (data) => {
   const res = await axios.post('api/config', data)
 
   return res

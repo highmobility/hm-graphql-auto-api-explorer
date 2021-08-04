@@ -8,10 +8,10 @@ import GrayCircles from './GrayCircles'
 import PrimaryButton from './PrimaryButton'
 
 function ConnectVehiclePage() {
-  const { initialConfig } = useMobx()
-  const oAuthUrl = new URL(initialConfig.authUrl)
-  oAuthUrl.searchParams.set('client_id', initialConfig.clientId)
-  oAuthUrl.searchParams.set('app_id', initialConfig.appId)
+  const { config } = useMobx()
+  const oAuthUrl = new URL(config.authUrl)
+  oAuthUrl.searchParams.set('client_id', config.clientId)
+  oAuthUrl.searchParams.set('app_id', config.appId)
   oAuthUrl.searchParams.set(
     'redirect_uri',
     'http://localhost:8080/auth/callback'
