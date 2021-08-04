@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react'
 import { useTransition, a } from '@react-spring/web'
 import { shuffle } from 'lodash'
 import { getBlockData, getPropertyConfig } from '../utils/properties'
+import Header from './Header'
 
 function DashboardPage() {
   const properties = [
@@ -177,6 +178,7 @@ function DashboardPage() {
 
   return (
     <div className="DashboardPage">
+      <Header />
       <div
         className="GridContainer"
         ref={ref}

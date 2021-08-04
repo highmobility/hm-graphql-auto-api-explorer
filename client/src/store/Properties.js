@@ -3,6 +3,7 @@ import uniq from 'lodash/uniq'
 
 export default class Properties {
   pinned = []
+  shown = []
 
   constructor() {
     makeAutoObservable(this)
@@ -14,5 +15,13 @@ export default class Properties {
 
   unPin(propertyId) {
     this.pinned = this.pinned.filter((id) => id !== propertyId)
+  }
+
+  addShownProperty(propertyId) {
+    this.shown = uniq([...this.shown, propertyId])
+  }
+
+  removeShownProperty(propertyId) {
+    this.shown = this.shown.filter((id) => id !== propertyId)
   }
 }
