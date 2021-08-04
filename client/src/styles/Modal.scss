@@ -54,45 +54,51 @@
     }
   }
 
-  &.FadeAnimation {
-    &.enter {
-      .ModalBackdrop {
-        opacity: 0;
-      }
+  &.enter {
+    .ModalBackdrop {
+      opacity: 0;
+    }
 
+    &.FadeAnimation {
       .ModalContent {
         opacity: 0;
       }
     }
+  }
 
-    &.enter-active {
-      .ModalBackdrop {
-        opacity: 1;
-        transition: opacity $modalTransitionDuration ease;
-      }
+  &.enter-active {
+    .ModalBackdrop {
+      opacity: 1;
+      transition: opacity $modalTransitionDuration ease;
+    }
 
+    &.FadeAnimation {
       .ModalContent {
         opacity: 1;
         transition: opacity $modalTransitionDuration ease;
       }
     }
+  }
 
-    &.exit {
-      .ModalBackdrop {
-        opacity: 1;
-      }
+  &.exit {
+    .ModalBackdrop {
+      opacity: 1;
+    }
 
+    &.FadeAnimation {
       .ModalContent {
         opacity: 1;
       }
     }
+  }
 
-    &.exit-active {
-      .ModalBackdrop {
-        opacity: 0;
-        transition: opacity $modalTransitionDuration ease;
-      }
+  &.exit-active {
+    .ModalBackdrop {
+      opacity: 0;
+      transition: opacity $modalTransitionDuration ease;
+    }
 
+    &.FadeAnimation {
       .ModalContent {
         opacity: 0;
         transition: opacity $modalTransitionDuration ease;

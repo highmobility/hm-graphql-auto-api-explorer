@@ -6,7 +6,7 @@ export default function Toggle({ value, onChange = () => {} }) {
     <input
       className="Toggle"
       type="checkbox"
-      value={value}
+      checked={value}
       onChange={onChange}
     />
   )

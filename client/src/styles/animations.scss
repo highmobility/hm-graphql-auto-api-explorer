@@ -37,20 +37,6 @@
   }
 }
 
-// .fade-enter {
-//   opacity: 0;
-// }
-
-// .fade-enter.fade-enter-active {
-//   position: fixed;
-//   width: 100vw;
-//   height: 100vh;
-//   top: 0;
-//   left: 0;
-//   opacity: 1;
-//   transition: opacity 5000ms ease;
-// }
-
 .page-enter {
   opacity: 0;
   transform: scale(1.1);

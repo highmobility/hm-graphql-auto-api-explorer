@@ -2,9 +2,8 @@ import '../styles/DashboardPage.scss'
 import { observer } from 'mobx-react-lite'
 import useMedia from '../hooks/useMedia'
 import useMeasure from 'react-use-measure'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useTransition, a } from '@react-spring/web'
-import { shuffle } from 'lodash'
 import { getBlockData, getPropertyConfig } from '../utils/properties'
 import Header from './Header'
 
@@ -98,20 +97,15 @@ function DashboardPage() {
   }))
 
   const numberOfColumns = useMedia(
-    ['(min-width: 1500px)', '(min-width: 1000px)', '(min-width: 600px)'],
-    [10, 8, 6],
-    8
+    ['(min-width: 1500px)', '(min-width: 1000px)', '(min-width: 846px)'],
+    [10, 8, 6, 4],
+    4
   )
 
   const [ref, { width }] = useMeasure()
   const columnWidth = width / numberOfColumns
   const gridPadding = 10
-  const [items, setItems] = useState(parsedProperties)
-
-  // useEffect(() => {
-  //   const t = setInterval(() => setItems(shuffle([...items])), 2000)
-  //   return () => clearInterval(t)
-  // }, [])
+  const items = parsedProperties
 
   const [heights, gridItems] = useMemo(() => {
     let gridItems = [] // Added items

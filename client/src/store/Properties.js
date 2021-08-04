@@ -23,13 +23,11 @@ export default class Properties {
   show(property) {
     const uniqueId = getPropertyUniqueId(property)
     this.shown = uniq([...this.shown, uniqueId])
-    console.log('new shown', this.shown)
   }
 
   hide(property) {
     const uniqueId = getPropertyUniqueId(property)
     this.shown = this.shown.filter((id) => id !== uniqueId)
-    console.log('new shown', this.shown)
   }
 
   isPinned(property) {
