@@ -1,0 +1,51 @@
+.Toggle {
+  appearance: none;
+  cursor: pointer;
+  height: 26px;
+  width: 43px;
+  border-radius: 45px;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  border: 1px solid #ced4da;
+  background: #f2f2f2;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ced4da;
+    transition: all 0.2s ease;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover,
+  &:active {
+    background: #e0e3e5;
+    border-color: #ced4da;
+  }
+
+  &:checked {
+    border-color: #037be7;
+    background: #037be7;
+
+    &:after {
+      background: #f8f9fa;
+      transform: translatex(16px);
+    }
+
+    &:hover,
+    &:active {
+      background: #0375db;
+    }
+  }
+}

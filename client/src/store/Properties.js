@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import uniq from 'lodash/uniq'
+import { getPropertyUniqueId } from '../utils/properties'
 
 export default class Properties {
   pinned = []
@@ -9,19 +10,35 @@ export default class Properties {
     makeAutoObservable(this)
   }
 
-  pin(propertyId) {
-    this.pinned = uniq([...this.pinned, propertyId])
+  pin(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    this.pinned = uniq([...this.pinned, uniqueId])
   }
 
-  unPin(propertyId) {
-    this.pinned = this.pinned.filter((id) => id !== propertyId)
+  unPin(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    this.pinned = this.pinned.filter((id) => id !== uniqueId)
   }
 
-  addShownProperty(propertyId) {
-    this.shown = uniq([...this.shown, propertyId])
+  show(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    this.shown = uniq([...this.shown, uniqueId])
+    console.log('new shown', this.shown)
   }
 
-  removeShownProperty(propertyId) {
-    this.shown = this.shown.filter((id) => id !== propertyId)
+  hide(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    this.shown = this.shown.filter((id) => id !== uniqueId)
+    console.log('new shown', this.shown)
+  }
+
+  isPinned(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    return this.pinned.includes(uniqueId)
+  }
+
+  isShown(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    return this.shown.includes(uniqueId)
   }
 }

@@ -916,7 +916,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "name": "battery_level",
@@ -978,7 +979,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 5,
@@ -1021,7 +1023,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 6,
@@ -1064,7 +1067,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 7,
@@ -1107,7 +1111,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "name": "charge_limit",
@@ -1180,7 +1185,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 10,
@@ -1233,7 +1239,8 @@
               "conversion_linear": 745.7
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "name": "charge_port_state",
@@ -1330,7 +1337,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 15,
@@ -1600,7 +1608,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "name": "timers",
@@ -1813,7 +1822,8 @@
               "conversion_linear": 745.7
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 25,
@@ -1853,7 +1863,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 26,
@@ -1893,7 +1904,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 27,
@@ -2007,7 +2019,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       },
       {
         "id": 29,
@@ -2273,7 +2286,8 @@
               "conversion_linear": 3600000
             }
           ]
-        }
+        },
+        "capabilityName": "charging"
       }
     ]
   },
@@ -2532,7 +2546,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "charging_session"
       },
       {
         "id": 9,
@@ -2577,7 +2592,8 @@
               "conversion_linear": 3600000
             }
           ]
-        }
+        },
+        "capabilityName": "charging_session"
       },
       {
         "id": 10,
@@ -2622,7 +2638,8 @@
               "conversion_linear": 3600000
             }
           ]
-        }
+        },
+        "capabilityName": "charging_session"
       },
       {
         "name": "preconditioning_state",
@@ -2738,7 +2755,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "charging_session"
       },
       {
         "name": "charging_cost",
@@ -3016,7 +3034,8 @@
                   "conversion_linear": 0.73756214927727
                 }
               ]
-            }
+            },
+            "capabilityName": "chassis_settings"
           }
         ],
         "id": 5,
@@ -3098,7 +3117,8 @@
                   "conversion_linear": 0.73756214927727
                 }
               ]
-            }
+            },
+            "capabilityName": "chassis_settings"
           }
         ],
         "id": 6,
@@ -3180,7 +3200,8 @@
                   "conversion_linear": 0.73756214927727
                 }
               ]
-            }
+            },
+            "capabilityName": "chassis_settings"
           }
         ],
         "id": 7,
@@ -3293,7 +3314,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "chassis_settings"
       },
       {
         "id": 9,
@@ -3377,7 +3399,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "chassis_settings"
       },
       {
         "id": 10,
@@ -3461,7 +3484,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "chassis_settings"
       }
     ]
   },
@@ -3579,7 +3603,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "climate"
       },
       {
         "id": 2,
@@ -3620,7 +3645,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "climate"
       },
       {
         "id": 3,
@@ -3661,7 +3687,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "climate"
       },
       {
         "id": 4,
@@ -3702,7 +3729,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "climate"
       },
       {
         "name": "hvac_state",
@@ -3859,7 +3887,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "climate"
       },
       {
         "name": "hvac_weekday_starting_times",
@@ -4073,7 +4102,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "climate"
       }
     ]
   },
@@ -4504,7 +4534,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "cruise_control"
       },
       {
         "name": "adaptive_cruise_control",
@@ -4577,7 +4608,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "cruise_control"
       }
     ]
   },
@@ -7303,7 +7335,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 2,
@@ -7344,7 +7377,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 3,
@@ -7388,7 +7422,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 4,
@@ -7427,7 +7462,8 @@
               "conversion_linear": 9.549296585514
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "fuel_level",
@@ -7530,7 +7566,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "washer_fluid_level",
@@ -7611,7 +7648,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "adblue_level",
@@ -7714,7 +7752,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 14,
@@ -7798,7 +7837,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 15,
@@ -7892,7 +7932,8 @@
               "conversion_linear": 4.54609
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "anti_lock_braking",
@@ -7962,7 +8003,8 @@
               "conversion_constant": 255.372222
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 18,
@@ -8020,7 +8062,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 19,
@@ -8114,7 +8157,8 @@
               "conversion_linear": 4.54609
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "brake_fluid_level",
@@ -8238,7 +8282,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "battery_level",
@@ -8314,7 +8359,8 @@
                   "conversion_linear": 2629800
                 }
               ]
-            }
+            },
+            "capabilityName": "diagnostics"
           },
           {
             "name": "text",
@@ -8439,7 +8485,8 @@
                   "conversion_linear": 6894.76
                 }
               ]
-            }
+            },
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 26,
@@ -8592,7 +8639,8 @@
                   "conversion_constant": 255.372222
                 }
               ]
-            }
+            },
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 27,
@@ -8745,7 +8793,8 @@
                   "conversion_linear": 9.549296585514
                 }
               ]
-            }
+            },
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 28,
@@ -9003,7 +9052,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 31,
@@ -9088,7 +9138,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 32,
@@ -9143,7 +9194,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "tire_pressure_statuses",
@@ -9476,7 +9528,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "diesel_particulate_filter_soot_level",
@@ -9753,7 +9806,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 43,
@@ -9848,7 +9902,8 @@
               "conversion_linear": 4.54609
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "engine_oil_level",
@@ -9953,7 +10008,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 46,
@@ -10073,7 +10129,8 @@
                   "conversion_linear": 6894.76
                 }
               ]
-            }
+            },
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 47,
@@ -10246,7 +10303,8 @@
                   "conversion_linear": 6894.76
                 }
               ]
-            }
+            },
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 48,
@@ -10381,7 +10439,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "name": "engine_coolant_fluid_level",
@@ -10571,7 +10630,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "diagnostics"
       },
       {
         "id": 54,
@@ -11675,7 +11735,8 @@
               "conversion_linear": 86400
             }
           ]
-        }
+        },
+        "capabilityName": "heart_rate"
       }
     ]
   },
@@ -12059,7 +12120,8 @@
               "conversion_linear": 745.7
             }
           ]
-        }
+        },
+        "capabilityName": "home_charger"
       },
       {
         "name": "solar_charging",
@@ -12250,7 +12312,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "home_charger"
       },
       {
         "id": 15,
@@ -12289,7 +12352,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "home_charger"
       },
       {
         "id": 16,
@@ -12328,7 +12392,8 @@
               "conversion_linear": 1000
             }
           ]
-        }
+        },
+        "capabilityName": "home_charger"
       },
       {
         "name": "coordinates",
@@ -12490,7 +12555,8 @@
               "conversion_linear": 745.7
             }
           ]
-        }
+        },
+        "capabilityName": "home_charger"
       }
     ]
   },
@@ -12621,7 +12687,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "honk_horn_flash_lights"
       },
       {
         "id": 3,
@@ -12721,7 +12788,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "honk_horn_flash_lights"
       }
     ]
   },
@@ -13108,7 +13176,8 @@
               "conversion_linear": 1
             }
           ]
-        }
+        },
+        "capabilityName": "light_conditions"
       },
       {
         "id": 2,
@@ -13137,7 +13206,8 @@
               "conversion_linear": 1
             }
           ]
-        }
+        },
+        "capabilityName": "light_conditions"
       }
     ]
   },
@@ -13757,7 +13827,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 2,
@@ -13845,7 +13916,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 3,
@@ -13919,7 +13991,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 5,
@@ -14036,7 +14109,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 7,
@@ -14090,7 +14164,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 8,
@@ -14288,7 +14363,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 14,
@@ -14372,7 +14448,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 15,
@@ -14427,7 +14504,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 16,
@@ -14529,7 +14607,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       },
       {
         "id": 18,
@@ -14584,7 +14663,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "maintenance"
       }
     ]
   },
@@ -14982,7 +15062,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "navi_destination"
       },
       {
         "id": 6,
@@ -15066,7 +15147,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "navi_destination"
       }
     ]
   },
@@ -15277,7 +15359,8 @@
               "conversion_linear": 360
             }
           ]
-        }
+        },
+        "capabilityName": "offroad"
       },
       {
         "name": "wheel_suspension",
@@ -15684,7 +15767,8 @@
                   "conversion_linear": 9.81
                 }
               ]
-            }
+            },
+            "capabilityName": "race"
           }
         ],
         "id": 1,
@@ -15828,7 +15912,8 @@
               "conversion_linear": 360
             }
           ]
-        }
+        },
+        "capabilityName": "race"
       },
       {
         "id": 6,
@@ -15887,7 +15972,8 @@
               "conversion_linear": 6894.76
             }
           ]
-        }
+        },
+        "capabilityName": "race"
       },
       {
         "id": 7,
@@ -15926,7 +16012,8 @@
               "conversion_linear": 9.549296585514
             }
           ]
-        }
+        },
+        "capabilityName": "race"
       },
       {
         "id": 8,
@@ -15965,7 +16052,8 @@
               "conversion_linear": 360
             }
           ]
-        }
+        },
+        "capabilityName": "race"
       },
       {
         "name": "electronic_stability_program",
@@ -16431,7 +16519,8 @@
               "conversion_linear": 360
             }
           ]
-        }
+        },
+        "capabilityName": "remote_control"
       },
       {
         "id": 3,
@@ -16475,7 +16564,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "remote_control"
       }
     ]
   },
@@ -17286,7 +17376,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "tachograph"
       }
     ]
   },
@@ -17999,7 +18090,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "trips"
       },
       {
         "id": 11,
@@ -18084,7 +18176,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "trips"
       },
       {
         "id": 12,
@@ -18124,7 +18217,8 @@
               "conversion_inverse": 235.2145833
             }
           ]
-        }
+        },
+        "capabilityName": "trips"
       },
       {
         "id": 13,
@@ -18209,7 +18303,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "trips"
       },
       {
         "name": "start_address_components",
@@ -18686,7 +18781,8 @@
               "conversion_linear": 4.54609
             }
           ]
-        }
+        },
+        "capabilityName": "trips"
       },
       {
         "id": 20,
@@ -18781,7 +18877,8 @@
               "conversion_linear": 4.54609
             }
           ]
-        }
+        },
+        "capabilityName": "trips"
       },
       {
         "id": 21,
@@ -18826,7 +18923,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "trips"
       }
     ]
   },
@@ -19091,7 +19189,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 2,
@@ -19175,7 +19274,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "name": "acceleration_evaluation",
@@ -19395,7 +19495,8 @@
                   "conversion_linear": 3600000
                 }
               ]
-            }
+            },
+            "capabilityName": "usage"
           }
         ],
         "id": 6,
@@ -19507,7 +19608,8 @@
               "conversion_linear": 3600000
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 8,
@@ -19601,7 +19703,8 @@
               "conversion_linear": 4.54609
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 9,
@@ -19689,7 +19792,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "name": "last_trip_electric_portion",
@@ -19742,7 +19846,8 @@
               "conversion_inverse": 62.1371192237334
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "name": "last_trip_battery_remaining",
@@ -19816,7 +19921,8 @@
               "conversion_inverse": 235.2145833
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 15,
@@ -19855,7 +19961,8 @@
               "conversion_inverse": 235.2145833
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 16,
@@ -19940,7 +20047,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "name": "safety_driving_score",
@@ -20136,7 +20244,8 @@
                   "conversion_linear": 1852
                 }
               ]
-            }
+            },
+            "capabilityName": "usage"
           },
           {
             "name": "time",
@@ -20179,7 +20288,8 @@
                   "conversion_linear": 2629800
                 }
               ]
-            }
+            },
+            "capabilityName": "usage"
           }
         ],
         "id": 21,
@@ -20234,7 +20344,8 @@
               "conversion_inverse": 62.1371192237334
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 23,
@@ -20269,7 +20380,8 @@
               "conversion_inverse": 62.1371192237334
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 24,
@@ -20354,7 +20466,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 25,
@@ -20439,7 +20552,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 26,
@@ -20494,7 +20608,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 27,
@@ -20549,7 +20664,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 28,
@@ -20589,7 +20705,8 @@
               "conversion_inverse": 235.2145833
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 29,
@@ -20629,7 +20746,8 @@
               "conversion_inverse": 235.2145833
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 30,
@@ -20674,7 +20792,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 31,
@@ -20719,7 +20838,8 @@
               "conversion_linear": 0.51444444444
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 32,
@@ -20804,7 +20924,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 33,
@@ -20889,7 +21010,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 34,
@@ -20944,7 +21066,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "id": 35,
@@ -20999,7 +21122,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "name": "eco_score_total",
@@ -21144,7 +21268,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "usage"
       },
       {
         "name": "trip_meters",
@@ -21231,7 +21356,8 @@
                   "conversion_linear": 1852
                 }
               ]
-            }
+            },
+            "capabilityName": "usage"
           }
         ],
         "id": 40,
@@ -21590,7 +21716,8 @@
               "conversion_linear": 745.7
             }
           ]
-        }
+        },
+        "capabilityName": "vehicle_information"
       },
       {
         "id": 10,
@@ -21719,7 +21846,8 @@
               "conversion_linear": 4.54609
             }
           ]
-        }
+        },
+        "capabilityName": "vehicle_information"
       },
       {
         "id": 13,
@@ -21759,7 +21887,8 @@
               "conversion_linear": 0.73756214927727
             }
           ]
-        }
+        },
+        "capabilityName": "vehicle_information"
       },
       {
         "id": 14,
@@ -21918,7 +22047,8 @@
               "conversion_linear": 745.7
             }
           ]
-        }
+        },
+        "capabilityName": "vehicle_information"
       },
       {
         "id": 20,
@@ -22178,7 +22308,8 @@
               "conversion_linear": 360
             }
           ]
-        }
+        },
+        "capabilityName": "vehicle_location"
       },
       {
         "id": 6,
@@ -22262,7 +22393,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "vehicle_location"
       },
       {
         "id": 7,
@@ -22346,7 +22478,8 @@
               "conversion_linear": 1852
             }
           ]
-        }
+        },
+        "capabilityName": "vehicle_location"
       },
       {
         "id": 8,
@@ -22636,7 +22769,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "video_handover"
       },
       {
         "id": 3,
@@ -22716,7 +22850,8 @@
               "conversion_linear": 2629800
             }
           ]
-        }
+        },
+        "capabilityName": "video_handover"
       }
     ]
   },

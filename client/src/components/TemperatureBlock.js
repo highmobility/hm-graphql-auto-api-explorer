@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import '../styles/TemperatureBlock.scss'
 import UNITS from '../utils/units'
 import Block from './Block'
-import AnimatedNumber from 'animated-number-react'
 import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function TemperatureBlock({ property }) {

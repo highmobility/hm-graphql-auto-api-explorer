@@ -109,3 +109,7 @@ export function getPropertyConfig(property) {
     ) || null
   )
 }
+
+export function getPropertyUniqueId(property) {
+  return `${property.capabilityName}.${property.name}`
+}

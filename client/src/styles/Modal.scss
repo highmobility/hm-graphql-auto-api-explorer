@@ -1,0 +1,102 @@
+@import 'config.scss';
+
+.Modal {
+  z-index: $modalZ;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ModalBackdrop {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  .ModalContent {
+    background: #fff;
+    box-shadow: 0px 32px 64px rgba(17, 17, 17, 0.08);
+    min-width: 320px;
+    max-width: 80vw;
+    min-height: 300px;
+    max-height: 80vh;
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 2;
+    cursor: initial;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+
+    .ModalClose {
+      position: absolute;
+      top: 32px;
+      right: 32px;
+      cursor: pointer;
+      height: 20px;
+      width: 20px;
+      z-index: $closeModalZ;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        min-height: 20px;
+        min-width: 20px;
+      }
+    }
+  }
+
+  &.FadeAnimation {
+    &.enter {
+      .ModalBackdrop {
+        opacity: 0;
+      }
+
+      .ModalContent {
+        opacity: 0;
+      }
+    }
+
+    &.enter-active {
+      .ModalBackdrop {
+        opacity: 1;
+        transition: opacity $modalTransitionDuration ease;
+      }
+
+      .ModalContent {
+        opacity: 1;
+        transition: opacity $modalTransitionDuration ease;
+      }
+    }
+
+    &.exit {
+      .ModalBackdrop {
+        opacity: 1;
+      }
+
+      .ModalContent {
+        opacity: 1;
+      }
+    }
+
+    &.exit-active {
+      .ModalBackdrop {
+        opacity: 0;
+        transition: opacity $modalTransitionDuration ease;
+      }
+
+      .ModalContent {
+        opacity: 0;
+        transition: opacity $modalTransitionDuration ease;
+      }
+    }
+  }
+}
