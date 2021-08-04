@@ -10,11 +10,19 @@
   .FuelLevelSvgWrapper {
     width: 226px;
     height: 154px;
+    position: relative;
   }
 
   .FuelLevelBlockPercentValue {
     position: absolute;
     bottom: 24%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .FuelLevelBlockanimatedValue {
+    position: absolute;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -28,6 +36,10 @@
     }
     .cls-3 {
       fill: #495057;
+    }
+
+    path {
+      transition: fill 250ms ease;
     }
   }
 }

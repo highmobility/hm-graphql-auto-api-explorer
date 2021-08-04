@@ -1,50 +1,53 @@
 import { useState, useEffect } from 'react'
+import { useInterval } from 'react-use'
 
-export default function useAnimateNumber(value) {
+export default function useAnimateNumber(
+  value = 0,
+  ms = 1000,
+  formatValue = (value) => value.toFixed(0)
+) {
+  const NUMBER_OF_CHANGES = 50
   const [animatedValue, setAnimatedValue] = useState(0)
+  const [startValue, setStartValue] = useState(value)
+  const [finalValue, setFinalValue] = useState(value)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [valueToAdd, setValueToAdd] = useState(
+    (value - animatedValue) / (ms / NUMBER_OF_CHANGES)
+  )
 
   useEffect(() => {
-    console.log('new interval')
-    const interval = setInterval(() => {
-      window.requestAnimationFrame(updateNumber)
-    }, 10)
+    setStartValue(animatedValue)
+    setFinalValue(value)
+    setValueToAdd((value - animatedValue) / (ms / 10))
+  }, [value, ms]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    const updateNumber = () => {
-      const valueToAdd = Math.abs((animatedValue - value) / 100)
-      if (animatedValue < value) {
-        setAnimatedValue((prev) => {
-          const previousValue = Number(prev)
-          if (previousValue === value) {
-            clearInterval(interval)
-          }
+  useEffect(() => {
+    if (
+      (finalValue >= startValue && animatedValue >= finalValue) ||
+      (finalValue <= startValue && animatedValue <= finalValue)
+    ) {
+      setIsAnimating(false)
+    }
+  }, [finalValue, isAnimating, animatedValue, startValue])
 
-          const newValue = previousValue + valueToAdd
-          if (newValue >= value) {
-            return value
-          }
-
-          return newValue
-        })
-      } else {
-        setAnimatedValue((previousValue) => {
-          if (previousValue === value) {
-            clearInterval(interval)
-          }
-
-          const newValue = previousValue + valueToAdd
-          if (newValue <= value) {
-            return value
-          }
-
-          return newValue
-        })
+  const updateAnimatedValue = () => {
+    setAnimatedValue((previousValue) => {
+      const newValue = previousValue + valueToAdd
+      if (
+        (finalValue >= startValue && animatedValue >= finalValue) ||
+        (finalValue <= startValue && animatedValue <= finalValue)
+      ) {
+        return finalValue
       }
-    }
 
-    return () => {
-      clearInterval(interval)
-    }
-  }, [value]) // eslint-disable-line
+      return newValue
+    })
+  }
 
-  return animatedValue
+  useInterval(
+    () => window.requestAnimationFrame(updateAnimatedValue),
+    animatedValue !== finalValue ? ms / NUMBER_OF_CHANGES : null
+  )
+
+  return formatValue(animatedValue)
 }

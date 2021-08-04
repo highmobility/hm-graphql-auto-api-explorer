@@ -3,6 +3,7 @@ import '../styles/TemperatureBlock.scss'
 import UNITS from '../utils/units'
 import Block from './Block'
 import AnimatedNumber from 'animated-number-react'
+import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function TemperatureBlock({ property }) {
   const unitSymbol = UNITS[property.unit] || property.unit
@@ -10,6 +11,7 @@ export default function TemperatureBlock({ property }) {
 
   const [value, setValue] = useState(0)
   const percentValue = Math.min(value, 100)
+  const animatedValue = useAnimateNumber(Number(value), 500)
 
   useEffect(() => {
     setValue(property.value || 0)
@@ -85,12 +87,7 @@ export default function TemperatureBlock({ property }) {
           />
         </svg>
         <div className="TemperatureBlockInnerCircle">
-          <div className="Num2">
-            <AnimatedNumber
-              value={value}
-              formatValue={(value) => value.toFixed(0)}
-            />
-          </div>
+          <div className="Num2">{animatedValue}</div>
           <div className="Num4">{unitSymbol}</div>
         </div>
       </div>

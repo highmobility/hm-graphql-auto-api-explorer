@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Block from './Block'
 import '../styles/FuelLevelBlock.scss'
-import AnimatedNumber from 'animated-number-react'
+import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function FuelLevelBlock({ property }) {
   const [percentValue, setPercentValue] = useState(0)
@@ -9,15 +9,14 @@ export default function FuelLevelBlock({ property }) {
     setPercentValue((property.value || 0) * 100)
   }, [property])
 
+  const animatedValue = useAnimateNumber(Number(percentValue), 500)
+
   return (
     <Block className="FuelLevelBlock" property={property}>
       <div className="FuelLevelBlockContent">
         <div className="FuelLevelSvgWrapper">
-          <div className="FuelLevelBlockPercentValue Num2">
-            <AnimatedNumber
-              value={percentValue}
-              formatValue={(value) => value.toFixed(0)}
-            />
+          <div className="FuelLevelBlockanimatedValue Num2">
+            {animatedValue}
           </div>
           <svg viewBox="0 0 226 149">
             <path
@@ -122,87 +121,87 @@ export default function FuelLevelBlock({ property }) {
             />
 
             <path
-              fill={percentValue >= 0 ? '#0085ff' : '#e9ecef'}
+              fill={animatedValue >= 0 ? '#0085ff' : 'transparent'}
               d="M25.1,108.24l-23-1.14A2,2,0,0,0,0,109v3.9a2,2,0,0,0,2,2h.1l23-1.14a2,2,0,0,0,1.9-2v-1.52A2,2,0,0,0,25.1,108.24Z"
             />
             <path
-              fill={percentValue >= 5 ? '#008bff' : '#e9ecef'}
+              fill={animatedValue >= 5 ? '#008bff' : 'transparent'}
               d="M20.56,95.62,10.73,93.8c-.33,1.77-.62,3.56-.85,5.37l9.92,1.3C20,98.84,20.27,97.22,20.56,95.62Z"
             />
             <path
-              fill={percentValue >= 10 ? '#0091ff' : '#e9ecef'}
+              fill={animatedValue >= 10 ? '#0091ff' : 'transparent'}
               d="M24.38,81.4,15,78.05c-.61,1.7-1.17,3.43-1.69,5.17l9.59,2.85C23.32,84.49,23.83,82.94,24.38,81.4Z"
             />
             <path
-              fill={percentValue >= 15 ? '#0096ff' : '#e9ecef'}
+              fill={animatedValue >= 15 ? '#0096ff' : 'transparent'}
               d="M19.14,68l9,4.32c.71-1.48,1.46-2.93,2.24-4.37l-8.77-4.79Q20.31,65.56,19.14,68Z"
             />
             <path
-              fill={percentValue >= 20 ? '#009cff' : '#e9ecef'}
+              fill={animatedValue >= 20 ? '#009cff' : 'transparent'}
               d="M27.33,53.91l8.22,5.69q1.39-2,2.9-4l-7.92-6.11C29.43,51,28.36,52.42,27.33,53.91Z"
             />
             <path
-              fill={percentValue >= 25 ? '#00a1ff' : '#e9ecef'}
+              fill={animatedValue >= 25 ? '#00a1ff' : 'transparent'}
               d="M37.61,41.27l7.24,6.9C46,47,47.15,45.83,48.34,44.7l-6.87-7.27C40.15,38.68,38.87,40,37.61,41.27Z"
             />
             <path
-              fill={percentValue >= 30 ? '#00a6ff' : '#e9ecef'}
+              fill={animatedValue >= 30 ? '#00a6ff' : 'transparent'}
               d="M49.74,30.39l6.08,7.94q1.95-1.5,4-2.89L54.15,27.2C52.65,28.22,51.18,29.29,49.74,30.39Z"
             />
             <path
-              fill={percentValue >= 35 ? '#00abff' : '#e9ecef'}
+              fill={animatedValue >= 35 ? '#00abff' : 'transparent'}
               d="M63.42,21.52l4.77,8.8c1.43-.78,2.89-1.53,4.38-2.23l-4.3-9Q65.81,20.23,63.42,21.52Z"
             />
             <path
-              fill={percentValue >= 40 ? '#00b0ff' : '#e9ecef'}
+              fill={animatedValue >= 40 ? '#00b0ff' : 'transparent'}
               d="M78.32,14.91l3.33,9.43c1.54-.54,3.09-1.05,4.67-1.51l-2.83-9.59C81.75,13.75,80,14.31,78.32,14.91Z"
             />
             <path
-              fill={percentValue >= 45 ? '#00b5ff' : '#e9ecef'}
+              fill={animatedValue >= 45 ? '#00b5ff' : 'transparent'}
               d="M94.07,10.71l1.81,9.84c1.6-.29,3.22-.55,4.85-.76L99.44,9.87Q96.74,10.23,94.07,10.71Z"
             />
             <path
-              fill={percentValue >= 50 ? '#00b9fd' : '#e9ecef'}
+              fill={animatedValue >= 50 ? '#00b9fd' : 'transparent'}
               d="M114.9,0h-3.8a2,2,0,0,0-2,2v.1l1.14,23a2,2,0,0,0,2,1.9h1.52a2,2,0,0,0,2-1.9l1.14-23A2,2,0,0,0,115,0Z"
             />
             <path
-              fill={percentValue >= 55 ? '#00bdfc' : '#e9ecef'}
+              fill={animatedValue >= 55 ? '#00bdfc' : 'transparent'}
               d="M125.27,19.79c1.63.21,3.25.47,4.85.76l1.81-9.84q-2.67-.48-5.37-.84Z"
             />
             <path
-              fill={percentValue >= 60 ? '#1bc2fa' : '#e9ecef'}
+              fill={animatedValue >= 60 ? '#1bc2fa' : 'transparent'}
               d="M139.68,22.83c1.58.46,3.14,1,4.68,1.51l3.32-9.43c-1.7-.6-3.43-1.16-5.17-1.67Z"
             />
             <path
-              fill={percentValue >= 65 ? '#33c6f8' : '#e9ecef'}
+              fill={animatedValue >= 65 ? '#33c6f8' : 'transparent'}
               d="M157.73,19.06l-4.3,9c1.49.7,2.95,1.45,4.38,2.23l4.77-8.8C161,20.65,159.38,19.84,157.73,19.06Z"
             />
             <path
-              fill={percentValue >= 70 ? '#44caf7' : '#e9ecef'}
+              fill={animatedValue >= 70 ? '#44caf7' : 'transparent'}
               d="M170.9,26.26l-5.47,8.34q2.07,1.35,4,2.8l5.91-8.08C173.92,28.25,172.42,27.23,170.9,26.26Z"
             />
             <path
-              fill={percentValue >= 75 ? '#53cef5' : '#e9ecef'}
+              fill={animatedValue >= 75 ? '#53cef5' : 'transparent'}
               d="M183.81,36.19l-6.73,7.41q1.84,1.65,3.58,3.4l7.09-7C186.47,38.66,185.15,37.4,183.81,36.19Z"
             />
             <path
-              fill={percentValue >= 80 ? '#60d2f3' : '#e9ecef'}
+              fill={animatedValue >= 80 ? '#60d2f3' : 'transparent'}
               d="M195,48l-7.79,6.28c1,1.28,2,2.6,3,3.91l8.1-5.87C197.23,50.93,196.14,49.45,195,48Z"
             />
             <path
-              fill={percentValue >= 85 ? '#6dd5f2' : '#e9ecef'}
+              fill={animatedValue >= 85 ? '#6dd5f2' : 'transparent'}
               d="M204.22,61.45l-8.67,5c.81,1.44,1.6,2.89,2.34,4.36l8.91-4.54C206,64.65,205.11,63.09,204.22,61.45Z"
             />
             <path
-              fill={percentValue >= 90 ? '#79d9f1' : '#e9ecef'}
+              fill={animatedValue >= 90 ? '#79d9f1' : 'transparent'}
               d="M211.22,76.19l-9.33,3.57c.58,1.54,1.13,3.07,1.63,4.63l9.5-3.07Q212.2,78.76,211.22,76.19Z"
             />
             <path
-              fill={percentValue >= 95 ? '#85ddf0' : '#e9ecef'}
+              fill={animatedValue >= 95 ? '#85ddf0' : 'transparent'}
               d="M206.87,98.72l9.89-1.53c-.29-1.8-.61-3.59-1-5.35L206,93.9C206.37,95.5,206.67,97.1,206.87,98.72Z"
             />
             <path
-              fill={percentValue >= 100 ? '#90e0ef' : '#e9ecef'}
+              fill={animatedValue >= 100 ? '#90e0ef' : 'transparent'}
               d="M223.9,107.1A2,2,0,0,1,226,109v3.9a2,2,0,0,1-2,2h-.1l-23-1.14a2,2,0,0,1-1.9-2v-1.52a2,2,0,0,1,1.9-2Z"
             />
           </svg>

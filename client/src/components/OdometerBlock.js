@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Block from './Block'
 import '../styles/OdometerBlock.scss'
-import AnimatedNumber from 'animated-number-react'
+import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function OdometerBlock({ property }) {
   const [value, setValue] = useState(0)
-  const paddedValue = `000000${value}`.slice(-6)
+  const animatedValue = useAnimateNumber(Number(value), 500, (n) =>
+    `000000${n.toFixed(0)}`.slice(-6)
+  )
 
   useEffect(() => {
     setValue(property.value || 0)
@@ -15,42 +17,12 @@ export default function OdometerBlock({ property }) {
     <Block className="OdometerBlock" property={property}>
       <div className="OdometerBlockContent">
         <div className="OdometerBlockDigits">
-          <div className="OdometerBlockDigit Num2">
-            <AnimatedNumber
-              value={paddedValue[0]}
-              formatValue={(value) => value.toFixed(0)}
-            />
-          </div>
-          <div className="OdometerBlockDigit Num2">
-            <AnimatedNumber
-              value={paddedValue[1]}
-              formatValue={(value) => value.toFixed(0)}
-            />
-          </div>
-          <div className="OdometerBlockDigit Num2">
-            <AnimatedNumber
-              value={paddedValue[2]}
-              formatValue={(value) => value.toFixed(0)}
-            />
-          </div>
-          <div className="OdometerBlockDigit Num2">
-            <AnimatedNumber
-              value={paddedValue[3]}
-              formatValue={(value) => value.toFixed(0)}
-            />
-          </div>
-          <div className="OdometerBlockDigit Num2">
-            <AnimatedNumber
-              value={paddedValue[4]}
-              formatValue={(value) => value.toFixed(0)}
-            />
-          </div>
-          <div className="OdometerBlockDigit Num2">
-            <AnimatedNumber
-              value={paddedValue[5]}
-              formatValue={(value) => value.toFixed(0)}
-            />
-          </div>
+          <div className="OdometerBlockDigit Num2">{animatedValue[0]}</div>
+          <div className="OdometerBlockDigit Num2">{animatedValue[1]}</div>
+          <div className="OdometerBlockDigit Num2">{animatedValue[2]}</div>
+          <div className="OdometerBlockDigit Num2">{animatedValue[3]}</div>
+          <div className="OdometerBlockDigit Num2">{animatedValue[4]}</div>
+          <div className="OdometerBlockDigit Num2">{animatedValue[5]}</div>
         </div>
         <div className="OdometerBlockUnit">
           {property.unit.replace(/_/g, ' ')}

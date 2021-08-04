@@ -1,9 +1,9 @@
 import React from 'react'
 import '../styles/CoordinatesBlock.scss'
 import Block from './Block'
-import AnimatedNumber from 'animated-number-react'
 import GoogleMap from './GoogleMap'
 import { ReactComponent as MapIcon } from '../images/map.svg'
+import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function CoordinatesBlock({ property }) {
   const marker = {
@@ -13,26 +13,26 @@ export default function CoordinatesBlock({ property }) {
       lng: Number(property.value.longitude),
     },
   }
+  const animatedLatitude = useAnimateNumber(
+    Number(property.value.latitude),
+    500,
+    (n) => n.toFixed(1)
+  )
+  const animatedLongitude = useAnimateNumber(
+    Number(property.value.longitude),
+    500,
+    (n) => n.toFixed(1)
+  )
 
   return (
     <Block className="CoordinatesBlock" property={property}>
       <div className="CoordinatesBlockTop">
         <div className="CoordinatesBlockTopItem">
-          <div className="Num2">
-            <AnimatedNumber
-              value={property.value.latitude}
-              formatValue={(value) => value.toFixed(1)}
-            />
-          </div>
+          <div className="Num2">{animatedLatitude} </div>
           <div className="CoordinatesBlockLatLongText"> lat</div>
         </div>
         <div className="CoordinatesBlockTopItem">
-          <div className="Num2">
-            <AnimatedNumber
-              value={property.value.longitude}
-              formatValue={(value) => value.toFixed(1)}
-            />
-          </div>
+          <div className="Num2">{animatedLongitude} </div>
           <div className="CoordinatesBlockLatLongText"> long</div>
         </div>
       </div>

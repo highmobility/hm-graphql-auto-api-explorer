@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../styles/SpeedBlock.scss'
 import UNITS from '../utils/units'
 import Block from './Block'
-import AnimatedNumber from 'animated-number-react'
+import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function SpeedBlock({ property }) {
   const unitSymbol = UNITS[property.unit] || property.unit
@@ -13,6 +13,7 @@ export default function SpeedBlock({ property }) {
     (valueInMetersPerSecond / maxValue) * 100,
     maxValue
   )
+  const animatedValue = useAnimateNumber(Number(property.value), 500)
 
   const dashArraySize = 530
   const dashOffset = dashArraySize + (dashArraySize / 100) * percentValue
@@ -118,12 +119,7 @@ export default function SpeedBlock({ property }) {
           </svg>
         </div>
         <div className="SpeedBlockInnerContent">
-          <div className="Num2">
-            <AnimatedNumber
-              value={property.value}
-              formatValue={(value) => value.toFixed(0)}
-            />
-          </div>
+          <div className="Num2">{animatedValue}</div>
           <div className="SpeedPropertyUnit">{unitSymbol}</div>
         </div>
       </div>
