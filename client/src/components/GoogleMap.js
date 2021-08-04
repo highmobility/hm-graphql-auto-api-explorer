@@ -4,7 +4,6 @@ import googleMapsTheme from '../data/mapsTheme.json'
 import '../styles/GoogleMap.scss'
 
 const loader = new Loader({
-  // apiKey: 'AIzaSyDHGGCWUgVV7elhOTnJSawnzUu1nDu1fo0',
   apiKey: '',
   version: 'weekly',
 })
