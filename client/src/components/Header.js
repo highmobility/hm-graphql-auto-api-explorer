@@ -7,8 +7,9 @@ import FilterPropertiesModal from './FilterPropertiesModal'
 import Dropdown from './Dropdown'
 import { VIEWS } from '../store/Config'
 import { upperFirst } from 'lodash'
+import { observer } from 'mobx-react-lite'
 
-export default function Header() {
+const Header = () => {
   const { properties, config } = useMobx()
   const [showFilterModal, setShowFilterModal] = useState(false)
 
@@ -30,11 +31,24 @@ export default function Header() {
       </div>
       <div className="HeaderItem">
         <Dropdown
+          value={config.view}
           label={upperFirst(`${config.view} view`.toLowerCase())}
           items={[
-            { label: 'Grid view', onClick: () => config.setView(VIEWS.GRID) },
-            { label: 'List view', onClick: () => config.setView(VIEWS.LIST) },
-            { label: 'Map view', onClick: () => config.setView(VIEWS.MAP) },
+            {
+              value: VIEWS.GRID,
+              label: 'Grid view',
+              onClick: () => config.setView(VIEWS.GRID),
+            },
+            {
+              value: VIEWS.LIST,
+              label: 'List view',
+              onClick: () => config.setView(VIEWS.LIST),
+            },
+            {
+              value: VIEWS.MAP,
+              label: 'Map view',
+              onClick: () => config.setView(VIEWS.MAP),
+            },
           ]}
         />
       </div>
@@ -47,3 +61,5 @@ export default function Header() {
     </div>
   )
 }
+
+export default observer(Header)
