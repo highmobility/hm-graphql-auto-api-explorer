@@ -125,7 +125,13 @@ function parseConfigurationFiles() {
 
 function buildCapabilityProperties(capability, customTypes, events, unitTypes) {
   return capability.properties.map((property) =>
-    buildCapabilityProperty(property, customTypes, events, unitTypes)
+    buildCapabilityProperty(
+      property,
+      customTypes,
+      events,
+      unitTypes,
+      capability
+    )
   )
 }
 
@@ -140,7 +146,13 @@ function mapStateProps(capability) {
   return capability
 }
 
-function buildCapabilityProperty(property, customTypes, events, unitTypes) {
+function buildCapabilityProperty(
+  property,
+  customTypes,
+  events,
+  unitTypes,
+  capability
+) {
   if (property.type.indexOf('events.') === 0) {
     const eventsRegex = new RegExp(`events.`)
     const eventName = property.type.replace(eventsRegex, '')
@@ -159,7 +171,13 @@ function buildCapabilityProperty(property, customTypes, events, unitTypes) {
 
     if (customType.items) {
       const mappedItems = customType.items.map((propItem) =>
-        buildCapabilityProperty(propItem, customTypes, events, unitTypes)
+        buildCapabilityProperty(
+          propItem,
+          customTypes,
+          events,
+          unitTypes,
+          capability
+        )
       )
 
       return {
@@ -187,6 +205,7 @@ function buildCapabilityProperty(property, customTypes, events, unitTypes) {
     return {
       ...property,
       unit,
+      capabilityName: capability.name,
     }
   }
 
