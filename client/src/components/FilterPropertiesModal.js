@@ -7,7 +7,7 @@ import Toggle from './Toggle'
 import { observer } from 'mobx-react-lite'
 
 const FilterPropertiesModal = (props) => {
-  const { properties } = useMobx()
+  const { config } = useMobx()
 
   return (
     <Modal
@@ -18,7 +18,7 @@ const FilterPropertiesModal = (props) => {
       <div className="FilterPropertiesModalHead">
         <h4>Filter properties</h4>
         <p className="FilterPropertiesModalSelectedProperties small">
-          {properties.shown.length} properties selected
+          {config.shownProperties.length} properties selected
         </p>
       </div>
       <div className="FilterPropertiesModalContent">
@@ -36,11 +36,11 @@ const FilterPropertiesModal = (props) => {
                   {property.name_pretty}
                 </div>
                 <Toggle
-                  value={properties.isShown(property)}
+                  value={config.isPropertyShown(property)}
                   onChange={() => {
-                    properties.isShown(property)
-                      ? properties.hide(property)
-                      : properties.show(property)
+                    config.isPropertyShown(property)
+                      ? config.hideProperty(property)
+                      : config.showProperty(property)
                   }}
                 />
               </div>

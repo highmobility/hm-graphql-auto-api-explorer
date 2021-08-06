@@ -27,6 +27,11 @@
     }
   }
 
+  .DropdownButtonLabelWrapper {
+    position: relative;
+    width: calc(100% - 20px);
+  }
+
   .DropdownContent {
     position: absolute;
     top: calc(100% + 10px);

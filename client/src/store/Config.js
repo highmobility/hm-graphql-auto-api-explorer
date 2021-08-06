@@ -1,4 +1,6 @@
 import { makeAutoObservable } from 'mobx'
+import uniq from 'lodash/uniq'
+import { getPropertyUniqueId } from '../utils/properties'
 
 export const ENVIRONMENTS = {
   DEVELOP: 'DEVELOP',
@@ -26,6 +28,9 @@ export default class Config {
 
   view = VIEWS.GRID
   updateFrequency = 15
+  selectedVehicleId = null
+  pinnedProperties = []
+  shownProperties = []
 
   constructor() {
     makeAutoObservable(this)
@@ -72,7 +77,42 @@ export default class Config {
   }
 
   setUpdateFrequency(frequency) {
-    console.log('setting to', frequency)
     this.updateFrequency = frequency
+  }
+
+  setSelectedVehicle(vehicleId) {
+    this.selectedVehicleId = vehicleId
+  }
+
+  pinProperty(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    this.pinnedProperties = uniq([...this.pinnedProperties, uniqueId])
+  }
+
+  unPinProperty(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    this.pinnedProperties = this.pinnedProperties.filter(
+      (id) => id !== uniqueId
+    )
+  }
+
+  showProperty(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    this.shownProperties = uniq([...this.shownProperties, uniqueId])
+  }
+
+  hideProperty(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    this.shownProperties = this.shownProperties.filter((id) => id !== uniqueId)
+  }
+
+  isPropertyPinned(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    return this.pinnedProperties.includes(uniqueId)
+  }
+
+  isPropertyShown(property) {
+    const uniqueId = getPropertyUniqueId(property)
+    return this.shownProperties.includes(uniqueId)
   }
 }

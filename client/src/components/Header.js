@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import '../styles/Header.scss'
 import PrimaryButton from './PrimaryButton'
 import { ReactComponent as FilterSvg } from '../images/filter.svg'
@@ -10,23 +10,23 @@ import { upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 
 const Header = () => {
-  const { properties, config } = useMobx()
+  const { properties, config, vehicles } = useMobx()
   const [showFilterModal, setShowFilterModal] = useState(false)
 
   const viewDropdownItems = [
     {
       value: VIEWS.GRID,
-      label: 'Grid view',
+      renderLabel: () => 'Grid view',
       onClick: () => config.setView(VIEWS.GRID),
     },
     {
       value: VIEWS.LIST,
-      label: 'List view',
+      renderLabel: () => 'List view',
       onClick: () => config.setView(VIEWS.LIST),
     },
     {
       value: VIEWS.MAP,
-      label: 'Map view',
+      renderLabel: () => 'Map view',
       onClick: () => config.setView(VIEWS.MAP),
     },
   ]
@@ -34,57 +34,82 @@ const Header = () => {
   const updateFrequencyDropdownItems = [
     {
       value: 5,
-      label: 'Every 5 seconds',
+      renderLabel: () => 'Every 5 seconds',
       onClick: () => config.setUpdateFrequency(5),
     },
     {
       value: 10,
-      label: 'Every 10 seconds',
+      renderLabel: () => 'Every 10 seconds',
       onClick: () => config.setUpdateFrequency(10),
     },
     {
       value: 15,
-      label: 'Every 15 seconds',
+      renderLabel: () => 'Every 15 seconds',
       onClick: () => config.setUpdateFrequency(15),
     },
   ]
 
+  const vehicleDropdownItems = vehicles.list.map((vehicle) => ({
+    value: vehicle.id,
+    renderLabel: () => (
+      <Fragment>
+        <div className="HeaderVehicleSelectDropdownBrand">{vehicle.brand}</div>
+        <div className="HeaderVehicleSelectDropdownVin">{vehicle.vin}</div>
+      </Fragment>
+    ),
+    onClick: () => {
+      config.setSelectedVehicle(vehicle.id)
+    },
+  }))
+
+  const selectedVehicle = vehicles.list.find(
+    (vehicle) => vehicle.id === config.selectedVehicleId
+  )
+
   return (
     <div className={`Header`}>
-      <div className="HeaderItem">
-        <PrimaryButton
-          className="HeaderFilterButton"
-          onClick={() => setShowFilterModal(!showFilterModal)}
-        >
-          <FilterSvg />
-          <span>Filter properties</span>
-        </PrimaryButton>
-      </div>
-      <div className="HeaderItem">
-        <div className="HeaderShownPropertiesCount">
-          {properties.shown.length} properties shown
-        </div>
-      </div>
-      <div className="HeaderItem HeaderViewDropdown">
+      <div className="HeaderVehicleSelect">
         <Dropdown
-          value={config.view}
-          label={upperFirst(`${config.view} view`.toLowerCase())}
-          items={viewDropdownItems}
+          value={config.selectedVehicleId}
+          renderLabel={() => (
+            <Fragment>
+              <div className="HeaderVehicleSelectButtonBrand">
+                {selectedVehicle?.brand?.toLowerCase()}
+              </div>
+              <div className="HeaderVehicleSelectButtonVin">
+                {selectedVehicle?.vin}
+              </div>
+            </Fragment>
+          )}
+          items={vehicleDropdownItems}
         />
       </div>
-      <div className="HeaderItem HeaderFrequencyDropdown">
-        <Dropdown
-          value={config.updateFrequency}
-          label={`Update every ${config.updateFrequency}s`}
-          items={updateFrequencyDropdownItems}
-        />
+      <PrimaryButton
+        className="HeaderFilterButton"
+        onClick={() => setShowFilterModal(!showFilterModal)}
+      >
+        <FilterSvg />
+        <span>Filter properties</span>
+      </PrimaryButton>
+      <div className="HeaderShownPropertiesCount">
+        {config.shownProperties.length} properties shown
       </div>
+      <Dropdown
+        className="HeaderViewDropdown"
+        value={config.view}
+        renderLabel={() => upperFirst(`${config.view} view`.toLowerCase())}
+        items={viewDropdownItems}
+      />
+      <Dropdown
+        className="HeaderFrequencyDropdown"
+        value={config.updateFrequency}
+        renderLabel={() => `Update every ${config.updateFrequency}s`}
+        items={updateFrequencyDropdownItems}
+      />
       <FilterPropertiesModal
         show={showFilterModal}
         close={() => setShowFilterModal(false)}
-      >
-        filterModal
-      </FilterPropertiesModal>
+      />
     </div>
   )
 }

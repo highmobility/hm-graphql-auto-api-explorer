@@ -4,7 +4,12 @@ import { ReactComponent as ChevronIcon } from '../images/chevron.svg'
 import { useClickAway } from 'react-use'
 import { animated, useTransition } from '@react-spring/web'
 
-export default function Dropdown({ className, label, value, items = [] }) {
+export default function Dropdown({
+  className,
+  renderLabel = () => '',
+  value,
+  items = [],
+}) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   useClickAway(ref, () => {
@@ -28,7 +33,7 @@ export default function Dropdown({ className, label, value, items = [] }) {
       ref={ref}
     >
       <div className="DropdownButton" onClick={() => setOpen(!open)}>
-        <span>{label}</span>
+        <div className="DropdownButtonLabelWrapper">{renderLabel()}</div>
         <ChevronIcon />
       </div>
       {transitions(({ opacity }) => (
@@ -36,6 +41,7 @@ export default function Dropdown({ className, label, value, items = [] }) {
           style={{
             opacity,
           }}
+          className="DropdownValueTransitionWrapper"
         >
           <div className={`DropdownContent`}>
             {items.map((item, key) => (
@@ -46,7 +52,7 @@ export default function Dropdown({ className, label, value, items = [] }) {
                 key={key}
                 onClick={() => onClickItem(item)}
               >
-                {item.label}
+                {item.renderLabel() || ''}
               </div>
             ))}
           </div>

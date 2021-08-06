@@ -7,7 +7,7 @@ import { useMobx } from '../store/mobx'
 import { useEffect } from 'react'
 
 function DashboardPage() {
-  const { vehicles, app } = useMobx()
+  const { vehicles, app, config } = useMobx()
   const properties = [
     {
       id: 0,
@@ -100,6 +100,9 @@ function DashboardPage() {
     const fetchPageData = async () => {
       app.setLoading(true)
       await vehicles.fetch()
+      if (!config.selectedVehicleId) {
+        config.setSelectedVehicle(vehicles?.list?.[0]?.id || null)
+      }
       app.setLoading(false)
     }
     fetchPageData()

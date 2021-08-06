@@ -5,18 +5,18 @@ import { useMobx } from '../store/mobx'
 import { observer } from 'mobx-react-lite'
 
 function PinButton({ property }) {
-  const { properties } = useMobx()
+  const { config } = useMobx()
 
   if (!property) return null
 
-  const active = properties.pinned.includes(property.id)
+  const active = config.isPropertyPinned(property)
 
   const onClick = () => {
     if (active) {
-      return properties.unPin(property.id)
+      return config.unPinProperty(property)
     }
 
-    return properties.pin(property.id)
+    return config.pinProperty(property)
   }
 
   return (
