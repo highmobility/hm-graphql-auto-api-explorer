@@ -1,34 +1,47 @@
-import jwt from 'jwt'
+import config from './config'
+import jwt from 'jsonwebtoken'
 import uuid4 from 'uuid4'
 
+const APP_ENVIRONMENTS = {
+  DEVELOP: 'DEVELOP',
+  PRODUCTION: 'PRODUCTION',
+}
+
 export function generateJWT(
-  privateKey,
-  privateKeyId,
-  appUrl,
+  accessToken,
   appId,
-  clientSerialNumber
+  appEnvironment = APP_ENVIRONMENTS.DEVELOP
 ) {
-  const REST_API_CONFIG = {
+  // auth flow:
+  // 1. use oAuthUrl, oAuthClientId, appId, oAuthRedirectURI to get oAuthCode
+  // 2. use oAuthTokenUrl, oAuthCode, oAuthRedirectURI, oAuthClientId, oAuthClientSecret to get accessToken
+  // 3. use accessToken, graphQLConfig(version, type, private_key, client_serial_number ) to generate graphQL JWT
+
+  // current app config fields: appId, clientPrivateKey, clientCertificate
+  // new app config fields: graphQlConfig.app_id, graphQlConfig.version, graphQlConfig.private_key, graphQlConfig.client_serial_number (temporarily use REST one and hardcode some values)
+
+  // This cannot be copied as of now
+  const GRAPHQL_API_CONFIG = {
     version: '2.0',
-    type: 'rest_api',
-    private_key_id: '4ac6ebda-efdf-4f2e-8c53-cf27e3ce7f27',
+    app_id: appId,
+    client_serial_number: 'fc2e6591408076a340'.toUpperCase(),
     private_key:
       '-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgaL4l2cOjGIygxdMh\nEr7PRd7xVV707KKlsR546KaMNtOhRANCAASNUqCakHD3+WHDOI3F9yTx6Ok4fFeK\nSstonpljta/EbIM4zxCrobVMgfWzQAT9TIfsv4Bs1N8Dd3aWp9pPOycA\n-----END PRIVATE KEY-----\n\n',
-    app_uri: 'https://sandbox.graphql-api.develop.high-mobility.net',
-    app_id: '40AAAAC3C6467F0393FFD528',
-    client_serial_number: 'fc2e6591408076a340',
   }
 
   const payload = {
-    ver: REST_API_CONFIG.version,
-    iss: REST_API_CONFIG.client_serial_number.toUpperCase(),
+    ver: GRAPHQL_API_CONFIG.version,
+    iss: GRAPHQL_API_CONFIG.client_serial_number.toUpperCase(),
     sub: accessToken,
-    aud: REST_API_CONFIG.app_uri,
+    aud:
+      appEnvironment === APP_ENVIRONMENTS.DEVELOP
+        ? config.graphQlApiDevelopUrl
+        : config.graphQlApiProductionUrl,
     iat: Math.round(Date.now() / 1000),
     jti: uuid4(),
   }
 
-  const privateKey = Buffer.from(REST_API_CONFIG.private_key, 'utf8')
+  const privateKey = Buffer.from(GRAPHQL_API_CONFIG.private_key, 'utf8')
   const jwtToken = jwt.sign(payload, privateKey, {
     algorithm: 'ES256',
   })

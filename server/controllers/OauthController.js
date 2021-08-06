@@ -47,15 +47,15 @@ export default class OAuthController {
     } catch (err) {
       console.log('OAuth callback error', err)
       res.redirect(
-        `${req.protocol}://${req.host}${
-          req.host === 'localhost' ? ':3000' : ''
+        `${req.protocol}://${req.hostname}${
+          req.hostname === 'localhost' ? ':3000' : ''
         }/initial-config?error`
       )
     }
 
     res.redirect(
-      `${req.protocol}://${req.host}${
-        req.host === 'localhost' ? ':3000' : ''
+      `${req.protocol}://${req.hostname}${
+        req.hostname === 'localhost' ? ':3000' : ''
       }/dashboard`
     )
   }

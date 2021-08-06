@@ -6,7 +6,7 @@ export const API_URL = `${window.location.protocol}//${
 export const AUTH_CALLBACK_URL = `${API_URL}/auth/callback`
 
 export const setConfig = async (config) => {
-  const { data = [] } = await axios.post('api/config', config)
+  const { data = [] } = await axios.post(`${API_URL}/config`, config)
 
   return data
 }

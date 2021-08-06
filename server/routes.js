@@ -9,9 +9,9 @@ const vehiclesController = new VehiclesController()
 
 const router = new Router()
 router.post('/config', configController.store)
+// GET: config
 router.get('/vehicles', vehiclesController.index)
 router.get('/auth/callback', oAuthController.callback)
-// POST: properties/shown [1,2,3,4]
-// GET: data, returns { properties, shownProperties, pinnedProperties }
+router.get('/vehicle-data/:vehicleId', vehiclesController.getData)
 
 export default router

@@ -1,10 +1,8 @@
 import { knex as initKnex } from 'knex'
-import dotenv from 'dotenv'
-
-dotenv.config()
+import config from './config'
 
 export const knex = initKnex({
   client: 'pg',
-  connection: process.env.DATABASE_URL,
+  connection: config.databaseUrl,
   searchPath: ['knex', 'public'],
 })
