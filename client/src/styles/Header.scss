@@ -32,10 +32,18 @@
     width: 130px;
     margin-left: auto;
     margin-right: 10px;
+
+    .Dropdown {
+      width: 100%;
+    }
   }
 
   .HeaderFrequencyDropdown {
     width: 185px;
     margin-left: 0;
+
+    .Dropdown {
+      width: 100%;
+    }
   }
 }
