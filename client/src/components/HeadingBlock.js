@@ -24,7 +24,7 @@ export default function HeadingBlock({ property }) {
     <Block className="HeadingBlock" property={property}>
       <div className="HeadingBlockContent">
         <div className="HeadingCircleWrapper">
-          <HeadingSvg />
+          <HeadingSvg id="HeadingCircleSvg" />
           <HeadingCarSvg
             id="HeadingCarSvg"
             style={{ transform: `rotate(${valueInDegrees - baseRotation}deg)` }}
