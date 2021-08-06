@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useHistory } from 'react-router-dom'
-import { setConfig } from '../requests'
+import { AUTH_CALLBACK_URL, setConfig } from '../requests'
 import routes, { PAGES } from '../routes'
 import { ENVIRONMENTS } from '../store/Config'
 import { useMobx } from '../store/mobx'
@@ -132,8 +132,8 @@ function InitialConfigPage() {
               onFocus={() => config.setFocusedInput('tokenUrl')}
             />
             <div className="TokenInfo">
-              <label>Add the following URI</label>
-              <p className="small">http://localhost:8080/auth/callback</p>
+              <label>Add the following redirect URI</label>
+              <p className="small">{AUTH_CALLBACK_URL}</p>
             </div>
           </ConfigGroup>
           <ConfigGroup>

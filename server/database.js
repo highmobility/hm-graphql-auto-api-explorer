@@ -1,13 +1,10 @@
-import { Client } from 'pg'
+import { knex as initKnex } from 'knex'
 import dotenv from 'dotenv'
 
 dotenv.config()
 
-const database = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+export const knex = initKnex({
+  client: 'pg',
+  connection: process.env.DATABASE_URL,
+  searchPath: ['knex', 'public'],
 })
-
-export default database

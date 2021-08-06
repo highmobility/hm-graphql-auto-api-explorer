@@ -1,0 +1,62 @@
+import { knex } from '../database'
+import axios from 'axios'
+
+export default class OAuthController {
+  async callback(req, res) {
+    try {
+      const oAuthCode = req.query.code
+      const config = await knex('config').first()
+
+      const { data: tokenResponse } = await axios.post(config.token_url, {
+        grant_type: 'authorization_code',
+        code: oAuthCode,
+        redirect_uri: `${req.protocol}://${req.get('host')}${req.baseUrl}${
+          req._parsedUrl.pathname
+        }`,
+        client_id: config.client_id,
+        client_secret: config.client_secret,
+      })
+
+      // How to get VIN and brand?
+      const vin = 'HARDCODED_VIN'
+      const brand = 'HARDCODED_BRAND'
+
+      await knex.transaction(async (trx) => {
+        const [vehicleId] = await knex('vehicles')
+          .insert(
+            {
+              vin,
+              brand,
+            },
+            'id'
+          )
+          .transacting(trx)
+
+        await knex('access_tokens')
+          .insert(
+            {
+              vehicle_id: vehicleId,
+              access_token: tokenResponse.access_token,
+              refresh_token: tokenResponse.refresh_token,
+              scope: tokenResponse.scope,
+            },
+            'access_token'
+          )
+          .transacting(trx)
+      })
+    } catch (err) {
+      console.log('OAuth callback error', err)
+      res.redirect(
+        `${req.protocol}://${req.host}${
+          req.host === 'localhost' ? ':3000' : ''
+        }/initial-config?error`
+      )
+    }
+
+    res.redirect(
+      `${req.protocol}://${req.host}${
+        req.host === 'localhost' ? ':3000' : ''
+      }/dashboard`
+    )
+  }
+}

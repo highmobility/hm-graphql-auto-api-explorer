@@ -14,6 +14,7 @@ Example app showing how to use the High Mobility GraphQL API
   - [Start API](#2-start-api)
   - [Start client](#3-start-client)
   - [Open in browser](#4-go-to)
+- [Creating and running migrations](#creating-and-running-migrations)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -50,6 +51,14 @@ Example app showing how to use the High Mobility GraphQL API
 - `npm start`
 
 #### 4. Go to http://localhost:3000
+
+## Creating and running migrations
+
+`npm run migrate create my first migration`
+
+`npm run migrate up`
+
+[Full documentation](https://github.com/salsita/node-pg-migrate)
 
 ## Contributing
 

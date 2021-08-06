@@ -1,13 +1,16 @@
 import router from './routes'
 import path from 'path'
 import express from 'express'
-import database from './database'
+import cors from 'cors'
 
 const PORT = process.env.PORT || 3001
 const app = express()
 
-// Connect database
-database.connect()
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  })
+)
 
 // Api routes
 app.use(express.json())

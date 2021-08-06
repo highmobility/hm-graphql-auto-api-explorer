@@ -13,7 +13,15 @@ exports.up = (pgm) => {
     client_secret: { type: 'varchar(1000)', notNull: true },
     auth_url: { type: 'varchar(1000)', notNull: true },
     token_url: { type: 'varchar(1000)', notNull: true },
+    view: { type: 'varchar(1000)' },
+    created_at: {
+      type: 'timestamp',
+      notNull: true,
+      default: pgm.func('current_timestamp'),
+    },
   })
 }
 
-exports.down = (pgm) => {}
+exports.down = (pgm) => {
+  pgm.dropTable('config')
+}

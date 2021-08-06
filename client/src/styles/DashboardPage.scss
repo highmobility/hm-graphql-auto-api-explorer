@@ -2,22 +2,31 @@
   width: 100%;
   min-height: 100vh;
 
-  .GridContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
+  .DashboardMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-    .GridItemContainer {
-      position: absolute;
-      overflow: hidden;
-      will-change: transform, width, height, opacity;
-      display: flex;
-      box-sizing: border-box;
+    .DashboardMessageTitle {
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 37px;
+      text-align: center;
+      color: #adb5bd;
+      margin-bottom: 14px;
     }
 
-    .GridItem {
-      width: 100%;
-      box-sizing: border-box;
+    .DashboardMessageButton {
+      font-size: 16px;
+      line-height: 28px;
+      text-align: center;
+      color: #037be7;
+      cursor: pointer;
+
+      &:hover {
+        color: #0375db;
+      }
     }
   }
 }

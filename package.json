@@ -7,7 +7,7 @@
     "node": "16"
   },
   "scripts": {
-    "start": "node -r esm server/index.js",
+    "start": "nodemon -r esm server/index.js",
     "build": "cd client && npm install && npm run build",
     "migrate": "node-pg-migrate --m='server/migrations' -t 'migrations'"
   },
@@ -19,9 +19,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "knex": "^0.95.9",
     "node-pg-migrate": "^5.10.0",
-    "pg": "^8.6.0"
+    "nodemon": "^2.0.12"
   }
 }
