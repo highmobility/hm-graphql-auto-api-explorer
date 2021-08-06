@@ -18,8 +18,9 @@
     letter-spacing: -0.01em;
     color: #6c757d;
     font-weight: bold;
-    width: 130px;
+    min-width: 130px;
     box-sizing: border-box;
+    white-space: nowrap;
 
     span {
       margin-right: 10px;
@@ -28,7 +29,7 @@
 
   .DropdownContent {
     position: absolute;
-    top: calc(100% + 40px);
+    top: calc(100% + 10px);
     background: white;
     background: #ffffff;
     border: 1px solid #e9ecef;

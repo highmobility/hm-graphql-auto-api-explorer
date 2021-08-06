@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../styles/Dropdown.scss'
 import { ReactComponent as ChevronIcon } from '../images/chevron.svg'
 
-export default function Dropdown({ label, value, items = [] }) {
+export default function Dropdown({ className, label, value, items = [] }) {
   const [open, setOpen] = useState(false)
 
   const onClickItem = (item) => {
@@ -11,7 +11,7 @@ export default function Dropdown({ label, value, items = [] }) {
   }
 
   return (
-    <div className={`Dropdown ${open ? 'Open' : ''}`}>
+    <div className={`Dropdown ${className || ''} ${open ? 'Open' : ''}`}>
       <div className="DropdownButton" onClick={() => setOpen(!open)}>
         <span>{label}</span>
         <ChevronIcon />

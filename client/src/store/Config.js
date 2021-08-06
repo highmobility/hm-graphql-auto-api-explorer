@@ -25,6 +25,7 @@ export default class Config {
     'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
 
   view = VIEWS.GRID
+  updateFrequency = 15
 
   constructor() {
     makeAutoObservable(this)
@@ -68,5 +69,10 @@ export default class Config {
 
   setView(view) {
     this.view = VIEWS[view] || VIEWS.GRID
+  }
+
+  setUpdateFrequency(frequency) {
+    console.log('setting to', frequency)
+    this.updateFrequency = frequency
   }
 }
