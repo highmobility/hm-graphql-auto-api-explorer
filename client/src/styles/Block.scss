@@ -48,6 +48,34 @@
 
     .BlockValue {
       margin-top: auto;
+      overflow: hidden;
+      width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .BlockMultiValues {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .BlockMultiValue {
+        flex: 1;
+      }
+
+      .BlockMultiValueKey {
+        font-size: 14px;
+        line-height: 12px;
+        color: #495057;
+      }
+
+      .BlockMultiValueValue {
+        font-size: 28px;
+        line-height: 33px;
+        display: flex;
+        align-items: flex-end;
+        color: #495057;
+      }
     }
   }
 }

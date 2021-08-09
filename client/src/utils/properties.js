@@ -114,11 +114,16 @@ export function getPropertyConfig(propertyUniqueId) {
     (capability) => capability.name_cased === capabilityName
   )
 
-  return (
+  const config =
     capabilityConfig?.properties?.find(
       (propertyConfig) => propertyConfig.name_cased === propertyName
     ) || null
-  )
+
+  if (!config) {
+    throw new Error(`No config found for ${propertyUniqueId}`)
+  }
+
+  return config
 }
 
 export function getPropertyUniqueId(property) {

@@ -27,7 +27,10 @@ function DashboardPage() {
         config.pinnedProperties.includes(a.id) &&
         config.pinnedProperties.includes(b.id)
       ) {
-        return 0
+        return config.pinnedProperties.indexOf(a.id) <
+          config.pinnedProperties.indexOf(b.id)
+          ? -1
+          : 1
       }
 
       return config.pinnedProperties.includes(a.id) ? -1 : 1

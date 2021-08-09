@@ -29,16 +29,26 @@ export default class Config {
   view = VIEWS.GRID
   updateFrequency = 5
   selectedVehicleId = null
-  pinnedProperties = []
-  shownProperties = [
+  pinnedProperties = [
+    'charging.batteryCurrent',
+    'charging.chargeMode',
     'diagnostics.engineOilTemperature',
     'diagnostics.batteryLevel',
     'diagnostics.speed',
+  ]
+  shownProperties = [
+    'charging.batteryCurrent',
+    'charging.chargeMode',
+    'diagnostics.engineOilTemperature',
+    'diagnostics.batteryLevel',
+    'diagnostics.speed',
+    'hood.lock',
     'vehicleLocation.coordinates',
     'diagnostics.odometer',
     'doors.positions',
     'diagnostics.fuelLevel',
-    // 'vehicleLocation.heading',
+    // 'vehicleLocation.heading', - waiting for api update
+    'seats.personsDetected',
   ]
 
   constructor() {
