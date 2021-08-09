@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import '../styles/Header.scss'
 import PrimaryButton from './PrimaryButton'
 import { ReactComponent as FilterSvg } from '../images/filter.svg'
@@ -10,8 +10,7 @@ import { upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 
 const Header = () => {
-  const { properties, config, vehicles } = useMobx()
-  const [showFilterModal, setShowFilterModal] = useState(false)
+  const { config, vehicles, app } = useMobx()
 
   const viewDropdownItems = [
     {
@@ -86,7 +85,7 @@ const Header = () => {
       </div>
       <PrimaryButton
         className="HeaderFilterButton"
-        onClick={() => setShowFilterModal(!showFilterModal)}
+        onClick={() => app.setShowPropertiesFilter(!app.showPropertiesFilter)}
       >
         <FilterSvg />
         <span>Filter properties</span>
@@ -107,8 +106,8 @@ const Header = () => {
         items={updateFrequencyDropdownItems}
       />
       <FilterPropertiesModal
-        show={showFilterModal}
-        close={() => setShowFilterModal(false)}
+        show={app.showPropertiesFilter}
+        close={() => app.setShowPropertiesFilter(false)}
       />
     </div>
   )

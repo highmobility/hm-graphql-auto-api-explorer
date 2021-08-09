@@ -9,7 +9,7 @@ import { fetchVehicleData } from '../requests'
 
 function DashboardPage() {
   const [dataFetched, setDataFetched] = useState(false)
-  const { vehicles, config, properties } = useMobx()
+  const { vehicles, config, properties, app } = useMobx()
   const parsedProperties = config.shownProperties
     .map((propertyUniqueId) => {
       const data = properties?.values?.[propertyUniqueId]
@@ -82,6 +82,19 @@ function DashboardPage() {
         </div>
       ) : (
         <Grid items={parsedProperties} />
+      )}
+      {vehicles.list.length > 0 && config.shownProperties.length === 0 ? (
+        <div className="DashboardMessage">
+          <div className="DashboardMessageTitle">No properties to show</div>
+          <div
+            className="DashboardMessageButton"
+            onClick={() => app.setShowPropertiesFilter(true)}
+          >
+            Filter properties
+          </div>
+        </div>
+      ) : (
+        ''
       )}
     </div>
   )

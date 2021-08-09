@@ -14,6 +14,8 @@ body {
   color: #152536;
   background: #f7f8fc;
   overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 @import 'config.scss';

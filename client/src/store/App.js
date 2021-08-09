@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx'
 
 export default class App {
   loading = false
+  showPropertiesFilter = false
 
   constructor() {
     makeAutoObservable(this)
@@ -9,5 +10,9 @@ export default class App {
 
   setLoading(loading) {
     this.loading = !!loading
+  }
+
+  setShowPropertiesFilter(value) {
+    this.showPropertiesFilter = value
   }
 }
