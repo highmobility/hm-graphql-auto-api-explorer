@@ -21,8 +21,8 @@ export default function Block({ children, property, className = '' }) {
         </h4>
         {children || (
           <div className="BlockValue">
-            <span className="Num1">{property.data.value}</span>{' '}
-            <span className="Num4">{property.data.unit}</span>
+            <span className="Num1">{property?.data?.value}</span>{' '}
+            <span className="Num4">{property?.data?.unit}</span>
           </div>
         )}
       </div>

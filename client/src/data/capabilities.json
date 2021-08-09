@@ -179,7 +179,8 @@
             "value": "regular",
             "description": "Blind spot warning system coverage is regular."
           }
-        ]
+        ],
+        "capabilityName": "adas"
       },
       {
         "name": "rear_cross_warning_system",
@@ -296,7 +297,8 @@
                 "id": 1,
                 "name": "right"
               }
-            ]
+            ],
+            "capabilityName": "adas"
           },
           {
             "name": "state",
@@ -512,7 +514,8 @@
             "value": "https://about.high-mobility.com",
             "description": "URL is \"https://about.high-mobility.com\""
           }
-        ]
+        ],
+        "capabilityName": "browser"
       }
     ]
   },
@@ -550,14 +553,16 @@
             "name_pretty": "Capability ID",
             "type": "uinteger",
             "size": 2,
-            "description": "The identifier of the supported capability"
+            "description": "The identifier of the supported capability",
+            "capabilityName": "capabilities"
           },
           {
             "name": "supported_property_ids",
             "name_cased": "supportedPropertyIDs",
             "name_pretty": "Supported property IDs",
             "type": "bytes",
-            "description": "Array of supported property identifiers"
+            "description": "Array of supported property identifiers",
+            "capabilityName": "capabilities"
           }
         ],
         "id": 1,
@@ -616,7 +621,8 @@
                 "id": 1,
                 "name": "available"
               }
-            ]
+            ],
+            "capabilityName": "capabilities"
           },
           {
             "name": "event",
@@ -1317,7 +1323,8 @@
             "value": "timer_based",
             "description": "Charging is 'timer based'"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "id": 14,
@@ -1392,7 +1399,8 @@
             "value": "type_2",
             "description": "Electric plug type is 'Type 2'"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "id": 16,
@@ -1417,7 +1425,8 @@
             "value": "not_chosen",
             "description": "Charging window is not chosen"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "name": "departure_times",
@@ -1462,7 +1471,8 @@
                 "validation": "min:0|max:23",
                 "type": "uinteger",
                 "size": 1,
-                "description": "Value between 0 and 23"
+                "description": "Value between 0 and 23",
+                "capabilityName": "charging"
               },
               {
                 "name": "minute",
@@ -1471,7 +1481,8 @@
                 "validation": "min:0|max:59",
                 "type": "uinteger",
                 "size": 1,
-                "description": "Value between 0 and 59"
+                "description": "Value between 0 and 59",
+                "capabilityName": "charging"
               }
             ],
             "customType": "time",
@@ -1548,7 +1559,8 @@
                 "validation": "min:0|max:23",
                 "type": "uinteger",
                 "size": 1,
-                "description": "Value between 0 and 23"
+                "description": "Value between 0 and 23",
+                "capabilityName": "charging"
               },
               {
                 "name": "minute",
@@ -1557,7 +1569,8 @@
                 "validation": "min:0|max:59",
                 "type": "uinteger",
                 "size": 1,
-                "description": "Value between 0 and 59"
+                "description": "Value between 0 and 59",
+                "capabilityName": "charging"
               }
             ],
             "customType": "time",
@@ -1661,14 +1674,16 @@
                 "id": 2,
                 "name": "departure_date"
               }
-            ]
+            ],
+            "capabilityName": "charging"
           },
           {
             "name": "date",
             "name_cased": "date",
             "type": "timestamp",
             "size": 8,
-            "description": "Timer date"
+            "description": "Timer date",
+            "capabilityName": "charging"
           }
         ],
         "id": 21,
@@ -1726,7 +1741,8 @@
             "value": "plugged_in",
             "description": "The charger is plugged in"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "id": 23,
@@ -1798,7 +1814,8 @@
             "value": "charging",
             "description": "The vehicle is charging"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "id": 24,
@@ -1960,7 +1977,8 @@
             "value": "alternating_current",
             "description": "Alternating current is used"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "id": 28,
@@ -2080,7 +2098,8 @@
             "value": "green",
             "description": "Starter battery status is green"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "id": 30,
@@ -2113,7 +2132,8 @@
             "value": "scc_is_active",
             "description": "Smart Charge Communication is active"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "name": "battery_level_at_departure",
@@ -2271,7 +2291,8 @@
             "value": "not_possible_low",
             "description": "Preconditioning not possible because battery or fuel is low"
           }
-        ]
+        ],
+        "capabilityName": "charging"
       },
       {
         "id": 36,
@@ -2362,25 +2383,29 @@
             "name": "city",
             "name_cased": "city",
             "type": "string",
-            "description": "City the charging point is in."
+            "description": "City the charging point is in.",
+            "capabilityName": "chargingSession"
           },
           {
             "name": "postal_code",
             "name_cased": "postalCode",
             "type": "string",
-            "description": "Postal code the charging point is at."
+            "description": "Postal code the charging point is at.",
+            "capabilityName": "chargingSession"
           },
           {
             "name": "street",
             "name_cased": "street",
             "type": "string",
-            "description": "Street address the chargin point is at."
+            "description": "Street address the chargin point is at.",
+            "capabilityName": "chargingSession"
           },
           {
             "name": "provider",
             "name_cased": "provider",
             "type": "string",
-            "description": "The provider name of the charging point."
+            "description": "The provider name of the charging point.",
+            "capabilityName": "chargingSession"
           }
         ],
         "id": 1,
@@ -2474,7 +2499,8 @@
             "value": "Repeat the plug-in",
             "description": "Business error states 'Repeat the plug-in'"
           }
-        ]
+        ],
+        "capabilityName": "chargingSession"
       },
       {
         "id": 5,
@@ -2490,7 +2516,8 @@
             "value": "Europe/Berlin",
             "description": "Charging session`s time zone is Europe - Berlin"
           }
-        ]
+        ],
+        "capabilityName": "chargingSession"
       },
       {
         "id": 6,
@@ -2507,7 +2534,8 @@
             "value": "2021-03-10T11:00:39.373Z",
             "description": "Charging session started on 10. March 2021 at 10:57:57 CET"
           }
-        ]
+        ],
+        "capabilityName": "chargingSession"
       },
       {
         "id": 7,
@@ -2524,7 +2552,8 @@
             "value": "2021-03-10T10:58:45.694Z",
             "description": "Charging session ended on 10. March 2021 at 10:58:45 CET"
           }
-        ]
+        ],
+        "capabilityName": "chargingSession"
       },
       {
         "id": 8,
@@ -2803,28 +2832,32 @@
             "name": "currency",
             "name_cased": "currency",
             "type": "string",
-            "description": "Currency ISO code"
+            "description": "Currency ISO code",
+            "capabilityName": "chargingSession"
           },
           {
             "name": "calculated_charging_cost",
             "name_cased": "calculatedChargingCost",
             "type": "double",
             "size": 8,
-            "description": "Calculated charging cost"
+            "description": "Calculated charging cost",
+            "capabilityName": "chargingSession"
           },
           {
             "name": "calculated_savings",
             "name_cased": "calculatedSavings",
             "type": "double",
             "size": 8,
-            "description": "Calculated savings from charging"
+            "description": "Calculated savings from charging",
+            "capabilityName": "chargingSession"
           },
           {
             "name": "simulated_immediate_charging_cost",
             "name_cased": "simulatedImmediateChargingCost",
             "type": "double",
             "size": 8,
-            "description": "Simulated charging costs"
+            "description": "Simulated charging costs",
+            "capabilityName": "chargingSession"
           }
         ],
         "id": 13,
@@ -2855,19 +2888,22 @@
             "name": "municipality",
             "name_cased": "municipality",
             "type": "string",
-            "description": "Municipality component of the address"
+            "description": "Municipality component of the address",
+            "capabilityName": "chargingSession"
           },
           {
             "name": "formatted_address",
             "name_cased": "formattedAddress",
             "type": "string",
-            "description": "Full formatted address"
+            "description": "Full formatted address",
+            "capabilityName": "chargingSession"
           },
           {
             "name": "street_address",
             "name_cased": "streetAddress",
             "type": "string",
-            "description": "Streed address component"
+            "description": "Streed address component",
+            "capabilityName": "chargingSession"
           }
         ],
         "id": 14,
@@ -3018,7 +3054,8 @@
             "value": "active",
             "description": "Sport Chrono is active"
           }
-        ]
+        ],
+        "capabilityName": "chassisSettings"
       },
       {
         "name": "current_spring_rates",
@@ -4001,7 +4038,8 @@
                 "validation": "min:0|max:23",
                 "type": "uinteger",
                 "size": 1,
-                "description": "Value between 0 and 23"
+                "description": "Value between 0 and 23",
+                "capabilityName": "climate"
               },
               {
                 "name": "minute",
@@ -4010,7 +4048,8 @@
                 "validation": "min:0|max:59",
                 "type": "uinteger",
                 "size": 1,
-                "description": "Value between 0 and 59"
+                "description": "Value between 0 and 59",
+                "capabilityName": "climate"
               }
             ],
             "customType": "time",
@@ -4206,7 +4245,8 @@
                 "id": 2,
                 "name": "rear"
               }
-            ]
+            ],
+            "capabilityName": "crash"
           },
           {
             "name": "severity",
@@ -4231,7 +4271,8 @@
                 "id": 3,
                 "name": "low"
               }
-            ]
+            ],
+            "capabilityName": "crash"
           },
           {
             "name": "repairs",
@@ -4251,7 +4292,8 @@
                 "id": 2,
                 "name": "not_needed"
               }
-            ]
+            ],
+            "capabilityName": "crash"
           }
         ],
         "id": 1,
@@ -4314,7 +4356,8 @@
             "value": "non_pedestrian",
             "description": "Crash type is non-pedestrian (i.e. a another vehicle)"
           }
-        ]
+        ],
+        "capabilityName": "crash"
       },
       {
         "id": 3,
@@ -4340,7 +4383,8 @@
             "value": "not_tipped",
             "description": "Crash did not tip over the vehicle"
           }
-        ]
+        ],
+        "capabilityName": "crash"
       },
       {
         "name": "automatic_ecall",
@@ -4389,7 +4433,8 @@
             "value": 2,
             "description": "Crash severity is 2"
           }
-        ]
+        ],
+        "capabilityName": "crash"
       },
       {
         "id": 6,
@@ -4440,7 +4485,8 @@
             "value": "front_driver_side",
             "description": "Impact zone is front driver side"
           }
-        ]
+        ],
+        "capabilityName": "crash"
       }
     ]
   },
@@ -4543,7 +4589,8 @@
             "value": "higher_speed_requested",
             "description": "Higher speed requested by the limiter"
           }
-        ]
+        ],
+        "capabilityName": "cruiseControl"
       },
       {
         "id": 3,
@@ -5521,7 +5568,8 @@
                 "id": 195,
                 "name": "inspection_warning"
               }
-            ]
+            ],
+            "capabilityName": "dashboardLights"
           },
           {
             "name": "state",
@@ -7233,7 +7281,8 @@
             "value": "high_beam",
             "description": "A high beam has failed."
           }
-        ]
+        ],
+        "capabilityName": "dashboardLights"
       }
     ]
   },
@@ -8380,7 +8429,8 @@
             "name_pretty": "ID",
             "type": "uinteger",
             "size": 2,
-            "description": "Check Control Message identifier"
+            "description": "Check Control Message identifier",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "remaining_time",
@@ -8430,13 +8480,15 @@
             "name": "text",
             "name_cased": "text",
             "type": "string",
-            "description": "CCM text"
+            "description": "CCM text",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "status",
             "name_cased": "status",
             "type": "string",
-            "description": "CCM status"
+            "description": "CCM status",
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 25,
@@ -8956,27 +9008,31 @@
             "name_cased": "occurrences",
             "type": "uinteger",
             "size": 1,
-            "description": "Number of occurrences"
+            "description": "Number of occurrences",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "id",
             "name_cased": "ID",
             "name_pretty": "ID",
             "type": "string",
-            "description": "Identifier"
+            "description": "Identifier",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "ecu_id",
             "name_cased": "ecuID",
             "name_pretty": "ECU ID",
             "type": "string",
-            "description": "Electronic Control Unit identifier"
+            "description": "Electronic Control Unit identifier",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "status",
             "name_cased": "status",
             "type": "string",
-            "description": "Status"
+            "description": "Status",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "system",
@@ -9005,7 +9061,8 @@
                 "id": 4,
                 "name": "network"
               }
-            ]
+            ],
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 29,
@@ -9333,7 +9390,8 @@
                 "id": 2,
                 "name": "alert"
               }
-            ]
+            ],
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 33,
@@ -9466,7 +9524,8 @@
             "name_cased": "ID",
             "name_pretty": "ID",
             "type": "string",
-            "description": "Identifier for the trouble code"
+            "description": "Identifier for the trouble code",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "key_value",
@@ -9479,13 +9538,15 @@
                 "name": "key",
                 "name_cased": "key",
                 "type": "string",
-                "description": "Key for the value"
+                "description": "Key for the value",
+                "capabilityName": "diagnostics"
               },
               {
                 "name": "value",
                 "name_cased": "value",
                 "type": "string",
-                "description": "Value for the key"
+                "description": "Value for the key",
+                "capabilityName": "diagnostics"
               }
             ],
             "customType": "key_value",
@@ -9641,27 +9702,31 @@
             "name_cased": "ID",
             "name_pretty": "ID",
             "type": "string",
-            "description": "Identifier"
+            "description": "Identifier",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "ecu_address",
             "name_cased": "ecuAddress",
             "name_pretty": "ECU address",
             "type": "string",
-            "description": "Electronic Control Unit address"
+            "description": "Electronic Control Unit address",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "ecu_variant_name",
             "name_cased": "ecuVariantName",
             "name_pretty": "ECU variant name",
             "type": "string",
-            "description": "Electronic Control Unit variant name"
+            "description": "Electronic Control Unit variant name",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "status",
             "name_cased": "status",
             "type": "string",
-            "description": "Status"
+            "description": "Status",
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 39,
@@ -9726,7 +9791,8 @@
                 "id": 4,
                 "name": "over_limit"
               }
-            ]
+            ],
+            "capabilityName": "diagnostics"
           },
           {
             "name": "component",
@@ -9754,7 +9820,8 @@
                 "id": 4,
                 "name": "off_board_regeneration"
               }
-            ]
+            ],
+            "capabilityName": "diagnostics"
           },
           {
             "name": "cleaning",
@@ -9778,7 +9845,8 @@
                 "id": 3,
                 "name": "interrupted"
               }
-            ]
+            ],
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 40,
@@ -10118,7 +10186,8 @@
             "value": "measured",
             "description": "Fuel level has been measured"
           }
-        ]
+        ],
+        "capabilityName": "diagnostics"
       },
       {
         "name": "tire_pressures_targets",
@@ -10663,7 +10732,8 @@
             "value": "normal",
             "description": "Engine oil pressure is normal"
           }
-        ]
+        ],
+        "capabilityName": "diagnostics"
       },
       {
         "id": 53,
@@ -10758,7 +10828,8 @@
             "value": "ok",
             "description": "Low voltage battery charge level is ok"
           }
-        ]
+        ],
+        "capabilityName": "diagnostics"
       }
     ]
   },
@@ -11027,7 +11098,8 @@
                 "id": 5,
                 "name": "all"
               }
-            ]
+            ],
+            "capabilityName": "doors"
           },
           {
             "name": "position",
@@ -11217,7 +11289,8 @@
             "value": "pause_recommended",
             "description": "Driver is recommended to take a pause"
           }
-        ]
+        ],
+        "capabilityName": "driverFatigue"
       }
     ]
   },
@@ -11387,7 +11460,8 @@
             "value": 33,
             "description": "Failed message is the 'Trunk' capability"
           }
-        ]
+        ],
+        "capabilityName": "failureMessage"
       },
       {
         "id": 2,
@@ -11403,7 +11477,8 @@
             "value": 1,
             "description": "Failed message type is 'set'"
           }
-        ]
+        ],
+        "capabilityName": "failureMessage"
       },
       {
         "id": 3,
@@ -11480,7 +11555,8 @@
             "value": "unauthorised",
             "description": "Failure occured because of unauthorised state"
           }
-        ]
+        ],
+        "capabilityName": "failureMessage"
       },
       {
         "id": 4,
@@ -11495,7 +11571,8 @@
             "value": "Try again",
             "description": "Failure description informs to 'Try again'"
           }
-        ]
+        ],
+        "capabilityName": "failureMessage"
       },
       {
         "id": 5,
@@ -11513,7 +11590,8 @@
             ],
             "description": "Trunk's lock and position properties failed"
           }
-        ]
+        ],
+        "capabilityName": "failureMessage"
       }
     ]
   },
@@ -11552,21 +11630,24 @@
             "name_cased": "major",
             "type": "uinteger",
             "size": 1,
-            "description": "HMKit version major number"
+            "description": "HMKit version major number",
+            "capabilityName": "firmwareVersion"
           },
           {
             "name": "minor",
             "name_cased": "minor",
             "type": "uinteger",
             "size": 1,
-            "description": "HMKit version minor number"
+            "description": "HMKit version minor number",
+            "capabilityName": "firmwareVersion"
           },
           {
             "name": "patch",
             "name_cased": "patch",
             "type": "uinteger",
             "size": 1,
-            "description": "HMKit version patch number"
+            "description": "HMKit version patch number",
+            "capabilityName": "firmwareVersion"
           }
         ],
         "id": 1,
@@ -11598,7 +11679,8 @@
             "value": "btstack-uart",
             "description": "Build name is 'btstack-uart'"
           }
-        ]
+        ],
+        "capabilityName": "firmwareVersion"
       },
       {
         "id": 3,
@@ -11613,7 +11695,8 @@
             "value": "v1.5-prod",
             "description": "Application version is 'v1.5-prod'"
           }
-        ]
+        ],
+        "capabilityName": "firmwareVersion"
       }
     ]
   },
@@ -11747,7 +11830,8 @@
             "value": "https://about.high-mobility.com/assets/images/hm-logo.svg",
             "description": "Image URL is 'https://about.high-mobility.com/assets/images/hm-logo.svg'"
           }
-        ]
+        ],
+        "capabilityName": "graphics"
       }
     ]
   },
@@ -11977,7 +12061,8 @@
             "value": 96,
             "description": "Home Charger capability identifier"
           }
-        ]
+        ],
+        "capabilityName": "historical"
       },
       {
         "id": 3,
@@ -11993,7 +12078,8 @@
             "value": "2019-10-07T13:04:32.000Z",
             "description": "Start date is 7. October 2019 at 13:04:32 GMT"
           }
-        ]
+        ],
+        "capabilityName": "historical"
       },
       {
         "id": 4,
@@ -12009,7 +12095,8 @@
             "value": "2019-09-27T08:42:30.000Z",
             "description": "End date is 27. September 2019 at 08:42:30 GMT"
           }
-        ]
+        ],
+        "capabilityName": "historical"
       }
     ]
   },
@@ -12111,7 +12198,8 @@
             "value": "charging",
             "description": "Charging is active"
           }
-        ]
+        ],
+        "capabilityName": "homeCharger"
       },
       {
         "id": 2,
@@ -12137,7 +12225,8 @@
             "value": "app",
             "description": "Authentication mechanism is an app"
           }
-        ]
+        ],
+        "capabilityName": "homeCharger"
       },
       {
         "id": 3,
@@ -12172,7 +12261,8 @@
             "value": "type_2",
             "description": "Plug type is 'Type 2'"
           }
-        ]
+        ],
+        "capabilityName": "homeCharger"
       },
       {
         "id": 4,
@@ -12301,7 +12391,8 @@
             "value": "Charger 7612",
             "description": "WiFi hotspot SSID is 'Charger 7612'"
           }
-        ]
+        ],
+        "capabilityName": "homeCharger"
       },
       {
         "name": "wi_fi_hotspot_security",
@@ -12354,7 +12445,8 @@
             "value": "ZW3vARNUBe",
             "description": "WiFi hotspot password is 'ZW3vARNUBe'"
           }
-        ]
+        ],
+        "capabilityName": "homeCharger"
       },
       {
         "id": 13,
@@ -12381,7 +12473,8 @@
             "value": "authenticated",
             "description": "Is authenticated to the charger"
           }
-        ]
+        ],
+        "capabilityName": "homeCharger"
       },
       {
         "id": 14,
@@ -12516,7 +12609,8 @@
             "validation": "min:-90|max:90",
             "type": "double",
             "size": 8,
-            "description": "Latitude"
+            "description": "Latitude",
+            "capabilityName": "homeCharger"
           },
           {
             "name": "longitude",
@@ -12524,7 +12618,8 @@
             "validation": "min:-180|max:180",
             "type": "double",
             "size": 8,
-            "description": "Longitude"
+            "description": "Longitude",
+            "capabilityName": "homeCharger"
           }
         ],
         "id": 17,
@@ -12566,20 +12661,23 @@
                 "name": "per_kwh",
                 "name_pretty": "Per kWh"
               }
-            ]
+            ],
+            "capabilityName": "homeCharger"
           },
           {
             "name": "price",
             "name_cased": "price",
             "type": "double",
             "size": 8,
-            "description": "The price"
+            "description": "The price",
+            "capabilityName": "homeCharger"
           },
           {
             "name": "currency",
             "name_cased": "currency",
             "type": "string",
-            "description": "The currency alphabetic code per ISO 4217 or crypto currency symbol"
+            "description": "The currency alphabetic code per ISO 4217 or crypto currency symbol",
+            "capabilityName": "homeCharger"
           }
         ],
         "id": 18,
@@ -12739,7 +12837,8 @@
             "value": "left_flasher_active",
             "description": "Left flasher is active"
           }
-        ]
+        ],
+        "capabilityName": "honkHornFlashLights"
       },
       {
         "id": 2,
@@ -12814,7 +12913,8 @@
             "value": 5,
             "description": "Flash the lights 5 times"
           }
-        ]
+        ],
+        "capabilityName": "honkHornFlashLights"
       },
       {
         "name": "emergency_flashers_state",
@@ -12952,7 +13052,8 @@
             "value": "open",
             "description": "Hood is open"
           }
-        ]
+        ],
+        "capabilityName": "hood"
       },
       {
         "name": "lock",
@@ -13239,7 +13340,8 @@
             "value": "inside_car",
             "description": "Keyfob is inside the vehicle"
           }
-        ]
+        ],
+        "capabilityName": "keyfobPosition"
       }
     ]
   },
@@ -13409,7 +13511,8 @@
             "value": "active_with_full_beam",
             "description": "Front exterior lights are active with full beam"
           }
-        ]
+        ],
+        "capabilityName": "lights"
       },
       {
         "name": "rear_exterior_light",
@@ -13453,21 +13556,24 @@
             "name_cased": "red",
             "type": "uinteger",
             "size": 1,
-            "description": "The red component of RGB"
+            "description": "The red component of RGB",
+            "capabilityName": "lights"
           },
           {
             "name": "green",
             "name_cased": "green",
             "type": "uinteger",
             "size": 1,
-            "description": "The green component of RGB"
+            "description": "The green component of RGB",
+            "capabilityName": "lights"
           },
           {
             "name": "blue",
             "name_cased": "blue",
             "type": "uinteger",
             "size": 1,
-            "description": "The blue component of RGB"
+            "description": "The blue component of RGB",
+            "capabilityName": "lights"
           }
         ],
         "id": 4,
@@ -13825,7 +13931,8 @@
             "value": "parking_light_right",
             "description": "Rotary light switch position parking light right"
           }
-        ]
+        ],
+        "capabilityName": "lights"
       },
       {
         "id": 11,
@@ -13860,7 +13967,8 @@
             "value": "both",
             "description": "Both parking lights are on."
           }
-        ]
+        ],
+        "capabilityName": "lights"
       }
     ]
   },
@@ -14062,7 +14170,8 @@
             "value": 3,
             "description": "Condition Based Service reports count is 3"
           }
-        ]
+        ],
+        "capabilityName": "maintenance"
       },
       {
         "id": 4,
@@ -14154,7 +14263,8 @@
             "value": "successful",
             "description": "Teleservice is available"
           }
-        ]
+        ],
+        "capabilityName": "maintenance"
       },
       {
         "id": 6,
@@ -14310,7 +14420,8 @@
             "value": "2018-11-23T11:33:50.000Z",
             "description": "Automatic teleservice call date is at 23 November 2018 at 11:33:50 UTC"
           }
-        ]
+        ],
+        "capabilityName": "maintenance"
       },
       {
         "id": 9,
@@ -14326,7 +14437,8 @@
             "value": "2018-11-23T10:36:50.000Z",
             "description": "Teleservice battery call date is at 23 November 2018 at 10:36:50 GMT"
           }
-        ]
+        ],
+        "capabilityName": "maintenance"
       },
       {
         "id": 10,
@@ -14342,7 +14454,8 @@
             "value": "2018-10-23T14:38:47.000Z",
             "description": "Next inspection date is at 23 October 2018 at 14:38:47 GMT"
           }
-        ]
+        ],
+        "capabilityName": "maintenance"
       },
       {
         "name": "condition_based_services",
@@ -14355,14 +14468,16 @@
             "name_cased": "year",
             "type": "uinteger",
             "size": 2,
-            "description": "The year"
+            "description": "The year",
+            "capabilityName": "maintenance"
           },
           {
             "name": "month",
             "name_cased": "month",
             "type": "uinteger",
             "size": 1,
-            "description": "Value between 1 and 12"
+            "description": "Value between 1 and 12",
+            "capabilityName": "maintenance"
           },
           {
             "name": "id",
@@ -14370,7 +14485,8 @@
             "name_pretty": "ID",
             "type": "uinteger",
             "size": 2,
-            "description": "CBS identifier"
+            "description": "CBS identifier",
+            "capabilityName": "maintenance"
           },
           {
             "name": "due_status",
@@ -14390,19 +14506,22 @@
                 "id": 2,
                 "name": "overdue"
               }
-            ]
+            ],
+            "capabilityName": "maintenance"
           },
           {
             "name": "text",
             "name_cased": "text",
             "type": "string",
-            "description": "CBS text"
+            "description": "CBS text",
+            "capabilityName": "maintenance"
           },
           {
             "name": "description",
             "name_cased": "description",
             "type": "string",
-            "description": "Description"
+            "description": "Description",
+            "capabilityName": "maintenance"
           }
         ],
         "id": 11,
@@ -14439,7 +14558,8 @@
             "value": "2018-12-05T03:22:56.000Z",
             "description": "Brake fluid change date is at 5 December 2018 at 03:22:56 GMT"
           }
-        ]
+        ],
+        "capabilityName": "maintenance"
       },
       {
         "id": 13,
@@ -14652,7 +14772,8 @@
             "value": "2018-12-05T03:22:56.000Z",
             "description": "Last eCall happened at 5 December 2018 at 03:22:56 GMT"
           }
-        ]
+        ],
+        "capabilityName": "maintenance"
       },
       {
         "id": 17,
@@ -14842,7 +14963,8 @@
             "value": "Hey mom!",
             "description": "Message text says 'Hey mom!'"
           }
-        ]
+        ],
+        "capabilityName": "messaging"
       },
       {
         "id": 2,
@@ -14857,7 +14979,8 @@
             "value": "Epp",
             "description": "Name of the sender/receiver is 'Epp'"
           }
-        ]
+        ],
+        "capabilityName": "messaging"
       }
     ]
   },
@@ -15072,7 +15195,8 @@
             "validation": "min:-90|max:90",
             "type": "double",
             "size": 8,
-            "description": "Latitude"
+            "description": "Latitude",
+            "capabilityName": "naviDestination"
           },
           {
             "name": "longitude",
@@ -15080,7 +15204,8 @@
             "validation": "min:-180|max:180",
             "type": "double",
             "size": 8,
-            "description": "Longitude"
+            "description": "Longitude",
+            "capabilityName": "naviDestination"
           }
         ],
         "id": 1,
@@ -15110,7 +15235,8 @@
             "value": "Berlin",
             "description": "Destination name is 'Berlin'"
           }
-        ]
+        ],
+        "capabilityName": "naviDestination"
       },
       {
         "id": 3,
@@ -15126,7 +15252,8 @@
             "value": 14,
             "description": "14 available POI data slots"
           }
-        ]
+        ],
+        "capabilityName": "naviDestination"
       },
       {
         "id": 4,
@@ -15142,7 +15269,8 @@
             "value": 30,
             "description": "Maximum number of POI data slots is 30"
           }
-        ]
+        ],
+        "capabilityName": "naviDestination"
       },
       {
         "id": 5,
@@ -15351,7 +15479,8 @@
             "value": "Open Garage",
             "description": "Notification text says 'Open Garage'"
           }
-        ]
+        ],
+        "capabilityName": "notifications"
       },
       {
         "name": "action_items",
@@ -15365,13 +15494,15 @@
             "name_pretty": "ID",
             "type": "uinteger",
             "size": 1,
-            "description": "Action identifier"
+            "description": "Action identifier",
+            "capabilityName": "notifications"
           },
           {
             "name": "name",
             "name_cased": "name",
             "type": "string",
-            "description": "Name of the action"
+            "description": "Name of the action",
+            "capabilityName": "notifications"
           }
         ],
         "id": 2,
@@ -15412,7 +15543,8 @@
             "value": 27,
             "description": "Activated action with ID 27"
           }
-        ]
+        ],
+        "capabilityName": "notifications"
       },
       {
         "id": 4,
@@ -15433,7 +15565,8 @@
             "value": "clear",
             "description": "Clear notifications"
           }
-        ]
+        ],
+        "capabilityName": "notifications"
       }
     ]
   },
@@ -15663,7 +15796,8 @@
             "value": "ended",
             "description": "Parking ticket has ended"
           }
-        ]
+        ],
+        "capabilityName": "parkingTicket"
       },
       {
         "id": 2,
@@ -15678,7 +15812,8 @@
             "value": "Berlin Parking",
             "description": "Operator name is 'Berlin Parking'"
           }
-        ]
+        ],
+        "capabilityName": "parkingTicket"
       },
       {
         "id": 3,
@@ -15693,7 +15828,8 @@
             "value": "6489AB4233",
             "description": "Operator ticket ID is '6489AB4233'"
           }
-        ]
+        ],
+        "capabilityName": "parkingTicket"
       },
       {
         "id": 4,
@@ -15709,7 +15845,8 @@
             "value": "2017-01-10T19:34:22.000Z",
             "description": "Parking ticket started at 10 January 2017 at 19:34:22 GMT"
           }
-        ]
+        ],
+        "capabilityName": "parkingTicket"
       },
       {
         "id": 5,
@@ -15725,7 +15862,8 @@
             "value": "2019-10-08T11:21:45.000Z",
             "description": "Parking ticket ended at 8. October 2019 at 11:21:45 GMT"
           }
-        ]
+        ],
+        "capabilityName": "parkingTicket"
       }
     ]
   },
@@ -15812,7 +15950,8 @@
             "value": "engaged",
             "description": "Power take-off is engaged"
           }
-        ]
+        ],
+        "capabilityName": "powerTakeoff"
       }
     ]
   },
@@ -15881,7 +16020,8 @@
                 "id": 3,
                 "name": "rear_lateral"
               }
-            ]
+            ],
+            "capabilityName": "race"
           },
           {
             "name": "acceleration",
@@ -16343,7 +16483,8 @@
             "value": "drive",
             "description": "Gear is in drive"
           }
-        ]
+        ],
+        "capabilityName": "race"
       },
       {
         "id": 12,
@@ -16359,7 +16500,8 @@
             "value": 4,
             "description": "4th gear is selected"
           }
-        ]
+        ],
+        "capabilityName": "race"
       },
       {
         "name": "brake_pedal_position",
@@ -16525,7 +16667,8 @@
             "value": "moving",
             "description": "Vehicle is moving"
           }
-        ]
+        ],
+        "capabilityName": "race"
       }
     ]
   },
@@ -16631,7 +16774,8 @@
             "value": "started",
             "description": "Remote control is started"
           }
-        ]
+        ],
+        "capabilityName": "remoteControl"
       },
       {
         "id": 2,
@@ -16858,7 +17002,8 @@
             "value": "open",
             "description": "Convertible roof is open"
           }
-        ]
+        ],
+        "capabilityName": "rooftopControl"
       },
       {
         "id": 4,
@@ -16888,7 +17033,8 @@
             "value": "half_tilted",
             "description": "Sunroof is half-tilted"
           }
-        ]
+        ],
+        "capabilityName": "rooftopControl"
       },
       {
         "id": 5,
@@ -16918,7 +17064,8 @@
             "value": "open",
             "description": "Sunroof is open"
           }
-        ]
+        ],
+        "capabilityName": "rooftopControl"
       },
       {
         "id": 6,
@@ -16949,7 +17096,8 @@
             "value": "no_event",
             "description": "Sunroof had no rain event"
           }
-        ]
+        ],
+        "capabilityName": "rooftopControl"
       }
     ]
   },
@@ -17133,7 +17281,8 @@
                 "id": 1,
                 "name": "fastened"
               }
-            ]
+            ],
+            "capabilityName": "seats"
           }
         ],
         "id": 3,
@@ -17223,7 +17372,8 @@
             "name_cased": "driverNumber",
             "type": "uinteger",
             "size": 1,
-            "description": "The driver number"
+            "description": "The driver number",
+            "capabilityName": "tachograph"
           },
           {
             "name": "working_state",
@@ -17247,7 +17397,8 @@
                 "id": 3,
                 "name": "driving"
               }
-            ]
+            ],
+            "capabilityName": "tachograph"
           }
         ],
         "id": 1,
@@ -17286,7 +17437,8 @@
             "name_cased": "driverNumber",
             "type": "uinteger",
             "size": 1,
-            "description": "The driver number"
+            "description": "The driver number",
+            "capabilityName": "tachograph"
           },
           {
             "name": "time_state",
@@ -17334,7 +17486,8 @@
                 "name_cased": "16Reached",
                 "name_pretty": "16 hours reached"
               }
-            ]
+            ],
+            "capabilityName": "tachograph"
           }
         ],
         "id": 2,
@@ -17373,7 +17526,8 @@
             "name_cased": "driverNumber",
             "type": "uinteger",
             "size": 1,
-            "description": "The driver number"
+            "description": "The driver number",
+            "capabilityName": "tachograph"
           },
           {
             "name": "card_present",
@@ -17390,7 +17544,8 @@
                 "id": 1,
                 "name": "present"
               }
-            ]
+            ],
+            "capabilityName": "tachograph"
           }
         ],
         "id": 3,
@@ -17469,7 +17624,8 @@
             "value": "no_overspeed",
             "description": "Vehicle is not overspeeding"
           }
-        ]
+        ],
+        "capabilityName": "tachograph"
       },
       {
         "id": 6,
@@ -17494,7 +17650,8 @@
             "value": "forward",
             "description": "Vehicle is moving forward"
           }
-        ]
+        ],
+        "capabilityName": "tachograph"
       },
       {
         "id": 7,
@@ -17580,7 +17737,8 @@
             "value": "Rendezvous with Rama",
             "description": "Text is 'Rendezvous with Rama'"
           }
-        ]
+        ],
+        "capabilityName": "textInput"
       }
     ]
   },
@@ -17648,7 +17806,8 @@
             "value": "armed",
             "description": "Theft alarm is armed"
           }
-        ]
+        ],
+        "capabilityName": "theftAlarm"
       },
       {
         "name": "interior_protection_status",
@@ -17816,7 +17975,8 @@
             "value": "hood",
             "description": "Last warning is for the hood"
           }
-        ]
+        ],
+        "capabilityName": "theftAlarm"
       },
       {
         "id": 5,
@@ -17832,7 +17992,8 @@
             "value": "2020-06-16T11:10:02.000Z",
             "description": "Last event happened at 16. June 2020 at 11:10:02 GMT"
           }
-        ]
+        ],
+        "capabilityName": "theftAlarm"
       },
       {
         "id": 6,
@@ -17863,7 +18024,8 @@
             "value": "low",
             "description": "Last event had a low impact"
           }
-        ]
+        ],
+        "capabilityName": "theftAlarm"
       },
       {
         "id": 7,
@@ -17922,7 +18084,8 @@
             "value": "rear_right",
             "description": "Last event happened to rear right position"
           }
-        ]
+        ],
+        "capabilityName": "theftAlarm"
       }
     ]
   },
@@ -17993,7 +18156,8 @@
             "value": "single",
             "description": "Trip had a single stop"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "id": 2,
@@ -18009,7 +18173,8 @@
             "value": "Hari Seldon",
             "description": "Driver name is 'Hari Seldon'"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "id": 3,
@@ -18025,7 +18190,8 @@
             "value": "To save humankind",
             "description": "Description of the trip is 'To save humankind'"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "id": 4,
@@ -18042,7 +18208,8 @@
             "value": "2020-06-19T12:12:10.000Z",
             "description": "Trip started at 19 June 2020 at 12:12:10 GMT"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "id": 5,
@@ -18059,7 +18226,8 @@
             "value": "2020-06-19T13:12:10.000Z",
             "description": "Trip ended at 19 June 2020 at 13:12:10 GMT"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "id": 6,
@@ -18075,7 +18243,8 @@
             "value": "Skalitzer Straße 68, 10997 Berlin, Germany",
             "description": "Trip started from Skalitzer Straße 68, 10997 Berlin, Germany"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "id": 7,
@@ -18091,7 +18260,8 @@
             "value": "Skalitzer Straße 68, 10997 Berlin, Germany",
             "description": "Trip ended at Skalitzer Straße 68, 10997 Berlin, Germany"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "name": "start_coordinates",
@@ -18106,7 +18276,8 @@
             "validation": "min:-90|max:90",
             "type": "double",
             "size": 8,
-            "description": "Latitude"
+            "description": "Latitude",
+            "capabilityName": "trips"
           },
           {
             "name": "longitude",
@@ -18114,7 +18285,8 @@
             "validation": "min:-180|max:180",
             "type": "double",
             "size": 8,
-            "description": "Longitude"
+            "description": "Longitude",
+            "capabilityName": "trips"
           }
         ],
         "id": 8,
@@ -18146,7 +18318,8 @@
             "validation": "min:-90|max:90",
             "type": "double",
             "size": 8,
-            "description": "Latitude"
+            "description": "Latitude",
+            "capabilityName": "trips"
           },
           {
             "name": "longitude",
@@ -18154,7 +18327,8 @@
             "validation": "min:-180|max:180",
             "type": "double",
             "size": 8,
-            "description": "Longitude"
+            "description": "Longitude",
+            "capabilityName": "trips"
           }
         ],
         "id": 9,
@@ -18519,14 +18693,16 @@
                 "id": 7,
                 "name": "other"
               }
-            ]
+            ],
+            "capabilityName": "trips"
           },
           {
             "name": "value",
             "name_cased": "value",
             "name_pretty": "Value",
             "type": "string",
-            "description": "Value for the component"
+            "description": "Value for the component",
+            "capabilityName": "trips"
           }
         ],
         "id": 14,
@@ -18649,14 +18825,16 @@
                 "id": 7,
                 "name": "other"
               }
-            ]
+            ],
+            "capabilityName": "trips"
           },
           {
             "name": "value",
             "name_cased": "value",
             "name_pretty": "Value",
             "type": "string",
-            "description": "Value for the component"
+            "description": "Value for the component",
+            "capabilityName": "trips"
           }
         ],
         "id": 15,
@@ -18773,7 +18951,8 @@
             "value": "harsh_acceleration",
             "description": "Driving event of harsh acceleration encountered"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "id": 17,
@@ -18799,7 +18978,8 @@
             "value": "high",
             "description": "Eco driving level is high"
           }
-        ]
+        ],
+        "capabilityName": "trips"
       },
       {
         "name": "thresholds",
@@ -18822,13 +19002,15 @@
                 "id": 1,
                 "name": "one"
               }
-            ]
+            ],
+            "capabilityName": "trips"
           },
           {
             "name": "value",
             "name_cased": "value",
             "type": "double",
-            "size": 8
+            "size": 8,
+            "capabilityName": "trips"
           }
         ],
         "id": 18,
@@ -20063,7 +20245,8 @@
             "value": "2018-10-17T12:34:58.000Z",
             "description": "Last trip happened at 17 October 2018 at 12:34:58 UTC"
           }
-        ]
+        ],
+        "capabilityName": "usage"
       },
       {
         "id": 14,
@@ -21473,7 +21656,8 @@
             "name_cased": "id",
             "name_pretty": "ID",
             "type": "uinteger",
-            "size": 1
+            "size": 1,
+            "capabilityName": "usage"
           },
           {
             "name": "distance",
@@ -21773,7 +21957,8 @@
             "value": "Type X",
             "description": "Model name is 'Type X'"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 4,
@@ -21789,7 +21974,8 @@
             "value": "Speedy",
             "description": "Name of the vehicle is 'Speedy'"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 5,
@@ -21805,7 +21991,8 @@
             "value": "ABC123",
             "description": "Licence plate number is 'ABC123'"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 6,
@@ -21821,7 +22008,8 @@
             "value": "Package+",
             "description": "Sales designation is 'Package+'"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 7,
@@ -21838,7 +22026,8 @@
             "value": 2019,
             "description": "Vehicle manufacturing year is 2019"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 8,
@@ -21854,7 +22043,8 @@
             "value": "Estoril Blau",
             "description": "Colour is named 'Estoril Blau'"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 9,
@@ -21926,7 +22116,8 @@
             "value": 5,
             "description": "Vehicle has 5 doors"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 11,
@@ -21943,7 +22134,8 @@
             "value": 5,
             "description": "Vehicle has 5 seats"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 12,
@@ -22110,7 +22302,8 @@
             "value": "automatic",
             "description": "Vehicle has an automatic gearbox"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 15,
@@ -22136,7 +22329,8 @@
             "value": "km",
             "description": "Vehicle displays values in kilometers"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 16,
@@ -22166,7 +22360,8 @@
             "value": "left",
             "description": "Driver seat is located on the left"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 17,
@@ -22189,7 +22384,8 @@
             "value": "Automatic wipers",
             "description": "Automatic wipers are equipped (installed)"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 19,
@@ -22256,7 +22452,8 @@
             "value": "estonian",
             "description": "Headunit is in estonian language"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 21,
@@ -22283,7 +22480,8 @@
             "value": "twenty_four_h",
             "description": "Headunit is using a 24h timeformat"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 22,
@@ -22322,7 +22520,8 @@
             "value": "rwd",
             "description": "Vehicle has rear-wheel drive"
           }
-        ]
+        ],
+        "capabilityName": "vehicleInformation"
       },
       {
         "name": "powertrain_secondary",
@@ -22440,7 +22639,8 @@
             "validation": "min:-90|max:90",
             "type": "double",
             "size": 8,
-            "description": "Latitude"
+            "description": "Latitude",
+            "capabilityName": "vehicleLocation"
           },
           {
             "name": "longitude",
@@ -22448,7 +22648,8 @@
             "validation": "min:-180|max:180",
             "type": "double",
             "size": 8,
-            "description": "Longitude"
+            "description": "Longitude",
+            "capabilityName": "vehicleLocation"
           }
         ],
         "id": 4,
@@ -22704,7 +22905,8 @@
             "value": "real",
             "description": "The GPS signal is from a real source"
           }
-        ]
+        ],
+        "capabilityName": "vehicleLocation"
       },
       {
         "name": "gps_signal_strength",
@@ -22838,7 +23040,8 @@
             "validation": "min:0|max:23",
             "type": "uinteger",
             "size": 1,
-            "description": "Value between 0 and 23"
+            "description": "Value between 0 and 23",
+            "capabilityName": "vehicleTime"
           },
           {
             "name": "minute",
@@ -22847,7 +23050,8 @@
             "validation": "min:0|max:59",
             "type": "uinteger",
             "size": 1,
-            "description": "Value between 0 and 59"
+            "description": "Value between 0 and 59",
+            "capabilityName": "vehicleTime"
           }
         ],
         "id": 1,
@@ -22908,7 +23112,8 @@
             "value": "https://bit.ly/2obY7G5",
             "description": "Video URL is 'https://bit.ly/2obY7G5'"
           }
-        ]
+        ],
+        "capabilityName": "videoHandover"
       },
       {
         "id": 2,
@@ -22992,7 +23197,8 @@
             "value": "rear",
             "description": "Play the video on the rear screen"
           }
-        ]
+        ],
+        "capabilityName": "videoHandover"
       },
       {
         "id": 4,
@@ -23107,7 +23313,8 @@
             "value": "wake_up",
             "description": "Wake up"
           }
-        ]
+        ],
+        "capabilityName": "wakeUp"
       }
     ]
   },
@@ -23273,7 +23480,8 @@
             "value": "HOME",
             "description": "WiFi network name is 'HOME'"
           }
-        ]
+        ],
+        "capabilityName": "wiFi"
       },
       {
         "name": "network_security",
@@ -23326,7 +23534,8 @@
             "value": "great_secret12",
             "description": "WiFi network password is 'great_secret12'"
           }
-        ]
+        ],
+        "capabilityName": "wiFi"
       }
     ]
   },
@@ -23518,7 +23727,8 @@
                 "name": "intermediate",
                 "disabled_in_setter": true
               }
-            ]
+            ],
+            "capabilityName": "windows"
           }
         ],
         "id": 3,
@@ -23655,7 +23865,8 @@
             "value": "automatic",
             "description": "Windscreen wipers are set to automatic mode"
           }
-        ]
+        ],
+        "capabilityName": "windscreen"
       },
       {
         "id": 2,
@@ -23689,7 +23900,8 @@
             "value": "level_3",
             "description": "Wipers are on highest intensity, indicating heavy rain"
           }
-        ]
+        ],
+        "capabilityName": "windscreen"
       },
       {
         "id": 3,
@@ -23722,7 +23934,8 @@
             "value": "impact_but_no_damage_detected",
             "description": "Windscreen detected an impact, but no damage"
           }
-        ]
+        ],
+        "capabilityName": "windscreen"
       },
       {
         "name": "windscreen_zone_matrix",
@@ -23736,14 +23949,16 @@
             "name_cased": "horizontal",
             "type": "uinteger",
             "size": 1,
-            "description": "Horizontal component of the matrix"
+            "description": "Horizontal component of the matrix",
+            "capabilityName": "windscreen"
           },
           {
             "name": "vertical",
             "name_cased": "vertical",
             "type": "uinteger",
             "size": 1,
-            "description": "Vertical component of the matrix"
+            "description": "Vertical component of the matrix",
+            "capabilityName": "windscreen"
           }
         ],
         "id": 4,
@@ -23773,14 +23988,16 @@
             "name_cased": "horizontal",
             "type": "uinteger",
             "size": 1,
-            "description": "Horizontal component of the matrix"
+            "description": "Horizontal component of the matrix",
+            "capabilityName": "windscreen"
           },
           {
             "name": "vertical",
             "name_cased": "vertical",
             "type": "uinteger",
             "size": 1,
-            "description": "Vertical component of the matrix"
+            "description": "Vertical component of the matrix",
+            "capabilityName": "windscreen"
           }
         ],
         "id": 5,
@@ -23825,7 +24042,8 @@
             "value": "no_replacement_needed",
             "description": "Windscreen does not need replacement"
           }
-        ]
+        ],
+        "capabilityName": "windscreen"
       },
       {
         "name": "windscreen_damage_confidence",
@@ -23861,7 +24079,8 @@
             "value": "2017-01-10T16:32:05.000Z",
             "description": "Windscreen damage detected at 10 January 2017 at 16:32:05 UTC"
           }
-        ]
+        ],
+        "capabilityName": "windscreen"
       }
     ]
   }

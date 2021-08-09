@@ -8,7 +8,7 @@ import useAnimateNumber from '../hooks/useAnimateNumber'
 export default function HeadingBlock({ property }) {
   const [valueInDegrees, setValueInDegrees] = useState(0)
   const baseRotation = 104 // svg has to be rotated to be facing up
-  const animatedValue = useAnimateNumber(Number(property.value), 500)
+  const animatedValue = useAnimateNumber(Number(property.data.value), 500)
 
   useEffect(() => {
     const propertyUnitType = property.config.unit.unit_types.find(

@@ -37,8 +37,8 @@ export default class Config {
     'vehicleLocation.coordinates',
     'diagnostics.odometer',
     'doors.positions',
-    // diagnostics.fuelLevel,
-    // vehicleLocation.heading
+    'diagnostics.fuelLevel',
+    // 'vehicleLocation.heading',
   ]
 
   constructor() {

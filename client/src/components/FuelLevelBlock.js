@@ -6,7 +6,7 @@ import useAnimateNumber from '../hooks/useAnimateNumber'
 export default function FuelLevelBlock({ property }) {
   const [percentValue, setPercentValue] = useState(0)
   useEffect(() => {
-    setPercentValue((property.value || 0) * 100)
+    setPercentValue((property.data.value || 0) * 100)
   }, [property])
 
   const animatedValue = useAnimateNumber(Number(percentValue), 500)

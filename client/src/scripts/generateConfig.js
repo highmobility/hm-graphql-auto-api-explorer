@@ -211,7 +211,7 @@ function buildCapabilityProperty(
     }
   }
 
-  return { ...property }
+  return { ...property, capabilityName: capability.name_cased }
 }
 
 function parseCustomTypesFile(unitTypes) {
