@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { fetchVehicleData } from '../requests'
 
 function DashboardPage() {
-  const [loading, setLoading] = useState(true)
+  const [dataFetched, setDataFetched] = useState(false)
   const { vehicles, config, properties } = useMobx()
   const parsedProperties = config.shownProperties
     .map((propertyUniqueId) => {
@@ -37,30 +37,40 @@ function DashboardPage() {
     })
 
   const fetchData = useCallback(async () => {
+    if (!config.selectedVehicleId) return
+
     const vehicleData = await fetchVehicleData(
       config.selectedVehicleId,
       config.shownProperties
     )
 
     properties.setValues(vehicleData)
-  }, []) // eslint-disable-line
+    setDataFetched(true)
+  }, [config.selectedVehicleId, config.shownProperties, properties])
 
   useEffect(() => {
-    const fetchPageData = async () => {
+    const fetchVehicles = async () => {
       await vehicles.fetch()
       if (!config.selectedVehicleId) {
         config.setSelectedVehicle(vehicles?.list?.[0]?.id || null)
       }
-      await fetchData()
-      setLoading(false)
     }
 
-    fetchPageData()
-    const interval = setInterval(fetchData, config.updateFrequency * 1000)
-    return () => clearInterval(interval)
+    fetchVehicles()
   }, []) // eslint-disable-line
 
-  if (loading) return null
+  useEffect(() => {
+    fetchData()
+    const interval = setInterval(fetchData, config.updateFrequency * 1000)
+    return () => clearInterval(interval)
+  }, [
+    config.updateFrequency,
+    config.shownProperties,
+    config.selectedVehicleId,
+    fetchData,
+  ])
+
+  if (!dataFetched) return null
 
   return (
     <div className="DashboardPage">
