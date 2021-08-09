@@ -1,5 +1,5 @@
-import { generateJWT } from '../auth'
 import { knex } from '../database'
+import GraphQlService from '../services/GraphQlService'
 
 export default class VehiclesController {
   async index(req, res) {
@@ -21,12 +21,17 @@ export default class VehiclesController {
       const { access_token } = await knex('access_tokens')
         .where('vehicle_id', vehicleId)
         .first()
+      const config = await knex('config').first()
 
-      const { env, app_id } = await knex('config').first()
+      const graphQl = new GraphQlService(
+        access_token,
+        config.app_id,
+        config.env
+      )
 
-      const jwt = generateJWT(access_token, app_id, env)
+      const properties = await graphQl.fetchProperties(req.body.properties)
 
-      res.json({ jwt })
+      res.json(properties)
     } catch (err) {
       console.log('Failed to fetch vehicle data', err)
     }

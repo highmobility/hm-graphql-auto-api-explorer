@@ -98,17 +98,13 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchPageData = async () => {
-      app.setLoading(true)
       await vehicles.fetch()
       if (!config.selectedVehicleId) {
         config.setSelectedVehicle(vehicles?.list?.[0]?.id || null)
       }
-      app.setLoading(false)
     }
     fetchPageData()
   }, [])
-
-  if (app.loading) return null
 
   return (
     <div className="DashboardPage">
