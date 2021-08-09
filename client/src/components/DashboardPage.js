@@ -10,17 +10,28 @@ import { fetchVehicleData } from '../requests'
 function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const { vehicles, config, properties } = useMobx()
-  const parsedProperties = config.shownProperties.map((propertyUniqueId) => {
-    const data = properties?.values?.[propertyUniqueId]
-    const propertyConfig = getPropertyConfig(propertyUniqueId)
+  const parsedProperties = config.shownProperties
+    .map((propertyUniqueId) => {
+      const data = properties?.values?.[propertyUniqueId]
+      const propertyConfig = getPropertyConfig(propertyUniqueId)
 
-    return {
-      id: propertyUniqueId,
-      config: propertyConfig,
-      block: getBlockData(propertyConfig),
-      data,
-    }
-  })
+      return {
+        id: propertyUniqueId,
+        config: propertyConfig,
+        block: getBlockData(propertyConfig),
+        data,
+      }
+    })
+    .sort((a, b) => {
+      if (
+        config.pinnedProperties.includes(a.id) &&
+        config.pinnedProperties.includes(b.id)
+      ) {
+        return 0
+      }
+
+      return config.pinnedProperties.includes(a.id) ? -1 : 1
+    })
 
   const fetchData = useCallback(async () => {
     const vehicleData = await fetchVehicleData(

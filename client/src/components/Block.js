@@ -7,7 +7,7 @@ export default function Block({ children, property, className = '' }) {
   return (
     <div className={`Block ${className}`}>
       <div className="BlockContent">
-        <PinButton property={property} />
+        <PinButton propertyId={property.id} />
         <span className="BlockCapabilityLabel">
           {property.config.capabilityName}
         </span>

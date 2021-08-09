@@ -4,19 +4,19 @@ import { ReactComponent as PinIcon } from '../images/pin.svg'
 import { useMobx } from '../store/mobx'
 import { observer } from 'mobx-react-lite'
 
-function PinButton({ property }) {
+function PinButton({ propertyId }) {
   const { config } = useMobx()
 
-  if (!property) return null
+  if (!propertyId) return null
 
-  const active = config.isPropertyPinned(property)
+  const active = config.isPropertyPinned(propertyId)
 
   const onClick = () => {
     if (active) {
-      return config.unPinProperty(property)
+      return config.unPinProperty(propertyId)
     }
 
-    return config.pinProperty(property)
+    return config.pinProperty(propertyId)
   }
 
   return (

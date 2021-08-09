@@ -93,35 +93,32 @@ export default class Config {
     this.selectedVehicleId = vehicleId
   }
 
-  pinProperty(property) {
-    const uniqueId = getPropertyUniqueId(property)
-    this.pinnedProperties = uniq([...this.pinnedProperties, uniqueId])
+  pinProperty(propertyId) {
+    this.pinnedProperties = uniq([...this.pinnedProperties, propertyId])
   }
 
-  unPinProperty(property) {
-    const uniqueId = getPropertyUniqueId(property)
+  unPinProperty(propertyId) {
     this.pinnedProperties = this.pinnedProperties.filter(
-      (id) => id !== uniqueId
+      (id) => id !== propertyId
     )
   }
 
-  showProperty(property) {
-    const uniqueId = getPropertyUniqueId(property)
+  showProperty(propertyConfig) {
+    const uniqueId = getPropertyUniqueId(propertyConfig)
     this.shownProperties = uniq([...this.shownProperties, uniqueId])
   }
 
-  hideProperty(property) {
-    const uniqueId = getPropertyUniqueId(property)
+  hideProperty(propertyConfig) {
+    const uniqueId = getPropertyUniqueId(propertyConfig)
     this.shownProperties = this.shownProperties.filter((id) => id !== uniqueId)
   }
 
-  isPropertyPinned(property) {
-    const uniqueId = getPropertyUniqueId(property)
-    return this.pinnedProperties.includes(uniqueId)
+  isPropertyPinned(propertyId) {
+    return this.pinnedProperties.includes(propertyId)
   }
 
-  isPropertyShown(property) {
-    const uniqueId = getPropertyUniqueId(property)
+  isPropertyShown(propertyConfig) {
+    const uniqueId = getPropertyUniqueId(propertyConfig)
     return this.shownProperties.includes(uniqueId)
   }
 }

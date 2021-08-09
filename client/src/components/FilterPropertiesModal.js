@@ -27,20 +27,20 @@ const FilterPropertiesModal = (props) => {
             <div className="FilterPropertiesCapabilityName">
               {capability.name_pretty}
             </div>
-            {capability.properties.map((property) => (
+            {capability.properties.map((propertyConfig) => (
               <div
                 className="FilterPropertiesProperty"
-                key={`${capability.name}-${property.name}`}
+                key={`${capability.name}-${propertyConfig.name}`}
               >
                 <div className="FilterPropertiesPropertyName">
-                  {property.name_pretty}
+                  {propertyConfig.name_pretty}
                 </div>
                 <Toggle
-                  value={config.isPropertyShown(property)}
+                  value={config.isPropertyShown(propertyConfig)}
                   onChange={() => {
-                    config.isPropertyShown(property)
-                      ? config.hideProperty(property)
-                      : config.showProperty(property)
+                    config.isPropertyShown(propertyConfig)
+                      ? config.hideProperty(propertyConfig)
+                      : config.showProperty(propertyConfig)
                   }}
                 />
               </div>
