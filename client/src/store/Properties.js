@@ -9,12 +9,17 @@ export default class Properties {
 
   setValues(capabilities) {
     Object.entries(capabilities).forEach(([capabilityName, properties]) => {
-      Object.entries(properties).forEach(([propertyName, { data }]) => {
+      Object.entries(properties).forEach(([propertyName, propertyData]) => {
         const uniqueId = `${capabilityName}.${propertyName}`
 
+        if (!propertyData.data) {
+          this.values[uniqueId] = propertyData
+          return
+        }
+
         this.values[uniqueId] = {
-          value: data?.value || data,
-          unit: data?.unit || null,
+          value: propertyData.data?.value || propertyData.data,
+          unit: propertyData.data?.unit || null,
         }
       })
     })

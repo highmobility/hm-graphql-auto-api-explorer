@@ -35,8 +35,8 @@ export default class Config {
     'diagnostics.batteryLevel',
     'diagnostics.speed',
     'vehicleLocation.coordinates',
-    // diagnostics.odometer,
-    // doors.positions
+    'diagnostics.odometer',
+    'doors.positions',
     // diagnostics.fuelLevel,
     // vehicleLocation.heading
   ]

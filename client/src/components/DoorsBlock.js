@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Block from './Block'
 import '../styles/DoorsBlock.scss'
 import { ReactComponent as CarSvg } from '../images/car.svg'
 
 export default function DoorsBlock({ property }) {
-  const frontLeft = property.positions.find(
-    (p) => p.location === 'front_left'
-  )?.value
-  const rearLeft = property.positions.find(
-    (p) => p.location === 'rear_left'
-  )?.value
-  const frontRight = property.positions.find(
-    (p) => p.location === 'front_right'
-  )?.value
-  const rearRight = property.positions.find(
-    (p) => p.location === 'rear_right'
-  )?.value
+  const frontLeft = property.data.find(
+    (locationData) => locationData.data.location === 'frontLeft'
+  )?.data?.position
+  const rearLeft = property.data.find(
+    (locationData) => locationData.data.location === 'rearLeft'
+  )?.data?.position
+  const frontRight = property.data.find(
+    (locationData) => locationData.data.location === 'frontRight'
+  )?.data?.position
+  const rearRight = property.data.find(
+    (locationData) => locationData.data.location === 'rearRight'
+  )?.data?.position
 
   return (
     <Block className="DoorsBlock" property={property}>

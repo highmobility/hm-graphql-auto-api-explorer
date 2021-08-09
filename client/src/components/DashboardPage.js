@@ -9,16 +9,16 @@ import { fetchVehicleData } from '../requests'
 
 function DashboardPage() {
   const [loading, setLoading] = useState(true)
-  const { vehicles, config, properties, app } = useMobx()
+  const { vehicles, config, properties } = useMobx()
   const parsedProperties = config.shownProperties.map((propertyUniqueId) => {
-    const valueAndUnit = properties?.values?.[propertyUniqueId]
+    const data = properties?.values?.[propertyUniqueId]
     const propertyConfig = getPropertyConfig(propertyUniqueId)
 
     return {
       id: propertyUniqueId,
       config: propertyConfig,
       block: getBlockData(propertyConfig),
-      ...valueAndUnit,
+      data,
     }
   })
 

@@ -12,7 +12,7 @@ export default function TemperatureBlock({ property }) {
   const animatedValue = useAnimateNumber(Number(value), 500)
 
   useEffect(() => {
-    setValue(property.value || 0)
+    setValue(property.data.value || 0)
   }, [property])
 
   return (
@@ -86,7 +86,7 @@ export default function TemperatureBlock({ property }) {
         </svg>
         <div className="TemperatureBlockInnerCircle">
           <div className="Num2">{animatedValue}</div>
-          <div className="Num4">{property.unit}</div>
+          <div className="Num4">{property.data.unit}</div>
         </div>
       </div>
     </Block>
