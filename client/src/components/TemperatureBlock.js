@@ -8,7 +8,6 @@ export default function TemperatureBlock({ property }) {
   const dashArraySize = 530
   const maxValue = 300
   const percentValue = Math.min((value / maxValue) * 100, maxValue)
-
   const animatedValue = useAnimateNumber(Number(value), 500)
 
   useEffect(() => {

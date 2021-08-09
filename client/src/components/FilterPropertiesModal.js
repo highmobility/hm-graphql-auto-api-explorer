@@ -23,7 +23,12 @@ const FilterPropertiesModal = (props) => {
       </div>
       <div className="FilterPropertiesModalContent">
         {Object.values(CAPABILITIES).map((capability) => (
-          <div className="FilterPropertiesCapability" key={capability.name}>
+          <div
+            className={`FilterPropertiesCapability ${
+              capability.category === 'headunit' ? 'Disabled' : ''
+            }`}
+            key={capability.name}
+          >
             <div className="FilterPropertiesCapabilityName">
               {capability.name_pretty}
             </div>
