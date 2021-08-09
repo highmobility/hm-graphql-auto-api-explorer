@@ -30,71 +30,76 @@ export const BLOCKS = {
   },
 }
 
-export function getBlockData(property) {
-  if (property.type === 'unit.temperature') {
+export function getBlockData(propertyConfig) {
+  if (propertyConfig.type === 'unit.temperature') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: TemperatureBlock,
     }
   }
 
-  if (property.name === 'battery_level') {
+  if (propertyConfig.name_cased === 'batteryLevel') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: BatteryLevelBlock,
     }
   }
 
-  if (property.type === 'unit.speed') {
+  if (propertyConfig.type === 'unit.speed') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: SpeedBlock,
     }
   }
 
-  if (property.name === 'coordinates') {
+  if (propertyConfig.name_cased === 'coordinates') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: CoordinatesBlock,
     }
   }
 
-  if (property.name === 'odometer') {
+  if (propertyConfig.name_cased === 'odometer') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: OdometerBlock,
     }
   }
 
-  if (property.capabilityName === 'doors') {
+  if (propertyConfig.capabilityName === 'doors') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: DoorsBlock,
     }
   }
 
-  if (property.name === 'fuel_level') {
+  if (propertyConfig.name_cased === 'fuelLevel') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: FuelLevelBlock,
     }
   }
 
-  if (property.name === 'heading') {
+  if (propertyConfig.name === 'heading') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: HeadingBlock,
     }
   }
 
-  if (property.type === 'string') {
+  if (propertyConfig.type === 'string') {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: Block,
     }
   }
 
-  // if properties count > 1, use SIX_BY_ONE
+  if (propertyConfig?.items?.length > 1) {
+    return {
+      ...BLOCKS.SIX_BY_ONE,
+      component: Block,
+    }
+  }
 
   return {
     ...BLOCKS.TWO_BY_ONE,
@@ -102,14 +107,20 @@ export function getBlockData(property) {
   }
 }
 
-export function getPropertyConfig(property) {
+export function getPropertyConfig(propertyUniqueId) {
+  const [capabilityName, propertyName] = propertyUniqueId.split('.')
+
+  const capabilityConfig = Object.values(CAPABILITIES).find(
+    (capability) => capability.name_cased === capabilityName
+  )
+
   return (
-    CAPABILITIES?.[property?.capabilityName]?.properties?.find(
-      (propertyConfig) => propertyConfig.name === property.name
+    capabilityConfig?.properties?.find(
+      (propertyConfig) => propertyConfig.name_cased === propertyName
     ) || null
   )
 }
 
 export function getPropertyUniqueId(property) {
-  return `${property.capabilityName}.${property.name}`
+  return `${property.capabilityName}.${property.name_cased}`
 }

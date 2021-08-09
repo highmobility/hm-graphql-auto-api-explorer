@@ -55,7 +55,8 @@
             "description": "ADAS is on"
           }
         ],
-        "customType": "on_off_state"
+        "customType": "on_off_state",
+        "capabilityName": "adas"
       },
       {
         "name": "alertness_system_status",
@@ -86,7 +87,8 @@
             "description": "Driver alertness warning system is active."
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "adas"
       },
       {
         "name": "forward_collision_warning_system",
@@ -117,7 +119,8 @@
             "description": "Forward collision warning system is active."
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "adas"
       },
       {
         "name": "blind_spot_warning_state",
@@ -148,7 +151,8 @@
             "description": "Blind spot warning is active."
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "adas"
       },
       {
         "id": 5,
@@ -206,7 +210,8 @@
             "description": "Rear cross warning system is active."
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "adas"
       },
       {
         "name": "automated_parking_brake",
@@ -237,7 +242,8 @@
             "description": "Automated parking brake is active."
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "adas"
       },
       {
         "name": "lane_keep_assist_system",
@@ -266,7 +272,8 @@
             "description": "Lane keep assist system is turned on."
           }
         ],
-        "customType": "on_off_state"
+        "customType": "on_off_state",
+        "capabilityName": "adas"
       },
       {
         "name": "lane_keep_assists_states",
@@ -310,7 +317,8 @@
                 "verb": "activate"
               }
             ],
-            "customType": "active_state"
+            "customType": "active_state",
+            "capabilityName": "adas"
           }
         ],
         "id": 9,
@@ -336,7 +344,8 @@
             "description": "Right lane keeping assist is actively controlling the wheels."
           }
         ],
-        "customType": "lane_keep_assist_state"
+        "customType": "lane_keep_assist_state",
+        "capabilityName": "adas"
       },
       {
         "name": "park_assists",
@@ -361,7 +370,8 @@
                 "name": "rear"
               }
             ],
-            "customType": "location_longitudinal"
+            "customType": "location_longitudinal",
+            "capabilityName": "adas"
           },
           {
             "name": "alarm",
@@ -382,7 +392,8 @@
                 "verb": "activate"
               }
             ],
-            "customType": "active_state"
+            "customType": "active_state",
+            "capabilityName": "adas"
           },
           {
             "name": "muted",
@@ -400,7 +411,8 @@
                 "name": "muted"
               }
             ],
-            "customType": "muted"
+            "customType": "muted",
+            "capabilityName": "adas"
           }
         ],
         "id": 10,
@@ -428,7 +440,8 @@
             "description": "Rear park assist is active and not muted."
           }
         ],
-        "customType": "park_assist"
+        "customType": "park_assist",
+        "capabilityName": "adas"
       },
       {
         "name": "blind_spot_warning_system",
@@ -457,7 +470,8 @@
             "description": "Blind spot warning system is turned on."
           }
         ],
-        "customType": "on_off_state"
+        "customType": "on_off_state",
+        "capabilityName": "adas"
       }
     ]
   },
@@ -577,7 +591,8 @@
             "description": "Charging supports estimated range, charge limit and departure times properties"
           }
         ],
-        "customType": "supported_capability"
+        "customType": "supported_capability",
+        "capabilityName": "capabilities"
       },
       {
         "name": "webhooks",
@@ -735,7 +750,8 @@
             "description": "Webhook 'trip_ended' is available to use."
           }
         ],
-        "customType": "webhook"
+        "customType": "webhook",
+        "capabilityName": "capabilities"
       }
     ]
   },
@@ -936,7 +952,8 @@
             "description": "Battery level 50%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "charging"
       },
       {
         "id": 4,
@@ -1131,7 +1148,8 @@
             "description": "Charge limit is set to 90%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "charging"
       },
       {
         "id": 9,
@@ -1268,7 +1286,8 @@
             "description": "Charge port is open"
           }
         ],
-        "customType": "position"
+        "customType": "position",
+        "capabilityName": "charging"
       },
       {
         "id": 12,
@@ -1426,7 +1445,8 @@
                 "verb": "activate"
               }
             ],
-            "customType": "active_state"
+            "customType": "active_state",
+            "capabilityName": "charging"
           },
           {
             "name": "time",
@@ -1454,7 +1474,8 @@
                 "description": "Value between 0 and 59"
               }
             ],
-            "customType": "time"
+            "customType": "time",
+            "capabilityName": "charging"
           }
         ],
         "id": 17,
@@ -1484,7 +1505,8 @@
             "description": "Departure time 11:51 is inactive"
           }
         ],
-        "customType": "departure_time"
+        "customType": "departure_time",
+        "capabilityName": "charging"
       },
       {
         "name": "reduction_times",
@@ -1509,7 +1531,8 @@
                 "name": "stop"
               }
             ],
-            "customType": "start_stop"
+            "customType": "start_stop",
+            "capabilityName": "charging"
           },
           {
             "name": "time",
@@ -1537,7 +1560,8 @@
                 "description": "Value between 0 and 59"
               }
             ],
-            "customType": "time"
+            "customType": "time",
+            "capabilityName": "charging"
           }
         ],
         "id": 19,
@@ -1567,7 +1591,8 @@
             "description": "Stop reduction of charging current at 12:52"
           }
         ],
-        "customType": "reduction_time"
+        "customType": "reduction_time",
+        "capabilityName": "charging"
       },
       {
         "id": 20,
@@ -1675,7 +1700,8 @@
             "description": "Departure date is 10 January 2017 at 16:36:05 GMT"
           }
         ],
-        "customType": "timer"
+        "customType": "timer",
+        "capabilityName": "charging"
       },
       {
         "id": 22,
@@ -2107,7 +2133,8 @@
             "description": "Battery level is expected to be 90% at time of departure"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "charging"
       },
       {
         "name": "preconditioning_departure_status",
@@ -2138,7 +2165,8 @@
             "description": "Preconditioning is active for departure time"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "charging"
       },
       {
         "name": "preconditioning_immediate_status",
@@ -2169,7 +2197,8 @@
             "description": "Immediate preconditioning is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "charging"
       },
       {
         "name": "preconditioning_departure_enabled",
@@ -2200,7 +2229,8 @@
             "description": "Preconditioning is enabled for departure"
           }
         ],
-        "customType": "enabled_state"
+        "customType": "enabled_state",
+        "capabilityName": "charging"
       },
       {
         "id": 35,
@@ -2379,7 +2409,8 @@
             "description": "Matching public charging point from 'Free Wifi and Charging Provider' is located at Harju 6, 10130 Tallinn"
           }
         ],
-        "customType": "charging_point"
+        "customType": "charging_point",
+        "capabilityName": "chargingSession"
       },
       {
         "name": "displayed_state_of_charge",
@@ -2399,7 +2430,8 @@
             "description": "Displayed state of charge is 29.0%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "chargingSession"
       },
       {
         "name": "displayed_start_state_of_charge",
@@ -2419,7 +2451,8 @@
             "description": "Displayed start state of charge is 12.0%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "chargingSession"
       },
       {
         "id": 4,
@@ -2547,7 +2580,7 @@
             }
           ]
         },
-        "capabilityName": "charging_session"
+        "capabilityName": "chargingSession"
       },
       {
         "id": 9,
@@ -2593,7 +2626,7 @@
             }
           ]
         },
-        "capabilityName": "charging_session"
+        "capabilityName": "chargingSession"
       },
       {
         "id": 10,
@@ -2639,7 +2672,7 @@
             }
           ]
         },
-        "capabilityName": "charging_session"
+        "capabilityName": "chargingSession"
       },
       {
         "name": "preconditioning_state",
@@ -2670,7 +2703,8 @@
             "description": "Preconditioning is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "chargingSession"
       },
       {
         "id": 12,
@@ -2756,7 +2790,7 @@
             }
           ]
         },
-        "capabilityName": "charging_session"
+        "capabilityName": "chargingSession"
       },
       {
         "name": "charging_cost",
@@ -2807,7 +2841,8 @@
             "description": "Charging costs are shown in 'EUR' with calculated costs of 2.2758383109, calculated savings 0.5672 and simulated charging cost of 2.2758383109"
           }
         ],
-        "customType": "charging_cost"
+        "customType": "charging_cost",
+        "capabilityName": "chargingSession"
       },
       {
         "name": "location",
@@ -2848,7 +2883,8 @@
             "description": "Charging location was 'Skalitzer Straße 68, 10997 Berlin, Germany'"
           }
         ],
-        "customType": "charging_location"
+        "customType": "charging_location",
+        "capabilityName": "chargingSession"
       }
     ]
   },
@@ -2950,7 +2986,8 @@
             "description": "Driving mode is set to ECO"
           }
         ],
-        "customType": "driving_mode"
+        "customType": "driving_mode",
+        "capabilityName": "chassisSettings"
       },
       {
         "id": 2,
@@ -3006,7 +3043,8 @@
                 "name": "rear"
               }
             ],
-            "customType": "axle"
+            "customType": "axle",
+            "capabilityName": "chassisSettings"
           },
           {
             "name": "spring_rate",
@@ -3035,7 +3073,7 @@
                 }
               ]
             },
-            "capabilityName": "chassis_settings"
+            "capabilityName": "chassisSettings"
           }
         ],
         "id": 5,
@@ -3064,7 +3102,8 @@
             "description": "Rear axle spring rate is 23.0N/mm"
           }
         ],
-        "customType": "spring_rate"
+        "customType": "spring_rate",
+        "capabilityName": "chassisSettings"
       },
       {
         "name": "maximum_spring_rates",
@@ -3089,7 +3128,8 @@
                 "name": "rear"
               }
             ],
-            "customType": "axle"
+            "customType": "axle",
+            "capabilityName": "chassisSettings"
           },
           {
             "name": "spring_rate",
@@ -3118,7 +3158,7 @@
                 }
               ]
             },
-            "capabilityName": "chassis_settings"
+            "capabilityName": "chassisSettings"
           }
         ],
         "id": 6,
@@ -3147,7 +3187,8 @@
             "description": "Rear axle maximum spring rate is 39.0N/mm"
           }
         ],
-        "customType": "spring_rate"
+        "customType": "spring_rate",
+        "capabilityName": "chassisSettings"
       },
       {
         "name": "minimum_spring_rates",
@@ -3172,7 +3213,8 @@
                 "name": "rear"
               }
             ],
-            "customType": "axle"
+            "customType": "axle",
+            "capabilityName": "chassisSettings"
           },
           {
             "name": "spring_rate",
@@ -3201,7 +3243,7 @@
                 }
               ]
             },
-            "capabilityName": "chassis_settings"
+            "capabilityName": "chassisSettings"
           }
         ],
         "id": 7,
@@ -3230,7 +3272,8 @@
             "description": "Rear axle minimum spring rate is 18.0N/mm"
           }
         ],
-        "customType": "spring_rate"
+        "customType": "spring_rate",
+        "capabilityName": "chassisSettings"
       },
       {
         "id": 8,
@@ -3315,7 +3358,7 @@
             }
           ]
         },
-        "capabilityName": "chassis_settings"
+        "capabilityName": "chassisSettings"
       },
       {
         "id": 9,
@@ -3400,7 +3443,7 @@
             }
           ]
         },
-        "capabilityName": "chassis_settings"
+        "capabilityName": "chassisSettings"
       },
       {
         "id": 10,
@@ -3485,7 +3528,7 @@
             }
           ]
         },
-        "capabilityName": "chassis_settings"
+        "capabilityName": "chassisSettings"
       }
     ]
   },
@@ -3759,7 +3802,8 @@
             "description": "HVAC is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "climate"
       },
       {
         "name": "defogging_state",
@@ -3788,7 +3832,8 @@
             "description": "Defogging is inactive"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "climate"
       },
       {
         "name": "defrosting_state",
@@ -3817,7 +3862,8 @@
             "description": "Defrosting is inactive"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "climate"
       },
       {
         "name": "ionising_state",
@@ -3846,7 +3892,8 @@
             "description": "Ionising is inactive"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "climate"
       },
       {
         "id": 9,
@@ -3937,7 +3984,8 @@
                 "name": "automatic"
               }
             ],
-            "customType": "weekday"
+            "customType": "weekday",
+            "capabilityName": "climate"
           },
           {
             "name": "time",
@@ -3965,7 +4013,8 @@
                 "description": "Value between 0 and 59"
               }
             ],
-            "customType": "time"
+            "customType": "time",
+            "capabilityName": "climate"
           }
         ],
         "id": 11,
@@ -4061,7 +4110,8 @@
             "description": "HVAC is automatic"
           }
         ],
-        "customType": "hvac_weekday_starting_time"
+        "customType": "hvac_weekday_starting_time",
+        "capabilityName": "climate"
       },
       {
         "id": 12,
@@ -4237,7 +4287,8 @@
             "description": "Low severity rear crash incident does not need repairs"
           }
         ],
-        "customType": "crash_incident"
+        "customType": "crash_incident",
+        "capabilityName": "crash"
       },
       {
         "id": 2,
@@ -4320,7 +4371,8 @@
             "description": "Automatic eCall is enabled"
           }
         ],
-        "customType": "enabled_state"
+        "customType": "enabled_state",
+        "capabilityName": "crash"
       },
       {
         "id": 5,
@@ -4457,7 +4509,8 @@
             "description": "Cruise control is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "cruiseControl"
       },
       {
         "id": 2,
@@ -4535,7 +4588,7 @@
             }
           ]
         },
-        "capabilityName": "cruise_control"
+        "capabilityName": "cruiseControl"
       },
       {
         "name": "adaptive_cruise_control",
@@ -4564,7 +4617,8 @@
             "description": "Adaptive Cruise Control is inactive"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "cruiseControl"
       },
       {
         "id": 5,
@@ -4609,7 +4663,7 @@
             }
           ]
         },
-        "capabilityName": "cruise_control"
+        "capabilityName": "cruiseControl"
       }
     ]
   },
@@ -5486,7 +5540,8 @@
                 "name": "on"
               }
             ],
-            "customType": "on_off_state"
+            "customType": "on_off_state",
+            "capabilityName": "dashboardLights"
           }
         ],
         "id": 1,
@@ -7062,7 +7117,8 @@
             "description": "Inspection warning is off"
           }
         ],
-        "customType": "dashboard_light"
+        "customType": "dashboard_light",
+        "capabilityName": "dashboardLights"
       },
       {
         "id": 2,
@@ -7482,7 +7538,8 @@
             "description": "Fuel level is at 90%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 6,
@@ -7609,7 +7666,8 @@
             "description": "Washer fluid is filled"
           }
         ],
-        "customType": "fluid_level"
+        "customType": "fluid_level",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 11,
@@ -7668,7 +7726,8 @@
             "description": "AdBlue level is at 90%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 13,
@@ -7962,7 +8021,8 @@
             "description": "ABS is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 17,
@@ -8200,7 +8260,8 @@
             "description": "Brake fluid is low"
           }
         ],
-        "customType": "fluid_level"
+        "customType": "fluid_level",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "engine_torque",
@@ -8219,7 +8280,8 @@
             "description": "Engine torque is currently at 20%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "engine_load",
@@ -8238,7 +8300,8 @@
             "description": "Engine load is currently at 10%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 23,
@@ -8302,7 +8365,8 @@
             "description": "Battery level is at 56%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "check_control_messages",
@@ -8392,7 +8456,8 @@
             "description": "105'592 minutes remaining for Check Engine Alert control message with ID 1"
           }
         ],
-        "customType": "check_control_message"
+        "customType": "check_control_message",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "tire_pressures",
@@ -8437,7 +8502,8 @@
                 "name": "spare"
               }
             ],
-            "customType": "location_wheel"
+            "customType": "location_wheel",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "pressure",
@@ -8564,7 +8630,8 @@
             "description": "Spare tire pressure is 2.25BAR"
           }
         ],
-        "customType": "tire_pressure"
+        "customType": "tire_pressure",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "tire_temperatures",
@@ -8609,7 +8676,8 @@
                 "name": "spare"
               }
             ],
-            "customType": "location_wheel"
+            "customType": "location_wheel",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "temperature",
@@ -8718,7 +8786,8 @@
             "description": "Spare tire temperature is 10.2°C"
           }
         ],
-        "customType": "tire_temperature"
+        "customType": "tire_temperature",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "wheel_rpms",
@@ -8764,7 +8833,8 @@
               }
             ],
             "description": "Wheel location",
-            "customType": "location_wheel"
+            "customType": "location_wheel",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "rpm",
@@ -8872,7 +8942,8 @@
             "description": "Spare wheel is doing 0.0RPM"
           }
         ],
-        "customType": "wheel_rpm"
+        "customType": "wheel_rpm",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "trouble_codes",
@@ -8964,7 +9035,8 @@
             "description": "Trouble code 'C163AFA' with ECU-ID 'DTR212' occurred 2 times in body-system and is 'PENDING'"
           }
         ],
-        "customType": "trouble_code"
+        "customType": "trouble_code",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 30,
@@ -9240,7 +9312,8 @@
                 "name": "spare"
               }
             ],
-            "customType": "location_wheel"
+            "customType": "location_wheel",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "status",
@@ -9325,7 +9398,8 @@
             "description": "Spare tire pressure is normal"
           }
         ],
-        "customType": "tire_pressure_status"
+        "customType": "tire_pressure_status",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "brake_lining_wear_pre_warning",
@@ -9356,7 +9430,8 @@
             "description": "Brake lining wear pre-warning is inactive"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "engine_oil_life_remaining",
@@ -9376,7 +9451,8 @@
             "description": "Engine oil life remaining is 88%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "oem_trouble_code_values",
@@ -9412,7 +9488,8 @@
                 "description": "Value for the key"
               }
             ],
-            "customType": "key_value"
+            "customType": "key_value",
+            "capabilityName": "diagnostics"
           }
         ],
         "id": 36,
@@ -9443,7 +9520,8 @@
             "description": "Trouble code '1B3C' has a value 'system fault 32' for a key 'important_error'"
           }
         ],
-        "customType": "oem_trouble_code_value"
+        "customType": "oem_trouble_code_value",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 37,
@@ -9549,7 +9627,8 @@
             "description": "Diesel exhaust particulate filter soot level is 16%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "confirmed_trouble_codes",
@@ -9611,7 +9690,8 @@
             "description": "Confirmed trouble code 'D52C44' with ECU address '48' and variante name \"CAS\" is 'ACTIVE'"
           }
         ],
-        "customType": "confirmed_trouble_code"
+        "customType": "confirmed_trouble_code",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "diesel_exhaust_filter_status",
@@ -9751,7 +9831,8 @@
             "description": "Diesel 'exhaust filter' is in 'over_limit' status and unknown cleaning state"
           }
         ],
-        "customType": "diesel_exhaust_filter_status"
+        "customType": "diesel_exhaust_filter_status",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 42,
@@ -9923,7 +10004,8 @@
             "description": "Engile oil level is at 80%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 45,
@@ -10081,7 +10163,8 @@
                 "name": "spare"
               }
             ],
-            "customType": "location_wheel"
+            "customType": "location_wheel",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "pressure",
@@ -10210,7 +10293,8 @@
             "description": "Spear tire target pressure is 2.25BAR"
           }
         ],
-        "customType": "tire_pressure"
+        "customType": "tire_pressure",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "tire_pressures_differences",
@@ -10255,7 +10339,8 @@
                 "name": "spare"
               }
             ],
-            "customType": "location_wheel"
+            "customType": "location_wheel",
+            "capabilityName": "diagnostics"
           },
           {
             "name": "pressure",
@@ -10384,7 +10469,8 @@
             "description": "Spare tire pressure difference is 0.1BAR"
           }
         ],
-        "customType": "tire_pressure"
+        "customType": "tire_pressure",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 49,
@@ -10484,7 +10570,8 @@
             "description": "Engine coolant level is high"
           }
         ],
-        "customType": "fluid_level"
+        "customType": "fluid_level",
+        "capabilityName": "diagnostics"
       },
       {
         "name": "engine_oil_fluid_level",
@@ -10528,7 +10615,8 @@
             "description": "Engile oil level is at normal"
           }
         ],
-        "customType": "fluid_level"
+        "customType": "fluid_level",
+        "capabilityName": "diagnostics"
       },
       {
         "id": 52,
@@ -10738,7 +10826,8 @@
               }
             ],
             "description": "Door location",
-            "customType": "location"
+            "customType": "location",
+            "capabilityName": "doors"
           },
           {
             "name": "lock_state",
@@ -10760,7 +10849,8 @@
               }
             ],
             "description": "Lock state for the door",
-            "customType": "lock_state"
+            "customType": "lock_state",
+            "capabilityName": "doors"
           }
         ],
         "id": 2,
@@ -10801,7 +10891,8 @@
             "description": "Rear left door is unlocked inside"
           }
         ],
-        "customType": "lock"
+        "customType": "lock",
+        "capabilityName": "doors"
       },
       {
         "name": "locks",
@@ -10835,7 +10926,8 @@
               }
             ],
             "description": "Door location",
-            "customType": "location"
+            "customType": "location",
+            "capabilityName": "doors"
           },
           {
             "name": "lock_state",
@@ -10857,7 +10949,8 @@
               }
             ],
             "description": "Lock state for the door",
-            "customType": "lock_state"
+            "customType": "lock_state",
+            "capabilityName": "doors"
           }
         ],
         "id": 3,
@@ -10898,7 +10991,8 @@
             "description": "Rear left door is locked"
           }
         ],
-        "customType": "lock"
+        "customType": "lock",
+        "capabilityName": "doors"
       },
       {
         "name": "positions",
@@ -10953,7 +11047,8 @@
                 "name": "open"
               }
             ],
-            "customType": "position"
+            "customType": "position",
+            "capabilityName": "doors"
           }
         ],
         "id": 4,
@@ -11002,7 +11097,8 @@
             "description": "All doors are closed"
           }
         ],
-        "customType": "door_position"
+        "customType": "door_position",
+        "capabilityName": "doors"
       },
       {
         "name": "inside_locks_state",
@@ -11032,7 +11128,8 @@
             "description": "Doors are locked inside"
           }
         ],
-        "customType": "lock_state"
+        "customType": "lock_state",
+        "capabilityName": "doors"
       },
       {
         "name": "locks_state",
@@ -11062,7 +11159,8 @@
             "description": "Doors are unlocked"
           }
         ],
-        "customType": "lock_state"
+        "customType": "lock_state",
+        "capabilityName": "doors"
       }
     ]
   },
@@ -11185,7 +11283,8 @@
             "description": "Engine is off"
           }
         ],
-        "customType": "on_off_state"
+        "customType": "on_off_state",
+        "capabilityName": "engine"
       },
       {
         "name": "start_stop_state",
@@ -11215,7 +11314,8 @@
             "description": "Automatic engine start-stop system is currently active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "engine"
       },
       {
         "name": "start_stop_enabled",
@@ -11246,7 +11346,8 @@
             "description": "Automatic start-stop system is enabled"
           }
         ],
-        "customType": "enabled_state"
+        "customType": "enabled_state",
+        "capabilityName": "engine"
       }
     ]
   },
@@ -11481,7 +11582,8 @@
             "description": "HMKit version is 1.15.33"
           }
         ],
-        "customType": "hmkit_version"
+        "customType": "hmkit_version",
+        "capabilityName": "firmwareVersion"
       },
       {
         "id": 2,
@@ -11574,7 +11676,8 @@
             "description": "Gas flap is locked"
           }
         ],
-        "customType": "lock_state"
+        "customType": "lock_state",
+        "capabilityName": "fueling"
       },
       {
         "name": "gas_flap_position",
@@ -11602,7 +11705,8 @@
             "description": "Gas flap is closed"
           }
         ],
-        "customType": "position"
+        "customType": "position",
+        "capabilityName": "fueling"
       }
     ]
   },
@@ -11736,7 +11840,7 @@
             }
           ]
         },
-        "capabilityName": "heart_rate"
+        "capabilityName": "heartRate"
       }
     ]
   },
@@ -11856,7 +11960,8 @@
             "description": "Charging capability - charging port is open, charge mode is immediate, charging rate is 35.0kW and max range is 555.0km, recorded at 10. January 2017 at 16:32:05 GMT"
           }
         ],
-        "customType": "capability_state"
+        "customType": "capability_state",
+        "capabilityName": "historical"
       },
       {
         "id": 2,
@@ -12121,7 +12226,7 @@
             }
           ]
         },
-        "capabilityName": "home_charger"
+        "capabilityName": "homeCharger"
       },
       {
         "name": "solar_charging",
@@ -12150,7 +12255,8 @@
             "description": "Solar charging is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "homeCharger"
       },
       {
         "name": "wi_fi_hotspot_enabled",
@@ -12179,7 +12285,8 @@
             "description": "WiFi hotspot is enabled"
           }
         ],
-        "customType": "enabled_state"
+        "customType": "enabled_state",
+        "capabilityName": "homeCharger"
       },
       {
         "id": 9,
@@ -12231,7 +12338,8 @@
             "description": "WiFi hotspot security uses the WPA2-Personal algorithm"
           }
         ],
-        "customType": "network_security"
+        "customType": "network_security",
+        "capabilityName": "homeCharger"
       },
       {
         "id": 11,
@@ -12313,7 +12421,7 @@
             }
           ]
         },
-        "capabilityName": "home_charger"
+        "capabilityName": "homeCharger"
       },
       {
         "id": 15,
@@ -12353,7 +12461,7 @@
             }
           ]
         },
-        "capabilityName": "home_charger"
+        "capabilityName": "homeCharger"
       },
       {
         "id": 16,
@@ -12393,7 +12501,7 @@
             }
           ]
         },
-        "capabilityName": "home_charger"
+        "capabilityName": "homeCharger"
       },
       {
         "name": "coordinates",
@@ -12430,7 +12538,8 @@
             "description": "Charger is located at 52.520008:13.404954"
           }
         ],
-        "customType": "coordinates"
+        "customType": "coordinates",
+        "capabilityName": "homeCharger"
       },
       {
         "name": "price_tariffs",
@@ -12505,7 +12614,8 @@
             "description": "Charger per kWh tariff is 0.3RPL"
           }
         ],
-        "customType": "price_tariff"
+        "customType": "price_tariff",
+        "capabilityName": "homeCharger"
       },
       {
         "id": 19,
@@ -12556,7 +12666,7 @@
             }
           ]
         },
-        "capabilityName": "home_charger"
+        "capabilityName": "homeCharger"
       }
     ]
   },
@@ -12688,7 +12798,7 @@
             }
           ]
         },
-        "capabilityName": "honk_horn_flash_lights"
+        "capabilityName": "honkHornFlashLights"
       },
       {
         "id": 3,
@@ -12733,7 +12843,8 @@
             "description": "Emergency flashers are active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "honkHornFlashLights"
       },
       {
         "id": 5,
@@ -12789,7 +12900,7 @@
             }
           ]
         },
-        "capabilityName": "honk_horn_flash_lights"
+        "capabilityName": "honkHornFlashLights"
       }
     ]
   },
@@ -12872,7 +12983,8 @@
             "description": "The hood is locked."
           }
         ],
-        "customType": "lock_state"
+        "customType": "lock_state",
+        "capabilityName": "hood"
       },
       {
         "name": "lock_safety",
@@ -12901,7 +13013,8 @@
             "description": "Trunk lock is safely locked."
           }
         ],
-        "customType": "lock_safety"
+        "customType": "lock_safety",
+        "capabilityName": "hood"
       }
     ]
   },
@@ -12975,7 +13088,8 @@
             "description": "Ignition is off"
           }
         ],
-        "customType": "ignition_state"
+        "customType": "ignition_state",
+        "capabilityName": "ignition"
       },
       {
         "name": "accessories_status",
@@ -13017,7 +13131,8 @@
             "description": "Accessories power is on"
           }
         ],
-        "customType": "ignition_state"
+        "customType": "ignition_state",
+        "capabilityName": "ignition"
       },
       {
         "name": "state",
@@ -13056,7 +13171,8 @@
             "description": "Ignition state is in accessory"
           }
         ],
-        "customType": "ignition_state"
+        "customType": "ignition_state",
+        "capabilityName": "ignition"
       }
     ]
   },
@@ -13177,7 +13293,7 @@
             }
           ]
         },
-        "capabilityName": "light_conditions"
+        "capabilityName": "lightConditions"
       },
       {
         "id": 2,
@@ -13207,7 +13323,7 @@
             }
           ]
         },
-        "capabilityName": "light_conditions"
+        "capabilityName": "lightConditions"
       }
     ]
   },
@@ -13322,7 +13438,8 @@
             "description": "Rear exterior lights are active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "lights"
       },
       {
         "name": "ambient_light_colour",
@@ -13365,7 +13482,8 @@
             "description": "Ambient light is red"
           }
         ],
-        "customType": "rgb_colour"
+        "customType": "rgb_colour",
+        "capabilityName": "lights"
       },
       {
         "name": "reverse_light",
@@ -13394,7 +13512,8 @@
             "description": "Reverse light is inactive"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "lights"
       },
       {
         "name": "emergency_brake_light",
@@ -13423,7 +13542,8 @@
             "description": "Emergency brake light is inactive"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "lights"
       },
       {
         "name": "fog_lights",
@@ -13448,7 +13568,8 @@
                 "name": "rear"
               }
             ],
-            "customType": "location_longitudinal"
+            "customType": "location_longitudinal",
+            "capabilityName": "lights"
           },
           {
             "name": "state",
@@ -13469,7 +13590,8 @@
                 "verb": "activate"
               }
             ],
-            "customType": "active_state"
+            "customType": "active_state",
+            "capabilityName": "lights"
           }
         ],
         "id": 7,
@@ -13493,7 +13615,8 @@
             "description": "Rear fog lights are active"
           }
         ],
-        "customType": "light"
+        "customType": "light",
+        "capabilityName": "lights"
       },
       {
         "name": "reading_lamps",
@@ -13526,7 +13649,8 @@
                 "name": "rear_left"
               }
             ],
-            "customType": "location"
+            "customType": "location",
+            "capabilityName": "lights"
           },
           {
             "name": "state",
@@ -13547,7 +13671,8 @@
                 "verb": "activate"
               }
             ],
-            "customType": "active_state"
+            "customType": "active_state",
+            "capabilityName": "lights"
           }
         ],
         "id": 8,
@@ -13587,7 +13712,8 @@
             "description": "Rear left reading lamp is inactive"
           }
         ],
-        "customType": "reading_lamp"
+        "customType": "reading_lamp",
+        "capabilityName": "lights"
       },
       {
         "name": "interior_lights",
@@ -13612,7 +13738,8 @@
                 "name": "rear"
               }
             ],
-            "customType": "location_longitudinal"
+            "customType": "location_longitudinal",
+            "capabilityName": "lights"
           },
           {
             "name": "state",
@@ -13633,7 +13760,8 @@
                 "verb": "activate"
               }
             ],
-            "customType": "active_state"
+            "customType": "active_state",
+            "capabilityName": "lights"
           }
         ],
         "id": 9,
@@ -13657,7 +13785,8 @@
             "description": "Rear reading lights are active"
           }
         ],
-        "customType": "light"
+        "customType": "light",
+        "capabilityName": "lights"
       },
       {
         "id": 10,
@@ -14293,7 +14422,8 @@
             "description": "Next latest brake fluid change date is 2019 May in a CBS with ID 3 and status 'ok'"
           }
         ],
-        "customType": "condition_based_service"
+        "customType": "condition_based_service",
+        "capabilityName": "maintenance"
       },
       {
         "id": 12,
@@ -14774,7 +14904,8 @@
             "description": "A mobile phone is connected"
           }
         ],
-        "customType": "connection_state"
+        "customType": "connection_state",
+        "capabilityName": "mobile"
       }
     ]
   },
@@ -14853,7 +14984,8 @@
             "description": "Charging capability - charging port is open, charge mode is immediate, charging rate is 35.0kW and max range is 555.0km, recorded at 10. January 2017 at 16:32:05 GMT"
           }
         ],
-        "customType": "capability_state"
+        "customType": "capability_state",
+        "capabilityName": "multiCommand"
       },
       {
         "name": "multi_commands",
@@ -14884,7 +15016,8 @@
             "description": "Turn ignition off"
           }
         ],
-        "customType": "capability_state"
+        "customType": "capability_state",
+        "capabilityName": "multiCommand"
       }
     ]
   },
@@ -14961,7 +15094,8 @@
             "description": "Coordinates are 52.520008:13.404954"
           }
         ],
-        "customType": "coordinates"
+        "customType": "coordinates",
+        "capabilityName": "naviDestination"
       },
       {
         "id": 2,
@@ -15063,7 +15197,7 @@
             }
           ]
         },
-        "capabilityName": "navi_destination"
+        "capabilityName": "naviDestination"
       },
       {
         "id": 6,
@@ -15148,7 +15282,7 @@
             }
           ]
         },
-        "capabilityName": "navi_destination"
+        "capabilityName": "naviDestination"
       }
     ]
   },
@@ -15261,7 +15395,8 @@
             "description": "Notification action named 'Cancel' with an ID 28"
           }
         ],
-        "customType": "action_item"
+        "customType": "action_item",
+        "capabilityName": "notifications"
       },
       {
         "id": 3,
@@ -15379,7 +15514,8 @@
             "description": "Wheel suspension level is 50%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "offroad"
       }
     ]
   },
@@ -15438,7 +15574,8 @@
             "description": "Parking brake is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "parkingBrake"
       }
     ]
   },
@@ -15648,7 +15785,8 @@
             "description": "Power take-off is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "powerTakeoff"
       },
       {
         "id": 2,
@@ -15816,7 +15954,8 @@
             "description": "Rear lateral acceleration is -0.864g"
           }
         ],
-        "customType": "acceleration"
+        "customType": "acceleration",
+        "capabilityName": "race"
       },
       {
         "name": "understeering",
@@ -15835,7 +15974,8 @@
             "description": "Understeering is at 19%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "race"
       },
       {
         "name": "oversteering",
@@ -15854,7 +15994,8 @@
             "description": "Oversteering is at 5%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "race"
       },
       {
         "name": "gas_pedal_position",
@@ -15873,7 +16014,8 @@
             "description": "Gas pedal position is at 98%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "race"
       },
       {
         "id": 5,
@@ -16082,7 +16224,8 @@
             "description": "ESP is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "race"
       },
       {
         "name": "brake_torque_vectorings",
@@ -16107,7 +16250,8 @@
                 "name": "rear"
               }
             ],
-            "customType": "axle"
+            "customType": "axle",
+            "capabilityName": "race"
           },
           {
             "name": "state",
@@ -16128,7 +16272,8 @@
                 "verb": "activate"
               }
             ],
-            "customType": "active_state"
+            "customType": "active_state",
+            "capabilityName": "race"
           }
         ],
         "id": 10,
@@ -16152,7 +16297,8 @@
             "description": "Rear brake torque vectoring is inactive"
           }
         ],
-        "customType": "brake_torque_vectoring"
+        "customType": "brake_torque_vectoring",
+        "capabilityName": "race"
       },
       {
         "id": 11,
@@ -16232,7 +16378,8 @@
             "description": "Brake pedal position is at 12%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "race"
       },
       {
         "name": "brake_pedal_switch",
@@ -16261,7 +16408,8 @@
             "description": "Brake pedal switch is active, brake lights active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "race"
       },
       {
         "name": "clutch_pedal_switch",
@@ -16290,7 +16438,8 @@
             "description": "Clutch pedal switch is active, clutch is fully depressed"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "race"
       },
       {
         "name": "accelerator_pedal_idle_switch",
@@ -16319,7 +16468,8 @@
             "description": "Accelerator pedal idle switch is active, pedal released"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "race"
       },
       {
         "name": "accelerator_pedal_kickdown_switch",
@@ -16348,7 +16498,8 @@
             "description": "Accelerator pedal kickdown switch is active, pedal fully depressed"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "race"
       },
       {
         "id": 18,
@@ -16520,7 +16671,7 @@
             }
           ]
         },
-        "capabilityName": "remote_control"
+        "capabilityName": "remoteControl"
       },
       {
         "id": 3,
@@ -16565,7 +16716,7 @@
             }
           ]
         },
-        "capabilityName": "remote_control"
+        "capabilityName": "remoteControl"
       }
     ]
   },
@@ -16625,7 +16776,8 @@
             "description": "Rooftop is opaque (100%)"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "rooftopControl"
       },
       {
         "name": "position",
@@ -16644,7 +16796,8 @@
             "description": "Rooftop is half-open (50%)"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "rooftopControl"
       },
       {
         "id": 3,
@@ -16855,7 +17008,8 @@
                 "name": "rear_center"
               }
             ],
-            "customType": "seat_location"
+            "customType": "seat_location",
+            "capabilityName": "seats"
           },
           {
             "name": "detected",
@@ -16874,7 +17028,8 @@
                 "name": "detected"
               }
             ],
-            "customType": "detected"
+            "customType": "detected",
+            "capabilityName": "seats"
           }
         ],
         "id": 2,
@@ -16922,7 +17077,8 @@
             "description": "No person detected on the rear-center seat"
           }
         ],
-        "customType": "person_detected"
+        "customType": "person_detected",
+        "capabilityName": "seats"
       },
       {
         "name": "seatbelts_state",
@@ -16959,7 +17115,8 @@
                 "name": "rear_center"
               }
             ],
-            "customType": "seat_location"
+            "customType": "seat_location",
+            "capabilityName": "seats"
           },
           {
             "name": "fastened_state",
@@ -17024,7 +17181,8 @@
             "description": "Seatbelt not fastened for the rear-center seat"
           }
         ],
-        "customType": "seatbelt_state"
+        "customType": "seatbelt_state",
+        "capabilityName": "seats"
       }
     ]
   },
@@ -17113,7 +17271,8 @@
             "description": "Driver nr 2 is resting"
           }
         ],
-        "customType": "driver_working_state"
+        "customType": "driver_working_state",
+        "capabilityName": "tachograph"
       },
       {
         "name": "drivers_time_states",
@@ -17199,7 +17358,8 @@
             "description": "Driver nr 4 has reached 15 hours and 45 minutes"
           }
         ],
-        "customType": "driver_time_state"
+        "customType": "driver_time_state",
+        "capabilityName": "tachograph"
       },
       {
         "name": "drivers_cards_present",
@@ -17254,7 +17414,8 @@
             "description": "Driver nr 7 does not have a card present"
           }
         ],
-        "customType": "driver_card_present"
+        "customType": "driver_card_present",
+        "capabilityName": "tachograph"
       },
       {
         "name": "vehicle_motion",
@@ -17281,7 +17442,8 @@
             "description": "Detected vehicle in motion"
           }
         ],
-        "customType": "detected"
+        "customType": "detected",
+        "capabilityName": "tachograph"
       },
       {
         "id": 5,
@@ -17518,7 +17680,8 @@
             "description": "Interior protection sensor is active"
           }
         ],
-        "customType": "active_selected_state"
+        "customType": "active_selected_state",
+        "capabilityName": "theftAlarm"
       },
       {
         "name": "tow_protection_status",
@@ -17550,7 +17713,8 @@
             "description": "Tow protection sensor is active"
           }
         ],
-        "customType": "active_selected_state"
+        "customType": "active_selected_state",
+        "capabilityName": "theftAlarm"
       },
       {
         "id": 4,
@@ -17966,7 +18130,8 @@
             "description": "Trip started from 52.500276:13.439719"
           }
         ],
-        "customType": "coordinates"
+        "customType": "coordinates",
+        "capabilityName": "trips"
       },
       {
         "name": "end_coordinates",
@@ -18005,7 +18170,8 @@
             "description": "Trip ended at 52.500276:13.439719"
           }
         ],
-        "customType": "coordinates"
+        "customType": "coordinates",
+        "capabilityName": "trips"
       },
       {
         "id": 10,
@@ -18433,7 +18599,8 @@
             "description": "Other component value is 'Germany'"
           }
         ],
-        "customType": "address_component"
+        "customType": "address_component",
+        "capabilityName": "trips"
       },
       {
         "name": "end_address_components",
@@ -18562,7 +18729,8 @@
             "description": "Other component value is 'Germany'"
           }
         ],
-        "customType": "address_component"
+        "customType": "address_component",
+        "capabilityName": "trips"
       },
       {
         "id": 16,
@@ -18686,7 +18854,8 @@
             "description": "Eco driving one-threshold is set at 0.0"
           }
         ],
-        "customType": "eco_driving_threshold"
+        "customType": "eco_driving_threshold",
+        "capabilityName": "trips"
       },
       {
         "id": 19,
@@ -18986,7 +19155,8 @@
             "description": "Trunk is unlocked"
           }
         ],
-        "customType": "lock_state"
+        "customType": "lock_state",
+        "capabilityName": "trunk"
       },
       {
         "name": "position",
@@ -19014,7 +19184,8 @@
             "description": "Trunk is open"
           }
         ],
-        "customType": "position"
+        "customType": "position",
+        "capabilityName": "trunk"
       },
       {
         "name": "lock_safety",
@@ -19043,7 +19214,8 @@
             "description": "Trunk lock is safely locked."
           }
         ],
-        "customType": "lock_safety"
+        "customType": "lock_safety",
+        "capabilityName": "trunk"
       }
     ]
   },
@@ -19294,7 +19466,8 @@
             "description": "Acceleration is evaluated at 70%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "usage"
       },
       {
         "name": "driving_style_evaluation",
@@ -19313,7 +19486,8 @@
             "description": "Driving style is evaluated at 88%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "usage"
       },
       {
         "name": "driving_modes_activation_periods",
@@ -19354,7 +19528,8 @@
                 "name": "comfort"
               }
             ],
-            "customType": "driving_mode"
+            "customType": "driving_mode",
+            "capabilityName": "usage"
           },
           {
             "name": "period",
@@ -19365,7 +19540,8 @@
             "type": "double",
             "size": 8,
             "description": "Percentage of the period used for a driving mode",
-            "customType": "percentage"
+            "customType": "percentage",
+            "capabilityName": "usage"
           }
         ],
         "id": 5,
@@ -19421,7 +19597,8 @@
             "description": "Driving mode 'eco' is engaged 0% of the time"
           }
         ],
-        "customType": "driving_mode_activation_period"
+        "customType": "driving_mode_activation_period",
+        "capabilityName": "usage"
       },
       {
         "name": "driving_modes_energy_consumptions",
@@ -19462,7 +19639,8 @@
                 "name": "comfort"
               }
             ],
-            "customType": "driving_mode"
+            "customType": "driving_mode",
+            "capabilityName": "usage"
           },
           {
             "name": "consumption",
@@ -19564,7 +19742,8 @@
             "description": "Driving mode 'comfort' consumed 33.7kWh of electric energy"
           }
         ],
-        "customType": "driving_mode_energy_consumption"
+        "customType": "driving_mode_energy_consumption",
+        "capabilityName": "usage"
       },
       {
         "id": 7,
@@ -19812,7 +19991,8 @@
             "description": "Electric postion of the last trip is 70%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "usage"
       },
       {
         "id": 11,
@@ -19866,7 +20046,8 @@
             "description": "Battery is at 50% after last trip"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "usage"
       },
       {
         "id": 13,
@@ -20068,7 +20249,8 @@
             "description": "Safety driving score is evaluated at 70%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "usage"
       },
       {
         "name": "rapid_acceleration_grade",
@@ -20100,7 +20282,8 @@
             "description": "Rapid acceleration is graded as excellent"
           }
         ],
-        "customType": "grade"
+        "customType": "grade",
+        "capabilityName": "usage"
       },
       {
         "name": "rapid_deceleration_grade",
@@ -20132,7 +20315,8 @@
             "description": "Rapid deceleration is graded as normal"
           }
         ],
-        "customType": "grade"
+        "customType": "grade",
+        "capabilityName": "usage"
       },
       {
         "name": "late_night_grade",
@@ -20164,7 +20348,8 @@
             "description": "Late night driving is graded as excellent"
           }
         ],
-        "customType": "grade"
+        "customType": "grade",
+        "capabilityName": "usage"
       },
       {
         "name": "distance_over_time",
@@ -20309,7 +20494,8 @@
             "description": "During the last 10.0 weeks the vehicle travelled 1500.88km"
           }
         ],
-        "customType": "distance_over_time"
+        "customType": "distance_over_time",
+        "capabilityName": "usage"
       },
       {
         "id": 22,
@@ -21143,7 +21329,8 @@
             "description": "Total eco-score rating is 70%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "usage"
       },
       {
         "name": "eco_score_free_wheel",
@@ -21163,7 +21350,8 @@
             "description": "Eco-score free-wheeling rating is 70%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "usage"
       },
       {
         "name": "eco_score_constant",
@@ -21183,7 +21371,8 @@
             "description": "Eco-score constant is 70%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "usage"
       },
       {
         "id": 39,
@@ -21386,7 +21575,8 @@
             "description": "Trip meter 2`s distance is 2489.3km"
           }
         ],
-        "customType": "trip_meter"
+        "customType": "trip_meter",
+        "capabilityName": "usage"
       }
     ]
   },
@@ -21447,7 +21637,8 @@
             "description": "Valet mode is active"
           }
         ],
-        "customType": "active_state"
+        "customType": "active_state",
+        "capabilityName": "valetMode"
       }
     ]
   },
@@ -21565,7 +21756,8 @@
             "description": "Powertrain is all electric"
           }
         ],
-        "customType": "engine_type"
+        "customType": "engine_type",
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 3,
@@ -21717,7 +21909,7 @@
             }
           ]
         },
-        "capabilityName": "vehicle_information"
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 10,
@@ -21847,7 +22039,7 @@
             }
           ]
         },
-        "capabilityName": "vehicle_information"
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 13,
@@ -21888,7 +22080,7 @@
             }
           ]
         },
-        "capabilityName": "vehicle_information"
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 14,
@@ -22048,7 +22240,7 @@
             }
           ]
         },
-        "capabilityName": "vehicle_information"
+        "capabilityName": "vehicleInformation"
       },
       {
         "id": 20,
@@ -22204,7 +22396,8 @@
             "description": "Secondary powertrain`s type is petrol."
           }
         ],
-        "customType": "engine_type"
+        "customType": "engine_type",
+        "capabilityName": "vehicleInformation"
       }
     ]
   },
@@ -22269,7 +22462,8 @@
             "description": "Vehicle coordinates are 52.520008:13.404954"
           }
         ],
-        "customType": "coordinates"
+        "customType": "coordinates",
+        "capabilityName": "vehicleLocation"
       },
       {
         "id": 5,
@@ -22309,7 +22503,7 @@
             }
           ]
         },
-        "capabilityName": "vehicle_location"
+        "capabilityName": "vehicleLocation"
       },
       {
         "id": 6,
@@ -22394,7 +22588,7 @@
             }
           ]
         },
-        "capabilityName": "vehicle_location"
+        "capabilityName": "vehicleLocation"
       },
       {
         "id": 7,
@@ -22479,7 +22673,7 @@
             }
           ]
         },
-        "capabilityName": "vehicle_location"
+        "capabilityName": "vehicleLocation"
       },
       {
         "id": 8,
@@ -22530,7 +22724,8 @@
             "description": "GPS signal strength is 80%"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "vehicleLocation"
       }
     ]
   },
@@ -22603,7 +22798,8 @@
             "description": "Charging capability - charging port is open, charge mode is immediate, charging rate is 35.0kW and max range is 555.0km, recorded at 10. January 2017 at 16:32:05 GMT"
           }
         ],
-        "customType": "capability_state"
+        "customType": "capability_state",
+        "capabilityName": "vehicleStatus"
       }
     ]
   },
@@ -22666,7 +22862,8 @@
             "description": "Vehicle time is 19:55"
           }
         ],
-        "customType": "time"
+        "customType": "time",
+        "capabilityName": "vehicleTime"
       }
     ]
   },
@@ -22770,7 +22967,7 @@
             }
           ]
         },
-        "capabilityName": "video_handover"
+        "capabilityName": "videoHandover"
       },
       {
         "id": 3,
@@ -22851,7 +23048,7 @@
             }
           ]
         },
-        "capabilityName": "video_handover"
+        "capabilityName": "videoHandover"
       }
     ]
   },
@@ -22952,7 +23149,8 @@
             "description": "Rain intensity is at 100% (maximum rain)"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "weatherConditions"
       }
     ]
   },
@@ -23032,7 +23230,8 @@
             "description": "WiFi is enabled"
           }
         ],
-        "customType": "enabled_state"
+        "customType": "enabled_state",
+        "capabilityName": "wiFi"
       },
       {
         "name": "network_connected",
@@ -23058,7 +23257,8 @@
             "description": "WiFi is connected"
           }
         ],
-        "customType": "connection_state"
+        "customType": "connection_state",
+        "capabilityName": "wiFi"
       },
       {
         "id": 3,
@@ -23110,7 +23310,8 @@
             "description": "WiFi network uses the WPA2-Personal algorithm"
           }
         ],
-        "customType": "network_security"
+        "customType": "network_security",
+        "capabilityName": "wiFi"
       },
       {
         "id": 5,
@@ -23196,7 +23397,8 @@
                 "name": "hatch"
               }
             ],
-            "customType": "window_location"
+            "customType": "window_location",
+            "capabilityName": "windows"
           },
           {
             "name": "open_percentage",
@@ -23207,7 +23409,8 @@
             "type": "double",
             "size": 8,
             "description": "Percentage value between 0.0 - 1.0 (0% - 100%)",
-            "customType": "percentage"
+            "customType": "percentage",
+            "capabilityName": "windows"
           }
         ],
         "id": 2,
@@ -23255,7 +23458,8 @@
             "description": "Hatch is 18% open"
           }
         ],
-        "customType": "window_open_percentage"
+        "customType": "window_open_percentage",
+        "capabilityName": "windows"
       },
       {
         "name": "positions",
@@ -23292,7 +23496,8 @@
                 "name": "hatch"
               }
             ],
-            "customType": "window_location"
+            "customType": "window_location",
+            "capabilityName": "windows"
           },
           {
             "name": "position",
@@ -23361,7 +23566,8 @@
             "description": "Hatch is open"
           }
         ],
-        "customType": "window_position"
+        "customType": "window_position",
+        "capabilityName": "windows"
       }
     ]
   },
@@ -23552,7 +23758,8 @@
             "description": "Windscreen is divided into a matrix 4 columns horizontally by 3 rows vertically"
           }
         ],
-        "customType": "zone"
+        "customType": "zone",
+        "capabilityName": "windscreen"
       },
       {
         "name": "windscreen_damage_zone",
@@ -23588,7 +23795,8 @@
             "description": "Damage is detected in the 1st column from left and the 2nd row from the top"
           }
         ],
-        "customType": "zone"
+        "customType": "zone",
+        "capabilityName": "windscreen"
       },
       {
         "id": 6,
@@ -23636,7 +23844,8 @@
             "description": "Damage detected with 95% confidence"
           }
         ],
-        "customType": "percentage"
+        "customType": "percentage",
+        "capabilityName": "windscreen"
       },
       {
         "id": 8,

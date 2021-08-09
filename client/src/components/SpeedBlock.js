@@ -1,32 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '../styles/SpeedBlock.scss'
-import UNITS from '../utils/units'
 import Block from './Block'
 import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function SpeedBlock({ property }) {
-  const unitSymbol = UNITS[property.unit] || property.unit
-  const maxValue = 140 // Max value is 140m/s
-
-  const [valueInMetersPerSecond, setValueInMetersPerSecond] = useState(0)
-  const percentValue = Math.min(
-    (valueInMetersPerSecond / maxValue) * 100,
-    maxValue
-  )
-  const animatedValue = useAnimateNumber(Number(property.value), 500)
-
+  const maxValue = 500
+  const percentValue = Math.min((property.value / maxValue) * 100, maxValue)
+  const animatedValue = useAnimateNumber(Number(property.value) || 0, 500)
   const dashArraySize = 530
   const dashOffset = dashArraySize + (dashArraySize / 100) * percentValue
-
-  useEffect(() => {
-    const propertyUnitType = property.config.unit.unit_types.find(
-      (unitType) => unitType.name === property.unit
-    )
-
-    setValueInMetersPerSecond(
-      property.value * (propertyUnitType.conversion_linear || 1)
-    )
-  }, [property])
 
   return (
     <Block className="SpeedBlock" property={property}>
@@ -120,7 +102,7 @@ export default function SpeedBlock({ property }) {
         </div>
         <div className="SpeedBlockInnerContent">
           <div className="Num2">{animatedValue}</div>
-          <div className="SpeedPropertyUnit">{unitSymbol}</div>
+          <div className="SpeedPropertyUnit">{property.unit}</div>
         </div>
       </div>
     </Block>

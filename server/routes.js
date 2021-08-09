@@ -13,6 +13,6 @@ const router = new Router()
 router.post('/config', configController.store)
 router.get('/vehicles', vehiclesController.index)
 router.get('/auth/callback', oAuthController.callback)
-router.get('/vehicle-data/:vehicleId', vehiclesController.getData)
+router.post('/vehicle-data/:vehicleId', vehiclesController.getData)
 
 export default router

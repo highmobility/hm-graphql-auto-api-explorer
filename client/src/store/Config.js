@@ -27,10 +27,19 @@ export default class Config {
     'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
 
   view = VIEWS.GRID
-  updateFrequency = 15
+  updateFrequency = 5
   selectedVehicleId = null
   pinnedProperties = []
-  shownProperties = []
+  shownProperties = [
+    'diagnostics.engineOilTemperature',
+    'diagnostics.batteryLevel',
+    'diagnostics.speed',
+    'vehicleLocation.coordinates',
+    // diagnostics.odometer,
+    // doors.positions
+    // diagnostics.fuelLevel,
+    // vehicleLocation.heading
+  ]
 
   constructor() {
     makeAutoObservable(this)

@@ -8,11 +8,14 @@ export default function Block({ children, property, className = '' }) {
     <div className={`Block ${className}`}>
       <div className="BlockContent">
         <PinButton property={property} />
-        <span className="BlockCapabilityLabel">{property.capabilityName}</span>
+        <span className="BlockCapabilityLabel">
+          {property.config.capabilityName}
+        </span>
         <h4 className="BlockPropertyName">
           {upperFirst(
             (
-              property.name_pretty || property.name.replace(/_/g, ' ')
+              property.config.name_pretty ||
+              property.config.name.replace(/_/g, ' ')
             ).toLowerCase()
           )}
         </h4>

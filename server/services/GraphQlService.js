@@ -26,22 +26,18 @@ export default class GraphQlService {
 
     const capabilityQueries = Object.entries(capabilities).map(
       ([capabilityName, properties]) => {
+        const capabilityConfig = Object.values(CAPABILITIES).find(
+          (capability) => capability.name_cased === capabilityName
+        )
         const propertyQueries = properties.map((propertyName) => {
-          const propertyConfig = CAPABILITIES[capabilityName].properties.find(
+          const propertyConfig = capabilityConfig.properties.find(
             (p) => p.name_cased === propertyName
           )
 
           const propertyQuery = propertyConfig.items
-            ? propertyConfig.items
-                .map(
-                  (item) =>
-                    `${item.name} { data ${
-                      propertyConfig.type.includes('unit')
-                        ? '{ value, unit }'
-                        : ''
-                    } }`
-                )
-                .join(',')
+            ? `{ data { ${propertyConfig.items
+                .map((i) => i.name_cased)
+                .join(',')} } }`
             : `{ data ${
                 propertyConfig.type.includes('unit') ? '{ value, unit }' : ''
               } }`
@@ -70,7 +66,9 @@ export default class GraphQlService {
     const query = this.buildQuery(properties)
     const jwtToken = this.generateJWT()
 
-    const { data } = await axios.post(
+    const {
+      data: { data },
+    } = await axios.post(
       this.getEndpoint(),
       {
         query,

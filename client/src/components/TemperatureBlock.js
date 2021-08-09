@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/TemperatureBlock.scss'
-import UNITS from '../utils/units'
 import Block from './Block'
 import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function TemperatureBlock({ property }) {
-  const unitSymbol = UNITS[property.unit] || property.unit
-  const dashArraySize = 530
-
   const [value, setValue] = useState(0)
-  const percentValue = Math.min(value, 100)
+  const dashArraySize = 530
+  const maxValue = 300
+  const percentValue = Math.min((value / maxValue) * 100, maxValue)
+
   const animatedValue = useAnimateNumber(Number(value), 500)
 
   useEffect(() => {
@@ -87,7 +86,7 @@ export default function TemperatureBlock({ property }) {
         </svg>
         <div className="TemperatureBlockInnerCircle">
           <div className="Num2">{animatedValue}</div>
-          <div className="Num4">{unitSymbol}</div>
+          <div className="Num4">{property.unit}</div>
         </div>
       </div>
     </Block>

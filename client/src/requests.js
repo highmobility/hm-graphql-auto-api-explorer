@@ -16,3 +16,12 @@ export const fetchVehicles = async () => {
 
   return data
 }
+
+export const fetchVehicleData = async (vehicleId, properties) => {
+  const { data = [] } = await axios.post(
+    `${API_URL}/vehicle-data/${vehicleId}`,
+    { properties }
+  )
+
+  return data
+}

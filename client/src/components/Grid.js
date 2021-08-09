@@ -78,6 +78,7 @@ export default function Grid({ items }) {
     config: { mass: 5, tension: 500, friction: 100 },
     trail: 25,
   })
+
   return (
     <div className="Grid" ref={ref} style={{ height: Math.max(...heights) }}>
       {transitions((style, item) => {

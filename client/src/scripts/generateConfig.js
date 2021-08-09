@@ -186,6 +186,7 @@ function buildCapabilityProperty(
         customType: customTypeKey,
         type: customType.type,
         items: mappedItems,
+        capabilityName: capability.name_cased,
       }
     }
 
@@ -194,6 +195,7 @@ function buildCapabilityProperty(
       ...property,
       customType: customTypeKey,
       type: customType.type,
+      capabilityName: capability.name_cased,
     }
   }
 
@@ -205,7 +207,7 @@ function buildCapabilityProperty(
     return {
       ...property,
       unit,
-      capabilityName: capability.name,
+      capabilityName: capability.name_cased,
     }
   }
 

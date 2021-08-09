@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import UNITS from '../utils/units'
 import Block from './Block'
 import '../styles/BatteryLevelBlock.scss'
 import useAnimateNumber from '../hooks/useAnimateNumber'
@@ -62,7 +61,7 @@ export default function BatteryLevelBlock({ property }) {
 
         <div className="BatterLevelBlockText">
           <div className="Num2 BatteryLevelBlockValue">{animatedValue} </div>
-          <div className="BatteryLevelBlockUnit">{UNITS.percentage}</div>
+          <div className="BatteryLevelBlockUnit">%</div>
         </div>
       </div>
     </Block>
