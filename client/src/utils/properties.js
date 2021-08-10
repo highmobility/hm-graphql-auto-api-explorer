@@ -10,7 +10,7 @@ import FuelLevelBlock from '../components/FuelLevelBlock'
 import HeadingBlock from '../components/HeadingBlock'
 import { VIEWS } from '../store/Config'
 import ListBlock from '../components/ListBlock'
-import { camelCaseToWords } from './strings'
+import { camelCaseToSnakeCase, camelCaseToWords } from './strings'
 
 const UNITS = {
   kelvin: '°K',
@@ -32,6 +32,9 @@ const UNITS = {
   miles: 'mi',
   scandinavianMiles: 'mil',
   nauticalMiles: 'M',
+  amperes: 'A',
+  milliamperes: 'mA',
+  kiloamperes: 'kA',
 }
 
 export const BLOCKS = {
@@ -173,10 +176,22 @@ export function formatValue(value) {
     return Number(value).toFixed(2)
   }
 
-  return value
+  return camelCaseToWords(value)
 }
 
 export function formatUnit(unitValue) {
   if (!unitValue) return ''
   return UNITS[unitValue] || camelCaseToWords(unitValue)
+}
+
+export function valueWithBaseUnit(value, unit, propertyConfig) {
+  const propertyUnitType = propertyConfig.unit.unit_types.find(
+    (unitType) => unitType.name === camelCaseToSnakeCase(unit)
+  )
+
+  if (propertyUnitType.conversion_constant) {
+    return value + propertyUnitType.conversion_constant
+  }
+
+  return value * propertyUnitType.conversion_linear
 }

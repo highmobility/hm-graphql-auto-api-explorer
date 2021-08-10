@@ -2,17 +2,23 @@ import React, { useEffect, useState } from 'react'
 import '../styles/TemperatureBlock.scss'
 import Block from './Block'
 import useAnimateNumber from '../hooks/useAnimateNumber'
-import { formatUnit } from '../utils/properties'
+import { formatUnit, valueWithBaseUnit } from '../utils/properties'
 
 export default function TemperatureBlock({ property }) {
-  const [value, setValue] = useState(0)
+  const [valueInKelvin, setValueInKelvin] = useState(0)
   const dashArraySize = 530
-  const maxValue = 300
-  const percentValue = Math.min((value / maxValue) * 100, maxValue)
-  const animatedValue = useAnimateNumber(Number(value), 500)
+  const maxValue = 450 // kelvin
+  const percentValue = Math.min((valueInKelvin / maxValue) * 100, 100)
+  const animatedValue = useAnimateNumber(Number(property.data.value), 500)
 
   useEffect(() => {
-    setValue(property.data.value || 0)
+    setValueInKelvin(
+      valueWithBaseUnit(
+        property.data.value,
+        property.data.unit,
+        property.config
+      )
+    )
   }, [property])
 
   return (

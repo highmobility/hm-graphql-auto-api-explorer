@@ -18,7 +18,7 @@ export default class Config {
   tokenUrl =
     'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
 
-  view = VIEWS.LIST
+  view = VIEWS.GRID
   updateFrequency = 5
   selectedVehicleId = null
   pinnedProperties = []
@@ -29,7 +29,7 @@ export default class Config {
     'diagnostics.batteryLevel',
     'diagnostics.speed',
     'hood.lock',
-    // 'vehicleLocation.coordinates',
+    'vehicleLocation.coordinates',
     'diagnostics.odometer',
     'doors.positions',
     'diagnostics.fuelLevel',

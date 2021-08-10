@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/SpeedBlock.scss'
 import Block from './Block'
 import useAnimateNumber from '../hooks/useAnimateNumber'
-import { formatUnit } from '../utils/properties'
+import { formatUnit, valueWithBaseUnit } from '../utils/properties'
 
 export default function SpeedBlock({ property }) {
-  const maxValue = 500
-  const percentValue = Math.min(
-    (property.data.value / maxValue) * 100,
-    maxValue
-  )
+  const maxValue = 55
+  const [valueInMetersPerSecond, setValueInMetersPerSecond] = useState(0)
+  const percentValue = Math.min((valueInMetersPerSecond / maxValue) * 100, 100)
   const animatedValue = useAnimateNumber(Number(property.data.value) || 0, 500)
   const dashArraySize = 530
   const dashOffset = dashArraySize + (dashArraySize / 100) * percentValue
+
+  useEffect(() => {
+    setValueInMetersPerSecond(
+      valueWithBaseUnit(
+        property.data.value,
+        property.data.unit,
+        property.config
+      )
+    )
+  }, [property])
 
   return (
     <Block className="SpeedBlock" property={property}>

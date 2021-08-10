@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Block from './Block'
 import '../styles/OdometerBlock.scss'
 import useAnimateNumber from '../hooks/useAnimateNumber'
+import { formatUnit } from '../utils/properties'
 
 export default function OdometerBlock({ property }) {
   const [value, setValue] = useState(0)
@@ -24,7 +25,9 @@ export default function OdometerBlock({ property }) {
           <div className="OdometerBlockDigit Num2">{animatedValue[4]}</div>
           <div className="OdometerBlockDigit Num2">{animatedValue[5]}</div>
         </div>
-        <div className="OdometerBlockUnit">{property.data.unit}</div>
+        <div className="OdometerBlockUnit">
+          {formatUnit(property.data.unit)}
+        </div>
       </div>
     </Block>
   )
