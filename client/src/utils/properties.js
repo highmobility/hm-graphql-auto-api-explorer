@@ -8,6 +8,8 @@ import OdometerBlock from '../components/OdometerBlock'
 import DoorsBlock from '../components/DoorsBlock'
 import FuelLevelBlock from '../components/FuelLevelBlock'
 import HeadingBlock from '../components/HeadingBlock'
+import { VIEWS } from '../store/Config'
+import ListBlock from '../components/ListBlock'
 
 export const BLOCKS = {
   TWO_BY_TWO: {
@@ -28,9 +30,21 @@ export const BLOCKS = {
     width: 680,
     height: 165,
   },
+  LIST: {
+    height: 68,
+    columns: 1,
+    rows: 1,
+  },
 }
 
-export function getBlockData(propertyConfig) {
+export function getBlockData(view, propertyConfig) {
+  if (view === VIEWS.LIST) {
+    return {
+      ...BLOCKS.LIST,
+      component: ListBlock,
+    }
+  }
+
   if (propertyConfig.type === 'unit.temperature') {
     return {
       ...BLOCKS.TWO_BY_TWO,
@@ -128,4 +142,12 @@ export function getPropertyConfig(propertyUniqueId) {
 
 export function getPropertyUniqueId(property) {
   return `${property.capabilityName}.${property.name_cased}`
+}
+
+export function formatValue(value) {
+  if (typeof value === 'number') {
+    return Number(value).toFixed(2)
+  }
+
+  return value
 }

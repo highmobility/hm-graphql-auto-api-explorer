@@ -4,17 +4,18 @@ import useMedia from '../hooks/useMedia'
 import useMeasure from 'react-use-measure'
 import { useMemo } from 'react'
 import { useTransition, a } from '@react-spring/web'
+import { VIEWS } from '../store/Config'
 
-export default function Grid({ items }) {
-  const numberOfColumns = useMedia(
+export default function Grid({ items, view = VIEWS.GRID }) {
+  const numberOfGridColumns = useMedia(
     ['(min-width: 1500px)', '(min-width: 1000px)', '(min-width: 846px)'],
-    [10, 8, 6, 4],
-    4
+    [10, 8, 6, 4]
   )
+
+  const numberOfColumns = view === VIEWS.GRID ? numberOfGridColumns : 1
 
   const [ref, { width }] = useMeasure()
   const columnWidth = width / numberOfColumns
-  const gridPadding = 10
 
   const [heights, gridItems] = useMemo(() => {
     let gridItems = [] // Added items
@@ -22,6 +23,7 @@ export default function Grid({ items }) {
     let column = 0 // Column to use next
 
     const fitsInRow = (item) => {
+      if (view === VIEWS.LIST) return true
       for (let i = 0; i < item.block.columns; i++) {
         if (heights[column + i] !== heights[column]) return false
       }
@@ -40,34 +42,45 @@ export default function Grid({ items }) {
         )
       })
 
-      if (itemToAdd) {
-        const x = (width / numberOfColumns) * column
-        const y = heights[column]
-
+      if (view === VIEWS.LIST) {
         gridItems.push({
           ...itemToAdd,
-          x,
-          y,
-          width: itemToAdd.block.columns * columnWidth,
+          x: 0,
+          y: heights[0],
+          width,
           height: itemToAdd.block.height,
         })
-
-        for (let i = 0; i < itemToAdd.block.columns; i++) {
-          heights[column + i] += itemToAdd.block.height
-        }
-        column = heights.indexOf(Math.min(...heights))
+        heights[0] += itemToAdd.block.height
       } else {
-        for (let i = 0; i < numberOfColumns; i++) {
-          heights[i] = Math.max(...heights)
+        if (itemToAdd) {
+          const x = (width / numberOfColumns) * column
+          const y = heights[column]
+
+          gridItems.push({
+            ...itemToAdd,
+            x,
+            y,
+            width: itemToAdd.block.columns * columnWidth,
+            height: itemToAdd.block.height,
+          })
+
+          for (let i = 0; i < itemToAdd.block.columns; i++) {
+            heights[column + i] += itemToAdd.block.height
+          }
+          column = heights.indexOf(Math.min(...heights))
+        } else {
+          for (let i = 0; i < numberOfColumns; i++) {
+            heights[i] = Math.max(...heights)
+          }
+          column = 0
         }
-        column = 0
       }
 
       loop++
     }
 
     return [heights, gridItems]
-  }, [numberOfColumns, items, width, columnWidth])
+  }, [numberOfColumns, items, width, columnWidth, view])
 
   const transitions = useTransition(gridItems, {
     key: (item) => item.id,
@@ -80,13 +93,17 @@ export default function Grid({ items }) {
   })
 
   return (
-    <div className="Grid" ref={ref} style={{ height: Math.max(...heights) }}>
+    <div
+      className={`Grid ${view === VIEWS.LIST ? 'ListView' : 'GridView'}`}
+      ref={ref}
+      style={{ height: Math.max(...heights) }}
+    >
       {transitions((style, item) => {
         const PropertyComponent = item.block.component
 
         return (
           <a.div className="GridItemContainer" style={style}>
-            <div className="GridItem" style={{ padding: `${gridPadding}px` }}>
+            <div className="GridItem">
               <PropertyComponent property={item} />
             </div>
           </a.div>

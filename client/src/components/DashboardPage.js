@@ -9,6 +9,7 @@ import { fetchVehicleData } from '../requests'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import Spinner from './Spinner'
+import { VIEWS } from '../store/Config'
 
 function DashboardPage() {
   const [dataFetched, setDataFetched] = useState(false)
@@ -21,7 +22,7 @@ function DashboardPage() {
       return {
         id: propertyUniqueId,
         config: propertyConfig,
-        block: getBlockData(propertyConfig),
+        block: getBlockData(config.view, propertyConfig),
         data,
       }
     })
@@ -73,6 +74,16 @@ function DashboardPage() {
     fetchData,
   ])
 
+  const renderItems = () => {
+    if (config.view === VIEWS.MAP) {
+      return <div>MAP</div>
+    }
+
+    return (
+      <Grid items={parsedProperties} view={VIEWS[config.view] || VIEWS.GRID} />
+    )
+  }
+
   return (
     <div className="DashboardPage">
       {!dataFetched && <Spinner />}
@@ -100,9 +111,10 @@ function DashboardPage() {
           </div>
         </div>
       )}
-      {dataFetched && vehicles.list.length && config.shownProperties.length && (
-        <Grid items={parsedProperties} />
-      )}
+      {dataFetched &&
+        vehicles.list.length &&
+        config.shownProperties.length &&
+        renderItems()}
     </div>
   )
 }

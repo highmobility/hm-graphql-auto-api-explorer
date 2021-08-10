@@ -18,16 +18,10 @@ export default class Config {
   tokenUrl =
     'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
 
-  view = VIEWS.GRID
+  view = VIEWS.LIST
   updateFrequency = 5
   selectedVehicleId = null
-  pinnedProperties = [
-    'charging.batteryCurrent',
-    'charging.chargeMode',
-    'diagnostics.engineOilTemperature',
-    'diagnostics.batteryLevel',
-    'diagnostics.speed',
-  ]
+  pinnedProperties = []
   shownProperties = [
     'charging.batteryCurrent',
     'charging.chargeMode',
@@ -35,12 +29,12 @@ export default class Config {
     'diagnostics.batteryLevel',
     'diagnostics.speed',
     'hood.lock',
-    'vehicleLocation.coordinates',
-    'diagnostics.odometer',
-    'doors.positions',
-    'diagnostics.fuelLevel',
-    // 'vehicleLocation.heading', - waiting for api update
-    'seats.personsDetected',
+    // 'vehicleLocation.coordinates',
+    // 'diagnostics.odometer',
+    // 'doors.positions',
+    // 'diagnostics.fuelLevel',
+    // // 'vehicleLocation.heading', - waiting for api update
+    // 'seats.personsDetected',
   ]
 
   constructor() {

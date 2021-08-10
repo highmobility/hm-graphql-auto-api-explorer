@@ -14,6 +14,14 @@
 
   .GridItem {
     width: 100%;
+    display: flex;
     box-sizing: border-box;
+    padding: 10px;
+  }
+
+  &.ListView {
+    .GridItem {
+      padding: 5px 10px;
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { upperFirst } from 'lodash'
 import React, { Fragment } from 'react'
 import '../styles/Block.scss'
+import { formatValue } from '../utils/properties'
 import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
@@ -41,7 +42,9 @@ export default function Block({ children, property, className = '' }) {
               </div>
             ) : (
               <Fragment>
-                <span className="Num2">{property?.data?.value}</span>{' '}
+                <span className="Num2">
+                  {formatValue(property?.data?.value)}
+                </span>{' '}
                 <span className="Num4">{property?.data?.unit}</span>
               </Fragment>
             )}
