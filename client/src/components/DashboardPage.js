@@ -6,6 +6,8 @@ import Grid from './Grid'
 import { useMobx } from '../store/mobx'
 import { useCallback, useEffect, useState } from 'react'
 import { fetchVehicleData } from '../requests'
+import { Link } from 'react-router-dom'
+import routes, { PAGES } from '../routes'
 
 function DashboardPage() {
   const [dataFetched, setDataFetched] = useState(false)
@@ -70,20 +72,22 @@ function DashboardPage() {
     fetchData,
   ])
 
-  if (!dataFetched) return null
-
   return (
     <div className="DashboardPage">
       <Header />
-      {vehicles.list.length === 0 ? (
+      {vehicles.list.length === 0 && (
         <div className="DashboardMessage">
           <div className="DashboardMessageTitle">No vehicles added</div>
-          <div className="DashboardMessageButton">Add vehicles</div>
+          <Link
+            to={
+              routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
+            }
+          >
+            <div className="DashboardMessageButton">Add vehicles</div>
+          </Link>
         </div>
-      ) : (
-        <Grid items={parsedProperties} />
       )}
-      {vehicles.list.length > 0 && config.shownProperties.length === 0 ? (
+      {vehicles.list.length > 0 && config.shownProperties.length === 0 && (
         <div className="DashboardMessage">
           <div className="DashboardMessageTitle">No properties to show</div>
           <div
@@ -93,8 +97,9 @@ function DashboardPage() {
             Filter properties
           </div>
         </div>
-      ) : (
-        ''
+      )}
+      {dataFetched && vehicles.list.length && config.shownProperties.length && (
+        <Grid items={parsedProperties} />
       )}
     </div>
   )
