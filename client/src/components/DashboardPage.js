@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { fetchVehicleData } from '../requests'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
+import Spinner from './Spinner'
 
 function DashboardPage() {
   const [dataFetched, setDataFetched] = useState(false)
@@ -74,6 +75,7 @@ function DashboardPage() {
 
   return (
     <div className="DashboardPage">
+      {!dataFetched && <Spinner />}
       <Header />
       {vehicles.list.length === 0 && (
         <div className="DashboardMessage">
