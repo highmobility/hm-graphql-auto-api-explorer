@@ -135,6 +135,12 @@
         &:hover {
           background: #f7f8fc;
         }
+
+        &:last-child {
+          background: white;
+          display: flex;
+          justify-content: center;
+        }
       }
     }
   }

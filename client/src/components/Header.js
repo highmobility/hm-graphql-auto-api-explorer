@@ -8,9 +8,12 @@ import Dropdown from './Dropdown'
 import { VIEWS } from '../store/Config'
 import { upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
+import { useHistory } from 'react-router-dom'
+import routes, { PAGES } from '../routes'
 
 const Header = () => {
   const { config, vehicles, app } = useMobx()
+  const history = useHistory()
 
   const viewDropdownItems = [
     {
@@ -48,18 +51,34 @@ const Header = () => {
     },
   ]
 
-  const vehicleDropdownItems = vehicles.list.map((vehicle) => ({
-    value: vehicle.id,
-    renderLabel: () => (
-      <Fragment>
-        <div className="HeaderVehicleSelectDropdownBrand">{vehicle.brand}</div>
-        <div className="HeaderVehicleSelectDropdownVin">{vehicle.vin}</div>
-      </Fragment>
-    ),
-    onClick: () => {
-      config.setSelectedVehicle(vehicle.id)
+  const vehicleDropdownItems = [
+    ...vehicles.list.map((vehicle) => ({
+      value: vehicle.id,
+      renderLabel: () => (
+        <Fragment>
+          <div className="HeaderVehicleSelectDropdownBrand">
+            {vehicle.brand}
+          </div>
+          <div className="HeaderVehicleSelectDropdownVin">{vehicle.vin}</div>
+        </Fragment>
+      ),
+      onClick: () => {
+        config.setSelectedVehicle(vehicle.id)
+      },
+    })),
+    {
+      renderLabel: () => (
+        <Fragment>
+          <PrimaryButton>Add vehicle</PrimaryButton>
+        </Fragment>
+      ),
+      onClick: () => {
+        history.push(
+          routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
+        )
+      },
     },
-  }))
+  ]
 
   const selectedVehicle = vehicles.list.find(
     (vehicle) => vehicle.id === config.selectedVehicleId
