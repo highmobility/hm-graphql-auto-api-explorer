@@ -35,6 +35,9 @@ const UNITS = {
   amperes: 'A',
   milliamperes: 'mA',
   kiloamperes: 'kA',
+  degrees: '°',
+  radians: 'rad',
+  revolutions: 'rev',
 }
 
 export const BLOCKS = {

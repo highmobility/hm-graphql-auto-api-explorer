@@ -33,7 +33,7 @@ export default class Config {
     'diagnostics.odometer',
     'doors.positions',
     'diagnostics.fuelLevel',
-    // // 'vehicleLocation.heading', - waiting for api update
+    'vehicleLocation.heading',
     'seats.personsDetected',
   ]
 

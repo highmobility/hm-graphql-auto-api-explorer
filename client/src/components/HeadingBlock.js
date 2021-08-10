@@ -4,6 +4,7 @@ import '../styles/HeadingBlock.scss'
 import { ReactComponent as HeadingSvg } from '../images/heading.svg'
 import { ReactComponent as HeadingCarSvg } from '../images/headingCar.svg'
 import useAnimateNumber from '../hooks/useAnimateNumber'
+import { valueWithBaseUnit } from '../utils/properties'
 
 export default function HeadingBlock({ property }) {
   const [valueInDegrees, setValueInDegrees] = useState(0)
@@ -11,12 +12,12 @@ export default function HeadingBlock({ property }) {
   const animatedValue = useAnimateNumber(Number(property.data.value), 500)
 
   useEffect(() => {
-    const propertyUnitType = property.config.unit.unit_types.find(
-      (unitType) => unitType.name === property.unit
-    )
-
     setValueInDegrees(
-      property.value * (propertyUnitType.conversion_linear || 1)
+      valueWithBaseUnit(
+        property.data.value,
+        property.data.unit,
+        property.config
+      )
     )
   }, [property])
 
@@ -32,7 +33,7 @@ export default function HeadingBlock({ property }) {
         </div>
         <div className="HeadingValueWrapper">
           <div className="Num2">{animatedValue}</div>
-          <p className="small">{property.unit}</p>
+          <p className="small">{property.data.unit}</p>
         </div>
       </div>
     </Block>
