@@ -6,20 +6,23 @@
   border-radius: 12px;
   padding: 22px;
   width: 100%;
+  box-sizing: border-box;
 
   .ListBlockCapability {
     font-size: 16px;
     line-height: 28px;
     color: #495057;
-    width: 200px;
+    flex-shrink: 1;
+    min-width: 200px;
   }
 
   .ListBlockProperty {
-    width: 400px;
+    flex-shrink: 1;
     font-size: 16px;
     line-height: 28px;
     color: #495057;
     font-weight: bold;
+    min-width: 200px;
   }
 
   .ListBlockValues {
@@ -27,8 +30,17 @@
     line-height: 28px;
     color: #495057;
     flex: 1;
+    flex-shrink: 0;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
     overflow: hidden;
-    width: 100%;
+  }
+
+  .ListBlockValue {
+    flex: 1;
+    padding: 0 4px;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }

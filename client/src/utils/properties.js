@@ -10,6 +10,29 @@ import FuelLevelBlock from '../components/FuelLevelBlock'
 import HeadingBlock from '../components/HeadingBlock'
 import { VIEWS } from '../store/Config'
 import ListBlock from '../components/ListBlock'
+import { camelCaseToWords } from './strings'
+
+const UNITS = {
+  kelvin: '°K',
+  celsius: '°C',
+  fahrenheit: '°F',
+  metersPerSecond: 'm/s',
+  kilometersPerHour: 'km/h',
+  milesPerHour: 'mph',
+  knots: 'kn',
+  meters: 'm',
+  millimeters: 'mm',
+  centimeters: 'cm',
+  decimeters: 'dm',
+  kilometers: 'km',
+  megameters: 'Mm',
+  inches: 'in',
+  feet: 'ft',
+  yards: 'yd',
+  miles: 'mi',
+  scandinavianMiles: 'mil',
+  nauticalMiles: 'M',
+}
 
 export const BLOCKS = {
   TWO_BY_TWO: {
@@ -145,9 +168,15 @@ export function getPropertyUniqueId(property) {
 }
 
 export function formatValue(value) {
+  if (!value) return ''
   if (typeof value === 'number') {
     return Number(value).toFixed(2)
   }
 
   return value
+}
+
+export function formatUnit(unitValue) {
+  if (!unitValue) return ''
+  return UNITS[unitValue] || camelCaseToWords(unitValue)
 }

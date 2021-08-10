@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../styles/TemperatureBlock.scss'
 import Block from './Block'
 import useAnimateNumber from '../hooks/useAnimateNumber'
+import { formatUnit } from '../utils/properties'
 
 export default function TemperatureBlock({ property }) {
   const [value, setValue] = useState(0)
@@ -85,7 +86,7 @@ export default function TemperatureBlock({ property }) {
         </svg>
         <div className="TemperatureBlockInnerCircle">
           <div className="Num2">{animatedValue}</div>
-          <div className="Num4">{property.data.unit}</div>
+          <div className="Num4">{formatUnit(property.data.unit)}</div>
         </div>
       </div>
     </Block>

@@ -30,11 +30,11 @@ export default class Config {
     'diagnostics.speed',
     'hood.lock',
     // 'vehicleLocation.coordinates',
-    // 'diagnostics.odometer',
-    // 'doors.positions',
-    // 'diagnostics.fuelLevel',
+    'diagnostics.odometer',
+    'doors.positions',
+    'diagnostics.fuelLevel',
     // // 'vehicleLocation.heading', - waiting for api update
-    // 'seats.personsDetected',
+    'seats.personsDetected',
   ]
 
   constructor() {

@@ -2,10 +2,14 @@ import React from 'react'
 import '../styles/SpeedBlock.scss'
 import Block from './Block'
 import useAnimateNumber from '../hooks/useAnimateNumber'
+import { formatUnit } from '../utils/properties'
 
 export default function SpeedBlock({ property }) {
   const maxValue = 500
-  const percentValue = Math.min((property.data.value / maxValue) * 100, maxValue)
+  const percentValue = Math.min(
+    (property.data.value / maxValue) * 100,
+    maxValue
+  )
   const animatedValue = useAnimateNumber(Number(property.data.value) || 0, 500)
   const dashArraySize = 530
   const dashOffset = dashArraySize + (dashArraySize / 100) * percentValue
@@ -102,7 +106,9 @@ export default function SpeedBlock({ property }) {
         </div>
         <div className="SpeedBlockInnerContent">
           <div className="Num2">{animatedValue}</div>
-          <div className="SpeedPropertyUnit">{property.data.unit}</div>
+          <div className="SpeedPropertyUnit">
+            {formatUnit(property.data.unit)}
+          </div>
         </div>
       </div>
     </Block>
