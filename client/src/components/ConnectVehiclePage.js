@@ -1,24 +1,42 @@
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { AUTH_CALLBACK_URL } from '../requests'
-import { useMobx } from '../store/mobx'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { AUTH_CALLBACK_URL, fetchConfig } from '../requests'
+import routes, { PAGES } from '../routes'
 import '../styles/ConnectVehiclePage.scss'
 import GrayCircles from './GrayCircles'
 import PrimaryButton from './PrimaryButton'
 
 function ConnectVehiclePage() {
-  const { config } = useMobx()
-  const oAuthUrl = new URL(config.authUrl)
-  oAuthUrl.searchParams.set('client_id', config.clientId)
-  oAuthUrl.searchParams.set('app_id', config.appId)
-  oAuthUrl.searchParams.set('redirect_uri', AUTH_CALLBACK_URL)
+  const [url, setUrl] = useState(null)
+  const history = useHistory()
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const config = await fetchConfig()
+
+        const oAuthUrl = new URL(config.auth_url)
+        oAuthUrl.searchParams.set('client_id', config.client_id)
+        oAuthUrl.searchParams.set('app_id', config.graph_ql_api_config.app_id)
+        oAuthUrl.searchParams.set('redirect_uri', AUTH_CALLBACK_URL)
+        setUrl(oAuthUrl)
+      } catch (e) {
+        history.push(
+          routes.find((route) => route.name === PAGES.INITIAL_CONFIG).path
+        )
+      }
+    }
+
+    fetch()
+  }, [history])
 
   return (
     <div className="ConnectVehiclePage">
       <div className="ConnectVehiclePageContent">
         <h2 className="Header">Connect your vehicle</h2>
         <GrayCircles />
-        <a href={oAuthUrl.toString()}>
+        <a href={url?.toString()}>
           <PrimaryButton>Add my first vehicle</PrimaryButton>
         </a>
       </div>

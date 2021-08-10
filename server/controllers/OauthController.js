@@ -1,5 +1,6 @@
 import { knex } from '../database'
 import axios from 'axios'
+import GraphQlService from '../services/GraphQlService'
 
 export default class OAuthController {
   async callback(req, res) {
@@ -17,9 +18,16 @@ export default class OAuthController {
         client_secret: config.client_secret,
       })
 
-      // How to get VIN and brand?
-      const vin = 'HARDCODED_VIN'
-      const brand = 'HARDCODED_BRAND'
+      const graphQl = new GraphQlService(
+        config.graph_ql_api_config,
+        tokenResponse.access_token
+      )
+      const { diagnostics } = await graphQl.fetchProperties([
+        'diagnostics.brand',
+        'diagnostics.vin',
+      ])
+      const vin = diagnostics.vin.data
+      const brand = diagnostics.brand.data
 
       await knex.transaction(async (trx) => {
         const [vehicleId] = await knex('vehicles')
@@ -49,7 +57,7 @@ export default class OAuthController {
       res.redirect(
         `${req.protocol}://${req.hostname}${
           req.hostname === 'localhost' ? ':3000' : ''
-        }/initial-config?error`
+        }/initial-config?error=true`
       )
     }
 

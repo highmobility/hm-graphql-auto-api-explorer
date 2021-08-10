@@ -11,6 +11,7 @@ const vehiclesController = new VehiclesController()
 const router = new Router()
 
 router.post('/config', configController.store)
+router.get('/config', configController.get)
 router.get('/vehicles', vehiclesController.index)
 router.get('/auth/callback', oAuthController.callback)
 router.post('/vehicle-data/:vehicleId', vehiclesController.getData)

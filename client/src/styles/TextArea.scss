@@ -1,5 +1,5 @@
 .TextArea.TextInput {
-  height: 150px;
+  height: 450px;
 
   .TextInputInput {
     width: 100%;
@@ -11,5 +11,12 @@
     align-items: flex-start;
     height: 100%;
     padding-top: 10px;
+  }
+
+  .TextAreaError {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 20px;
+    color: #df4747;
   }
 }

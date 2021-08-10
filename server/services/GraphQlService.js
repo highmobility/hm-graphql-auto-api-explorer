@@ -3,16 +3,15 @@ import jwt from 'jsonwebtoken'
 import uuid4 from 'uuid4'
 import axios from 'axios'
 import CAPABILITIES from '../../client/src/data/capabilities.json'
+import UNIVERSAL_PROPERTIES from '../../client/src/data/universalProperties.json'
 
 export default class GraphQlService {
+  graphQlApiConfig = null
   accessToken = null
-  appId = null
-  env = null
 
-  constructor(accessToken, appId, env) {
+  constructor(graphQlApiConfig, accessToken) {
+    this.graphQlApiConfig = graphQlApiConfig
     this.accessToken = accessToken
-    this.appId = appId
-    this.env = env
   }
 
   buildQuery(properties = []) {
@@ -30,9 +29,13 @@ export default class GraphQlService {
           (capability) => capability.name_cased === capabilityName
         )
         const propertyQueries = properties.map((propertyName) => {
-          const propertyConfig = capabilityConfig.properties.find(
-            (p) => p.name_cased === propertyName
-          )
+          const propertyConfig =
+            capabilityConfig.properties.find(
+              (p) => p.name_cased === propertyName
+            ) ||
+            UNIVERSAL_PROPERTIES.find(
+              (universalProp) => universalProp.name_cased === propertyName
+            )
 
           const propertyQuery = propertyConfig.items
             ? `{ data { ${propertyConfig.items
@@ -52,12 +55,6 @@ export default class GraphQlService {
     return `{${capabilityQueries.join(', ')}}`
   }
 
-  getEndpoint() {
-    return this.env === appConfig.appEnvironments.DEVELOP
-      ? appConfig.graphQlApiDevelopUrl
-      : appConfig.graphQlApiProductionUrl
-  }
-
   async fetchProperties(properties = []) {
     if (properties.length === 0) {
       return []
@@ -69,7 +66,7 @@ export default class GraphQlService {
     const {
       data: { data },
     } = await axios.post(
-      this.getEndpoint(),
+      this.graphQlApiConfig.app_uri,
       {
         query,
       },
@@ -85,33 +82,16 @@ export default class GraphQlService {
   }
 
   generateJWT() {
-    // auth flow:
-    // 1. use oAuthUrl, oAuthClientId, appId, oAuthRedirectURI to get oAuthCode
-    // 2. use oAuthTokenUrl, oAuthCode, oAuthRedirectURI, oAuthClientId, oAuthClientSecret to get accessToken
-    // 3. use accessToken, graphQLConfig(version, type, private_key, client_serial_number ) to generate graphQL JWT
-
-    // current app config fields: appId, clientPrivateKey, clientCertificate
-    // new app config fields: graphQlConfig.app_id, graphQlConfig.version, graphQlConfig.private_key, graphQlConfig.client_serial_number (temporarily use REST one and hardcode some values)
-
-    // This cannot be copied as of now
-    const GRAPHQL_API_CONFIG = {
-      version: '2.0',
-      app_id: this.appId,
-      client_serial_number: 'fc2e6591408076a340'.toUpperCase(),
-      private_key:
-        '-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgaL4l2cOjGIygxdMh\nEr7PRd7xVV707KKlsR546KaMNtOhRANCAASNUqCakHD3+WHDOI3F9yTx6Ok4fFeK\nSstonpljta/EbIM4zxCrobVMgfWzQAT9TIfsv4Bs1N8Dd3aWp9pPOycA\n-----END PRIVATE KEY-----\n\n',
-    }
-
     const payload = {
-      ver: GRAPHQL_API_CONFIG.version,
-      iss: GRAPHQL_API_CONFIG.client_serial_number.toUpperCase(),
+      ver: this.graphQlApiConfig.version,
+      iss: this.graphQlApiConfig.client_serial_number.toUpperCase(),
       sub: this.accessToken,
-      aud: this.getEndpoint(),
+      aud: this.graphQlApiConfig.app_uri,
       iat: Math.round(Date.now() / 1000),
       jti: uuid4(),
     }
 
-    const privateKey = Buffer.from(GRAPHQL_API_CONFIG.private_key, 'utf8')
+    const privateKey = Buffer.from(this.graphQlApiConfig.private_key, 'utf8')
     const jwtToken = jwt.sign(payload, privateKey, {
       algorithm: 'ES256',
     })

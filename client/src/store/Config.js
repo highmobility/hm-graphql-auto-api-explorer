@@ -2,11 +2,6 @@ import { makeAutoObservable } from 'mobx'
 import uniq from 'lodash/uniq'
 import { getPropertyUniqueId } from '../utils/properties'
 
-export const ENVIRONMENTS = {
-  DEVELOP: 'DEVELOP',
-  PRODUCTION: 'PRODUCTION',
-}
-
 export const VIEWS = {
   GRID: 'GRID',
   LIST: 'LIST',
@@ -15,10 +10,7 @@ export const VIEWS = {
 
 export default class Config {
   focusedInput = null
-  env = ENVIRONMENTS.DEVELOP
-  appId = '40AAAAC3C6467F0393FFD528'
-  clientPrivateKey = ''
-  clientCertificate = ``
+  graphQlApiConfig = ''
   clientId = 'a415c1ec-ca0b-4340-a3fd-dbad217608ed'
   clientSecret = 'G7ioWDWJlRHvRTD6zV0dcaMS2822FxeS'
   authUrl =
@@ -59,20 +51,8 @@ export default class Config {
     this.focusedInput = value
   }
 
-  setEnv(value) {
-    this.env = value
-  }
-
-  setAppId(value) {
-    this.appId = value
-  }
-
-  setClientPrivateKey(value) {
-    this.clientPrivateKey = value
-  }
-
-  setClientCertificate(value) {
-    this.clientCertificate = value
+  setGraphQlApiConfig(graphQlApiConfig) {
+    this.graphQlApiConfig = graphQlApiConfig
   }
 
   setClientId(value) {

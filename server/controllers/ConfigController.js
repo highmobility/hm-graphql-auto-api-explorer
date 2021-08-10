@@ -2,23 +2,12 @@ import { knex } from '../database'
 
 export default class ConfigController {
   async store(req, res) {
-    const {
-      env,
-      appId,
-      clientPrivateKey,
-      clientCertificate,
-      clientId,
-      clientSecret,
-      authUrl,
-      tokenUrl,
-    } = req.body
+    const { graphQlApiConfig, clientId, clientSecret, authUrl, tokenUrl } =
+      req.body
 
     try {
       await knex('config').insert({
-        env: env,
-        app_id: appId,
-        client_private_key: clientPrivateKey,
-        client_certificate: clientCertificate,
+        graph_ql_api_config: graphQlApiConfig,
         client_id: clientId,
         client_secret: clientSecret,
         auth_url: authUrl,
@@ -32,6 +21,21 @@ export default class ConfigController {
       console.log(err.stack)
       res.status(500).json({
         error: 'Failed to update config',
+      })
+    }
+  }
+
+  async get(req, res) {
+    try {
+      const config = await knex('config').first()
+      delete config.graph_ql_api_config.private_key
+      delete config.client_secret
+
+      res.json(config)
+    } catch (err) {
+      console.log(err.stack)
+      res.status(500).json({
+        error: 'Failed to fetch config',
       })
     }
   }

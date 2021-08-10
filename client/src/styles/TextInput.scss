@@ -26,6 +26,10 @@
     }
   }
 
+  &.Error {
+    border-color: #df4747;
+  }
+
   .TextInputInput {
     width: 100%;
     height: 100%;

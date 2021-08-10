@@ -22,11 +22,9 @@ export default class VehiclesController {
         .where('vehicle_id', vehicleId)
         .first()
       const config = await knex('config').first()
-
       const graphQl = new GraphQlService(
-        access_token,
-        config.app_id,
-        config.env
+        config.graph_ql_api_config,
+        access_token
       )
 
       const properties = await graphQl.fetchProperties(req.body.properties)

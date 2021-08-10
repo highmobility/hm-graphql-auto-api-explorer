@@ -1,31 +1,30 @@
 import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useLocation } from 'react-use'
 import { AUTH_CALLBACK_URL, setConfig } from '../requests'
 import routes, { PAGES } from '../routes'
-import { ENVIRONMENTS } from '../store/Config'
 import { useMobx } from '../store/mobx'
 import '../styles/InitialConfigPage.scss'
 import ConfigGroup from './ConfigGroup'
-import EnvironmentSelector from './EnvironmentSelector'
 import PrimaryButton from './PrimaryButton'
 import TextArea from './TextArea'
 import TextInput from './TextInput'
 
 function InitialConfigPage() {
   const { config } = useMobx()
+  const [formErrors, setFormErrors] = useState(null)
   const history = useHistory()
+  const error =
+    new URLSearchParams(useLocation().search).get('error') &&
+    'Could not connect vehicle. Make sure the Diagnostics capability has permissions'
 
-  const errors = {}
   const inputTips = {
     ENV: {},
     APP_CONFIG: {
-      appId: {
-        title: 'Where is my App ID?',
-        text: 'First create an app, and then open it. You will find it below your app’s name.',
-      },
-      clientPrivateKey: {
-        title: 'Where is my client private key?',
-        text: 'Go to your profile menu and then to My settings. There, follow the API keys tab',
+      graphQlApiConfig: {
+        title: 'Where can I find the graphQL config?',
+        text: 'First create an app, and then open it. There, follow the Client Certificate tab and select graphQL',
       },
     },
     OAUTH: {
@@ -38,7 +37,7 @@ function InitialConfigPage() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (Object.keys(errors).length > 0) {
+    if (Object.values(formErrors).some((v) => !!v)) {
       return
     }
 
@@ -49,8 +48,54 @@ function InitialConfigPage() {
     )
   }
 
+  const graphQlConfigPlaceholder = `
+{
+    "version": "2.0",
+    "type": "graph_ql_api",
+    "private_key_id": "52201da6-2ace-493b-a452-52b01f411e4f",
+    "private_key": "-----BEGIN PRIVATE KEY-----\\nMIJHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgLGiezYu5j/HYwP2W\\nl0e7eZsPNcuvIL6ljHc3BOoWN1ihRANCAAS559L2+61A7/iq+gsESy/yoDvUz6Wu\\ntUXBd7mnjljMTnrxyN3MATTe/PgB9IPcwe0CpbHrun2LIGGisnVeC3nV\\n-----END PRIVATE KEY-----",
+    "app_uri": "https://sandbox.graphql-api.develop.high-mobility.net/",
+    "app_id": "0DBC89CFA8877576049081FB",
+    "client_serial_number": "FC2E6591508076A340"
+}`.trim()
+
+  const validateGraphQlConfig = (config) => {
+    if (!config) return setFormErrors({ graphQlApiConfig: `Field is required` })
+    try {
+      const parsedConfig = JSON.parse(config)
+
+      const { version, private_key, app_uri, app_id, client_serial_number } =
+        parsedConfig
+      if (!version) {
+        return setFormErrors({ graphQlApiConfig: `Missing 'version' property` })
+      }
+      if (!private_key) {
+        return setFormErrors({
+          graphQlApiConfig: `Missing 'private_key' property`,
+        })
+      }
+      if (!app_uri) {
+        return setFormErrors({ graphQlApiConfig: `Missing 'app_uri' property` })
+      }
+      if (!app_id) {
+        return setFormErrors({ graphQlApiConfig: `Missing 'app_id' property` })
+      }
+      if (!client_serial_number) {
+        return setFormErrors({
+          graphQlApiConfig: `Missing 'client_serial_number' property`,
+        })
+      }
+
+      return setFormErrors({ graphQlApiConfig: null })
+    } catch (e) {
+      console.log(e)
+      return setFormErrors({ graphQlApiConfig: 'Invalid JSON' })
+    }
+  }
+
   return (
     <div className="InitialConfigPage">
+      {error && <div className="InitialConfigPageError">{error}</div>}
       <header className="InitialConfigHeader">
         <div className="InitialConfigHeaderContent">
           <h2>Set the configuration</h2>
@@ -62,43 +107,15 @@ function InitialConfigPage() {
       </header>
       <section className="InitialConfigContent">
         <form noValidate spellCheck="false" onSubmit={(e) => onSubmit(e)}>
-          <h5 className="SubHeader">Work environment</h5>
-          <ConfigGroup tip={inputTips.ENV[config.focusedInput]}>
-            <EnvironmentSelector
-              title="Develop"
-              subtitle="Working with virtual simulators to test out High Mobility"
-              checked={config.env === ENVIRONMENTS.DEVELOP}
-              onClick={() => config.setEnv(ENVIRONMENTS.DEVELOP)}
-            />
-            <EnvironmentSelector
-              title="Production"
-              subtitle="Working with your car to gather real data"
-              checked={config.env === ENVIRONMENTS.PRODUCTION}
-              onClick={() => config.setEnv(ENVIRONMENTS.PRODUCTION)}
-            />
-          </ConfigGroup>
           <h5 className="SubHeader">App configuration</h5>
           <ConfigGroup tip={inputTips.APP_CONFIG[config.focusedInput]}>
-            <TextInput
-              name="appId"
-              value={config.appId}
-              placeholder="App ID"
-              onChange={(e) => config.setAppId(e.target.value)}
-              onFocus={() => config.setFocusedInput('appId')}
-            />
-            <TextInput
-              name="clientPrivateKey"
-              value={config.clientPrivateKey}
-              placeholder="Client private key"
-              onChange={(e) => config.setClientPrivateKey(e.target.value)}
-              onFocus={() => config.setFocusedInput('clientPrivateKey')}
-            />
             <TextArea
-              name="clientPrivateKey"
-              value={config.clientCertificate}
-              placeholder="Client certificate"
-              onChange={(e) => config.setClientCertificate(e.target.value)}
-              onFocus={() => config.setFocusedInput('clientCertificate')}
+              value={config.graphQlApiConfig}
+              placeholder={graphQlConfigPlaceholder}
+              onChange={(e) => config.setGraphQlApiConfig(e.target.value)}
+              onFocus={() => config.setFocusedInput('graphQlApiConfig')}
+              onBlur={() => validateGraphQlConfig(config.graphQlApiConfig)}
+              error={formErrors?.graphQlApiConfig}
             />
           </ConfigGroup>
           <h5 className="SubHeader">OAuth credentials</h5>
