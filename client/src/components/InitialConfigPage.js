@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useLocation } from 'react-use'
-import { AUTH_CALLBACK_URL, setConfig } from '../requests'
+import { AUTH_CALLBACK_URL, fetchConfig, setConfig } from '../requests'
 import routes, { PAGES } from '../routes'
 import { useMobx } from '../store/mobx'
 import '../styles/InitialConfigPage.scss'
@@ -15,6 +15,24 @@ function InitialConfigPage() {
   const { config } = useMobx()
   const [formErrors, setFormErrors] = useState(null)
   const history = useHistory()
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const config = await fetchConfig()
+        if (config) {
+          history.push(
+            routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
+          )
+        }
+      } catch (e) {
+        console.log('Failed to fetch config')
+      }
+    }
+
+    fetch()
+  }, [history])
+
   const error =
     new URLSearchParams(useLocation().search).get('error') &&
     'Could not connect vehicle. Make sure the Diagnostics capability has permissions'

@@ -192,6 +192,8 @@ export function valueWithBaseUnit(value, unit, propertyConfig) {
     (unitType) => unitType.name === camelCaseToSnakeCase(unit)
   )
 
+  if (!propertyUnitType) return value
+
   if (propertyUnitType.conversion_constant) {
     return value + propertyUnitType.conversion_constant
   }

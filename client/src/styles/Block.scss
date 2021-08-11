@@ -52,6 +52,10 @@
       width: 100%;
       text-overflow: ellipsis;
       white-space: nowrap;
+
+      .Num2 {
+        line-height: inherit;
+      }
     }
 
     .BlockMultiValues {

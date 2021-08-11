@@ -34,10 +34,10 @@ function ConnectVehiclePage() {
   return (
     <div className="ConnectVehiclePage">
       <div className="ConnectVehiclePageContent">
-        <h2 className="Header">Connect your vehicle</h2>
+        <h2 className="ConnectVehiclePageHeader">Connect your vehicle</h2>
         <GrayCircles />
         <a href={url?.toString()}>
-          <PrimaryButton>Add my first vehicle</PrimaryButton>
+          <PrimaryButton>Add a vehicle</PrimaryButton>
         </a>
       </div>
     </div>

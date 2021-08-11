@@ -1,0 +1,123 @@
+.VehicleSelect {
+  margin: 0 24px 0 0;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 330px;
+
+  .VehicleSelectButtonBrand {
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 30px;
+    color: #495057;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    white-space: nowrap;
+    text-transform: capitalize;
+    padding-bottom: 4px;
+  }
+
+  .VehicleSelectButtonVin {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    color: #adb5bd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+
+  .VehicleSelectDropdownBrand {
+    font-weight: bold;
+    font-size: 21px;
+    line-height: 23px;
+    color: #495057;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    white-space: nowrap;
+    text-transform: capitalize;
+    padding-bottom: 4px;
+  }
+
+  .VehicleSelectDropdownVin {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    color: #adb5bd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+
+  .VehicleSelectDropdownDelete {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 250ms ease;
+
+    &:hover {
+      transform: translateY(-50%) scale(1.2) rotate(90deg);
+    }
+  }
+
+  .Dropdown {
+    width: 100%;
+    height: 100%;
+
+    .DropdownButton {
+      border: none;
+      border-right: 1px solid #e9ecef;
+      border-radius: 0;
+      height: 100%;
+
+      svg {
+        width: 15px;
+        height: 12px;
+
+        path {
+          stroke: #495057;
+        }
+      }
+    }
+
+    .DropdownContent {
+      border-radius: 12px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      width: 100%;
+      top: calc(100%);
+    }
+
+    .DropdownItem {
+      border-bottom: 1px solid #e9ecef;
+      padding: 16px;
+
+      &.Selected {
+        border-left: 4px solid #037be7;
+        background: white;
+      }
+
+      &:hover {
+        background: #f7f8fc;
+      }
+
+      &:last-child {
+        background: white;
+        display: flex;
+        justify-content: center;
+        padding: 20px 24px;
+
+        .PrimaryButton {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import '../styles/Header.scss'
 import PrimaryButton from './PrimaryButton'
 import { ReactComponent as FilterSvg } from '../images/filter.svg'
@@ -8,12 +8,10 @@ import Dropdown from './Dropdown'
 import { VIEWS } from '../store/Config'
 import { upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import { useHistory } from 'react-router-dom'
-import routes, { PAGES } from '../routes'
+import VehicleSelect from './VehicleSelect'
 
 const Header = () => {
-  const { config, vehicles, app } = useMobx()
-  const history = useHistory()
+  const { config, app } = useMobx()
 
   const viewDropdownItems = [
     {
@@ -51,57 +49,9 @@ const Header = () => {
     },
   ]
 
-  const vehicleDropdownItems = [
-    ...vehicles.list.map((vehicle) => ({
-      value: vehicle.id,
-      renderLabel: () => (
-        <Fragment>
-          <div className="HeaderVehicleSelectDropdownBrand">
-            {vehicle.brand}
-          </div>
-          <div className="HeaderVehicleSelectDropdownVin">{vehicle.vin}</div>
-        </Fragment>
-      ),
-      onClick: () => {
-        config.setSelectedVehicle(vehicle.id)
-      },
-    })),
-    {
-      renderLabel: () => (
-        <Fragment>
-          <PrimaryButton>Add vehicle</PrimaryButton>
-        </Fragment>
-      ),
-      onClick: () => {
-        history.push(
-          routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
-        )
-      },
-    },
-  ]
-
-  const selectedVehicle = vehicles.list.find(
-    (vehicle) => vehicle.id === config.selectedVehicleId
-  )
-
   return (
     <div className={`Header`}>
-      <div className="HeaderVehicleSelect">
-        <Dropdown
-          value={config.selectedVehicleId}
-          renderLabel={() => (
-            <Fragment>
-              <div className="HeaderVehicleSelectButtonBrand">
-                {selectedVehicle?.brand?.toLowerCase()}
-              </div>
-              <div className="HeaderVehicleSelectButtonVin">
-                {selectedVehicle?.vin}
-              </div>
-            </Fragment>
-          )}
-          items={vehicleDropdownItems}
-        />
-      </div>
+      <VehicleSelect />
       <PrimaryButton
         className="HeaderFilterButton"
         onClick={() => app.setShowPropertiesFilter(!app.showPropertiesFilter)}

@@ -27,6 +27,11 @@
     }
   }
 
+  .DropdownChevron {
+    transition: transform 250ms ease;
+    transform-origin: center;
+  }
+
   .DropdownButtonLabelWrapper {
     position: relative;
     width: calc(100% - 20px);
@@ -47,6 +52,7 @@
   }
 
   .DropdownItem {
+    position: relative;
     cursor: pointer;
     padding: 10px 30px 10px 20px;
     white-space: nowrap;
@@ -66,6 +72,10 @@
   }
 
   &.Open {
+    .DropdownChevron {
+      transform: rotate(180deg) translateY(2px);
+    }
+
     .DropdownContent {
       opacity: 1;
     }

@@ -23,7 +23,7 @@ export default function ListBlock({ property }) {
     if (typeof property?.data?.value === 'object') {
       return Object.entries(property?.data?.value).map(
         ([itemName, itemValue]) => (
-          <div className="ListBlockValue">
+          <div className="ListBlockValue" key={`${itemName}-${itemValue}`}>
             {camelCaseToWords(itemName)}: {formatValue(itemValue)}
           </div>
         )

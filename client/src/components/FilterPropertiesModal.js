@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite'
 
 const FilterPropertiesModal = (props) => {
   const { config } = useMobx()
+  const disabledCategories = ['headunit', 'api_structure']
 
   return (
     <Modal
@@ -25,7 +26,7 @@ const FilterPropertiesModal = (props) => {
         {Object.values(CAPABILITIES).map((capability) => (
           <div
             className={`FilterPropertiesCapability ${
-              capability.category === 'headunit' ? 'Disabled' : ''
+              disabledCategories.includes(capability.category) ? 'Disabled' : ''
             }`}
             key={capability.name}
           >

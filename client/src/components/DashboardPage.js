@@ -74,7 +74,37 @@ function DashboardPage() {
     fetchData,
   ])
 
-  const renderItems = () => {
+  const renderContent = () => {
+    if (!dataFetched) return <Spinner />
+    if (vehicles.list.length === 0) {
+      return (
+        <div className="DashboardMessage">
+          <div className="DashboardMessageTitle">No vehicles added</div>
+          <Link
+            to={
+              routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
+            }
+          >
+            <div className="DashboardMessageButton">Add vehicles</div>
+          </Link>
+        </div>
+      )
+    }
+
+    if (config.shownProperties.length === 0) {
+      return (
+        <div className="DashboardMessage">
+          <div className="DashboardMessageTitle">No properties to show</div>
+          <div
+            className="DashboardMessageButton"
+            onClick={() => app.setShowPropertiesFilter(true)}
+          >
+            Filter properties
+          </div>
+        </div>
+      )
+    }
+
     if (config.view === VIEWS.MAP) {
       return <div>MAP</div>
     }
@@ -86,35 +116,8 @@ function DashboardPage() {
 
   return (
     <div className="DashboardPage">
-      {!dataFetched && <Spinner />}
       <Header />
-      {vehicles.list.length === 0 && (
-        <div className="DashboardMessage">
-          <div className="DashboardMessageTitle">No vehicles added</div>
-          <Link
-            to={
-              routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
-            }
-          >
-            <div className="DashboardMessageButton">Add vehicles</div>
-          </Link>
-        </div>
-      )}
-      {vehicles.list.length > 0 && config.shownProperties.length === 0 && (
-        <div className="DashboardMessage">
-          <div className="DashboardMessageTitle">No properties to show</div>
-          <div
-            className="DashboardMessageButton"
-            onClick={() => app.setShowPropertiesFilter(true)}
-          >
-            Filter properties
-          </div>
-        </div>
-      )}
-      {dataFetched &&
-        vehicles.list.length &&
-        config.shownProperties.length &&
-        renderItems()}
+      {renderContent()}
     </div>
   )
 }

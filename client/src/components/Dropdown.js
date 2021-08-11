@@ -34,7 +34,7 @@ export default function Dropdown({
     >
       <div className="DropdownButton" onClick={() => setOpen(!open)}>
         <div className="DropdownButtonLabelWrapper">{renderLabel()}</div>
-        <ChevronIcon />
+        <ChevronIcon className="DropdownChevron" />
       </div>
       {transitions(({ opacity }) => (
         <animated.div

@@ -34,4 +34,19 @@ export default class VehiclesController {
       console.log('Failed to fetch vehicle data', err)
     }
   }
+
+  async delete(req, res) {
+    try {
+      await knex('vehicles').where({ vin: req.params.vin }).delete()
+
+      res.json({
+        message: 'Vehicle deleted',
+      })
+    } catch (err) {
+      console.log(err.stack)
+      res.status(500).json({
+        error: 'Failed to delete vehicle',
+      })
+    }
+  }
 }

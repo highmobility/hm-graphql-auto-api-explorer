@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/CoordinatesBlock.scss'
 import Block from './Block'
 import GoogleMap from './GoogleMap'
@@ -6,23 +6,23 @@ import { ReactComponent as MapIcon } from '../images/map.svg'
 import useAnimateNumber from '../hooks/useAnimateNumber'
 
 export default function CoordinatesBlock({ property }) {
+  const [lat, setLat] = useState(0)
+  const [lng, setLng] = useState(0)
+
+  useEffect(() => {
+    setLat(Number(property?.data?.value.latitude))
+    setLng(Number(property?.data?.value.longitude))
+  }, [property])
+
   const marker = {
     id: 1,
     position: {
-      lat: Number(property?.data?.value.latitude),
-      lng: Number(property?.data?.value.longitude),
+      lat,
+      lng,
     },
   }
-  const animatedLatitude = useAnimateNumber(
-    Number(property?.data?.value.latitude),
-    500,
-    (n) => n.toFixed(1)
-  )
-  const animatedLongitude = useAnimateNumber(
-    Number(property?.data?.value.longitude),
-    500,
-    (n) => n.toFixed(1)
-  )
+  const animatedLatitude = useAnimateNumber(lat, 500, (n) => n.toFixed(1))
+  const animatedLongitude = useAnimateNumber(lng, 500, (n) => n.toFixed(1))
 
   return (
     <Block className="CoordinatesBlock" property={property}>
@@ -39,8 +39,8 @@ export default function CoordinatesBlock({ property }) {
       <div className="CoordinatesBlockMap">
         <GoogleMap
           center={{
-            lat: Number(property?.data?.value.latitude),
-            lng: Number(property?.data?.value.longitude),
+            lat,
+            lng,
           }}
           markers={[marker]}
           zoom={15}

@@ -21,7 +21,7 @@ export default class Config {
   view = VIEWS.GRID
   updateFrequency = 10
   selectedVehicleId = null
-  pinnedProperties = []
+  pinnedProperties = ['diagnostics.speed']
   shownProperties = [
     'adas.status',
     'charging.batteryCurrent',

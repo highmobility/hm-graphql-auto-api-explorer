@@ -31,3 +31,11 @@ export const fetchConfig = async () => {
 
   return data
 }
+
+export const deleteVehicle = async (vehicleVin) => {
+  const { data = [] } = await axios.delete(
+    `${API_URL}/vehicles/${vehicleVin}/delete`
+  )
+
+  return data
+}

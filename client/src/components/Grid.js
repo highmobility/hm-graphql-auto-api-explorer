@@ -8,7 +8,12 @@ import { VIEWS } from '../store/Config'
 
 export default function Grid({ items, view = VIEWS.GRID }) {
   const numberOfGridColumns = useMedia(
-    ['(min-width: 1500px)', '(min-width: 1000px)', '(min-width: 846px)'],
+    [
+      '(min-width: 1500px)',
+      '(min-width: 1000px)',
+      '(min-width: 846px)',
+      '(min-width: 0',
+    ],
     [10, 8, 6, 4]
   )
 

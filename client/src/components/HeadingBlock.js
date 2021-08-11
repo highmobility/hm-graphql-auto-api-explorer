@@ -7,11 +7,15 @@ import useAnimateNumber from '../hooks/useAnimateNumber'
 import { valueWithBaseUnit } from '../utils/properties'
 
 export default function HeadingBlock({ property }) {
+  const [value, setValue] = useState(0)
+  const [unit, setUnit] = useState(property?.data?.unit)
   const [valueInDegrees, setValueInDegrees] = useState(0)
   const baseRotation = 104 // svg has to be rotated to be facing up
-  const animatedValue = useAnimateNumber(Number(property?.data?.value), 500)
+  const animatedValue = useAnimateNumber(value, 500)
 
   useEffect(() => {
+    setValue(Number(property?.data?.value))
+    setUnit(property?.data?.unit)
     setValueInDegrees(
       valueWithBaseUnit(
         property?.data?.value,
@@ -33,7 +37,7 @@ export default function HeadingBlock({ property }) {
         </div>
         <div className="HeadingValueWrapper">
           <div className="Num2">{animatedValue}</div>
-          <p className="small">{property?.data?.unit}</p>
+          <p className="small">{unit}</p>
         </div>
       </div>
     </Block>
