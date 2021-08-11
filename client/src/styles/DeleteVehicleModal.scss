@@ -1,0 +1,42 @@
+.DeleteVehicleModal {
+  .ModalContent {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 0;
+  }
+
+  .DeleteVehicleModalHeader {
+    margin-bottom: 10px;
+    width: 350px;
+    color: #6c757d;
+  }
+
+  .DeleteVehicleModalText {
+    margin-bottom: 38px;
+    color: #6c757d;
+  }
+
+  .DeleteVehicleModalButtons {
+    display: flex;
+    margin-top: auto;
+
+    .SecondaryButton {
+      margin-right: 20px;
+    }
+  }
+
+  .DeleteVehicleModalClose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    transition: transform 250ms ease;
+
+    &:hover {
+      transform: scale(1.2) rotate(90deg);
+    }
+  }
+}

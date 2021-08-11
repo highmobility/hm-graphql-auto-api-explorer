@@ -19,7 +19,7 @@ export default class Config {
     'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
 
   view = VIEWS.GRID
-  updateFrequency = 10
+  updateFrequency = 15
   selectedVehicleId = null
   pinnedProperties = ['diagnostics.speed']
   shownProperties = [

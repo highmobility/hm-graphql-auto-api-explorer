@@ -1,0 +1,34 @@
+.SecondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  min-width: 153px;
+  height: 48px;
+  background-color: #e9ecef;
+  border-radius: 12px;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  color: #6c757d;
+  white-space: nowrap;
+  border: 0;
+  transition: all 250ms ease;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #e0e3e6;
+  }
+
+  &:active {
+    background-color: #d6d9db;
+  }
+
+  &:disabled {
+    background-color: #e9ecef;
+    color: #adb5bd;
+  }
+}

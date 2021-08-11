@@ -16,6 +16,10 @@ function InitialConfigPage() {
   const [formErrors, setFormErrors] = useState(null)
   const history = useHistory()
 
+  const error =
+    new URLSearchParams(useLocation().search).get('error') &&
+    'Could not connect vehicle. Make sure to open your emulator and give permissions to the Diagnostics capability'
+
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -32,10 +36,6 @@ function InitialConfigPage() {
 
     fetch()
   }, [history])
-
-  const error =
-    new URLSearchParams(useLocation().search).get('error') &&
-    'Could not connect vehicle. Make sure the Diagnostics capability has permissions'
 
   const inputTips = {
     ENV: {},

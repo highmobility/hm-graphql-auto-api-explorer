@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import '../styles/VehicleSelect.scss'
 import PrimaryButton from './PrimaryButton'
 import { useMobx } from '../store/mobx'
@@ -7,10 +7,20 @@ import { useHistory } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import { observer } from 'mobx-react-lite'
 import { ReactComponent as CrossSvg } from '../images/cross.svg'
+import DeleteVehicleModal from './DeleteVehicleModal'
 
 const VehicleSelect = () => {
   const { config, vehicles } = useMobx()
   const history = useHistory()
+  const [vehicleToDelete, setVehicleToDelete] = useState(null)
+  const onConfirmDelete = async (vin) => {
+    await vehicles.delete(vin)
+    setVehicleToDelete(null)
+  }
+
+  const selectedVehicle = vehicles.list.find(
+    (vehicle) => vehicle.id === config.selectedVehicleId
+  )
 
   const vehicleDropdownItems = [
     ...vehicles.list.map((vehicle) => ({
@@ -21,7 +31,7 @@ const VehicleSelect = () => {
           <div className="VehicleSelectDropdownVin">{vehicle.vin}</div>
           <CrossSvg
             className="VehicleSelectDropdownDelete"
-            onClick={() => vehicles.delete(vehicle.vin)}
+            onClick={() => setVehicleToDelete(vehicle.vin)}
           />
         </Fragment>
       ),
@@ -43,18 +53,18 @@ const VehicleSelect = () => {
     },
   ]
 
-  const renderLabel = () => (
-    <Fragment>
-      <div className="VehicleSelectButtonBrand">
-        {selectedVehicle?.brand?.toLowerCase()}
-      </div>
-      <div className="VehicleSelectButtonVin">{selectedVehicle?.vin}</div>
-    </Fragment>
-  )
+  const renderLabel = () => {
+    if (!selectedVehicle) return 'No selected vehicle'
 
-  const selectedVehicle = vehicles.list.find(
-    (vehicle) => vehicle.id === config.selectedVehicleId
-  )
+    return (
+      <Fragment>
+        <div className="VehicleSelectButtonBrand">
+          {selectedVehicle?.brand?.toLowerCase()}
+        </div>
+        <div className="VehicleSelectButtonVin">{selectedVehicle?.vin}</div>
+      </Fragment>
+    )
+  }
 
   return (
     <div className="VehicleSelect">
@@ -62,6 +72,11 @@ const VehicleSelect = () => {
         value={config.selectedVehicleId}
         renderLabel={renderLabel}
         items={vehicleDropdownItems}
+      />
+      <DeleteVehicleModal
+        show={!!vehicleToDelete}
+        close={() => setVehicleToDelete(null)}
+        onConfirm={() => onConfirmDelete(vehicleToDelete)}
       />
     </div>
   )

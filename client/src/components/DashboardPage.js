@@ -10,9 +10,11 @@ import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import Spinner from './Spinner'
 import { VIEWS } from '../store/Config'
+import { useInterval } from 'react-use'
 
 function DashboardPage() {
-  const [dataFetched, setDataFetched] = useState(false)
+  const [initialDataFetched, setInitialDataFetched] = useState(false)
+  const [vehiclesFetched, setVehiclesFetched] = useState(false)
   const { vehicles, config, properties, app } = useMobx()
   const parsedProperties = config.shownProperties
     .map((propertyUniqueId) => {
@@ -42,22 +44,27 @@ function DashboardPage() {
 
   const fetchData = useCallback(async () => {
     if (!config.selectedVehicleId) return
-
     const vehicleData = await fetchVehicleData(
       config.selectedVehicleId,
       config.shownProperties
     )
 
+    if (!initialDataFetched) setInitialDataFetched(true)
     properties.setValues(vehicleData)
-    setDataFetched(true)
-  }, [config.selectedVehicleId, config.shownProperties, properties])
+  }, [
+    config.selectedVehicleId,
+    config.shownProperties,
+    properties,
+    initialDataFetched,
+  ])
 
   useEffect(() => {
     const fetchVehicles = async () => {
       await vehicles.fetch()
-      if (!config.selectedVehicleId) {
-        config.setSelectedVehicle(vehicles?.list?.[0]?.id || null)
+      if (!config.selectedVehicleId && vehicles.list.length > 0) {
+        config.setSelectedVehicle(vehicles.list[0]?.id || null)
       }
+      setVehiclesFetched(true)
     }
 
     fetchVehicles()
@@ -65,17 +72,17 @@ function DashboardPage() {
 
   useEffect(() => {
     fetchData()
-    const interval = setInterval(fetchData, config.updateFrequency * 1000)
-    return () => clearInterval(interval)
-  }, [
-    config.updateFrequency,
-    config.shownProperties,
-    config.selectedVehicleId,
-    fetchData,
-  ])
+  }, [config.selectedVehicleId, config.updateFrequency]) // eslint-disable-line
+
+  useInterval(
+    () => {
+      fetchData()
+    },
+    config.selectedVehicleId ? config.updateFrequency * 1000 : null
+  )
 
   const renderContent = () => {
-    if (!dataFetched) return <Spinner />
+    if (!vehiclesFetched) return <Spinner />
     if (vehicles.list.length === 0) {
       return (
         <div className="DashboardMessage">
@@ -104,6 +111,8 @@ function DashboardPage() {
         </div>
       )
     }
+
+    if (!initialDataFetched) return <Spinner />
 
     if (config.view === VIEWS.MAP) {
       return <div>MAP</div>
