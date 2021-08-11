@@ -1,7 +1,0 @@
-{
-  "version": "2.0",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgaL4l2cOjGIygxdMh\nEr7PRd7xVV707KKlsR546KaMNtOhRANCAASNUqCakHD3+WHDOI3F9yTx6Ok4fFeK\nSstonpljta/EbIM4zxCrobVMgfWzQAT9TIfsv4Bs1N8Dd3aWp9pPOycA\n-----END PRIVATE KEY-----\n\n",
-  "app_uri": "https://sandbox.graphql-api.develop.high-mobility.net",
-  "app_id": "40AAAAC3C6467F0393FFD528",
-  "client_serial_number": "fc2e6591408076a340"
-}
