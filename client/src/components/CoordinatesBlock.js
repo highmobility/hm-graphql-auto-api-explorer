@@ -9,17 +9,17 @@ export default function CoordinatesBlock({ property }) {
   const marker = {
     id: 1,
     position: {
-      lat: Number(property.data.value.latitude),
-      lng: Number(property.data.value.longitude),
+      lat: Number(property?.data?.value.latitude),
+      lng: Number(property?.data?.value.longitude),
     },
   }
   const animatedLatitude = useAnimateNumber(
-    Number(property.data.value.latitude),
+    Number(property?.data?.value.latitude),
     500,
     (n) => n.toFixed(1)
   )
   const animatedLongitude = useAnimateNumber(
-    Number(property.data.value.longitude),
+    Number(property?.data?.value.longitude),
     500,
     (n) => n.toFixed(1)
   )
@@ -39,8 +39,8 @@ export default function CoordinatesBlock({ property }) {
       <div className="CoordinatesBlockMap">
         <GoogleMap
           center={{
-            lat: Number(property.data.value.latitude),
-            lng: Number(property.data.value.longitude),
+            lat: Number(property?.data?.value.latitude),
+            lng: Number(property?.data?.value.longitude),
           }}
           markers={[marker]}
           zoom={15}

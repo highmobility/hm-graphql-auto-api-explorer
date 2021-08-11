@@ -19,10 +19,11 @@ export default class Config {
     'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
 
   view = VIEWS.GRID
-  updateFrequency = 5
+  updateFrequency = 10
   selectedVehicleId = null
   pinnedProperties = []
   shownProperties = [
+    'adas.status',
     'charging.batteryCurrent',
     'charging.chargeMode',
     'diagnostics.engineOilTemperature',
@@ -35,6 +36,8 @@ export default class Config {
     'diagnostics.fuelLevel',
     'vehicleLocation.heading',
     'seats.personsDetected',
+    'charging.status',
+    'charging.pluggedIn',
   ]
 
   constructor() {

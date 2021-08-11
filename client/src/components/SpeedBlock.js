@@ -8,15 +8,18 @@ export default function SpeedBlock({ property }) {
   const maxValue = 55
   const [valueInMetersPerSecond, setValueInMetersPerSecond] = useState(0)
   const percentValue = Math.min((valueInMetersPerSecond / maxValue) * 100, 100)
-  const animatedValue = useAnimateNumber(Number(property.data.value) || 0, 500)
+  const animatedValue = useAnimateNumber(
+    Number(property?.data?.value) || 0,
+    500
+  )
   const dashArraySize = 530
   const dashOffset = dashArraySize + (dashArraySize / 100) * percentValue
 
   useEffect(() => {
     setValueInMetersPerSecond(
       valueWithBaseUnit(
-        property.data.value,
-        property.data.unit,
+        property?.data?.value,
+        property?.data?.unit,
         property.config
       )
     )
@@ -115,7 +118,7 @@ export default function SpeedBlock({ property }) {
         <div className="SpeedBlockInnerContent">
           <div className="Num2">{animatedValue}</div>
           <div className="SpeedPropertyUnit">
-            {formatUnit(property.data.unit)}
+            {formatUnit(property?.data?.unit)}
           </div>
         </div>
       </div>

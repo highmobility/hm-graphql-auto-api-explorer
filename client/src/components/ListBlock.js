@@ -6,6 +6,37 @@ import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
 export default function ListBlock({ property }) {
+  const renderValues = () => {
+    if (Array.isArray(property.data)) {
+      return (
+        <Fragment>
+          {property.data.map((item, key) => (
+            <div className="ListBlockValue" key={key}>
+              {camelCaseToWords(item.data[property.config.items[0].name])}:{' '}
+              {camelCaseToWords(item.data[property.config.items[1].name])}
+            </div>
+          ))}
+        </Fragment>
+      )
+    }
+
+    if (typeof property?.data?.value === 'object') {
+      return Object.entries(property?.data?.value).map(
+        ([itemName, itemValue]) => (
+          <div className="ListBlockValue">
+            {camelCaseToWords(itemName)}: {formatValue(itemValue)}
+          </div>
+        )
+      )
+    }
+
+    return (
+      <Fragment>
+        {formatValue(property?.data?.value)} {formatUnit(property?.data?.unit)}
+      </Fragment>
+    )
+  }
+
   return (
     <div className="ListBlock">
       <div className="ListBlockCapability">
@@ -14,22 +45,7 @@ export default function ListBlock({ property }) {
         )}
       </div>
       <div className="ListBlockProperty">{property.config.name_pretty}</div>
-      <div className="ListBlockValues">
-        {Array.isArray(property.data) ? (
-          <Fragment>
-            {property.data.map((item, key) => (
-              <div className="ListBlockValue" key={key}>
-                {camelCaseToWords(item.data[property.config.items[0].name])}:{' '}
-                {camelCaseToWords(item.data[property.config.items[1].name])}
-              </div>
-            ))}
-          </Fragment>
-        ) : (
-          <Fragment>
-            {formatValue(property.data.value)} {formatUnit(property.data.unit)}
-          </Fragment>
-        )}
-      </div>
+      <div className="ListBlockValues">{renderValues()}</div>
       <PinButton propertyId={property.id} />
     </div>
   )

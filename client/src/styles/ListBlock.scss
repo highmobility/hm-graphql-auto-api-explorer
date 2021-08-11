@@ -34,15 +34,18 @@
     white-space: nowrap;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     overflow: hidden;
   }
 
   .ListBlockValue {
-    flex: 1;
-    padding: 0 4px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    &:not(:first-child) {
+      padding-left: 10px;
+    }
   }
 
   .PinButton {

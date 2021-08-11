@@ -35,11 +35,6 @@ const Header = () => {
 
   const updateFrequencyDropdownItems = [
     {
-      value: 5,
-      renderLabel: () => 'Every 5 seconds',
-      onClick: () => config.setUpdateFrequency(5),
-    },
-    {
       value: 10,
       renderLabel: () => 'Every 10 seconds',
       onClick: () => config.setUpdateFrequency(10),
@@ -48,6 +43,11 @@ const Header = () => {
       value: 15,
       renderLabel: () => 'Every 15 seconds',
       onClick: () => config.setUpdateFrequency(15),
+    },
+    {
+      value: 20,
+      renderLabel: () => 'Every 20 seconds',
+      onClick: () => config.setUpdateFrequency(20),
     },
   ]
 

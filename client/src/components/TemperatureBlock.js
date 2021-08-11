@@ -9,13 +9,13 @@ export default function TemperatureBlock({ property }) {
   const dashArraySize = 530
   const maxValue = 450 // kelvin
   const percentValue = Math.min((valueInKelvin / maxValue) * 100, 100)
-  const animatedValue = useAnimateNumber(Number(property.data.value), 500)
+  const animatedValue = useAnimateNumber(Number(property?.data?.value), 500)
 
   useEffect(() => {
     setValueInKelvin(
       valueWithBaseUnit(
-        property.data.value,
-        property.data.unit,
+        property?.data?.value,
+        property?.data?.unit,
         property.config
       )
     )
@@ -92,7 +92,7 @@ export default function TemperatureBlock({ property }) {
         </svg>
         <div className="TemperatureBlockInnerCircle">
           <div className="Num2">{animatedValue}</div>
-          <div className="Num4">{formatUnit(property.data.unit)}</div>
+          <div className="Num4">{formatUnit(property?.data?.unit)}</div>
         </div>
       </div>
     </Block>
