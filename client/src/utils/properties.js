@@ -67,7 +67,7 @@ export const BLOCKS = {
 }
 
 export function getBlockData(view, propertyConfig) {
-  if (view === VIEWS.LIST) {
+  if (view !== VIEWS.GRID) {
     return {
       ...BLOCKS.LIST,
       component: ListBlock,

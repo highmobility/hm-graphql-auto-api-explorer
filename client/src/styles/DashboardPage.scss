@@ -1,3 +1,5 @@
+@import 'config';
+
 .DashboardPage {
   width: 100%;
   min-height: 100vh;
@@ -28,5 +30,11 @@
         color: #0375db;
       }
     }
+  }
+
+  .DashboardPageContent {
+    display: flex;
+    position: relative;
+    min-height: calc(100vh - #{$headerHeight});
   }
 }

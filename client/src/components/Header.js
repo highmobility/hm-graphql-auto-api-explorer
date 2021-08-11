@@ -51,33 +51,35 @@ const Header = () => {
 
   return (
     <div className={`Header`}>
-      <VehicleSelect />
-      <PrimaryButton
-        className="HeaderFilterButton"
-        onClick={() => app.setShowPropertiesFilter(!app.showPropertiesFilter)}
-      >
-        <FilterSvg />
-        <span>Filter properties</span>
-      </PrimaryButton>
-      <div className="HeaderShownPropertiesCount">
-        {config.shownProperties.length} properties shown
+      <div className="HeaderContent">
+        <VehicleSelect />
+        <PrimaryButton
+          className="HeaderFilterButton"
+          onClick={() => app.setShowPropertiesFilter(!app.showPropertiesFilter)}
+        >
+          <FilterSvg />
+          <span>Filter properties</span>
+        </PrimaryButton>
+        <div className="HeaderShownPropertiesCount">
+          {config.shownProperties.length} properties shown
+        </div>
+        <Dropdown
+          className="HeaderViewDropdown"
+          value={config.view}
+          renderLabel={() => upperFirst(`${config.view} view`.toLowerCase())}
+          items={viewDropdownItems}
+        />
+        <Dropdown
+          className="HeaderFrequencyDropdown"
+          value={config.updateFrequency}
+          renderLabel={() => `Update every ${config.updateFrequency}s`}
+          items={updateFrequencyDropdownItems}
+        />
+        <FilterPropertiesModal
+          show={app.showPropertiesFilter}
+          close={() => app.setShowPropertiesFilter(false)}
+        />
       </div>
-      <Dropdown
-        className="HeaderViewDropdown"
-        value={config.view}
-        renderLabel={() => upperFirst(`${config.view} view`.toLowerCase())}
-        items={viewDropdownItems}
-      />
-      <Dropdown
-        className="HeaderFrequencyDropdown"
-        value={config.updateFrequency}
-        renderLabel={() => `Update every ${config.updateFrequency}s`}
-        items={updateFrequencyDropdownItems}
-      />
-      <FilterPropertiesModal
-        show={app.showPropertiesFilter}
-        close={() => app.setShowPropertiesFilter(false)}
-      />
     </div>
   )
 }

@@ -28,7 +28,7 @@ export default function Grid({ items, view = VIEWS.GRID }) {
     let column = 0 // Column to use next
 
     const fitsInRow = (item) => {
-      if (view === VIEWS.LIST) return true
+      if (view !== VIEWS.GRID) return true
       for (let i = 0; i < item.block.columns; i++) {
         if (heights[column + i] !== heights[column]) return false
       }
@@ -47,7 +47,16 @@ export default function Grid({ items, view = VIEWS.GRID }) {
         )
       })
 
-      if (view === VIEWS.LIST) {
+      if (view === VIEWS.MAP) {
+        gridItems.push({
+          ...itemToAdd,
+          x: width / 2,
+          y: heights[0],
+          width: width / 2,
+          height: itemToAdd.block.height,
+        })
+        heights[0] += itemToAdd.block.height
+      } else if (view === VIEWS.LIST) {
         gridItems.push({
           ...itemToAdd,
           x: 0,
@@ -97,9 +106,15 @@ export default function Grid({ items, view = VIEWS.GRID }) {
     trail: 25,
   })
 
+  const getClassName = () => {
+    if (view === VIEWS.LIST) return 'ListView'
+    if (view === VIEWS.MAP) return 'MapView'
+    return 'GridView'
+  }
+
   return (
     <div
-      className={`Grid ${view === VIEWS.LIST ? 'ListView' : 'GridView'}`}
+      className={`Grid ${getClassName()}`}
       ref={ref}
       style={{ height: Math.max(...heights) }}
     >

@@ -1,11 +1,21 @@
+@import 'config';
+
 .Header {
-  height: 98px;
-  background: white;
-  box-shadow: 0px 3px 27px rgba(0, 0, 0, 0.06);
+  height: $headerHeight;
   width: 100%;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
+  z-index: $headerZ;
+
+  .HeaderContent {
+    position: fixed;
+    height: $headerHeight;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 3px 27px rgba(0, 0, 0, 0.06);
+    background: white;
+    width: 100%;
+    z-index: $headerZ;
+  }
 
   .HeaderFilterButton {
     svg {

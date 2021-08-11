@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
   margin-top: 70px;
+  transition: margin 250ms ease;
 
   .GridItemContainer {
     position: absolute;
@@ -19,9 +20,14 @@
     padding: 10px;
   }
 
-  &.ListView {
+  &.ListView,
+  &.MapView {
     .GridItem {
       padding: 5px 10px;
     }
+  }
+
+  &.MapView {
+    margin-top: 20px;
   }
 }

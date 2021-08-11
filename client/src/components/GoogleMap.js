@@ -12,7 +12,7 @@ export default function GoogleMap({
   center,
   zoom = 6,
   className,
-  markers,
+  markers = [],
   ...props
 }) {
   const domRef = React.useRef()
@@ -43,6 +43,10 @@ export default function GoogleMap({
       })
 
       const currentActiveMarkers = [...activeMarkers]
+
+      if (markers.length === 0) {
+        return
+      }
 
       const newActiveMarkers = []
       markers.forEach((marker) => {
@@ -96,7 +100,7 @@ export default function GoogleMap({
         }
       })
     })
-  }, [center, zoom, markers, mapInstance]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [center, zoom, markers, mapInstance]) // eslint-disable-line
 
   return (
     <div ref={domRef} className={`GoogleMap ${className || ''}`} {...props}>
