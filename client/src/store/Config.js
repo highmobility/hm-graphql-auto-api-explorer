@@ -37,7 +37,7 @@ export default class Config {
     'charging.status',
     'charging.pluggedIn',
   ]
-  googleMapsApiKey = 'AIzaSyDHGGCWUgVV7elhOTnJSawnzUu1nDu1fo0'
+  googleMapsApiKey = ''
 
   constructor() {
     makeAutoObservable(this)
