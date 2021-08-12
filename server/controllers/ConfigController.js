@@ -3,7 +3,10 @@ import { knex } from '../database'
 export default class ConfigController {
   async get(req, res) {
     try {
-      const config = await knex('config').first()
+      let config = await knex('config').first()
+      if (!config) {
+        config = await knex('config').insert({}, '*')
+      }
 
       res.json(config)
     } catch (err) {

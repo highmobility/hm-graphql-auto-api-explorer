@@ -1,19 +1,79 @@
 .ConfigPage {
   .ConfigPageHeader {
     display: flex;
+    align-items: center;
+    background: white;
+    height: 208px;
+    padding: 0 205px;
+    position: relative;
   }
 
   .ConfigPageBackButton {
     background: #e9ecef;
     border-radius: 12px;
-  }
+    width: 47px;
+    height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    position: absolute;
+    left: 124px;
+    cursor: pointer;
+    transition: background-color 300ms ease;
 
-  .ConfigPageTitle {
+    &:hover,
+    &:active {
+      background: #f8f9fa;
+    }
   }
 
   .ConfigPageResetAppButton {
+    margin-left: auto;
   }
 
   .ConfigPageContent {
+    max-width: 928px;
+    margin: 64px auto 100px 205px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ConfigPageSubTitle {
+    color: #6c757d;
+    padding-bottom: 34px;
+  }
+
+  .ConfigPageLabel {
+    background: #e9ecef;
+    border-radius: 6px;
+    text-transform: uppercase;
+    color: #6c757d;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    align-self: flex-start;
+    margin-bottom: 10px;
+    padding: 3px 6px;
+    font-weight: 700;
+  }
+
+  .ConfigPageValue {
+    font-size: 16px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.01em;
+    color: #495057;
+    padding-bottom: 38px;
+  }
+
+  .TextInput {
+    margin-bottom: 26px;
+  }
+
+  .ConfigPageSaveButton {
+    align-self: flex-start;
   }
 }
