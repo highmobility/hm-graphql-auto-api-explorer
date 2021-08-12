@@ -29,19 +29,8 @@ const GoogleMap = ({
   const [activeMarker, setActiveMarker] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
   const [activeZoom, setActiveZoom] = React.useState(zoom)
-  const [activeCenter, setActiveCenter] = React.useState(center)
+  const [tilesLoaded, setTilesLoaded] = React.useState(false)
   const { width: windowWidth } = useWindowSize()
-
-  React.useEffect(() => {
-    if (center.lat === activeCenter.lat || center.lng === activeCenter.lng)
-      return
-    setActiveCenter({ ...center })
-  }, [center, activeCenter])
-
-  React.useEffect(() => {
-    if (!mapInstance) return
-    mapInstance.setCenter(activeCenter)
-  }, [activeCenter, mapInstance])
 
   React.useEffect(() => {
     if (!activeMarker || !useArrowIcon) return
@@ -53,10 +42,10 @@ const GoogleMap = ({
   }, [activeZoom, mapInstance, activeMarker, useArrowIcon])
 
   React.useEffect(() => {
-    if (!domRef.current || !mapInstance) return
+    if (!tilesLoaded || !panLeft) return
     mapInstance.setCenter(center)
     mapInstance.panBy(windowWidth / 4, 0)
-  }, [mapInstance, windowWidth, center])
+  }, [mapInstance, windowWidth, panLeft, center, tilesLoaded])
 
   React.useEffect(() => {
     loader.load().then(() => {
@@ -64,7 +53,8 @@ const GoogleMap = ({
         // eslint-disable-next-line
         const newInstance = new google.maps.Map(domRef.current, {
           zoom,
-          // disableDefaultUI: true,
+          center,
+          disableDefaultUI: true,
           styles: googleMapsTheme,
         })
         setMapInstance(newInstance)
@@ -74,6 +64,7 @@ const GoogleMap = ({
         }
 
         newInstance.addListener('tilesloaded', () => {
+          setTilesLoaded(true)
           if (domRef.current.children.length > 1) {
             setHasError(true)
           }
