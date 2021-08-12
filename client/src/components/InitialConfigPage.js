@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useLocation } from 'react-use'
-import { AUTH_CALLBACK_URL, fetchConfig, setConfig } from '../requests'
+import { AUTH_CALLBACK_URL, fetchAppConfig, setAppConfig } from '../requests'
 import routes, { PAGES } from '../routes'
 import { useMobx } from '../store/mobx'
 import '../styles/InitialConfigPage.scss'
@@ -23,7 +23,7 @@ function InitialConfigPage() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const config = await fetchConfig()
+        const config = await fetchAppConfig()
         if (config) {
           history.push(
             routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
@@ -59,7 +59,7 @@ function InitialConfigPage() {
       return
     }
 
-    await setConfig(config)
+    await setAppConfig(config)
 
     history.push(
       routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path

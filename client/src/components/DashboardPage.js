@@ -72,7 +72,7 @@ function DashboardPage() {
     const fetchVehicles = async () => {
       await vehicles.fetch()
       if (!config.selectedVehicleId && vehicles.list.length > 0) {
-        config.setSelectedVehicle(vehicles.list[0]?.id || null)
+        config.setSelectedVehicleId(vehicles.list[0]?.id || null)
       }
       setVehiclesFetched(true)
     }
@@ -126,7 +126,11 @@ function DashboardPage() {
 
     return (
       <div className={`DashboardPageContent`}>
-        <DashboardMap open={config.view === VIEWS.MAP} />
+        <DashboardMap
+          open={config.view === VIEWS.MAP}
+          coordinates={parsedProperties.coordinates}
+          heading={parsedProperties.heading}
+        />
         <Grid items={parsedProperties} view={config.view} />
       </div>
     )

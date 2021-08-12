@@ -1,35 +1,30 @@
 import { knex } from '../database'
 
 export default class ConfigController {
-  async store(req, res) {
-    const { graphQlApiConfig, clientId, clientSecret, authUrl, tokenUrl } =
-      req.body
-
+  async get(req, res) {
     try {
-      await knex('config').insert({
-        graph_ql_api_config: graphQlApiConfig,
-        client_id: clientId,
-        client_secret: clientSecret,
-        auth_url: authUrl,
-        token_url: tokenUrl,
-      })
+      const config = await knex('config').first()
 
-      res.json({
-        message: 'Config saved',
-      })
+      res.json(config)
     } catch (err) {
       console.log(err.stack)
       res.status(500).json({
-        error: 'Failed to update config',
+        error: 'Failed to get config',
       })
     }
   }
 
-  async get(req, res) {
+  async update(req, res) {
     try {
-      const config = await knex('config').first()
-      delete config.graph_ql_api_config.private_key
-      delete config.client_secret
+      let config = await knex('config').first()
+      if (!config) {
+        config = await knex('config').insert({
+          view: req.body.view,
+          updateFrequency: req.body.updateFrequency,
+          selected_vehicle_id: req.body.selectedVehicleId,
+          google_maps_api_key: req.body.googleMapsApiKey,
+        })
+      }
 
       res.json(config)
     } catch (err) {

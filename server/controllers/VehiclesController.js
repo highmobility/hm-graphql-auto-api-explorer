@@ -17,11 +17,11 @@ export default class VehiclesController {
 
   async getData(req, res) {
     try {
-      const { vehicleId } = req.params
+      const { id } = req.params
       const { access_token } = await knex('access_tokens')
-        .where('vehicle_id', vehicleId)
+        .where('vehicle_id', id)
         .first()
-      const config = await knex('config').first()
+      const config = await knex('app_config').first()
       const graphQl = new GraphQlService(
         config.graph_ql_api_config,
         access_token
@@ -38,7 +38,8 @@ export default class VehiclesController {
 
   async delete(req, res) {
     try {
-      await knex('vehicles').where({ vin: req.params.vin }).delete()
+      const { id } = req.params
+      await knex('vehicles').where({ id }).delete()
 
       res.json({
         message: 'Vehicle deleted',

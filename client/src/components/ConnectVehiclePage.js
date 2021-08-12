@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { AUTH_CALLBACK_URL, fetchConfig } from '../requests'
+import { AUTH_CALLBACK_URL, fetchAppConfig } from '../requests'
 import routes, { PAGES } from '../routes'
 import '../styles/ConnectVehiclePage.scss'
 import GrayCircles from './GrayCircles'
@@ -14,7 +14,7 @@ function ConnectVehiclePage() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const config = await fetchConfig()
+        const config = await fetchAppConfig()
 
         const oAuthUrl = new URL(config.auth_url)
         oAuthUrl.searchParams.set('client_id', config.client_id)

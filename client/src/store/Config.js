@@ -18,7 +18,7 @@ export default class Config {
   tokenUrl =
     'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
 
-  view = VIEWS.MAP
+  view = VIEWS.GRID
   updateFrequency = 15
   selectedVehicleId = null
   pinnedProperties = ['diagnostics.speed']
@@ -39,6 +39,7 @@ export default class Config {
     // 'charging.status',
     // 'charging.pluggedIn',
   ]
+  googleMapsApiKey = ''
 
   constructor() {
     makeAutoObservable(this)
@@ -76,7 +77,7 @@ export default class Config {
     this.updateFrequency = frequency
   }
 
-  setSelectedVehicle(vehicleId) {
+  setSelectedVehicleId(vehicleId) {
     this.selectedVehicleId = vehicleId
   }
 
@@ -107,5 +108,9 @@ export default class Config {
   isPropertyShown(propertyConfig) {
     const uniqueId = getPropertyUniqueId(propertyConfig)
     return this.shownProperties.includes(uniqueId)
+  }
+
+  setGoogleMapsApiKey(key) {
+    this.googleMapsApiKey = key
   }
 }

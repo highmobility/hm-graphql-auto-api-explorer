@@ -1,5 +1,5 @@
 exports.up = async (knex) => {
-  return knex.schema.createTable('config', function (table) {
+  return knex.schema.createTable('app_config', function (table) {
     table.increments()
     table.json('graph_ql_api_config')
     table.string('client_id', 1000)
@@ -11,5 +11,5 @@ exports.up = async (knex) => {
 }
 
 exports.down = async (knex) => {
-  return knex.schema.dropTable('config')
+  return knex.schema.dropTable('app_config')
 }

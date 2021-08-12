@@ -4,7 +4,7 @@ import googleMapsTheme from '../data/mapsTheme.json'
 import '../styles/GoogleMap.scss'
 
 const loader = new Loader({
-  apiKey: '',
+  apiKey: 'AIzaSyDHGGCWUgVV7elhOTnJSawnzUu1nDu1fo0',
   version: 'weekly',
 })
 
@@ -74,13 +74,13 @@ export default function GoogleMap({
           // eslint-disable-next-line
           new google.maps.Marker({
             ...marker,
-            // icon: new google.maps.MarkerImage( // eslint-disable-line
-            //   require('../images/car.svg').default,
-            //   null,
-            //   null,
-            //   null,
-            //   new google.maps.Size(50, 50) // eslint-disable-line
-            // ),
+            icon: new google.maps.MarkerImage( // eslint-disable-line
+              require('../images/car.svg').default,
+              null,
+              null,
+              null,
+              new google.maps.Size(50, 50) // eslint-disable-line
+            ),
             map: mapInstance,
             label: markerLabel,
           })

@@ -6,7 +6,7 @@ export default class OAuthController {
   async callback(req, res) {
     try {
       const oAuthCode = req.query.code
-      const config = await knex('config').first()
+      const config = await knex('app_config').first()
 
       const { data: tokenResponse } = await axios.post(config.token_url, {
         grant_type: 'authorization_code',

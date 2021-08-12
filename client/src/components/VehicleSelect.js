@@ -13,13 +13,13 @@ const VehicleSelect = () => {
   const { config, vehicles } = useMobx()
   const history = useHistory()
   const [vehicleToDelete, setVehicleToDelete] = useState(null)
-  const onConfirmDelete = async (vin) => {
-    await vehicles.delete(vin)
+  const onConfirmDelete = async (id) => {
+    await vehicles.delete(id)
     setVehicleToDelete(null)
   }
 
   const selectedVehicle = vehicles.list.find(
-    (vehicle) => vehicle.id === config.selectedVehicleId
+    (vehicle) => vehicle.vin === config.selectedVehicleId
   )
 
   const vehicleDropdownItems = [
@@ -31,12 +31,12 @@ const VehicleSelect = () => {
           <div className="VehicleSelectDropdownVin">{vehicle.vin}</div>
           <CrossSvg
             className="VehicleSelectDropdownDelete"
-            onClick={() => setVehicleToDelete(vehicle.vin)}
+            onClick={() => setVehicleToDelete(vehicle.id)}
           />
         </Fragment>
       ),
       onClick: () => {
-        config.setSelectedVehicle(vehicle.id)
+        config.setSelectedVehicleId(vehicle.id)
       },
     })),
     {
