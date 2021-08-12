@@ -16,6 +16,8 @@ const VehicleSelect = () => {
   const onConfirmDelete = async (id) => {
     await vehicles.delete(id)
     setVehicleToDelete(null)
+    vehicles.remove(id)
+    config.setSelectedVehicleId(vehicles.list?.[0] || null)
   }
 
   const selectedVehicle = vehicles.list.find(

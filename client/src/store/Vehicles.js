@@ -10,6 +10,10 @@ export default class Vehicles {
     makeAutoObservable(this)
   }
 
+  remove(vehicleId) {
+    this.list = this.list.filter((vehicle) => vehicle.id !== vehicleId)
+  }
+
   async fetch() {
     this.state = 'loading'
     const vehicles = await fetchVehicles()
