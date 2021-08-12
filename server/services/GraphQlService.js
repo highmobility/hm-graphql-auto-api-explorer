@@ -1,4 +1,3 @@
-import appConfig from '../config'
 import jwt from 'jsonwebtoken'
 import uuid4 from 'uuid4'
 import axios from 'axios'
@@ -64,7 +63,7 @@ export default class GraphQlService {
     const jwtToken = this.generateJWT()
 
     const {
-      data: { data },
+      data: { data, errors },
     } = await axios.post(
       this.graphQlApiConfig.app_uri,
       {
@@ -77,6 +76,12 @@ export default class GraphQlService {
         },
       }
     )
+
+    const errorMessage =
+      errors && Array.isArray(errors) && errors.length > 0 && errors[0].message
+    if (errorMessage) {
+      throw new Error(errorMessage)
+    }
 
     return data
   }

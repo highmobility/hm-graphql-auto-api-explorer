@@ -7,13 +7,13 @@ const REST_API_CONFIG = {
   private_key_id: '4ac6ebda-efdf-4f2e-8c53-cf27e3ce7f27',
   private_key:
     '-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgaL4l2cOjGIygxdMh\nEr7PRd7xVV707KKlsR546KaMNtOhRANCAASNUqCakHD3+WHDOI3F9yTx6Ok4fFeK\nSstonpljta/EbIM4zxCrobVMgfWzQAT9TIfsv4Bs1N8Dd3aWp9pPOycA\n-----END PRIVATE KEY-----\n\n',
-  app_uri: 'https://sandbox.graphql-api.develop.high-mobility.net',
+  app_uri: 'https://sandbox.graphql-api.develop.high-mobility.net/v1',
   app_id: '40AAAAC3C6467F0393FFD528',
   client_serial_number: 'fc2e6591408076a340',
 }
 
 const accessToken =
-  'yVUS5mAEvNEJchKT7eGaKBfU13Nb0zuEmwmX0LuWRMwEEiPPzcLUNm7MaVjh5ihuSv_zdAN3IJBxn4oyRtY2Ce8GIFOqpVreQ6CkSSMVFbvJ5_4YOrqnvU8cx0uIq89m8w'
+  'guaoFaBsi4kP9lvHFsqKwNInNjmmzUptSsU7jGmcMWHCNSjzTPrg3BEFRp-FXk4cox-y-_2LM2a7H_48UjQgUvxBZgF34dK7DjO5BF9KWecCuWwcx6QjnFEMUIzRZBqjaQ'
 
 const payload = {
   ver: REST_API_CONFIG.version,

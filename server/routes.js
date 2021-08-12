@@ -2,6 +2,7 @@ import { Router } from 'express'
 import AppConfigController from './controllers/AppConfigController'
 import OauthController from './controllers/OauthController'
 import VehiclesController from './controllers/VehiclesController'
+import ConfigController from './controllers/ConfigController'
 
 const appConfigController = new AppConfigController()
 const oAuthController = new OauthController()

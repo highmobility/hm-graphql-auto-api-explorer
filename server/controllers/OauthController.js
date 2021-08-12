@@ -53,11 +53,10 @@ export default class OAuthController {
           .transacting(trx)
       })
     } catch (err) {
-      console.log('OAuth callback error', err)
       res.redirect(
         `${req.protocol}://${req.hostname}${
           req.hostname === 'localhost' ? ':3000' : ''
-        }/initial-config?error=true`
+        }/initial-config?error=${err.message}`
       )
     }
 

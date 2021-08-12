@@ -16,9 +16,7 @@ function InitialConfigPage() {
   const [formErrors, setFormErrors] = useState(null)
   const history = useHistory()
 
-  const error =
-    new URLSearchParams(useLocation().search).get('error') &&
-    'Could not connect vehicle. Make sure to open your emulator and give permissions to the Diagnostics capability'
+  const error = new URLSearchParams(useLocation().search).get('error')
 
   useEffect(() => {
     const fetch = async () => {
@@ -72,7 +70,7 @@ function InitialConfigPage() {
     "type": "graph_ql_api",
     "private_key_id": "52201da6-2ace-493b-a452-52b01f411e4f",
     "private_key": "-----BEGIN PRIVATE KEY-----\\nMIJHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgLGiezYu5j/HYwP2W\\nl0e7eZsPNcuvIL6ljHc3BOoWN1ihRANCAAS559L2+61A7/iq+gsESy/yoDvUz6Wu\\ntUXBd7mnjljMTnrxyN3MATTe/PgB9IPcwe0CpbHrun2LIGGisnVeC3nV\\n-----END PRIVATE KEY-----",
-    "app_uri": "https://sandbox.graphql-api.develop.high-mobility.net/",
+    "app_uri": "https://sandbox.graphql-api.develop.high-mobility.net/v1",
     "app_id": "0DBC89CFA8877576049081FB",
     "client_serial_number": "FC2E6591508076A340"
 }`.trim()
@@ -113,7 +111,15 @@ function InitialConfigPage() {
 
   return (
     <div className="InitialConfigPage">
-      {error && <div className="InitialConfigPageError">{error}</div>}
+      {error && (
+        <div className="InitialConfigPageError">
+          <p>
+            Could not connect vehicle. Make sure to open your emulator and give
+            permissions to the Diagnostics capability
+          </p>
+          <p className="small">{error}</p>
+        </div>
+      )}
       <header className="InitialConfigHeader">
         <div className="InitialConfigHeaderContent">
           <h2>Set the configuration</h2>

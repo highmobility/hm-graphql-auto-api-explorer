@@ -2,7 +2,10 @@
   .InitialConfigPageError {
     text-align: center;
     background: #df4747;
-    color: white;
+
+    p {
+      color: white;
+    }
   }
 
   .InitialConfigHeader {
