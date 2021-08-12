@@ -11,33 +11,31 @@ export const VIEWS = {
 export default class Config {
   focusedInput = null
   graphQlApiConfig = ''
-  clientId = 'a415c1ec-ca0b-4340-a3fd-dbad217608ed'
-  clientSecret = 'G7ioWDWJlRHvRTD6zV0dcaMS2822FxeS'
-  authUrl =
-    'https://sandbox.owner-panel.develop.high-mobility.net/hm_cloud/o/d36635af-a403-425e-82dd-1415557e376e/oauth'
-  tokenUrl =
-    'https://sandbox.api.develop.high-mobility.net/v1/d36635af-a403-425e-82dd-1415557e376e/oauth/access_tokens'
+  clientId = ''
+  clientSecret = ''
+  authUrl = ''
+  tokenUrl = ''
 
   view = VIEWS.MAP
   updateFrequency = 15
   selectedVehicleId = null
   pinnedProperties = ['diagnostics.speed']
   shownProperties = [
-    // 'adas.status',
-    // 'charging.batteryCurrent',
-    // 'charging.chargeMode',
-    // 'diagnostics.engineOilTemperature',
-    // 'diagnostics.batteryLevel',
-    // 'diagnostics.speed',
-    // 'hood.lock',
+    'adas.status',
+    'charging.batteryCurrent',
+    'charging.chargeMode',
+    'diagnostics.engineOilTemperature',
+    'diagnostics.batteryLevel',
+    'diagnostics.speed',
+    'hood.lock',
     'vehicleLocation.coordinates',
-    // 'diagnostics.odometer',
-    // 'doors.positions',
-    // 'diagnostics.fuelLevel',
+    'diagnostics.odometer',
+    'doors.positions',
+    'diagnostics.fuelLevel',
     'vehicleLocation.heading',
-    // 'seats.personsDetected',
-    // 'charging.status',
-    // 'charging.pluggedIn',
+    'seats.personsDetected',
+    'charging.status',
+    'charging.pluggedIn',
   ]
   googleMapsApiKey = 'AIzaSyDHGGCWUgVV7elhOTnJSawnzUu1nDu1fo0'
 

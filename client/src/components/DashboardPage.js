@@ -126,6 +126,8 @@ function DashboardPage() {
       )
     }
 
+    if (!initialDataFetched) return <Spinner />
+
     const coordinatesProperty = parsedProperties.find(
       (parsedProperty) => parsedProperty.id === 'vehicleLocation.coordinates'
     )

@@ -22,6 +22,9 @@ export default class VehiclesController {
         .where('vehicle_id', id)
         .first()
       const config = await knex('app_config').first()
+      if (!config) {
+        return res.status(404).json({ message: 'No config found' })
+      }
       const graphQl = new GraphQlService(
         config.graph_ql_api_config,
         access_token

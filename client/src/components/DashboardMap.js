@@ -46,6 +46,7 @@ export default function DashboardMap({ open, coordinates, heading }) {
             useArrowIcon
             marker={marker}
             center={{ lat, lng }}
+            panLeft
             zoom={16}
           />
         </animated.div>

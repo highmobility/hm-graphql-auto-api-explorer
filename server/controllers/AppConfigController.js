@@ -28,6 +28,10 @@ export default class AppConfigController {
   async get(req, res) {
     try {
       const config = await knex('app_config').first()
+      if (!config) {
+        return res.status(404).json({ message: 'No config found' })
+      }
+
       delete config.graph_ql_api_config.private_key
       delete config.client_secret
 

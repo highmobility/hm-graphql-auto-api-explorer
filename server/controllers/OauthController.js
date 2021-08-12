@@ -30,27 +30,23 @@ export default class OAuthController {
       const brand = diagnostics.brand.data
 
       await knex.transaction(async (trx) => {
-        const [vehicleId] = await knex('vehicles')
-          .insert(
-            {
-              vin,
-              brand,
-            },
-            'id'
-          )
-          .transacting(trx)
+        const [vehicleId] = await trx('vehicles').insert(
+          {
+            vin,
+            brand,
+          },
+          'id'
+        )
 
-        await knex('access_tokens')
-          .insert(
-            {
-              vehicle_id: vehicleId,
-              access_token: tokenResponse.access_token,
-              refresh_token: tokenResponse.refresh_token,
-              scope: tokenResponse.scope,
-            },
-            'access_token'
-          )
-          .transacting(trx)
+        await trx('access_tokens').insert(
+          {
+            vehicle_id: vehicleId,
+            access_token: tokenResponse.access_token,
+            refresh_token: tokenResponse.refresh_token,
+            scope: tokenResponse.scope,
+          },
+          'access_token'
+        )
       })
     } catch (err) {
       res.redirect(

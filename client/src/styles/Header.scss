@@ -44,9 +44,30 @@
   .HeaderFrequencyDropdown {
     width: 185px;
     margin-left: 0;
+    margin-right: 10px;
 
     .Dropdown {
       width: 100%;
+    }
+  }
+
+  .HeaderAppConfigButton {
+    cursor: pointer;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: #6c757d;
+    font-weight: bold;
+    transition: background-color 300ms ease;
+    margin-right: 24px;
+
+    &:hover,
+    &:active {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
     }
   }
 }

@@ -4,6 +4,7 @@
   height: 100%;
   margin-top: 70px;
   transition: margin 250ms ease;
+  pointer-events: none;
 
   .GridItemContainer {
     position: absolute;
@@ -11,6 +12,7 @@
     will-change: transform, width, height, opacity;
     display: flex;
     box-sizing: border-box;
+    pointer-events: all;
   }
 
   .GridItem {

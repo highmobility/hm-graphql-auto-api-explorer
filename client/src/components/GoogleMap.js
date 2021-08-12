@@ -4,6 +4,7 @@ import googleMapsTheme from '../data/mapsTheme.json'
 import '../styles/GoogleMap.scss'
 import { useMobx } from '../store/mobx'
 import { observer } from 'mobx-react-lite'
+import { useWindowSize } from 'react-use'
 
 const GoogleMap = ({
   center,
@@ -11,6 +12,7 @@ const GoogleMap = ({
   className,
   marker = null,
   useArrowIcon = false,
+  panLeft = false,
   ...props
 }) => {
   const {
@@ -28,6 +30,7 @@ const GoogleMap = ({
   const [hasError, setHasError] = React.useState(false)
   const [activeZoom, setActiveZoom] = React.useState(zoom)
   const [activeCenter, setActiveCenter] = React.useState(center)
+  const { width: windowWidth } = useWindowSize()
 
   React.useEffect(() => {
     if (center.lat === activeCenter.lat || center.lng === activeCenter.lng)
@@ -50,15 +53,25 @@ const GoogleMap = ({
   }, [activeZoom, mapInstance, activeMarker, useArrowIcon])
 
   React.useEffect(() => {
+    if (!domRef.current || !mapInstance) return
+    mapInstance.setCenter(center)
+    mapInstance.panBy(windowWidth / 4, 0)
+  }, [mapInstance, windowWidth, center])
+
+  React.useEffect(() => {
     loader.load().then(() => {
       if (!mapInstance) {
         // eslint-disable-next-line
         const newInstance = new google.maps.Map(domRef.current, {
           zoom,
-          disableDefaultUI: true,
+          // disableDefaultUI: true,
           styles: googleMapsTheme,
         })
         setMapInstance(newInstance)
+
+        if (panLeft && domRef.current) {
+          newInstance.panBy(-(domRef.current.offsetWidth / 6), 0)
+        }
 
         newInstance.addListener('tilesloaded', () => {
           if (domRef.current.children.length > 1) {

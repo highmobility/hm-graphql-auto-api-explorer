@@ -9,6 +9,10 @@ import { VIEWS } from '../store/Config'
 import { upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import VehicleSelect from './VehicleSelect'
+import SecondaryButton from './SecondaryButton'
+import { ReactComponent as CogSvg } from '../images/cog.svg'
+import { Link } from 'react-router-dom'
+import routes, { PAGES } from '../routes'
 
 const Header = () => {
   const { config, app } = useMobx()
@@ -75,6 +79,11 @@ const Header = () => {
           renderLabel={() => `Update every ${config.updateFrequency}s`}
           items={updateFrequencyDropdownItems}
         />
+        <Link to={routes.find((route) => route.name === PAGES.APP_CONFIG).path}>
+          <div className="HeaderAppConfigButton">
+            <CogSvg />
+          </div>
+        </Link>
         <FilterPropertiesModal
           show={app.showPropertiesFilter}
           close={() => app.setShowPropertiesFilter(false)}

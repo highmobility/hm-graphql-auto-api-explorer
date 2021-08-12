@@ -21,9 +21,16 @@
     min-width: 130px;
     box-sizing: border-box;
     white-space: nowrap;
+    transition: background-color 300ms ease;
 
     span {
       margin-right: 10px;
+    }
+
+    &:hover,
+    &:active {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
     }
   }
 
