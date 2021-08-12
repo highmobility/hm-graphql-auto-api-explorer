@@ -2,105 +2,104 @@ import React from 'react'
 import { Loader } from '@googlemaps/js-api-loader'
 import googleMapsTheme from '../data/mapsTheme.json'
 import '../styles/GoogleMap.scss'
+import { useMobx } from '../store/mobx'
+import { observer } from 'mobx-react-lite'
 
-const loader = new Loader({
-  apiKey: 'AIzaSyDHGGCWUgVV7elhOTnJSawnzUu1nDu1fo0',
-  version: 'weekly',
-})
-
-export default function GoogleMap({
+const GoogleMap = ({
   center,
   zoom = 6,
   className,
-  markers = [],
+  marker = null,
+  useArrowIcon = false,
   ...props
-}) {
+}) => {
+  const {
+    config: { googleMapsApiKey },
+  } = useMobx()
+  const [loader] = React.useState(
+    new Loader({
+      apiKey: googleMapsApiKey,
+      version: 'weekly',
+    })
+  )
   const domRef = React.useRef()
   const [mapInstance, setMapInstance] = React.useState()
-  const [activeMarkers, setActiveMarkers] = React.useState([])
+  const [activeMarker, setActiveMarker] = React.useState(null)
   const [hasError, setHasError] = React.useState(false)
+  const [activeZoom, setActiveZoom] = React.useState(zoom)
+  const [activeCenter, setActiveCenter] = React.useState(center)
+
+  React.useEffect(() => {
+    if (center.lat === activeCenter.lat || center.lng === activeCenter.lng)
+      return
+    setActiveCenter({ ...center })
+  }, [center, activeCenter])
+
+  React.useEffect(() => {
+    if (!mapInstance) return
+    mapInstance.setCenter(activeCenter)
+  }, [activeCenter, mapInstance])
+
+  React.useEffect(() => {
+    if (!activeMarker || !useArrowIcon) return
+
+    activeMarker.setIcon({
+      ...activeMarker.icon,
+      scale: mapInstance.getZoom() / 4,
+    })
+  }, [activeZoom, mapInstance, activeMarker, useArrowIcon])
 
   React.useEffect(() => {
     loader.load().then(() => {
       if (!mapInstance) {
-        setMapInstance(
-          // eslint-disable-next-line
-          new google.maps.Map(domRef.current, {
-            center,
-            zoom,
-            disableDefaultUI: true,
-            styles: googleMapsTheme,
-          })
-        )
-
-        return
-      }
-
-      mapInstance.addListener('tilesloaded', () => {
-        if (domRef.current.children.length > 1) {
-          setHasError(true)
-        }
-      })
-
-      const currentActiveMarkers = [...activeMarkers]
-
-      if (markers.length === 0) {
-        return
-      }
-
-      const newActiveMarkers = []
-      markers.forEach((marker) => {
-        const existingMarker = currentActiveMarkers.find((activeMarker) => {
-          return activeMarker.id === marker.id
+        // eslint-disable-next-line
+        const newInstance = new google.maps.Map(domRef.current, {
+          zoom,
+          disableDefaultUI: true,
+          styles: googleMapsTheme,
         })
+        setMapInstance(newInstance)
 
-        const markerLabel = marker.label
-          ? {
-              className: 'GoogleMapLabel',
-              ...marker.label,
-            }
-          : null
-
-        if (existingMarker) {
-          if (markerLabel) {
-            existingMarker.setLabel(markerLabel)
-          } else {
-            existingMarker.setLabel(null)
+        newInstance.addListener('tilesloaded', () => {
+          if (domRef.current.children.length > 1) {
+            setHasError(true)
           }
-        }
-
-        const newMarker =
-          existingMarker ||
-          // eslint-disable-next-line
-          new google.maps.Marker({
-            ...marker,
-            icon: new google.maps.MarkerImage( // eslint-disable-line
-              require('../images/car.svg').default,
-              null,
-              null,
-              null,
-              new google.maps.Size(50, 50) // eslint-disable-line
-            ),
-            map: mapInstance,
-            label: markerLabel,
-          })
-
-        newActiveMarkers.push(newMarker)
-      })
-
-      setActiveMarkers(newActiveMarkers)
-
-      currentActiveMarkers.forEach((activeMarker) => {
-        const includedInNew = newActiveMarkers.some((newActiveMarker) => {
-          return activeMarker.id === newActiveMarker.id
         })
 
-        if (!includedInNew) {
-          activeMarker.setMap(null)
+        newInstance.addListener('zoom_changed', () => {
+          setActiveZoom(newInstance.getZoom())
+        })
+
+        return
+      }
+
+      const { icon, ...markerData } = marker
+
+      if (icon) {
+        markerData.icon = {
+          ...marker.icon,
+          ...(useArrowIcon
+            ? {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW, //eslint-disable-line
+                anchor: new google.maps.Point(0.2, 2.4), //eslint-disable-line
+                fillColor: 'white',
+                fillOpacity: 1,
+                strokeWeight: 0,
+                scale: 5,
+              }
+            : {}),
         }
-      })
+      }
+
+      setActiveMarker(
+        // eslint-disable-next-line
+        new google.maps.Marker({
+          ...markerData,
+          map: mapInstance,
+        })
+      )
     })
-  }, [center, zoom, markers, mapInstance]) // eslint-disable-line
+  }, [center, zoom, marker, mapInstance]) // eslint-disable-line
 
   return (
     <div ref={domRef} className={`GoogleMap ${className || ''}`} {...props}>
@@ -114,3 +113,5 @@ export default function GoogleMap({
     </div>
   )
 }
+
+export default observer(GoogleMap)

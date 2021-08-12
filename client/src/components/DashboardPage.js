@@ -17,40 +17,38 @@ function DashboardPage() {
   const [initialDataFetched, setInitialDataFetched] = useState(false)
   const [vehiclesFetched, setVehiclesFetched] = useState(false)
   const { vehicles, config, properties, app } = useMobx()
-  const parsedProperties = useMemo(
-    () =>
-      config.shownProperties
-        .map((propertyUniqueId) => {
-          const data = properties?.values?.[propertyUniqueId]
-          const propertyConfig = getPropertyConfig(propertyUniqueId)
+  const parsedProperties = useMemo(() => {
+    return config.shownProperties
+      .map((propertyUniqueId) => {
+        const data = properties.values?.[propertyUniqueId]
+        const propertyConfig = getPropertyConfig(propertyUniqueId)
 
-          return {
-            id: propertyUniqueId,
-            config: propertyConfig,
-            block: getBlockData(config.view, propertyConfig),
-            data,
-          }
-        })
-        .sort((a, b) => {
-          if (
-            config.pinnedProperties.includes(a.id) &&
-            config.pinnedProperties.includes(b.id)
-          ) {
-            return config.pinnedProperties.indexOf(a.id) <
-              config.pinnedProperties.indexOf(b.id)
-              ? -1
-              : 1
-          }
+        return {
+          id: propertyUniqueId,
+          config: propertyConfig,
+          block: getBlockData(config.view, propertyConfig),
+          data,
+        }
+      })
+      .sort((a, b) => {
+        if (
+          config.pinnedProperties.includes(a.id) &&
+          config.pinnedProperties.includes(b.id)
+        ) {
+          return config.pinnedProperties.indexOf(a.id) <
+            config.pinnedProperties.indexOf(b.id)
+            ? -1
+            : 1
+        }
 
-          return config.pinnedProperties.includes(a.id) ? -1 : 1
-        }),
-    [
-      config.pinnedProperties,
-      config.shownProperties,
-      config.view,
-      properties.values,
-    ]
-  )
+        return config.pinnedProperties.includes(a.id) ? -1 : 1
+      })
+  }, [
+    config.pinnedProperties,
+    config.shownProperties,
+    config.view,
+    properties.values,
+  ])
 
   const fetchData = useCallback(async () => {
     if (!config.selectedVehicleId) return
@@ -82,7 +80,13 @@ function DashboardPage() {
 
   useEffect(() => {
     fetchData()
-  }, [config.selectedVehicleId, config.updateFrequency]) // eslint-disable-line
+  }, [
+    config.selectedVehicleId,
+    config.updateFrequency,
+    config.view,
+    config.shownProperties,
+    fetchData,
+  ])
 
   useInterval(
     () => {
@@ -122,14 +126,20 @@ function DashboardPage() {
       )
     }
 
-    if (!initialDataFetched) return <Spinner />
+    const coordinatesProperty = parsedProperties.find(
+      (parsedProperty) => parsedProperty.id === 'vehicleLocation.coordinates'
+    )
+
+    const headingProperty = parsedProperties.find(
+      (parsedProperty) => parsedProperty.id === 'vehicleLocation.heading'
+    )
 
     return (
       <div className={`DashboardPageContent`}>
         <DashboardMap
           open={config.view === VIEWS.MAP}
-          coordinates={parsedProperties.coordinates}
-          heading={parsedProperties.heading}
+          coordinates={coordinatesProperty}
+          heading={headingProperty}
         />
         <Grid items={parsedProperties} view={config.view} />
       </div>

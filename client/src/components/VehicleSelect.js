@@ -19,7 +19,7 @@ const VehicleSelect = () => {
   }
 
   const selectedVehicle = vehicles.list.find(
-    (vehicle) => vehicle.vin === config.selectedVehicleId
+    (vehicle) => vehicle.id === config.selectedVehicleId
   )
 
   const vehicleDropdownItems = [

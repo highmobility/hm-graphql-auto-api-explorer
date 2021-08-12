@@ -8,6 +8,7 @@ export default class Properties {
   }
 
   setValues(capabilities) {
+    const newValues = this.values
     Object.entries({ ...capabilities }).forEach(
       ([capabilityName, properties]) => {
         if (!properties) return
@@ -15,16 +16,18 @@ export default class Properties {
           const uniqueId = `${capabilityName}.${propertyName}`
 
           if (!propertyData.data) {
-            this.values[uniqueId] = propertyData
+            newValues[uniqueId] = propertyData
             return
           }
 
-          this.values[uniqueId] = {
+          newValues[uniqueId] = {
             value: propertyData.data?.value || propertyData.data,
             unit: propertyData.data?.unit || null,
           }
         })
       }
     )
+
+    this.values = { ...newValues }
   }
 }

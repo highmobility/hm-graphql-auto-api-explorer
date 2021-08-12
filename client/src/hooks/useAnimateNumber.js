@@ -16,9 +16,10 @@ export default function useAnimateNumber(
   )
 
   useEffect(() => {
+    const numberValue = isNaN(value) ? 0 : Number(value)
     setStartValue(animatedValue)
-    setFinalValue(value)
-    setValueToAdd((value - animatedValue) / (ms / 10))
+    setFinalValue(numberValue)
+    setValueToAdd((numberValue - animatedValue) / (ms / 10))
   }, [value, ms]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

@@ -188,6 +188,8 @@ export function formatUnit(unitValue) {
 }
 
 export function valueWithBaseUnit(value, unit, propertyConfig) {
+  if (!unit || !propertyConfig) return value
+
   const propertyUnitType = propertyConfig.unit.unit_types.find(
     (unitType) => unitType.name === camelCaseToSnakeCase(unit)
   )

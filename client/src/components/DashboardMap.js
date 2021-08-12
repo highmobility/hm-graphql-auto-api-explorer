@@ -10,8 +10,17 @@ export default function DashboardMap({ open, coordinates, heading }) {
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   })
-  const lat = Number(coordinates?.data?.value.latitude)
-  const lng = Number(coordinates?.data?.value.longitude)
+  const lat = Number(coordinates?.data?.value?.latitude)
+  const lng = Number(coordinates?.data?.value?.longitude)
+  const headingInDegrees = valueWithBaseUnit(
+    heading?.data?.value,
+    heading?.data?.unit,
+    heading?.config
+  )
+
+  if (!lat || !lng || !headingInDegrees) {
+    return null
+  }
 
   const marker = {
     id: 1,
@@ -19,15 +28,10 @@ export default function DashboardMap({ open, coordinates, heading }) {
       lat,
       lng,
     },
+    icon: {
+      rotation: headingInDegrees,
+    },
   }
-
-  const headingInDegrees = valueWithBaseUnit(
-    heading?.data?.value,
-    heading?.data?.unit,
-    heading?.config
-  )
-
-  console.log({ lat, lng, headingInDegrees })
 
   return (
     <Fragment>
@@ -38,7 +42,12 @@ export default function DashboardMap({ open, coordinates, heading }) {
             opacity,
           }}
         >
-          <GoogleMap markers={[marker]} center={{ lat, lng }} />
+          <GoogleMap
+            useArrowIcon
+            marker={marker}
+            center={{ lat, lng }}
+            zoom={16}
+          />
         </animated.div>
       ))}
     </Fragment>
