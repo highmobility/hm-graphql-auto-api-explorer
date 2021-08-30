@@ -2,7 +2,7 @@ exports.up = function (knex) {
   return knex.schema.createTable('config', function (table) {
     table.increments()
     table.string('view')
-    table.integer('updateFrequency')
+    table.integer('update_frequency')
     table.integer('selected_vehicle_id').unsigned()
     table.string('google_maps_api_key')
 

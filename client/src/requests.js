@@ -17,6 +17,12 @@ export const fetchAppConfig = async () => {
   return data
 }
 
+export const updateConfig = async (config) => {
+  const { data = [] } = await axios.put(`${API_URL}/config`, config)
+
+  return data
+}
+
 export const fetchConfig = async () => {
   const { data = [] } = await axios.get(`${API_URL}/config`)
 

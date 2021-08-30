@@ -1,7 +1,12 @@
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { AUTH_CALLBACK_URL, fetchAppConfig, fetchConfig } from '../requests'
+import {
+  AUTH_CALLBACK_URL,
+  fetchAppConfig,
+  fetchConfig,
+  updateConfig,
+} from '../requests'
 import '../styles/ConfigPage.scss'
 import PrimaryButton from './PrimaryButton'
 import { ReactComponent as ArrowSvg } from '../images/arrow.svg'
@@ -34,9 +39,21 @@ function ConfigPage() {
     fetch()
   }, [history])
 
-  const onSave = () => {
+  const onSave = async () => {
+    const keyChanged = config.googleMapsApiKey === googleMapsApiKey
     config.setGoogleMapsApiKey(googleMapsApiKey)
-    history.push(routes.find((route) => route.name === PAGES.DASHBOARD).path)
+    const dashboardPath = routes.find(
+      (route) => route.name === PAGES.DASHBOARD
+    ).path
+
+    await updateConfig({ googleMapsApiKey })
+
+    if (keyChanged) {
+      window.location.href = dashboardPath
+      return
+    }
+
+    history.push(dashboardPath)
   }
 
   const onBack = () => {
@@ -88,6 +105,7 @@ function ConfigPage() {
             <h5 className="ConfigPageSubTitle">Google maps API key</h5>
             <TextInput
               name="googleMapsApiKey"
+              type="password"
               value={googleMapsApiKey}
               placeholder="Google maps API key"
               onChange={(e) => setGoogleMapsApiKey(e.target.value)}

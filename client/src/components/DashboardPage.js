@@ -5,7 +5,7 @@ import Header from './Header'
 import Grid from './Grid'
 import { useMobx } from '../store/mobx'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { fetchVehicleData } from '../requests'
+import { fetchConfig, fetchVehicleData } from '../requests'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import Spinner from './Spinner'
@@ -52,19 +52,19 @@ function DashboardPage() {
 
   const fetchData = useCallback(async () => {
     if (!config.selectedVehicleId) return
+
     const vehicleData = await fetchVehicleData(
       config.selectedVehicleId,
       config.shownProperties
     )
-
-    if (!initialDataFetched) setInitialDataFetched(true)
     properties.setValues(vehicleData)
-  }, [
-    config.selectedVehicleId,
-    config.shownProperties,
-    properties,
-    initialDataFetched,
-  ])
+
+    if (!initialDataFetched) {
+      const { google_maps_api_key } = await fetchConfig()
+      config.setGoogleMapsApiKey(google_maps_api_key)
+      setInitialDataFetched(true)
+    }
+  }, [properties, initialDataFetched, config])
 
   useEffect(() => {
     const fetchVehicles = async () => {

@@ -19,21 +19,25 @@ export default class ConfigController {
 
   async update(req, res) {
     try {
+      const newConfig = {
+        view: req.body.view,
+        update_frequency: req.body.updateFrequency,
+        selected_vehicle_id: req.body.selectedVehicleId,
+        google_maps_api_key: req.body.googleMapsApiKey,
+      }
+
       let config = await knex('config').first()
-      if (!config) {
-        config = await knex('config').insert({
-          view: req.body.view,
-          updateFrequency: req.body.updateFrequency,
-          selected_vehicle_id: req.body.selectedVehicleId,
-          google_maps_api_key: req.body.googleMapsApiKey,
-        })
+      if (config) {
+        config = (await knex('config').first().update(newConfig, '*'))[0]
+      } else {
+        config = (await knex('config').insert(newConfig, '*'))[0]
       }
 
       res.json(config)
     } catch (err) {
       console.log(err.stack)
       res.status(500).json({
-        error: 'Failed to fetch config',
+        error: 'Failed to update config',
       })
     }
   }
