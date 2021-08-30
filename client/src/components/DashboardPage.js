@@ -31,17 +31,17 @@ function DashboardPage() {
         }
       })
       .sort((a, b) => {
-        if (
-          config.pinnedProperties.includes(a.id) &&
-          config.pinnedProperties.includes(b.id)
-        ) {
-          return config.pinnedProperties.indexOf(a.id) <
-            config.pinnedProperties.indexOf(b.id)
-            ? -1
-            : 1
-        }
+        const sortStringA = `${
+          config.pinnedProperties.includes(a.id) ? 'a' : 'b'
+        }${a.config.capabilityName}${a.config.name_cased}`
+        const sortStringB = `${
+          config.pinnedProperties.includes(b.id) ? 'a' : 'b'
+        }${b.config.capabilityName}${b.config.name_cased}`
 
-        return config.pinnedProperties.includes(a.id) ? -1 : 1
+        if (sortStringA < sortStringB) return -1
+        if (sortStringA > sortStringB) return 1
+
+        return 0
       })
   }, [
     config.pinnedProperties,
