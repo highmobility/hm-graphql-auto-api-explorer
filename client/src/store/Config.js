@@ -16,7 +16,7 @@ export default class Config {
   authUrl = ''
   tokenUrl = ''
 
-  view = VIEWS.MAP
+  view = VIEWS.GRID
   updateFrequency = 15
   selectedVehicleId = null
   pinnedProperties = ['diagnostics.speed']
@@ -72,7 +72,7 @@ export default class Config {
   }
 
   setUpdateFrequency(frequency) {
-    this.updateFrequency = frequency
+    this.updateFrequency = frequency || 15
   }
 
   setSelectedVehicleId(vehicleId) {

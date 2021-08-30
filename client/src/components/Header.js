@@ -9,10 +9,10 @@ import { VIEWS } from '../store/Config'
 import { upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import VehicleSelect from './VehicleSelect'
-import SecondaryButton from './SecondaryButton'
 import { ReactComponent as CogSvg } from '../images/cog.svg'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
+import { updateConfig } from '../requests'
 
 const Header = () => {
   const { config, app } = useMobx()
@@ -21,17 +21,26 @@ const Header = () => {
     {
       value: VIEWS.GRID,
       renderLabel: () => 'Grid view',
-      onClick: () => config.setView(VIEWS.GRID),
+      onClick: async () => {
+        config.setView(VIEWS.GRID)
+        await updateConfig({ view: VIEWS.GRID })
+      },
     },
     {
       value: VIEWS.LIST,
       renderLabel: () => 'List view',
-      onClick: () => config.setView(VIEWS.LIST),
+      onClick: async () => {
+        config.setView(VIEWS.LIST)
+        await updateConfig({ view: VIEWS.LIST })
+      },
     },
     {
       value: VIEWS.MAP,
       renderLabel: () => 'Map view',
-      onClick: () => config.setView(VIEWS.MAP),
+      onClick: async () => {
+        config.setView(VIEWS.MAP)
+        await updateConfig({ view: VIEWS.MAP })
+      },
     },
   ]
 

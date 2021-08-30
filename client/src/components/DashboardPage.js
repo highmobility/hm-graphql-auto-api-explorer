@@ -60,8 +60,16 @@ function DashboardPage() {
     properties.setValues(vehicleData)
 
     if (!initialDataFetched) {
-      const { google_maps_api_key } = await fetchConfig()
+      const {
+        google_maps_api_key,
+        view,
+        update_frequency,
+        selected_vehicle_id,
+      } = await fetchConfig()
       config.setGoogleMapsApiKey(google_maps_api_key)
+      config.setView(view)
+      config.setUpdateFrequency(update_frequency)
+      config.setSelectedVehicleId(selected_vehicle_id)
       setInitialDataFetched(true)
     }
   }, [properties, initialDataFetched, config])
