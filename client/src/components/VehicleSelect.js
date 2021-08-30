@@ -8,6 +8,7 @@ import routes, { PAGES } from '../routes'
 import { observer } from 'mobx-react-lite'
 import { ReactComponent as CrossSvg } from '../images/cross.svg'
 import DeleteVehicleModal from './DeleteVehicleModal'
+import { updateConfig } from '../requests'
 
 const VehicleSelect = () => {
   const { config, vehicles } = useMobx()
@@ -37,8 +38,9 @@ const VehicleSelect = () => {
           />
         </Fragment>
       ),
-      onClick: () => {
+      onClick: async () => {
         config.setSelectedVehicleId(vehicle.id)
+        await updateConfig({ selectedVehicleId: vehicle.id })
       },
     })),
     {

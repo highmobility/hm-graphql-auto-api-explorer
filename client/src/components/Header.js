@@ -48,17 +48,26 @@ const Header = () => {
     {
       value: 15,
       renderLabel: () => 'Every 15 seconds',
-      onClick: () => config.setUpdateFrequency(15),
+      onClick: async () => {
+        config.setUpdateFrequency(15)
+        await updateConfig({ updateFrequency: 15 })
+      },
     },
     {
       value: 30,
       renderLabel: () => 'Every 30 seconds',
-      onClick: () => config.setUpdateFrequency(30),
+      onClick: async () => {
+        config.setUpdateFrequency(30)
+        await updateConfig({ updateFrequency: 30 })
+      },
     },
     {
       value: 60,
       renderLabel: () => 'Every 60 seconds',
-      onClick: () => config.setUpdateFrequency(60),
+      onClick: async () => {
+        config.setUpdateFrequency(60)
+        await updateConfig({ updateFrequency: 60 })
+      },
     },
   ]
 
