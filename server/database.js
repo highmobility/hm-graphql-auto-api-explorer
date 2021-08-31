@@ -1,8 +1,4 @@
 import { knex as initKnex } from 'knex'
-import config from './config'
+import config from '../knexfile'
 
-export const knex = initKnex({
-  client: 'pg',
-  connection: config.databaseUrl,
-  searchPath: ['knex', 'public'],
-})
+export const knex = initKnex(config)
