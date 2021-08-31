@@ -10,8 +10,5 @@
     {
       "url": "heroku/nodejs"
     }
-  ],
-  "scripts": {
-    "postdeploy": "knex migrate:latest"
-  }
+  ]
 }
