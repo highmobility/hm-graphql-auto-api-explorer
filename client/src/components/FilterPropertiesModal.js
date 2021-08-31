@@ -5,10 +5,25 @@ import CAPABILITIES from '../data/capabilities.json'
 import { useMobx } from '../store/mobx'
 import Toggle from './Toggle'
 import { observer } from 'mobx-react-lite'
+import { getPropertyUniqueId } from '../utils/properties'
+import { updateProperty } from '../requests'
 
 const FilterPropertiesModal = (props) => {
   const { config } = useMobx()
   const disabledCategories = ['headunit', 'api_structure']
+
+  const onClickProperty = async (propertyConfig) => {
+    const uniqueId = getPropertyUniqueId(propertyConfig)
+
+    if (config.isPropertyShown(propertyConfig)) {
+      config.hideProperty(propertyConfig)
+      await updateProperty({ id: uniqueId, shown: false, pinned: false })
+      return
+    }
+
+    config.showProperty(propertyConfig)
+    await updateProperty({ id: uniqueId, shown: true, pinned: false })
+  }
 
   return (
     <Modal
@@ -43,11 +58,7 @@ const FilterPropertiesModal = (props) => {
                 </div>
                 <Toggle
                   value={config.isPropertyShown(propertyConfig)}
-                  onChange={() => {
-                    config.isPropertyShown(propertyConfig)
-                      ? config.hideProperty(propertyConfig)
-                      : config.showProperty(propertyConfig)
-                  }}
+                  onChange={() => onClickProperty(propertyConfig)}
                 />
               </div>
             ))}

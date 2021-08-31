@@ -89,6 +89,14 @@ export default class Config {
     )
   }
 
+  setPinnedProperties(propertyIds) {
+    this.pinnedProperties = [...propertyIds]
+  }
+
+  setShownProperties(propertyIds) {
+    this.shownProperties = [...propertyIds]
+  }
+
   showProperties(propertyUniqueIds = []) {
     this.shownProperties = uniq([...this.shownProperties, ...propertyUniqueIds])
   }

@@ -5,7 +5,7 @@ import Header from './Header'
 import Grid from './Grid'
 import { useMobx } from '../store/mobx'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { fetchConfig, fetchVehicleData } from '../requests'
+import { fetchConfig, fetchProperties, fetchVehicleData } from '../requests'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import Spinner from './Spinner'
@@ -70,6 +70,15 @@ function DashboardPage() {
       config.setView(view)
       config.setUpdateFrequency(update_frequency)
       config.setSelectedVehicleId(selected_vehicle_id)
+
+      const propertiesData = await fetchProperties()
+      if (propertiesData.length > 0) {
+        config.setPinnedProperties(
+          propertiesData.filter((p) => p.pinned).map((p) => p.unique_id)
+        )
+        config.setShownProperties(propertiesData.map((p) => p.unique_id))
+      }
+
       setInitialDataFetched(true)
     }
   }, [properties, initialDataFetched, config])

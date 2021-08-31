@@ -29,6 +29,22 @@ export const fetchConfig = async () => {
   return data
 }
 
+export const fetchProperties = async () => {
+  const { data = [] } = await axios.get(`${API_URL}/properties`)
+
+  return data
+}
+
+export const updateProperty = async ({ id, shown, pinned }) => {
+  const { data = [] } = await axios.put(`${API_URL}/properties`, {
+    id,
+    shown,
+    pinned,
+  })
+
+  return data
+}
+
 export const fetchVehicles = async () => {
   const { data = [] } = await axios.get(`${API_URL}/vehicles`)
 
