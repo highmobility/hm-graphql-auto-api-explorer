@@ -22,7 +22,7 @@ Example app showing how to use the High Mobility GraphQL API
 
 ### Deploy to Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kaareloun/hm-graphql-scaffold)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/highmobility/hm-graphql-auto-api-explorer/tree/main)
 
 ### Where to find config information
 

@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nodemon -r esm server/index.js",
     "build": "cd client && npm install && npm run build",
-    "heroku-postbuild": "knex migrate:latest && cd client && npm install && npm run build",
+    "heroku-postbuild": "npm ci && knex migrate:latest && cd client && npm ci && npm run build",
     "migrate:make": "knex migrate:make",
     "migrate:up": "knex migrate:latest",
     "migrate:down": "knex migrate:rollback --all"
