@@ -62,7 +62,7 @@ export default class OAuthController {
       const configa = await knex('app_config').first()
       console.log('POST to', configa.token_url, {
         grant_type: 'authorization_code',
-        code: oAuthCode,
+        code: req.query.code,
         redirect_uri: `${req.protocol}://${req.get('host')}${req.baseUrl}${
           req._parsedUrl.pathname
         }`,
