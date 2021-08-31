@@ -52,18 +52,19 @@ export default class OAuthController {
           'access_token'
         )
       })
+
+      res.redirect(
+        `${req.protocol}://${req.hostname}${
+          req.hostname === 'localhost' ? ':3000' : ''
+        }/dashboard`
+      )
     } catch (err) {
+      console.log(err.stack)
       res.redirect(
         `${req.protocol}://${req.hostname}${
           req.hostname === 'localhost' ? ':3000' : ''
         }/initial-config?error=${err.message}`
       )
     }
-
-    res.redirect(
-      `${req.protocol}://${req.hostname}${
-        req.hostname === 'localhost' ? ':3000' : ''
-      }/dashboard`
-    )
   }
 }
