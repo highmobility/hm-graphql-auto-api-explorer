@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useLocation } from 'react-use'
-import { AUTH_CALLBACK_URL, fetchAppConfig, setAppConfig } from '../requests'
+import { AUTH_CALLBACK_URL, setAppConfig } from '../requests'
 import routes, { PAGES } from '../routes'
 import { useMobx } from '../store/mobx'
 import '../styles/InitialConfigPage.scss'
@@ -17,23 +17,6 @@ function InitialConfigPage() {
   const history = useHistory()
 
   const error = new URLSearchParams(useLocation().search).get('error')
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const config = await fetchAppConfig()
-        if (config) {
-          history.push(
-            routes.find((route) => route.name === PAGES.CONNECT_VEHICLE).path
-          )
-        }
-      } catch (e) {
-        console.log('Failed to fetch config')
-      }
-    }
-
-    fetch()
-  }, [history])
 
   const inputTips = {
     ENV: {},
