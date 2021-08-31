@@ -59,7 +59,16 @@ export default class OAuthController {
         }/dashboard`
       )
     } catch (err) {
-      console.log(err.stack)
+      console.log('POST to', config.token_url, {
+        grant_type: 'authorization_code',
+        code: oAuthCode,
+        redirect_uri: `${req.protocol}://${req.get('host')}${req.baseUrl}${
+          req._parsedUrl.pathname
+        }`,
+        client_id: config.client_id,
+        client_secret: config.client_secret,
+      })
+      console.trace(err)
       res.redirect(
         `${req.protocol}://${req.hostname}${
           req.hostname === 'localhost' ? ':3000' : ''
