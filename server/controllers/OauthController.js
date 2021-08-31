@@ -26,6 +26,10 @@ export default class OAuthController {
         'diagnostics.brand',
         'diagnostics.vin',
       ])
+      if (!diagnostics) {
+        throw new Error('Could not fetch Diagnostics capability data')
+      }
+
       const vin = diagnostics.vin.data
       const brand = diagnostics.brand.data
 
