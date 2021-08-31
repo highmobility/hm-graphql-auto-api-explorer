@@ -12,6 +12,6 @@
     }
   ],
   "scripts": {
-    "postdeploy": "PGSSLMODE=no-verify knex migrate:latest"
+    "postdeploy": "knex migrate:latest"
   }
 }

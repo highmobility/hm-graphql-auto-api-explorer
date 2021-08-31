@@ -20,7 +20,7 @@ export default class AppConfigController {
     } catch (err) {
       console.log(err.stack)
       res.status(500).json({
-        error: 'Failed to update config',
+        error: 'Failed to update app config',
       })
     }
   }
@@ -39,7 +39,7 @@ export default class AppConfigController {
     } catch (err) {
       console.log(err.stack)
       res.status(500).json({
-        error: 'Failed to fetch config',
+        error: 'Failed to fetch app config',
       })
     }
   }
