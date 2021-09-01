@@ -16,30 +16,22 @@ export default class PropertiesController {
 
   async update(req, res) {
     try {
-      const existingProperty = await knex('properties')
-        .where({ unique_id: req.body.id })
-        .first()
+      const properties = req.body.properties
+      await knex.transaction(async (trx) => {
+        await trx('properties').select('*').delete()
+        await trx('properties').insert(
+          properties.map((property) => ({
+            unique_id: property.id,
+            pinned: property.pinned,
+          }))
+        )
+      })
 
-      if (existingProperty) {
-        if (req.body.shown) {
-          await knex('properties')
-            .where({ unique_id: req.body.id })
-            .update({ pinned: req.body.pinned })
-        } else {
-          await knex('properties').where({ unique_id: req.body.id }).delete()
-        }
-      } else {
-        await knex('properties').insert({
-          unique_id: req.body.id,
-          pinned: req.body.pinned,
-        })
-      }
-
-      res.json({ message: 'Property updated' })
+      res.json({ message: 'Properties updated' })
     } catch (err) {
       console.log(err.stack)
       res.status(500).json({
-        error: 'Failed to update property',
+        error: 'Failed to update properties',
       })
     }
   }

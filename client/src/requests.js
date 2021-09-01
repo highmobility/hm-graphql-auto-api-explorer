@@ -38,12 +38,8 @@ export const fetchProperties = async () => {
   return data
 }
 
-export const updateProperty = async ({ id, shown, pinned }) => {
-  const { data = [] } = await axios.put(`${API_URL}/properties`, {
-    id,
-    shown,
-    pinned,
-  })
+export const updateProperties = async (properties) => {
+  const { data = [] } = await axios.put(`${API_URL}/properties`, { properties })
 
   return data
 }

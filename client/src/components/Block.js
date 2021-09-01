@@ -1,7 +1,7 @@
 import { upperFirst } from 'lodash'
 import React, { Fragment } from 'react'
 import '../styles/Block.scss'
-import { formatValue } from '../utils/properties'
+import { formatValue, getPropertyUniqueId } from '../utils/properties'
 import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
@@ -9,7 +9,7 @@ export default function Block({ children, property, className = '' }) {
   return (
     <div className={`Block ${className}`}>
       <div className="BlockContent">
-        <PinButton propertyId={property.id} />
+        <PinButton propertyId={getPropertyUniqueId(property.config)} />
         <span className="BlockCapabilityLabel">
           {property.config.capabilityName}
         </span>

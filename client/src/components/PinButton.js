@@ -3,7 +3,7 @@ import '../styles/PinButton.scss'
 import { ReactComponent as PinIcon } from '../images/pin.svg'
 import { useMobx } from '../store/mobx'
 import { observer } from 'mobx-react-lite'
-import { updateProperty } from '../requests'
+import { updateProperties } from '../requests'
 
 function PinButton({ propertyId }) {
   const { config } = useMobx()
@@ -15,12 +15,16 @@ function PinButton({ propertyId }) {
   const onClick = async () => {
     if (active) {
       config.unPinProperty(propertyId)
-      await updateProperty({ id: propertyId, shown: true, pinned: false })
-      return
+    } else {
+      config.pinProperty(propertyId)
     }
 
-    config.pinProperty(propertyId)
-    await updateProperty({ id: propertyId, shown: true, pinned: true })
+    await updateProperties(
+      config.shownProperties.map((id) => ({
+        id,
+        pinned: config.pinnedProperties.includes(id),
+      }))
+    )
   }
 
   return (

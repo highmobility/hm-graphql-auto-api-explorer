@@ -1,6 +1,5 @@
 import { makeAutoObservable } from 'mobx'
 import uniq from 'lodash/uniq'
-import { getPropertyUniqueId } from '../utils/properties'
 
 export const VIEWS = {
   GRID: 'GRID',
@@ -101,23 +100,22 @@ export default class Config {
     this.shownProperties = uniq([...this.shownProperties, ...propertyUniqueIds])
   }
 
-  showProperty(propertyConfig) {
-    const uniqueId = getPropertyUniqueId(propertyConfig)
-    this.shownProperties = uniq([...this.shownProperties, uniqueId])
+  showProperty(propertyId) {
+    this.shownProperties = uniq([...this.shownProperties, propertyId])
   }
 
-  hideProperty(propertyConfig) {
-    const uniqueId = getPropertyUniqueId(propertyConfig)
-    this.shownProperties = this.shownProperties.filter((id) => id !== uniqueId)
+  hideProperty(propertyId) {
+    this.shownProperties = this.shownProperties.filter(
+      (id) => id !== propertyId
+    )
   }
 
   isPropertyPinned(propertyId) {
     return this.pinnedProperties.includes(propertyId)
   }
 
-  isPropertyShown(propertyConfig) {
-    const uniqueId = getPropertyUniqueId(propertyConfig)
-    return this.shownProperties.includes(uniqueId)
+  isPropertyShown(propertyId) {
+    return this.shownProperties.includes(propertyId)
   }
 
   setGoogleMapsApiKey(key) {

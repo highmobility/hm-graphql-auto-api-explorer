@@ -6,7 +6,7 @@ import { useMobx } from '../store/mobx'
 import Toggle from './Toggle'
 import { observer } from 'mobx-react-lite'
 import { getPropertyUniqueId } from '../utils/properties'
-import { updateProperty } from '../requests'
+import { updateProperties } from '../requests'
 
 const FilterPropertiesModal = (props) => {
   const { config } = useMobx()
@@ -15,14 +15,18 @@ const FilterPropertiesModal = (props) => {
   const onClickProperty = async (propertyConfig) => {
     const uniqueId = getPropertyUniqueId(propertyConfig)
 
-    if (config.isPropertyShown(propertyConfig)) {
-      config.hideProperty(propertyConfig)
-      await updateProperty({ id: uniqueId, shown: false, pinned: false })
-      return
+    if (config.isPropertyShown(uniqueId)) {
+      config.hideProperty(uniqueId)
+    } else {
+      config.showProperty(uniqueId)
     }
 
-    config.showProperty(propertyConfig)
-    await updateProperty({ id: uniqueId, shown: true, pinned: false })
+    await updateProperties(
+      config.shownProperties.map((id) => ({
+        id,
+        pinned: config.pinnedProperties.includes(id),
+      }))
+    )
   }
 
   return (
@@ -57,7 +61,9 @@ const FilterPropertiesModal = (props) => {
                   {propertyConfig.name_pretty}
                 </div>
                 <Toggle
-                  value={config.isPropertyShown(propertyConfig)}
+                  value={config.isPropertyShown(
+                    getPropertyUniqueId(propertyConfig)
+                  )}
                   onChange={() => onClickProperty(propertyConfig)}
                 />
               </div>
