@@ -43,7 +43,9 @@ const GoogleMap = ({
 
   React.useEffect(() => {
     if (!tilesLoaded || !panLeft) return
-    mapInstance.setCenter(center)
+    mapInstance.setCenter(
+      center.lat && center.lng ? center : { lat: 0, lng: 0 }
+    )
     mapInstance.panBy(windowWidth / 4, 0)
   }, [mapInstance, windowWidth, panLeft, center, tilesLoaded])
 
@@ -55,7 +57,7 @@ const GoogleMap = ({
         // eslint-disable-next-line
         const newInstance = new google.maps.Map(domRef.current, {
           zoom,
-          center,
+          center: center.lat && center.lng ? center : { lat: 0, lng: 0 },
           disableDefaultUI: true,
           styles: googleMapsTheme,
         })
