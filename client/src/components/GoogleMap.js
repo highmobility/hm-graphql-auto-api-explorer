@@ -50,6 +50,8 @@ const GoogleMap = ({
   React.useEffect(() => {
     loader.load().then(() => {
       if (!mapInstance) {
+        if (!domRef.current) return
+
         // eslint-disable-next-line
         const newInstance = new google.maps.Map(domRef.current, {
           zoom,

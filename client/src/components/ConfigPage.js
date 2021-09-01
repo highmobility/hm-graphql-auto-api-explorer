@@ -40,7 +40,6 @@ function ConfigPage() {
   }, [history])
 
   const onSave = async () => {
-    const keyChanged = config.googleMapsApiKey === googleMapsApiKey
     config.setGoogleMapsApiKey(googleMapsApiKey)
     const dashboardPath = routes.find(
       (route) => route.name === PAGES.DASHBOARD
@@ -48,7 +47,7 @@ function ConfigPage() {
 
     await updateConfig({ googleMapsApiKey })
 
-    if (keyChanged) {
+    if (config.googleMapsApiKey !== googleMapsApiKey) {
       window.location.href = dashboardPath
       return
     }
