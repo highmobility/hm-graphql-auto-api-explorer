@@ -3,10 +3,7 @@ import { knex } from '../database'
 export default class ConfigController {
   async get(req, res) {
     try {
-      let config = await knex('config').first()
-      if (!config) {
-        config = await knex('config').insert({}, '*')
-      }
+      const config = await knex('config').first()
 
       res.json(config)
     } catch (err) {
@@ -26,12 +23,7 @@ export default class ConfigController {
         google_maps_api_key: req.body.googleMapsApiKey,
       }
 
-      let config = await knex('config').first()
-      if (config) {
-        config = (await knex('config').first().update(newConfig, '*'))[0]
-      } else {
-        config = (await knex('config').insert(newConfig, '*'))[0]
-      }
+      const config = (await knex('config').first().update(newConfig, '*'))[0]
 
       res.json(config)
     } catch (err) {

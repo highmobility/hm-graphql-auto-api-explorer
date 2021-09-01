@@ -51,6 +51,17 @@ export default class OAuthController {
           },
           'access_token'
         )
+
+        const config = await trx('config').first()
+        if (!config) {
+          await trx('config').insert({
+            selected_vehicle_id: vehicleId,
+          })
+        } else {
+          await trx('config').first().update({
+            selected_vehicle_id: vehicleId,
+          })
+        }
       })
 
       res.redirect(
