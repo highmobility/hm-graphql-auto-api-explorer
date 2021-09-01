@@ -11,7 +11,7 @@ export default class OAuthController {
       const { data: tokenResponse } = await axios.post(config.token_url, {
         grant_type: 'authorization_code',
         code: oAuthCode,
-        redirect_uri: `${req.protocol}://${req.get('host')}${req.baseUrl}${
+        redirect_uri: `http://${req.get('host')}${req.baseUrl}${
           req._parsedUrl.pathname
         }`,
         client_id: config.client_id,
@@ -59,16 +59,6 @@ export default class OAuthController {
         }/dashboard`
       )
     } catch (err) {
-      const configa = await knex('app_config').first()
-      console.log('POST to', configa.token_url, {
-        grant_type: 'authorization_code',
-        code: req.query.code,
-        redirect_uri: `${req.protocol}://${req.get('host')}${req.baseUrl}${
-          req._parsedUrl.pathname
-        }`,
-        client_id: configa.client_id,
-        client_secret: configa.client_secret,
-      })
       console.trace(err)
       res.redirect(
         `${req.protocol}://${req.hostname}${

@@ -3,7 +3,10 @@ import axios from 'axios'
 export const API_URL = `${window.location.protocol}//${
   window.location.hostname
 }${window.location.hostname === 'localhost' ? ':3001' : ''}/api`
-export const AUTH_CALLBACK_URL = `${API_URL}/auth/callback`
+
+export const AUTH_CALLBACK_URL = `http://${window.location.hostname}${
+  window.location.hostname === 'localhost' ? ':3001' : ''
+}/api/auth/callback`
 
 export const setAppConfig = async (config) => {
   const { data = [] } = await axios.post(`${API_URL}/app-config`, config)
