@@ -6,12 +6,15 @@ export default class AppConfigController {
       req.body
 
     try {
-      await knex('app_config').insert({
-        graph_ql_api_config: graphQlApiConfig,
-        client_id: clientId,
-        client_secret: clientSecret,
-        auth_url: authUrl,
-        token_url: tokenUrl,
+      await knex.transaction(async (trx) => {
+        await trx('app_config').select('*').delete()
+        await trx('app_config').insert({
+          graph_ql_api_config: graphQlApiConfig,
+          client_id: clientId,
+          client_secret: clientSecret,
+          auth_url: authUrl,
+          token_url: tokenUrl,
+        })
       })
 
       res.json({
