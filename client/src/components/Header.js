@@ -12,7 +12,7 @@ import VehicleSelect from './VehicleSelect'
 import { ReactComponent as CogSvg } from '../images/cog.svg'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
-import { updateConfig } from '../requests'
+import { updateConfig, updateProperties } from '../requests'
 
 const Header = () => {
   const { config, app } = useMobx()
@@ -40,6 +40,16 @@ const Header = () => {
       onClick: async () => {
         config.setView(VIEWS.MAP)
         await updateConfig({ view: VIEWS.MAP })
+        config.showProperties([
+          'vehicleLocation.coordinates',
+          'vehicleLocation.heading',
+        ])
+        await updateProperties(
+          config.shownProperties.map((id) => ({
+            id,
+            pinned: config.pinnedProperties.includes(id),
+          }))
+        )
       },
     },
   ]

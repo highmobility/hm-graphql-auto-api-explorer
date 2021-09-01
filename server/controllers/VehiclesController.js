@@ -21,12 +21,12 @@ export default class VehiclesController {
       const { access_token } = await knex('access_tokens')
         .where('vehicle_id', id)
         .first()
-      const config = await knex('app_config').first()
-      if (!config) {
-        return res.status(404).json({ message: 'No config found' })
+      const appConfig = await knex('app_config').first()
+      if (!appConfig) {
+        return res.status(404).json({ message: 'No app config found' })
       }
       const graphQl = new GraphQlService(
-        config.graph_ql_api_config,
+        appConfig.graph_ql_api_config,
         access_token
       )
 
