@@ -20,6 +20,12 @@ export const fetchAppConfig = async () => {
   return data
 }
 
+export const resetApp = async () => {
+  const { data = [] } = await axios.delete(`${API_URL}/app-config`)
+
+  return data
+}
+
 export const updateConfig = async (config) => {
   const { data = [] } = await axios.put(`${API_URL}/config`, config)
 

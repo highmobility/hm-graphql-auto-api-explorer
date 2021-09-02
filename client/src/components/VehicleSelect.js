@@ -7,8 +7,8 @@ import { useHistory } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import { observer } from 'mobx-react-lite'
 import { ReactComponent as CrossSvg } from '../images/cross.svg'
-import DeleteVehicleModal from './DeleteVehicleModal'
 import { updateConfig } from '../requests'
+import ConfirmModal from './ConfirmModal'
 
 const VehicleSelect = () => {
   const { config, vehicles } = useMobx()
@@ -77,10 +77,14 @@ const VehicleSelect = () => {
         renderLabel={renderLabel}
         items={vehicleDropdownItems}
       />
-      <DeleteVehicleModal
+      <ConfirmModal
         show={!!vehicleToDelete}
         close={() => setVehicleToDelete(null)}
         onConfirm={() => onConfirmDelete(vehicleToDelete)}
+        headerText="Do you want to revoke the connection with this car?"
+        descriptionText="Once you confirm, you will not able to access its data again."
+        confirmText="Yes, revoke"
+        cancelText="No, don't revoke"
       />
     </div>
   )

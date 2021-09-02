@@ -5,6 +5,7 @@ import {
   AUTH_CALLBACK_URL,
   fetchAppConfig,
   fetchConfig,
+  resetApp,
   updateConfig,
 } from '../requests'
 import '../styles/ConfigPage.scss'
@@ -14,9 +15,11 @@ import Spinner from './Spinner'
 import TextInput from './TextInput'
 import { useMobx } from '../store/mobx'
 import routes, { PAGES } from '../routes'
+import ConfirmModal from './ConfirmModal'
 
 function ConfigPage() {
   const [mergedConfig, setMergedConfig] = useState({})
+  const [resetting, setResetting] = useState(false)
   const history = useHistory()
   const { config } = useMobx()
   const [googleMapsApiKey, setGoogleMapsApiKey] = useState(
@@ -60,6 +63,15 @@ function ConfigPage() {
     history.push(routes.find((route) => route.name === PAGES.DASHBOARD).path)
   }
 
+  const onClickReset = async () => {
+    setResetting(true)
+  }
+
+  const onConfirmReset = async () => {
+    await resetApp()
+    history.push(routes.find((route) => route.name === PAGES.HOME).path)
+  }
+
   return (
     <div className="ConfigPage">
       <div className="ConfigPageHeader">
@@ -67,7 +79,10 @@ function ConfigPage() {
           <ArrowSvg />
         </div>
         <h2 className="ConfigPageTitle">App configuration</h2>
-        <PrimaryButton className="ConfigPageResetAppButton">
+        <PrimaryButton
+          className="ConfigPageResetAppButton"
+          onClick={() => onClickReset()}
+        >
           Reset app
         </PrimaryButton>
       </div>
@@ -121,6 +136,15 @@ function ConfigPage() {
           <Spinner />
         )}
       </div>
+      <ConfirmModal
+        show={!!resetting}
+        close={() => setResetting(false)}
+        onConfirm={() => onConfirmReset()}
+        headerText="Do you want to reset the app?"
+        descriptionText="Once you confirm, all vehicles and app configuration will be reset."
+        confirmText="Yes, reset"
+        cancelText="No, don't reset"
+      />
     </div>
   )
 }

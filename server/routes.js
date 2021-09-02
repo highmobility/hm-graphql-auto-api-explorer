@@ -15,6 +15,7 @@ const router = new Router()
 
 router.post('/app-config', appConfigController.store)
 router.get('/app-config', appConfigController.get)
+router.delete('/app-config', appConfigController.reset)
 
 router.put('/config', configController.update)
 router.get('/config', configController.get)

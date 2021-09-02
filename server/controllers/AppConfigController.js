@@ -46,4 +46,23 @@ export default class AppConfigController {
       })
     }
   }
+
+  async reset(req, res) {
+    try {
+      await knex.transaction(async (trx) => {
+        await trx('app_config').select('*').delete()
+        await trx('access_tokens').select('*').delete()
+        await trx('config').first().update({ selected_vehicle_id: null })
+        await trx('properties').select('*').delete()
+        await trx('vehicles').select('*').delete()
+      })
+
+      res.json('App reset')
+    } catch (err) {
+      console.log(err.stack)
+      res.status(500).json({
+        error: 'Failed to reset app',
+      })
+    }
+  }
 }
