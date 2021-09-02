@@ -8,6 +8,15 @@
   width: 100vw;
   overflow: hidden;
 
+  .ConnectVehiclePageError {
+    text-align: center;
+    background: #df4747;
+
+    p {
+      color: white;
+    }
+  }
+
   .ConnectVehiclePageContent {
     position: absolute;
     top: calc(50% - 40px);

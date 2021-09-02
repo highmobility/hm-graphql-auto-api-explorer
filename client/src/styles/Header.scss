@@ -70,4 +70,10 @@
       border: 1px solid #e9ecef;
     }
   }
+
+  @media (max-width: $tablet) {
+    .HeaderShownPropertiesCount {
+      display: none;
+    }
+  }
 }
