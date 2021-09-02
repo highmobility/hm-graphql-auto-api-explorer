@@ -15,14 +15,14 @@ export default class Properties {
         Object.entries(properties).forEach(([propertyName, propertyData]) => {
           const uniqueId = `${capabilityName}.${propertyName}`
 
-          if (!propertyData.data) {
+          if (!propertyData?.data) {
             newValues[uniqueId] = propertyData
             return
           }
 
           newValues[uniqueId] = {
-            value: propertyData.data?.value || propertyData.data,
-            unit: propertyData.data?.unit || null,
+            value: propertyData?.data?.value || propertyData.data,
+            unit: propertyData?.data?.unit || null,
           }
         })
       }
