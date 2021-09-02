@@ -69,7 +69,7 @@ const GoogleMap = ({
 
         newInstance.addListener('tilesloaded', () => {
           setTilesLoaded(true)
-          if (domRef.current.children.length > 1) {
+          if (domRef?.current?.children?.length > 1) {
             setHasError(true)
           }
         })
