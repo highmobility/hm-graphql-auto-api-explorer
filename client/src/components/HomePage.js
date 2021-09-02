@@ -1,11 +1,32 @@
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import '../styles/HomePage.scss'
 import GrayCircles from './GrayCircles'
 import PrimaryButton from './PrimaryButton'
 import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react/cjs/react.development'
+import { fetchAppConfig } from '../requests'
 
 function HomePage() {
+  const history = useHistory()
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const appConfig = await fetchAppConfig()
+        if (appConfig) {
+          history.push(
+            routes.find((route) => route.name === PAGES.DASHBOARD).path
+          )
+        }
+      } catch (e) {
+        console.log('Failed to fetch config')
+      }
+    }
+
+    fetch()
+  }, [history])
+
   return (
     <div className="HomePage">
       <div className="HomePageContent">
