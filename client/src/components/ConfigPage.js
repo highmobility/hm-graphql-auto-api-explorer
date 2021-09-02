@@ -16,6 +16,7 @@ import TextInput from './TextInput'
 import { useMobx } from '../store/mobx'
 import routes, { PAGES } from '../routes'
 import ConfirmModal from './ConfirmModal'
+import ForkMeOnGithub from './ForkMeOnGithub'
 
 function ConfigPage() {
   const [mergedConfig, setMergedConfig] = useState({})
@@ -74,6 +75,7 @@ function ConfigPage() {
 
   return (
     <div className="ConfigPage">
+      <ForkMeOnGithub />
       <div className="ConfigPageHeader">
         <div className="ConfigPageBackButton" onClick={() => onBack()}>
           <ArrowSvg />
