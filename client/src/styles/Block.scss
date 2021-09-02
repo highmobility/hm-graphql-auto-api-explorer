@@ -4,6 +4,11 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  transition: opacity 300ms ease;
+
+  &.NoValue {
+    opacity: 0.5;
+  }
 
   .BlockContent {
     padding: 20px;

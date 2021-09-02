@@ -1,13 +1,20 @@
 import { upperFirst } from 'lodash'
+import { observer } from 'mobx-react-lite'
 import React, { Fragment } from 'react'
+import { useMobx } from '../store/mobx'
 import '../styles/Block.scss'
 import { formatValue, getPropertyUniqueId } from '../utils/properties'
 import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
-export default function Block({ children, property, className = '' }) {
+function Block({ children, property, className = '' }) {
+  const { properties } = useMobx()
+  const propertyValues =
+    properties.values?.[getPropertyUniqueId(property.config)]
+  const hasValue = propertyValues !== null
+
   return (
-    <div className={`Block ${className}`}>
+    <div className={`Block ${className} ${hasValue ? '' : 'NoValue'}`}>
       <div className="BlockContent">
         <PinButton propertyId={getPropertyUniqueId(property.config)} />
         <span className="BlockCapabilityLabel">
@@ -54,3 +61,5 @@ export default function Block({ children, property, className = '' }) {
     </div>
   )
 }
+
+export default observer(Block)
