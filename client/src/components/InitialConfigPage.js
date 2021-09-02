@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useLocation } from 'react-use'
 import { AUTH_CALLBACK_URL, setAppConfig } from '../requests'
 import routes, { PAGES } from '../routes'
 import { useMobx } from '../store/mobx'
@@ -15,8 +14,6 @@ function InitialConfigPage() {
   const { config } = useMobx()
   const [formErrors, setFormErrors] = useState(null)
   const history = useHistory()
-
-  const error = new URLSearchParams(useLocation().search).get('error')
 
   const inputTips = {
     ENV: {},
@@ -94,15 +91,6 @@ function InitialConfigPage() {
 
   return (
     <div className="InitialConfigPage">
-      {error && (
-        <div className="InitialConfigPageError">
-          <p>
-            Could not connect vehicle. Make sure to open your emulator and give
-            permissions to the Diagnostics capability
-          </p>
-          <p className="small">{error}</p>
-        </div>
-      )}
       <header className="InitialConfigHeader">
         <div className="InitialConfigHeaderContent">
           <h2>Set the configuration</h2>

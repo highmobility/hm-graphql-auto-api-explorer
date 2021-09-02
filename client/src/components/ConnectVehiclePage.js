@@ -6,10 +6,12 @@ import routes, { PAGES } from '../routes'
 import '../styles/ConnectVehiclePage.scss'
 import GrayCircles from './GrayCircles'
 import PrimaryButton from './PrimaryButton'
+import { useLocation } from 'react-use'
 
 function ConnectVehiclePage() {
   const [url, setUrl] = useState(null)
   const history = useHistory()
+  const error = new URLSearchParams(useLocation().search).get('error')
 
   useEffect(() => {
     const fetch = async () => {
@@ -33,6 +35,15 @@ function ConnectVehiclePage() {
 
   return (
     <div className="ConnectVehiclePage">
+      {error && (
+        <div className="ConnectVehiclePageError">
+          <p>
+            Could not connect vehicle. Make sure to open your emulator and give
+            permissions to the Diagnostics capability
+          </p>
+          <p className="small">{error}</p>
+        </div>
+      )}
       <div className="ConnectVehiclePageContent">
         <h2 className="ConnectVehiclePageHeader">Connect your vehicle</h2>
         <GrayCircles />

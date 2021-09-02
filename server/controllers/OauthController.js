@@ -74,7 +74,7 @@ export default class OAuthController {
       res.redirect(
         `${req.protocol}://${req.hostname}${
           req.hostname === 'localhost' ? ':3000' : ''
-        }/initial-config?error=${err.message}`
+        }/connect?error=${err.message}`
       )
     }
   }
