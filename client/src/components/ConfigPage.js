@@ -79,7 +79,7 @@ function ConfigPage() {
             <p className="ConfigPageValue">
               {mergedConfig?.graph_ql_api_config?.app_id}
             </p>
-            <div className="ConfigPageLabel">App URL</div>
+            <div className="ConfigPageLabel">API URL</div>
             <p className="ConfigPageValue">
               {mergedConfig?.graph_ql_api_config?.app_uri}
             </p>
