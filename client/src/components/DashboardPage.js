@@ -51,15 +51,23 @@ function DashboardPage() {
   ])
 
   const fetchData = useCallback(async () => {
-    if (!config.selectedVehicleId) return
+    if (!config.selectedVehicleId || !initialDataFetched) return
 
     const vehicleData = await fetchVehicleData(
       config.selectedVehicleId,
       config.shownProperties
     )
     properties.setValues(vehicleData)
+  }, [properties, initialDataFetched, config])
 
-    if (!initialDataFetched) {
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      await vehicles.fetch()
+      if (!config.selectedVehicleId && vehicles.list.length > 0) {
+        config.setSelectedVehicleId(vehicles.list[0]?.id || null)
+      }
+      setVehiclesFetched(true)
+
       const {
         google_maps_api_key,
         view,
@@ -80,16 +88,6 @@ function DashboardPage() {
       }
 
       setInitialDataFetched(true)
-    }
-  }, [properties, initialDataFetched, config])
-
-  useEffect(() => {
-    const fetchVehicles = async () => {
-      await vehicles.fetch()
-      if (!config.selectedVehicleId && vehicles.list.length > 0) {
-        config.setSelectedVehicleId(vehicles.list[0]?.id || null)
-      }
-      setVehiclesFetched(true)
     }
 
     fetchVehicles()
