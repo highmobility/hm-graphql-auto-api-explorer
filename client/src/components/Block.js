@@ -17,7 +17,7 @@ function Block({ children, property, className = '' }) {
       <div className="BlockContent">
         <PinButton propertyId={getPropertyUniqueId(property.config)} />
         <span className="BlockCapabilityLabel">
-          {property.config.capabilityName}
+          {camelCaseToWords(property.config.capabilityName)}
         </span>
         <h4 className="BlockPropertyName">
           {upperFirst(
