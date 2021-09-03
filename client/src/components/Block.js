@@ -11,10 +11,9 @@ function Block({ children, property, className = '' }) {
   const { properties } = useMobx()
   const propertyValues =
     properties.values?.[getPropertyUniqueId(property.config)]
-  const hasValue = propertyValues !== null
 
   return (
-    <div className={`Block ${className} ${hasValue ? '' : 'NoValue'}`}>
+    <div className={`Block ${className} ${!!propertyValues ? '' : 'NoValue'}`}>
       <div className="BlockContent">
         <PinButton propertyId={getPropertyUniqueId(property.config)} />
         <span className="BlockCapabilityLabel">

@@ -51,17 +51,17 @@ function DashboardPage() {
   ])
 
   const fetchData = useCallback(async () => {
-    if (!config.selectedVehicleId || !initialDataFetched) return
+    if (!config.selectedVehicleId) return
 
     const vehicleData = await fetchVehicleData(
       config.selectedVehicleId,
       config.shownProperties
     )
     properties.setValues(vehicleData)
-  }, [properties, initialDataFetched, config])
+  }, [properties, config])
 
   useEffect(() => {
-    const fetchVehicles = async () => {
+    const fetchInitialData = async () => {
       await vehicles.fetch()
       if (!config.selectedVehicleId && vehicles.list.length > 0) {
         config.setSelectedVehicleId(vehicles.list[0]?.id || null)
@@ -87,13 +87,16 @@ function DashboardPage() {
         config.setShownProperties(propertiesData.map((p) => p.unique_id))
       }
 
+      await fetchData()
       setInitialDataFetched(true)
     }
 
-    fetchVehicles()
+    fetchInitialData()
   }, []) // eslint-disable-line
 
+  /* eslint-disable */
   useEffect(() => {
+    if (!initialDataFetched) return
     fetchData()
   }, [
     config.selectedVehicleId,
@@ -102,9 +105,12 @@ function DashboardPage() {
     config.shownProperties,
     fetchData,
   ])
+  /* eslint-enable */
 
   useInterval(
     () => {
+      if (!initialDataFetched) return
+      console.log('fetching from interval')
       fetchData()
     },
     config.selectedVehicleId ? config.updateFrequency * 1000 : null
