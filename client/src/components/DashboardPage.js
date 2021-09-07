@@ -64,8 +64,8 @@ function DashboardPage() {
     const fetchInitialData = async () => {
       await vehicles.fetch()
       if (!config.selectedVehicleId && vehicles.list.length > 0) {
-        const newSelectedVehicle = vehicles.list[0]?.id || null
-        config.setSelectedVehicleId(newSelectedVehicle)
+        const newSelectedVehicle = vehicles.list[0]
+        config.setSelectedVehicleId(newSelectedVehicle?.id || null)
         config.setShownProperties(
           config.shownProperties.filter((p) =>
             newSelectedVehicle?.scope?.includes(p)
