@@ -29,9 +29,9 @@ function Block({ children, property, className = '' }) {
         </h4>
         {children || (
           <div className="BlockValue">
-            {Array.isArray(property.data) ? (
+            {Array.isArray(propertyValues) ? (
               <div className="BlockMultiValues">
-                {property.data.map((item, key) => (
+                {propertyValues.map((item, key) => (
                   <div className="BlockMultiValue" key={key}>
                     <div className="BlockMultiValueKey">
                       {camelCaseToWords(
@@ -39,9 +39,19 @@ function Block({ children, property, className = '' }) {
                       )}
                     </div>
                     <div className="BlockMultiValueValue">
-                      {camelCaseToWords(
-                        item.data[property.config.items[1].name]
-                      )}
+                      {property.config.items[1].items
+                        ? property.config.items[1].items
+                            .map((subItem) => {
+                              return `${subItem.name_cased}: ${
+                                item.data[property.config.items[1].name_cased][
+                                  subItem.name_cased
+                                ]
+                              }`
+                            })
+                            .join('; ')
+                        : camelCaseToWords(
+                            item.data[property.config.items[1].name]
+                          )}
                     </div>
                   </div>
                 ))}
@@ -49,9 +59,9 @@ function Block({ children, property, className = '' }) {
             ) : (
               <Fragment>
                 <span className="Num2">
-                  {formatValue(property?.data?.value)}
+                  {formatValue(propertyValues?.value)}
                 </span>{' '}
-                <span className="Num4">{property?.data?.unit}</span>
+                <span className="Num4">{propertyValues?.unit}</span>
               </Fragment>
             )}
           </div>
