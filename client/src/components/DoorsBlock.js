@@ -4,18 +4,29 @@ import '../styles/DoorsBlock.scss'
 import { ReactComponent as CarSvg } from '../images/car.svg'
 
 export default function DoorsBlock({ property }) {
-  const frontLeft = property?.data?.find(
+  const frontLeftData = property?.data?.find(
     (locationData) => locationData.data.location === 'frontLeft'
-  )?.data?.position
-  const rearLeft = property?.data?.find(
+  )?.data
+  const frontLeft = frontLeftData?.position || frontLeftData?.lockState
+  const frontLeftActive = frontLeft === 'open' || frontLeft === 'unlocked'
+
+  const rearLeftData = property?.data?.find(
     (locationData) => locationData.data.location === 'rearLeft'
-  )?.data?.position
-  const frontRight = property?.data?.find(
+  )?.data
+  const rearLeft = rearLeftData?.position || rearLeftData?.lockState
+  const rearLeftActive = rearLeft === 'open' || rearLeft === 'unlocked'
+
+  const frontRightData = property?.data?.find(
     (locationData) => locationData.data.location === 'frontRight'
-  )?.data?.position
-  const rearRight = property?.data?.find(
+  )?.data
+  const frontRight = frontRightData?.position || frontRightData?.lockState
+  const frontRightActive = frontRight === 'open' || frontRight === 'unlocked'
+
+  const rearRightData = property?.data?.find(
     (locationData) => locationData.data.location === 'rearRight'
-  )?.data?.position
+  )?.data
+  const rearRight = rearRightData?.position || rearRightData?.lockState
+  const rearRightActive = rearRight === 'open' || rearRight === 'unlocked'
 
   return (
     <Block className="DoorsBlock" property={property}>
@@ -24,28 +35,28 @@ export default function DoorsBlock({ property }) {
           <CarSvg className="DoorsBlockCarImage" />
           <div
             className={`DoorsBlockLabel DoorsBlockLabelFrontLeft ${
-              frontLeft === 'open' ? 'DoorsBlockLabelOpen' : ''
+              frontLeftActive ? 'DoorsBlockLabelActive' : ''
             }`}
           >
             {frontLeft}
           </div>
           <div
             className={`DoorsBlockLabel DoorsBlockLabelRearLeft ${
-              rearLeft === 'open' ? 'DoorsBlockLabelOpen' : ''
+              rearLeftActive ? 'DoorsBlockLabelActive' : ''
             }`}
           >
             {rearLeft}
           </div>
           <div
             className={`DoorsBlockLabel DoorsBlockLabelFrontRight ${
-              frontRight === 'open' ? 'DoorsBlockLabelOpen' : ''
+              frontRightActive ? 'DoorsBlockLabelActive' : ''
             }`}
           >
             {frontRight}
           </div>
           <div
             className={`DoorsBlockLabel DoorsBlockLabelRearRight ${
-              rearRight === 'open' ? 'DoorsBlockLabelOpen' : ''
+              rearRightActive ? 'DoorsBlockLabelActive' : ''
             }`}
           >
             {rearRight}

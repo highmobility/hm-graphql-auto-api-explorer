@@ -109,7 +109,7 @@ export function getBlockData(view, propertyConfig) {
     }
   }
 
-  if (propertyConfig.capabilityName === 'doors') {
+  if (propertyConfig.capabilityName === 'doors' && propertyConfig.multiple) {
     return {
       ...BLOCKS.TWO_BY_TWO,
       component: DoorsBlock,
