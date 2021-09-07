@@ -39,14 +39,20 @@ export default class GraphQlService {
 
           const propertyQuery = propertyConfig.items
             ? `{ data { ${propertyConfig.items
-                .map((i) => {
-                  if (i.items) {
-                    return `${i.name_cased} { ${i.items
-                      .map((subItem) => subItem.name_cased)
+                .map((item) => {
+                  if (item.items) {
+                    return `${item.name_cased} { ${item.items
+                      .map((subItem) =>
+                        subItem.unit
+                          ? `${subItem.name_cased} { value unit }`
+                          : subItem.name_cased
+                      )
                       .join(' ')} }`
                   }
 
-                  return i.name_cased
+                  return item.unit
+                    ? `${item.name_cased} { value unit }`
+                    : item.name_cased
                 })
                 .join(' ')} } }`
             : `{ data ${
@@ -56,7 +62,7 @@ export default class GraphQlService {
           return `${propertyName} ${propertyQuery}`
         })
 
-        return `${capabilityName} { ${propertyQueries.join(', ')} }`
+        return `${capabilityName} { ${propertyQueries.join(' ')} }`
       }
     )
 
@@ -140,6 +146,7 @@ export default class GraphQlService {
     if (errorMessage) {
       throw new Error(errorMessage)
     }
+    console.log('no error?', errorMessage)
 
     return data
   }

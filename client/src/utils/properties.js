@@ -39,6 +39,9 @@ const UNITS = {
   degrees: '°',
   radians: 'rad',
   revolutions: 'rev',
+  newtonMeters: 'N*m',
+  newtonMillimeters: 'N*mm',
+  poundFeet: 'lb-ft',
 }
 
 export const BLOCKS = {
@@ -219,9 +222,14 @@ export function parseCustomValue(item, propertyConfig) {
       .join('; ')
   }
 
-  const value = item.data[propertyConfig.items[1].name]
+  const value = item.data[propertyConfig.items[1].name_cased]
+  console.log(JSON.parse(JSON.stringify(item)), propertyConfig)
   if (propertyConfig?.items?.[1]?.type === 'timestamp') {
     return format(new Date(value), 'dd.MM.yyyy HH:mm')
+  }
+
+  if (propertyConfig.items[1].unit) {
+    return `${formatValue(value.value)} ${formatUnit(value.unit)}`
   }
 
   return camelCaseToWords(value)
