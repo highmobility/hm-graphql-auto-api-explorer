@@ -54,7 +54,11 @@ const FilterPropertiesModal = (props) => {
         properties: filteredProperties,
       }
     })
-    .filter((capability) => capability.properties.length > 0)
+    .filter(
+      (capability) =>
+        capability.properties.length > 0 &&
+        !disabledCategories.includes(capability.category)
+    )
 
   return (
     <Modal
@@ -70,12 +74,7 @@ const FilterPropertiesModal = (props) => {
       </div>
       <div className="FilterPropertiesModalContent">
         {filteredCapabilities.map((capability) => (
-          <div
-            className={`FilterPropertiesCapability ${
-              disabledCategories.includes(capability.category) ? 'Disabled' : ''
-            }`}
-            key={capability.name}
-          >
+          <div className={`FilterPropertiesCapability`} key={capability.name}>
             <div className="FilterPropertiesCapabilityName">
               {capability.name_pretty}
             </div>
