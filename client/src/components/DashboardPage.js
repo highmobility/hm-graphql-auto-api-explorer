@@ -116,7 +116,6 @@ function DashboardPage() {
   useInterval(
     () => {
       if (!initialDataFetched) return
-      console.log('fetching from interval')
       fetchData()
     },
     config.selectedVehicleId ? config.updateFrequency * 1000 : null

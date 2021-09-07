@@ -39,8 +39,16 @@ export default class GraphQlService {
 
           const propertyQuery = propertyConfig.items
             ? `{ data { ${propertyConfig.items
-                .map((i) => i.name_cased)
-                .join(',')} } }`
+                .map((i) => {
+                  if (i.items) {
+                    return `${i.name_cased} { ${i.items
+                      .map((subItem) => subItem.name_cased)
+                      .join(' ')} }`
+                  }
+
+                  return i.name_cased
+                })
+                .join(' ')} } }`
             : `{ data ${
                 propertyConfig.type.includes('unit') ? '{ value, unit }' : ''
               } }`
