@@ -146,7 +146,6 @@ export default class GraphQlService {
     if (errorMessage) {
       throw new Error(errorMessage)
     }
-    console.log('no error?', errorMessage)
 
     return data
   }
