@@ -65,7 +65,7 @@ export default class GraphQlService {
     const {
       data: { data: schema, errors },
     } = await axios.post(
-      this.graphQlApiConfig.api_uri,
+      this.graphQlApiConfig.app_uri,
       {
         query: '{ __schema { types { name fields { name } } } }',
       },
@@ -115,7 +115,7 @@ export default class GraphQlService {
     const {
       data: { data, errors },
     } = await axios.post(
-      this.graphQlApiConfig.api_uri,
+      this.graphQlApiConfig.app_uri,
       {
         query,
       },
@@ -141,7 +141,7 @@ export default class GraphQlService {
       ver: this.graphQlApiConfig.version,
       iss: this.graphQlApiConfig.client_serial_number.toUpperCase(),
       sub: this.accessToken,
-      aud: this.graphQlApiConfig.api_uri,
+      aud: this.graphQlApiConfig.app_uri,
       iat: Math.round(Date.now() / 1000),
       jti: uuid4(),
     }

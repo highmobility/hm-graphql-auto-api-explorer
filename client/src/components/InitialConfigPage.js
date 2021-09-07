@@ -51,7 +51,7 @@ function InitialConfigPage() {
     "client_serial_number": "FC2E6591508076A340",
     "private_key_id": "52201da6-2ace-493b-a452-52b01f411e4f",
     "private_key": "-----BEGIN PRIVATE KEY-----\\nMIJHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgLGiezYu5j/HYwP2W\\nl0e7eZsPNcuvIL6ljHc3BOoWN1ihRANCAAS559L2+61A7/iq+gsESy/yoDvUz6Wu\\ntUXBd7mnjljMTnrxyN3MATTe/PgB9IPcwe0CpbHrun2LIGGisnVeC3nV\\n-----END PRIVATE KEY-----",
-    "api_uri": "https://sandbox.graphql-api.develop.high-mobility.net/v1",
+    "app_uri": "https://sandbox.graphql-api.develop.high-mobility.net/v1",
     "app_id": "0DBC89CFA8877576049081FB"
 }`.trim()
 
@@ -60,7 +60,7 @@ function InitialConfigPage() {
     try {
       const parsedConfig = JSON.parse(config)
 
-      const { version, private_key, api_uri, app_id, client_serial_number } =
+      const { version, private_key, app_uri, app_id, client_serial_number } =
         parsedConfig
       if (!version) {
         return setFormErrors({ graphQlApiConfig: `Missing 'version' property` })
@@ -70,8 +70,8 @@ function InitialConfigPage() {
           graphQlApiConfig: `Missing 'private_key' property`,
         })
       }
-      if (!api_uri) {
-        return setFormErrors({ graphQlApiConfig: `Missing 'api_uri' property` })
+      if (!app_uri) {
+        return setFormErrors({ graphQlApiConfig: `Missing 'app_uri' property` })
       }
       if (!app_id) {
         return setFormErrors({ graphQlApiConfig: `Missing 'app_id' property` })

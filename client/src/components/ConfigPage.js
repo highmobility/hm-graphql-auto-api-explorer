@@ -98,7 +98,7 @@ function ConfigPage() {
             </p>
             <div className="ConfigPageLabel">API URL</div>
             <p className="ConfigPageValue">
-              {mergedConfig?.graph_ql_api_config?.api_uri}
+              {mergedConfig?.graph_ql_api_config?.app_uri}
             </p>
             <div className="ConfigPageLabel">Client serial number</div>
             <p className="ConfigPageValue">
