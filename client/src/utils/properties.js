@@ -11,6 +11,7 @@ import HeadingBlock from '../components/HeadingBlock'
 import { VIEWS } from '../store/Config'
 import ListBlock from '../components/ListBlock'
 import { camelCaseToSnakeCase, camelCaseToWords } from './strings'
+import { format } from 'date-fns'
 
 const UNITS = {
   kelvin: '°K',
@@ -201,4 +202,27 @@ export function valueWithBaseUnit(value, unit, propertyConfig) {
   }
 
   return value * propertyUnitType.conversion_linear
+}
+
+export function parseCustomValue(item, propertyConfig) {
+  if (propertyConfig?.items?.[1]?.customType === 'time') {
+    return `${item.data.time.hour}:${item.data.time.minute}`
+  }
+
+  if (propertyConfig.items[1].items) {
+    return propertyConfig.items[1].items
+      .map((subItem) => {
+        return `${subItem.name_cased}: ${
+          item.data[propertyConfig.items[1].name_cased][subItem.name_cased]
+        }`
+      })
+      .join('; ')
+  }
+
+  const value = item.data[propertyConfig.items[1].name]
+  if (propertyConfig?.items?.[1]?.type === 'timestamp') {
+    return format(new Date(value), 'dd.MM.yyyy HH:mm')
+  }
+
+  return camelCaseToWords(value)
 }

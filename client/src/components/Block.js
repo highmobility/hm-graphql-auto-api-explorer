@@ -3,7 +3,11 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment } from 'react'
 import { useMobx } from '../store/mobx'
 import '../styles/Block.scss'
-import { formatValue, getPropertyUniqueId } from '../utils/properties'
+import {
+  formatValue,
+  getPropertyUniqueId,
+  parseCustomValue,
+} from '../utils/properties'
 import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
@@ -20,38 +24,22 @@ function Block({ children, property, className = '' }) {
           {camelCaseToWords(property.config.capabilityName)}
         </span>
         <h4 className="BlockPropertyName">
-          {upperFirst(
-            (
-              property.config.name_pretty ||
-              property.config.name.replace(/_/g, ' ')
-            ).toLowerCase()
-          )}
+          {upperFirst(camelCaseToWords(property.config.name_cased))}
         </h4>
         {children || (
           <div className="BlockValue">
-            {Array.isArray(propertyValues) ? (
+            {Array.isArray(propertyValues) &&
+            property.config.type === 'custom' ? (
               <div className="BlockMultiValues">
                 {propertyValues.map((item, key) => (
                   <div className="BlockMultiValue" key={key}>
                     <div className="BlockMultiValueKey">
                       {camelCaseToWords(
-                        item.data[property.config.items[0].name]
+                        item.data[property.config.items[0].name_cased]
                       )}
                     </div>
                     <div className="BlockMultiValueValue">
-                      {property.config.items[1].items
-                        ? property.config.items[1].items
-                            .map((subItem) => {
-                              return `${subItem.name_cased}: ${
-                                item.data[property.config.items[1].name_cased][
-                                  subItem.name_cased
-                                ]
-                              }`
-                            })
-                            .join('; ')
-                        : camelCaseToWords(
-                            item.data[property.config.items[1].name]
-                          )}
+                      {parseCustomValue(item, property.config)}
                     </div>
                   </div>
                 ))}
