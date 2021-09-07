@@ -9,7 +9,7 @@ import { getPropertyUniqueId } from '../utils/properties'
 import { updateProperties } from '../requests'
 
 const FilterPropertiesModal = (props) => {
-  const { config } = useMobx()
+  const { config, vehicles } = useMobx()
   const disabledCategories = ['headunit', 'api_structure']
 
   const onClickProperty = async (propertyConfig) => {
@@ -29,6 +29,33 @@ const FilterPropertiesModal = (props) => {
     )
   }
 
+  const selectedVehicle = vehicles.list.find(
+    (vehicle) => vehicle.id === config.selectedVehicleId
+  )
+
+  const filteredCapabilities = Object.values(CAPABILITIES)
+    .map((capability) => {
+      const filteredProperties = capability.properties.filter(
+        (propertyConfig) => {
+          const uniqueId = getPropertyUniqueId(propertyConfig)
+          if (
+            !selectedVehicle?.scope ||
+            config.shownProperties.includes(uniqueId)
+          ) {
+            return true
+          }
+
+          return selectedVehicle.scope.includes(uniqueId)
+        }
+      )
+
+      return {
+        ...capability,
+        properties: filteredProperties,
+      }
+    })
+    .filter((capability) => capability.properties.length > 0)
+
   return (
     <Modal
       {...props}
@@ -42,7 +69,7 @@ const FilterPropertiesModal = (props) => {
         </p>
       </div>
       <div className="FilterPropertiesModalContent">
-        {Object.values(CAPABILITIES).map((capability) => (
+        {filteredCapabilities.map((capability) => (
           <div
             className={`FilterPropertiesCapability ${
               disabledCategories.includes(capability.category) ? 'Disabled' : ''

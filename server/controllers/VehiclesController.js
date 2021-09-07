@@ -1,12 +1,33 @@
 import { knex } from '../database'
 import GraphQlService from '../services/GraphQlService'
+import { camelCase } from 'lodash'
 
 export default class VehiclesController {
   async index(req, res) {
     try {
       const vehicles = await knex('vehicles').select()
+      const accessTokens = await knex('access_tokens').select()
 
-      res.json(vehicles)
+      const response = vehicles.map((vehicle) => {
+        const scopeString = accessTokens.find(
+          (accessToken) => accessToken.vehicle_id === vehicle.id
+        ).scope
+        const parsedScope = scopeString
+          .split(' ')
+          .map((item) => {
+            const [capabilityName, method, propertyName] = item.split('.')
+            if (method !== 'get') return null
+            return `${camelCase(capabilityName)}.${camelCase(propertyName)}`
+          })
+          .filter(Boolean)
+
+        return {
+          ...vehicle,
+          scope: parsedScope,
+        }
+      })
+
+      res.json(response)
     } catch (err) {
       console.log(err.stack)
       res.status(500).json({
