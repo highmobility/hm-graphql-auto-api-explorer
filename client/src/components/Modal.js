@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
 import { useIsomorphicLayoutEffect } from 'react-use'
@@ -29,8 +29,9 @@ export default function Modal({
   backdropCloseEnabled = true,
 }) {
   const [canRender, setCanRender] = useState(false)
-  const ref = createRef()
+  const ref = useRef()
   useIsomorphicLayoutEffect(() => setCanRender(true), [])
+  const [scrollTop, setScrollTop] = useState(0)
 
   useEffect(() => () => clearAllBodyScrollLocks(), [])
 
@@ -57,6 +58,8 @@ export default function Modal({
           ref.current && disableBodyScroll(ref.current, SCROLL_LOCK_OPTIONS)
         }
         onExiting={() => ref.current && enableBodyScroll(ref.current)}
+        onExit={() => setScrollTop(ref.current.scrollTop)}
+        onEnter={() => (ref.current.scrollTop = scrollTop || 0)}
       >
         <div className={`Modal ${className} ${animation || 'FadeAnimation'}`}>
           <div
