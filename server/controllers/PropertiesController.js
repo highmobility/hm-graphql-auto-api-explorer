@@ -16,15 +16,17 @@ export default class PropertiesController {
 
   async update(req, res) {
     try {
-      const properties = req.body.properties
+      const properties = req.body.properties || []
       await knex.transaction(async (trx) => {
         await trx('properties').select('*').delete()
-        await trx('properties').insert(
-          properties.map((property) => ({
-            unique_id: property.id,
-            pinned: property.pinned,
-          }))
-        )
+        if (properties.length > 0) {
+          await trx('properties').insert(
+            properties.map((property) => ({
+              unique_id: property.id,
+              pinned: property.pinned,
+            }))
+          )
+        }
       })
 
       res.json({ message: 'Properties updated' })
