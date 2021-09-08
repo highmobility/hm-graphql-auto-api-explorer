@@ -12,6 +12,7 @@ import { VIEWS } from '../store/Config'
 import ListBlock from '../components/ListBlock'
 import { camelCaseToSnakeCase, camelCaseToWords } from './strings'
 import { format } from 'date-fns'
+import { padStart } from 'lodash'
 
 const UNITS = {
   kelvin: '°K',
@@ -221,14 +222,18 @@ export function valueWithBaseUnit(value, unit, propertyConfig) {
 
 export function parseCustomValue(item, propertyConfig) {
   if (propertyConfig?.items?.[1]?.customType === 'time') {
-    return `${item.data.time.hour}:${item.data.time.minute}`
+    return `${padStart(item.data.time.hour, 2, 0)}:${padStart(
+      item.data.time.minute,
+      2,
+      0
+    )}`
   }
 
   if (propertyConfig.items[1].items) {
     return propertyConfig.items[1].items
       .map((subItem) => {
         return `${subItem.name_cased}: ${
-          item.data[propertyConfig.items[1].name_cased][subItem.name_cased]
+          item.data?.[propertyConfig.items[1].name_cased][subItem.name_cased]
         }`
       })
       .join('; ')

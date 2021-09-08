@@ -28,14 +28,22 @@ function Block({ children, property, className = '' }) {
               <div className="BlockMultiValues">
                 {property?.data.map((item, key) => (
                   <div className="BlockMultiValue" key={key}>
-                    <div className="BlockMultiValueKey">
-                      {camelCaseToWords(
-                        item.data[property.config.items[0].name_cased]
-                      )}
-                    </div>
-                    <div className="BlockMultiValueValue">
-                      {parseCustomValue(item, property.config)}
-                    </div>
+                    {typeof item.data === 'object' ? (
+                      <Fragment>
+                        <div className="BlockMultiValueKey">
+                          {camelCaseToWords(
+                            item.data?.[property.config?.items?.[0]?.name_cased]
+                          )}
+                        </div>
+                        <div className="BlockMultiValueValue">
+                          {parseCustomValue(item, property.config)}
+                        </div>
+                      </Fragment>
+                    ) : (
+                      <div className="BlockMultiValueValue">
+                        {camelCaseToWords(item.data)}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

@@ -18,8 +18,12 @@ function ListBlock({ property }) {
         <Fragment>
           {property.data.map((item, key) => (
             <div className="ListBlockValue" key={key}>
-              {camelCaseToWords(item.data[property.config.items[0].name_cased])}
-              : {parseCustomValue(item, property.config)}
+              {typeof item.data === 'object'
+                ? `${camelCaseToWords(
+                    item.data?.[property.config?.items?.[0]?.name_cased]
+                  )}
+              : ${parseCustomValue(item, property.config)}`
+                : camelCaseToWords(item.data)}
             </div>
           ))}
         </Fragment>
