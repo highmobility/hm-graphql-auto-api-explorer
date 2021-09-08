@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment } from 'react'
 import '../styles/Block.scss'
 import {
+  formatUnit,
   formatValue,
   getPropertyUniqueId,
   parseCustomValue,
@@ -43,7 +44,7 @@ function Block({ children, property, className = '' }) {
                 <span className="Num2">
                   {formatValue(property?.data?.value)}
                 </span>{' '}
-                <span className="Num4">{property?.data?.unit}</span>
+                <span className="Num4">{formatUnit(property?.data?.unit)}</span>
               </Fragment>
             )}
           </div>
