@@ -3,7 +3,6 @@ exports.up = async (knex) => {
     table.increments()
     table.string('vin')
     table.string('brand')
-    table.timestamps(true, true)
   })
 }
 

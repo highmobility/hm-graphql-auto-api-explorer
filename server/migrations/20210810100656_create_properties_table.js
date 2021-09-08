@@ -3,7 +3,6 @@ exports.up = async (knex) => {
     table.increments()
     table.string('unique_id')
     table.boolean('pinned')
-    table.timestamps(true, true)
   })
 }
 
