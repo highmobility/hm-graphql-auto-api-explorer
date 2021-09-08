@@ -1,7 +1,8 @@
 # High Mobility GraphQL sample app
 
-![Auto API](https://github.com/highmobility/auto-api/blob/master/assets/autoapi-header.png?raw=true)
-Example app showing how to use the High Mobility GraphQL API
+This repo includes a Node.js app, which features a vehicle dashboard and demonstrates how to use the High Mobility GraphQL API.
+
+<img src="graph-ql-dashboard.png"/>
 
 # Table of contents
 
@@ -23,6 +24,19 @@ Example app showing how to use the High Mobility GraphQL API
 ### Deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/highmobility/hm-graphql-auto-api-explorer/tree/main)
+
+### Where to find config information
+
+Step 0: Make sure you have this sample app deployed. Once you load the root URL, you will be presented to configure it.
+
+1. Go to [high-mobility.com](https://high-mobility.com) and create an account or sign in
+2. Create a Cloud App under the Develop tab. For exact details, have a look at the [Create App step](https://docs.high-mobility.com/guides/getting-started/graph-ql/#create-app) in our docs.
+3. Choose the Client Certificate tab and then the GraphQL tab as shown in the screenshot below.
+
+<img src="get-graphql-snippet.png" alt="" width="400"/>
+
+5. Second, you need to insert the OAuth2 configuration, which you will find under *My Settings/Team Settings > OAuth Client*. Note that for Cloud Apps created under the Production tab, the OAuth2 configuration is listed directly in the app details view.
+6. In the same OAuth2 page, add the Redirect URI that is listed at the end of the configuration form of this app. This way you are redirected back to the app once the consent flow has finished.
 
 ## Local setup
 
@@ -60,7 +74,7 @@ Example app showing how to use the High Mobility GraphQL API
 
 ## Contributing
 
-We would love to accept your patches and contributions to this project. Before getting to work, please first discuss the changes that you wish to make with us via [GitHub Issues](https://github.com/highmobility/hm-graphql-auto-api-explorer/issues), [Spectrum](https://spectrum.chat/high-mobility/) or [Slack](https://slack.high-mobility.com/).
+We would love to accept your patches and contributions to this project. Before getting to work, please first discuss the changes that you wish to make with us via [GitHub Issues](https://github.com/highmobility/hm-graphql-auto-api-explorer/issues) or [Slack](https://slack.high-mobility.com/).
 
 See more in [CONTRIBUTING.md](https://github.com/highmobility/hm-graphql-auto-api-explorer/tree/main/CONTRIBUTING.md)
 
