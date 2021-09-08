@@ -8,12 +8,19 @@
   width: 100%;
   box-sizing: border-box;
 
+  &.NoValue {
+    opacity: 0.5;
+  }
+
   .ListBlockCapability {
     font-size: 16px;
     line-height: 28px;
     color: #495057;
     flex-shrink: 1;
-    min-width: 200px;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .ListBlockProperty {
@@ -22,8 +29,11 @@
     line-height: 28px;
     color: #495057;
     font-weight: bold;
-    min-width: 200px;
     margin: 0 10px;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .ListBlockValues {

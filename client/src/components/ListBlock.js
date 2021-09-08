@@ -1,30 +1,32 @@
 import { upperFirst } from 'lodash'
+import { observer } from 'mobx-react-lite'
 import React, { Fragment } from 'react'
 import '../styles/ListBlock.scss'
 import {
   formatUnit,
   formatValue,
   getPropertyUniqueId,
+  parseCustomValue,
 } from '../utils/properties'
 import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
-export default function ListBlock({ property }) {
+function ListBlock({ property }) {
   const renderValues = () => {
     if (Array.isArray(property.data)) {
       return (
         <Fragment>
           {property.data.map((item, key) => (
             <div className="ListBlockValue" key={key}>
-              {camelCaseToWords(item.data[property.config.items[0].name])}:{' '}
-              {camelCaseToWords(item.data[property.config.items[1].name])}
+              {camelCaseToWords(item.data[property.config.items[0].name_cased])}
+              : {parseCustomValue(item, property.config)}
             </div>
           ))}
         </Fragment>
       )
     }
 
-    if (typeof property?.data?.value === 'object') {
+    if (typeof property.data?.value === 'object') {
       return Object.entries(property?.data?.value).map(
         ([itemName, itemValue]) => (
           <div className="ListBlockValue" key={`${itemName}-${itemValue}`}>
@@ -36,13 +38,13 @@ export default function ListBlock({ property }) {
 
     return (
       <Fragment>
-        {formatValue(property?.data?.value)} {formatUnit(property?.data?.unit)}
+        {formatValue(property.data?.value)} {formatUnit(property?.data?.unit)}
       </Fragment>
     )
   }
 
   return (
-    <div className="ListBlock">
+    <div className={`ListBlock ${!!property?.data ? '' : 'NoValue'}`}>
       <div className="ListBlockCapability">
         {upperFirst(
           camelCaseToWords(property.config.capabilityName).toLowerCase()
@@ -54,3 +56,5 @@ export default function ListBlock({ property }) {
     </div>
   )
 }
+
+export default observer(ListBlock)

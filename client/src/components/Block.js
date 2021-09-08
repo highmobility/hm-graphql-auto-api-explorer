@@ -1,7 +1,6 @@
 import { upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment } from 'react'
-import { useMobx } from '../store/mobx'
 import '../styles/Block.scss'
 import {
   formatValue,
@@ -12,12 +11,8 @@ import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
 function Block({ children, property, className = '' }) {
-  const { properties } = useMobx()
-  const propertyValues =
-    properties.values?.[getPropertyUniqueId(property.config)]
-
   return (
-    <div className={`Block ${className} ${!!propertyValues ? '' : 'NoValue'}`}>
+    <div className={`Block ${className} ${!!property?.data ? '' : 'NoValue'}`}>
       <div className="BlockContent">
         <PinButton propertyId={getPropertyUniqueId(property.config)} />
         <span className="BlockCapabilityLabel">
@@ -28,10 +23,9 @@ function Block({ children, property, className = '' }) {
         </h4>
         {children || (
           <div className="BlockValue">
-            {Array.isArray(propertyValues) &&
-            property.config.type === 'custom' ? (
+            {Array.isArray(property?.data) ? (
               <div className="BlockMultiValues">
-                {propertyValues.map((item, key) => (
+                {property?.data.map((item, key) => (
                   <div className="BlockMultiValue" key={key}>
                     <div className="BlockMultiValueKey">
                       {camelCaseToWords(
@@ -47,9 +41,9 @@ function Block({ children, property, className = '' }) {
             ) : (
               <Fragment>
                 <span className="Num2">
-                  {formatValue(propertyValues?.value)}
+                  {formatValue(property?.data?.value)}
                 </span>{' '}
-                <span className="Num4">{propertyValues?.unit}</span>
+                <span className="Num4">{property?.data?.unit}</span>
               </Fragment>
             )}
           </div>

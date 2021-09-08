@@ -39,9 +39,21 @@ const UNITS = {
   degrees: '°',
   radians: 'rad',
   revolutions: 'rev',
-  newtonMeters: 'N*m',
-  newtonMillimeters: 'N*mm',
+  newtonMeters: 'N m',
+  newtonMillimeters: 'N mm',
   poundFeet: 'lb-ft',
+  joules: 'J',
+  kilojoules: 'kJ',
+  wattHours: 'Wh',
+  kilowattHours: 'kWh',
+  volts: 'V',
+  millivolts: 'mV',
+  kilovolts: 'kV',
+  watts: 'W',
+  milliwatts: 'mW',
+  kilowatts: 'kW',
+  megawatts: 'MW',
+  horsepower: 'hp',
 }
 
 export const BLOCKS = {
@@ -223,7 +235,6 @@ export function parseCustomValue(item, propertyConfig) {
   }
 
   const value = item.data[propertyConfig.items[1].name_cased]
-  console.log(JSON.parse(JSON.stringify(item)), propertyConfig)
   if (propertyConfig?.items?.[1]?.type === 'timestamp') {
     return format(new Date(value), 'dd.MM.yyyy HH:mm')
   }
