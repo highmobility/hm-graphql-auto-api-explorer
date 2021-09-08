@@ -12,10 +12,12 @@ import Spinner from './Spinner'
 import { VIEWS } from '../store/Config'
 import { useInterval } from 'react-use'
 import DashboardMap from './DashboardMap'
+import ErrorMessage from './ErrorMessage'
 
 function DashboardPage() {
   const [initialDataFetched, setInitialDataFetched] = useState(false)
   const [vehiclesFetched, setVehiclesFetched] = useState(false)
+  const [fetchError, setFetchError] = useState(false)
   const { vehicles, config, properties, app } = useMobx()
   const parsedProperties = useMemo(() => {
     return config.shownProperties
@@ -53,11 +55,16 @@ function DashboardPage() {
   const fetchData = useCallback(async () => {
     if (!config.selectedVehicleId) return
 
-    const vehicleData = await fetchVehicleData(
-      config.selectedVehicleId,
-      config.shownProperties
-    )
-    properties.setValues(vehicleData)
+    try {
+      const vehicleData = await fetchVehicleData(
+        config.selectedVehicleId,
+        config.shownProperties
+      )
+      properties.setValues(vehicleData)
+      setFetchError(false)
+    } catch (e) {
+      setFetchError(true)
+    }
   }, [properties, config])
 
   useEffect(() => {
@@ -176,6 +183,9 @@ function DashboardPage() {
 
   return (
     <div className="DashboardPage">
+      <ErrorMessage show={fetchError}>
+        Failed to fetch data, try removing some properties
+      </ErrorMessage>
       <Header />
       {renderContent()}
     </div>
