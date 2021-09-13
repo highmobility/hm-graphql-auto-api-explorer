@@ -54,6 +54,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     flex-shrink: 0;
+    display: flex;
 
     &:not(:first-child) {
       padding-left: 10px;
