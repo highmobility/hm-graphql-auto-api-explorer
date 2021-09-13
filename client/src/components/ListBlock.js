@@ -1,4 +1,4 @@
-import { upperFirst } from 'lodash'
+import { camelCase, startCase, upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment } from 'react'
 import '../styles/ListBlock.scss'
@@ -12,25 +12,50 @@ import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
 function ListBlock({ property }) {
+  const renderBlockMultiValue = (item) => {
+    if (item.data && Object.keys(item.data).length > 2) {
+      return (
+        <Fragment>
+          {property.config.items.map((configItem) => {
+            return (
+              <div className="ListBlockValue" key={configItem?.name_cased}>
+                {startCase(
+                  camelCase(configItem?.name_pretty || configItem?.name_cased)
+                )}
+                : {formatValue(item.data?.[configItem?.name_cased])}
+              </div>
+            )
+          })}
+        </Fragment>
+      )
+    }
+
+    if (typeof item.data === 'object' && item.data !== null) {
+      return `${camelCaseToWords(
+        item.data?.[property.config?.items?.[0]?.name_cased]
+      )}: ${parseCustomValue(item, property.config)}`
+    }
+
+    return formatValue(item.data)
+  }
+
   const renderValues = () => {
     if (Array.isArray(property.data)) {
       return (
         <Fragment>
           {property.data.map((item, key) => (
             <div className="ListBlockValue" key={key}>
-              {typeof item.data === 'object'
-                ? `${camelCaseToWords(
-                    item.data?.[property.config?.items?.[0]?.name_cased]
-                  )}
-              : ${parseCustomValue(item, property.config)}`
-                : camelCaseToWords(item.data)}
+              {renderBlockMultiValue(item)}
             </div>
           ))}
         </Fragment>
       )
     }
 
-    if (typeof property.data?.value === 'object') {
+    if (
+      typeof property.data?.value === 'object' &&
+      property.data?.value !== null
+    ) {
       return Object.entries(property?.data?.value).map(
         ([itemName, itemValue]) => (
           <div className="ListBlockValue" key={`${itemName}-${itemValue}`}>

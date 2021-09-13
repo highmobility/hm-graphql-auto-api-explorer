@@ -55,6 +55,9 @@ const UNITS = {
   kilowatts: 'kW',
   megawatts: 'MW',
   horsepower: 'hp',
+  minutes: 'min',
+  seconds: 's',
+  hours: 'h',
 }
 
 export const BLOCKS = {
@@ -191,12 +194,16 @@ export function getPropertyUniqueId(property) {
 }
 
 export function formatValue(value) {
-  if (!value) return ''
-  if (typeof value === 'number') {
+  if (value === null || value === undefined) return ''
+  if (typeof value === 'number' && value !== 0) {
     return Number(value).toFixed(2)
   }
 
-  return camelCaseToWords(value)
+  if (value?.value) {
+    return `${formatValue(value?.value)} ${formatUnit(value?.unit) || ''}`
+  }
+
+  return value
 }
 
 export function formatUnit(unitValue) {
@@ -244,9 +251,5 @@ export function parseCustomValue(item, propertyConfig) {
     return format(new Date(value), 'dd.MM.yyyy HH:mm')
   }
 
-  if (propertyConfig.items[1].unit) {
-    return `${formatValue(value.value)} ${formatUnit(value.unit)}`
-  }
-
-  return camelCaseToWords(value)
+  return formatValue(value)
 }
