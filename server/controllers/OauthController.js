@@ -5,13 +5,17 @@ import GraphQlService from '../services/GraphQlService'
 export default class OAuthController {
   async callback(req, res) {
     try {
+      if (req.query.error) {
+        throw new Error(`Error during OAuth: ${req.query.error}`)
+      }
+
       const oAuthCode = req.query.code
       const config = await knex('app_config').first()
 
       const { data: tokenResponse } = await axios.post(config.token_url, {
         grant_type: 'authorization_code',
         code: oAuthCode,
-        redirect_uri: `http://${req.get('host')}${req.baseUrl}${
+        redirect_uri: `https://${req.get('host')}${req.baseUrl}${
           req._parsedUrl.pathname
         }`,
         client_id: config.client_id,
@@ -65,14 +69,14 @@ export default class OAuthController {
       })
 
       res.redirect(
-        `${req.protocol}://${req.hostname}${
+        `http://${req.hostname}${
           req.hostname === 'localhost' ? ':3000' : ''
         }/dashboard`
       )
     } catch (err) {
       console.trace(err)
       res.redirect(
-        `${req.protocol}://${req.hostname}${
+        `http://${req.hostname}${
           req.hostname === 'localhost' ? ':3000' : ''
         }/connect?error=${err.message}`
       )
