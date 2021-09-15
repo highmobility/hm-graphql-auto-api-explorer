@@ -58,4 +58,15 @@
       fill: #037be7;
     }
   }
+
+  .TextInputError {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 20px;
+    color: #df4747;
+  }
+
+  &.Disabled {
+    background: #e9ecef;
+  }
 }
