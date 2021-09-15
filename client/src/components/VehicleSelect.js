@@ -30,8 +30,14 @@ const VehicleSelect = () => {
       value: vehicle.id,
       renderLabel: () => (
         <Fragment>
-          <div className="VehicleSelectDropdownBrand">{vehicle.brand}</div>
-          <div className="VehicleSelectDropdownVin">{vehicle.vin}</div>
+          {vehicle.pending ? (
+            <div className="VehicleSelectDropdownBrand">Pending vehicle</div>
+          ) : (
+            <Fragment>
+              <div className="VehicleSelectDropdownBrand">{vehicle.brand}</div>
+              <div className="VehicleSelectDropdownVin">{vehicle.vin}</div>
+            </Fragment>
+          )}
           <CrossSvg
             className="VehicleSelectDropdownDelete"
             onClick={() => setVehicleToDelete(vehicle.id)}
@@ -60,7 +66,9 @@ const VehicleSelect = () => {
   const renderLabel = () => {
     if (!selectedVehicle) return 'No selected vehicle'
 
-    return (
+    return selectedVehicle?.pending ? (
+      <div className="VehicleSelectButtonBrand">Pending vehicle</div>
+    ) : (
       <Fragment>
         <div className="VehicleSelectButtonBrand">
           {selectedVehicle?.brand?.toLowerCase()}

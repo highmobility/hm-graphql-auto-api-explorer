@@ -14,13 +14,20 @@ export default class GraphQlService {
     this.accessToken = accessToken
   }
 
-  buildQuery(properties = []) {
+  buildQuery(properties = [], includeVinAndBrand = false) {
     const capabilities = {}
-    properties.forEach((property) => {
-      const [capabilityName, propertyName] = property.split('.')
-      capabilities[capabilityName]
-        ? capabilities[capabilityName].push(propertyName)
-        : (capabilities[capabilityName] = [propertyName])
+    properties.forEach((propertyUniqueId) => {
+      const [capabilityName, propertyName] = propertyUniqueId.split('.')
+      if (capabilities[capabilityName]) {
+        capabilities[capabilityName].push(propertyName)
+      } else {
+        capabilities[capabilityName] = [propertyName]
+      }
+
+      if (includeVinAndBrand) {
+        capabilities[capabilityName].push('vin')
+        capabilities[capabilityName].push('brand')
+      }
     })
 
     const capabilityQueries = Object.entries(capabilities).map(
@@ -117,13 +124,13 @@ export default class GraphQlService {
     })
   }
 
-  async fetchProperties(properties = []) {
+  async fetchProperties(properties = [], includeVinAndBrand = false) {
     if (properties.length === 0) {
       return []
     }
 
     const validProperties = await this.validateProperties(properties)
-    const query = this.buildQuery(validProperties)
+    const query = this.buildQuery(validProperties, includeVinAndBrand)
     const jwtToken = this.generateJWT()
 
     const {

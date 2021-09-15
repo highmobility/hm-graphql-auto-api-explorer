@@ -1,6 +1,7 @@
 import { knex } from '../database'
 import GraphQlService from '../services/GraphQlService'
 import { camelCase } from 'lodash'
+import axios from 'axios'
 
 export default class VehiclesController {
   async index(req, res) {
@@ -39,8 +40,15 @@ export default class VehiclesController {
   async getData(req, res) {
     try {
       const { id } = req.params
+      const { id: vehicleId, pending: vehiclePending } = await knex('vehicles')
+        .where('id', id)
+        .first()
+      if (!vehicleId) {
+        return res.status(404).json({ message: 'No vehicle found' })
+      }
+
       const { access_token } = await knex('access_tokens')
-        .where('vehicle_id', id)
+        .where('vehicle_id', vehicleId)
         .first()
       const appConfig = await knex('app_config').first()
       if (!appConfig) {
@@ -51,7 +59,23 @@ export default class VehiclesController {
         access_token
       )
 
-      const properties = await graphQl.fetchProperties(req.body.properties)
+      const properties = await graphQl.fetchProperties(
+        req.body.properties,
+        vehiclePending
+      )
+
+      if (vehiclePending) {
+        const { brand, vin } = Object.values(properties).find(
+          (value) => value.vin && value.brand
+        )
+        if (brand && brand.data && vin && vin.data) {
+          await knex('vehicles').where('id', id).update({
+            vin: vin.data,
+            brand: brand.data,
+            pending: false,
+          })
+        }
+      }
 
       res.json(properties)
     } catch (err) {
@@ -63,13 +87,35 @@ export default class VehiclesController {
   async delete(req, res) {
     try {
       const { id } = req.params
+
+      const { id: vehicleId } = await knex('vehicles').where('id', id).first()
+
+      if (!vehicleId) {
+        return res.status(404).json({ message: 'No vehicle found' })
+      }
+
+      const { access_token } = await knex('access_tokens')
+        .where({ id: vehicleId })
+        .first()
+
+      const { token_url, client_id, client_secret } = await knex(
+        'app_config'
+      ).first()
+      await axios.delete(token_url, {
+        data: {
+          token: access_token,
+          client_id,
+          client_secret,
+        },
+      })
+
       await knex('vehicles').where({ id }).delete()
 
       res.json({
         message: 'Vehicle deleted',
       })
     } catch (err) {
-      console.log(err.stack)
+      console.log(err)
       res.status(500).json({
         error: 'Failed to delete vehicle',
       })

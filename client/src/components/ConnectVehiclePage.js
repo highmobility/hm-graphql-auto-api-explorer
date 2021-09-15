@@ -38,8 +38,8 @@ function ConnectVehiclePage() {
       {error && (
         <div className="ConnectVehiclePageError">
           <p>
-            Could not connect vehicle. Make sure to open your emulator and give
-            permissions to the Diagnostics capability
+            Could not connect vehicle. Make sure to open your emulator if using
+            one
           </p>
           <p className="small">{error}</p>
         </div>

@@ -30,18 +30,18 @@ export default class OAuthController {
         'diagnostics.brand',
         'diagnostics.vin',
       ])
-      if (!diagnostics) {
-        throw new Error('Could not fetch Diagnostics capability data')
-      }
 
-      const vin = diagnostics.vin.data
-      const brand = diagnostics.brand.data
+      const vin =
+        (diagnostics && diagnostics.vin && diagnostics.vin.data) || null
+      const brand =
+        (diagnostics && diagnostics.brand && diagnostics.brand.data) || null
 
       await knex.transaction(async (trx) => {
         const [vehicleId] = await trx('vehicles').insert(
           {
             vin,
             brand,
+            pending: !vin || !brand,
           },
           'id'
         )
