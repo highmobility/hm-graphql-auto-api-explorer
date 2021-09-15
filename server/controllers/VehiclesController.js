@@ -65,9 +65,10 @@ export default class VehiclesController {
       )
 
       if (vehiclePending) {
-        const { brand, vin } = Object.values(properties).find(
-          (value) => value.vin && value.brand
-        )
+        const { brand, vin } =
+          Object.values(properties).find(
+            (value) => value && value.vin && value.brand
+          ) || {}
         if (brand && brand.data && vin && vin.data) {
           await knex('vehicles').where('id', id).update({
             vin: vin.data,
