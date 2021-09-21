@@ -26,15 +26,14 @@ export default class OAuthController {
         config.graph_ql_api_config,
         tokenResponse.access_token
       )
-      const { diagnostics } = await graphQl.fetchProperties([
-        'diagnostics.brand',
-        'diagnostics.vin',
+      const { universal } = await graphQl.fetchProperties([
+        'universal.brand',
+        'universal.vin',
       ])
 
-      const vin =
-        (diagnostics && diagnostics.vin && diagnostics.vin.data) || null
+      const vin = (universal && universal.vin && universal.vin.data) || null
       const brand =
-        (diagnostics && diagnostics.brand && diagnostics.brand.data) || null
+        (universal && universal.brand && universal.brand.data) || null
 
       await knex.transaction(async (trx) => {
         const [vehicleId] = await trx('vehicles').insert(
@@ -74,7 +73,7 @@ export default class OAuthController {
         }/dashboard`
       )
     } catch (err) {
-      console.trace(err)
+      console.log(err)
       res.redirect(
         `http://${req.hostname}${
           req.hostname === 'localhost' ? ':3000' : ''

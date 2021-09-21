@@ -59,17 +59,25 @@ export default class VehiclesController {
         access_token
       )
 
-      const properties = await graphQl.fetchProperties(
-        req.body.properties,
-        vehiclePending
-      )
+      const propertiesToFetch = req.body.properties
+      if (vehiclePending) {
+        propertiesToFetch.push('universal.brand')
+        propertiesToFetch.push('universal.vin')
+      }
+
+      const properties = await graphQl.fetchProperties(propertiesToFetch)
 
       if (vehiclePending) {
-        const { brand, vin } =
-          Object.values(properties).find(
-            (value) => value && value.vin && value.brand
-          ) || {}
-        if (brand && brand.data && vin && vin.data) {
+        const brand =
+          properties.universal &&
+          properties.universal.brand &&
+          properties.universal.brand.data
+        const vin =
+          properties.universal &&
+          properties.universal.vin &&
+          properties.universal.vin.data
+
+        if (brand && vin) {
           await knex('vehicles').where('id', id).update({
             vin: vin.data,
             brand: brand.data,

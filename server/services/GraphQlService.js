@@ -14,7 +14,7 @@ export default class GraphQlService {
     this.accessToken = accessToken
   }
 
-  buildQuery(properties = [], includeVinAndBrand = false) {
+  buildQuery(properties = []) {
     const capabilities = {}
     properties.forEach((propertyUniqueId) => {
       const [capabilityName, propertyName] = propertyUniqueId.split('.')
@@ -23,18 +23,16 @@ export default class GraphQlService {
       } else {
         capabilities[capabilityName] = [propertyName]
       }
-
-      if (includeVinAndBrand) {
-        capabilities[capabilityName].push('vin')
-        capabilities[capabilityName].push('brand')
-      }
     })
 
     const capabilityQueries = Object.entries(capabilities).map(
       ([capabilityName, properties]) => {
-        const capabilityConfig = Object.values(CAPABILITIES).find(
-          (capability) => capability.name_cased === capabilityName
-        )
+        const capabilityConfig =
+          capabilityName === 'universal'
+            ? { properties: UNIVERSAL_PROPERTIES }
+            : Object.values(CAPABILITIES).find(
+                (capability) => capability.name_cased === capabilityName
+              )
         const propertyQueries = properties.map((propertyName) => {
           const propertyConfig =
             capabilityConfig.properties.find(
@@ -124,13 +122,13 @@ export default class GraphQlService {
     })
   }
 
-  async fetchProperties(properties = [], includeVinAndBrand = false) {
+  async fetchProperties(properties = []) {
     if (properties.length === 0) {
       return []
     }
 
     const validProperties = await this.validateProperties(properties)
-    const query = this.buildQuery(validProperties, includeVinAndBrand)
+    const query = this.buildQuery(validProperties)
     const jwtToken = this.generateJWT()
 
     const {
