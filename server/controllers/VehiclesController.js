@@ -40,9 +40,11 @@ export default class VehiclesController {
   async getData(req, res) {
     try {
       const { id } = req.params
-      const { id: vehicleId, pending: vehiclePending } = await knex('vehicles')
-        .where('id', id)
-        .first()
+      const {
+        id: vehicleId,
+        pending: vehiclePending,
+        vin: vehicleVin,
+      } = await knex('vehicles').where('id', id).first()
       if (!vehicleId) {
         return res.status(404).json({ message: 'No vehicle found' })
       }
@@ -85,6 +87,11 @@ export default class VehiclesController {
           })
         }
       }
+
+      await knex('logs').insert({
+        vin: vehicleVin,
+        response: JSON.stringify(properties),
+      })
 
       res.json(properties)
     } catch (err) {
