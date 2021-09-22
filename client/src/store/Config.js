@@ -7,6 +7,11 @@ export const VIEWS = {
   MAP: 'MAP',
 }
 
+export const APP_TYPES = {
+  DRIVER: 'DRIVER',
+  FLEET: 'FLEET',
+}
+
 export default class Config {
   focusedInput = null
   graphQlApiConfig = ''
@@ -14,6 +19,7 @@ export default class Config {
   clientSecret = ''
   authUrl = ''
   tokenUrl = ''
+  appType = APP_TYPES.DRIVER
 
   view = VIEWS.GRID
   updateFrequency = 15
@@ -64,6 +70,10 @@ export default class Config {
 
   setTokenUrl(value) {
     this.tokenUrl = value
+  }
+
+  setAppType(appType) {
+    this.appType = APP_TYPES[appType] || APP_TYPES.DRIVER
   }
 
   setView(view) {

@@ -3,9 +3,11 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AUTH_CALLBACK_URL, setAppConfig } from '../requests'
 import routes, { PAGES } from '../routes'
+import { APP_TYPES } from '../store/Config'
 import { useMobx } from '../store/mobx'
 import '../styles/InitialConfigPage.scss'
 import ConfigGroup from './ConfigGroup'
+import AppTypeSelector from './AppTypeSelector'
 import PrimaryButton from './PrimaryButton'
 import TextArea from './TextArea'
 import TextInput from './TextInput'
@@ -102,6 +104,18 @@ function InitialConfigPage() {
       </header>
       <section className="InitialConfigContent">
         <form noValidate spellCheck="false" onSubmit={(e) => onSubmit(e)}>
+          <AppTypeSelector
+            title="Driver app"
+            subtitle="Use a driver app"
+            checked={config.appType === APP_TYPES.DRIVER}
+            onClick={() => config.setAppType(APP_TYPES.DRIVER)}
+          />
+          <AppTypeSelector
+            title="Fleet app"
+            subtitle="Use a fleet app"
+            checked={config.appType === APP_TYPES.FLEET}
+            onClick={() => config.setAppType(APP_TYPES.FLEET)}
+          />
           <h5 className="SubHeader">App configuration</h5>
           <ConfigGroup tip={inputTips.APP_CONFIG[config.focusedInput]}>
             <TextArea

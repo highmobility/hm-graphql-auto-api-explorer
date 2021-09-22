@@ -6,6 +6,7 @@ exports.up = async (knex) => {
     table.string('client_secret', 1000)
     table.string('auth_url', 1000)
     table.string('token_url', 1000)
+    table.string('app_type', 1000)
   })
 }
 
