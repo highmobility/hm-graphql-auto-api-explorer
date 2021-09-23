@@ -79,8 +79,8 @@ export default class VehiclesController {
 
         if (brand && vin) {
           await knex('vehicles').where('id', id).update({
-            vin: vin.data,
-            brand: brand.data,
+            vin,
+            brand,
             pending: false,
           })
         }
