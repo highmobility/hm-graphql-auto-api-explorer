@@ -15,6 +15,7 @@ export const APP_TYPES = {
 export default class Config {
   focusedInput = null
   graphQlApiConfig = ''
+  fleetApiConfig = ''
   clientId = ''
   clientSecret = ''
   authUrl = ''
@@ -54,6 +55,10 @@ export default class Config {
 
   setGraphQlApiConfig(graphQlApiConfig) {
     this.graphQlApiConfig = graphQlApiConfig
+  }
+
+  setFleetApiConfig(fleetApiConfig) {
+    this.fleetApiConfig = fleetApiConfig
   }
 
   setClientId(value) {

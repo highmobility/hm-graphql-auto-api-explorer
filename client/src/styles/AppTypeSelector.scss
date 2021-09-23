@@ -11,6 +11,11 @@
   &:hover {
     cursor: pointer;
     border-color: #e9ecef;
+
+    .RadioButton:not(.checked) {
+      background: #e0e3e5;
+      border: 1px solid #ced4da;
+    }
   }
 
   &.active {

@@ -2,18 +2,27 @@ import { knex } from '../database'
 
 export default class AppConfigController {
   async store(req, res) {
-    const { graphQlApiConfig, clientId, clientSecret, authUrl, tokenUrl } =
-      req.body
+    const {
+      graphQlApiConfig,
+      fleetApiConfig,
+      clientId,
+      clientSecret,
+      authUrl,
+      tokenUrl,
+      appType,
+    } = req.body
 
     try {
       await knex.transaction(async (trx) => {
         await trx('app_config').select('*').delete()
         await trx('app_config').insert({
           graph_ql_api_config: graphQlApiConfig,
+          fleet_api_config: fleetApiConfig,
           client_id: clientId,
           client_secret: clientSecret,
           auth_url: authUrl,
           token_url: tokenUrl,
+          app_type: appType,
         })
       })
 
@@ -30,15 +39,16 @@ export default class AppConfigController {
 
   async get(req, res) {
     try {
-      const config = await knex('app_config').first()
-      if (!config) {
+      const appConfig = await knex('app_config').first()
+      if (!appConfig) {
         return res.status(404).json({ message: 'No config found' })
       }
 
-      delete config.graph_ql_api_config.private_key
-      delete config.client_secret
+      delete appConfig.graph_ql_api_config.private_key
+      delete appConfig.fleet_api_config
+      delete appConfig.client_secret
 
-      res.json(config)
+      res.json(appConfig)
     } catch (err) {
       console.log(err.stack)
       res.status(500).json({

@@ -9,7 +9,7 @@
   font-weight: normal;
   font-size: 16px;
   line-height: 28px;
-  transition: border 250ms ease;
+  transition: border 250ms ease, margin-bottom 250ms ease;
   padding: 10px 10px 10px 20px;
   display: flex;
   align-items: center;
@@ -28,6 +28,7 @@
 
   &.Error {
     border-color: #df4747;
+    margin-bottom: 30px;
   }
 
   .TextInputInput {

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AUTH_CALLBACK_URL, setAppConfig } from '../requests'
 import routes, { PAGES } from '../routes'
@@ -19,10 +19,16 @@ function InitialConfigPage() {
 
   const inputTips = {
     ENV: {},
-    APP_CONFIG: {
+    GRAPH_QL: {
       graphQlApiConfig: {
         title: 'Where can I find the graphQL config?',
         text: 'First create an app, and then open it. There, follow the Client Certificate tab and select graphQL',
+      },
+    },
+    FLEET: {
+      fleetApiConfig: {
+        title: 'Where can I find the fleet config?',
+        text: `First create a production app, and then open it. There, follow the Service Account Keys tab and click <b style="font-size: 20px;">+</b> to generate a new key`,
       },
     },
     OAUTH: {
@@ -57,38 +63,108 @@ function InitialConfigPage() {
     "app_id": "0DBC89CFA8877576049081FB"
 }`.trim()
 
+  const fleetApiConfigPlaceholder = `
+{
+    "inserted_at": "2021-09-22T12:34:00",
+    "private_key":
+      "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgzuoeVzHHKv5f3miV\nBwqvnlGDOSlghuBO8MU4QE5OzCuhRANCAATNa1XKAfpKJbiYirja/HOq58Pd50mh\na0fk2vuURwHjE55hNCdls6ZgAvpMRtl6tD5BgKHPlcPdTvya51WCSFtY\n-----END PRIVATE KEY-----",
+    "id": "e3b0f47d-df92-4a43-aa0a-c8ab71ec1b21",
+}`.trim()
+
   const validateGraphQlConfig = (config) => {
-    if (!config) return setFormErrors({ graphQlApiConfig: `Field is required` })
+    if (!config)
+      return setFormErrors({
+        ...formErrors,
+        graphQlApiConfig: `Field is required`,
+      })
     try {
       const parsedConfig = JSON.parse(config)
-
       const { version, private_key, app_uri, app_id, client_serial_number } =
         parsedConfig
+
       if (!version) {
-        return setFormErrors({ graphQlApiConfig: `Missing 'version' property` })
+        return setFormErrors({
+          ...formErrors,
+          graphQlApiConfig: `Missing 'version' property`,
+        })
       }
+
       if (!private_key) {
         return setFormErrors({
           graphQlApiConfig: `Missing 'private_key' property`,
         })
       }
+
       if (!app_uri) {
-        return setFormErrors({ graphQlApiConfig: `Missing 'app_uri' property` })
+        return setFormErrors({
+          ...formErrors,
+          graphQlApiConfig: `Missing 'app_uri' property`,
+        })
       }
+
       if (!app_id) {
-        return setFormErrors({ graphQlApiConfig: `Missing 'app_id' property` })
+        return setFormErrors({
+          ...formErrors,
+          graphQlApiConfig: `Missing 'app_id' property`,
+        })
       }
+
       if (!client_serial_number) {
         return setFormErrors({
+          ...formErrors,
           graphQlApiConfig: `Missing 'client_serial_number' property`,
         })
       }
 
-      return setFormErrors({ graphQlApiConfig: null })
+      return setFormErrors({ ...formErrors, graphQlApiConfig: null })
     } catch (e) {
       console.log(e)
-      return setFormErrors({ graphQlApiConfig: 'Invalid JSON' })
+      return setFormErrors({ ...formErrors, graphQlApiConfig: 'Invalid JSON' })
     }
+  }
+
+  const validateFleetApiConfig = (fleetConfig) => {
+    if (config.appType !== APP_TYPES.FLEET)
+      return setFormErrors({
+        ...formErrors,
+        fleetApiConfig: null,
+      })
+
+    if (!fleetConfig)
+      return setFormErrors({
+        ...formErrors,
+        fleetApiConfig: `Field is required`,
+      })
+    try {
+      const parsedConfig = JSON.parse(fleetConfig)
+      const { private_key, id } = parsedConfig
+
+      if (!private_key) {
+        return setFormErrors({
+          ...formErrors,
+          fleetApiConfig: `Missing 'private_key' property`,
+        })
+      }
+
+      if (!id) {
+        return setFormErrors({
+          ...formErrors,
+          fleetApiConfig: `Missing 'id' property`,
+        })
+      }
+
+      return setFormErrors({ ...formErrors, fleetApiConfig: null })
+    } catch (e) {
+      console.log(e)
+      return setFormErrors({ ...formErrors, fleetApiConfig: 'Invalid JSON' })
+    }
+  }
+
+  const validateRequired = (field, value) => {
+    setFormErrors({
+      ...formErrors,
+      [field]: !!value ? null : 'Field is required',
+    })
   }
 
   return (
@@ -104,21 +180,24 @@ function InitialConfigPage() {
       </header>
       <section className="InitialConfigContent">
         <form noValidate spellCheck="false" onSubmit={(e) => onSubmit(e)}>
+          <h5 className="SubHeader">App type</h5>
           <AppTypeSelector
-            title="Driver app"
-            subtitle="Use a driver app"
+            title="Driver App"
+            subtitle="Working with individual vehicles"
             checked={config.appType === APP_TYPES.DRIVER}
             onClick={() => config.setAppType(APP_TYPES.DRIVER)}
           />
           <AppTypeSelector
-            title="Fleet app"
-            subtitle="Use a fleet app"
+            title="Fleet App"
+            subtitle="Working with a fleet of vehicles"
             checked={config.appType === APP_TYPES.FLEET}
             onClick={() => config.setAppType(APP_TYPES.FLEET)}
           />
           <h5 className="SubHeader">App configuration</h5>
-          <ConfigGroup tip={inputTips.APP_CONFIG[config.focusedInput]}>
+          <label className="InputHeader">GraphQL config</label>
+          <ConfigGroup tip={inputTips.GRAPH_QL[config.focusedInput]}>
             <TextArea
+              height={450}
               value={config.graphQlApiConfig}
               placeholder={graphQlConfigPlaceholder}
               onChange={(e) => config.setGraphQlApiConfig(e.target.value)}
@@ -127,6 +206,22 @@ function InitialConfigPage() {
               error={formErrors?.graphQlApiConfig}
             />
           </ConfigGroup>
+          {config.appType === APP_TYPES.FLEET && (
+            <Fragment>
+              <label className="InputHeader">Fleet config</label>
+              <ConfigGroup tip={inputTips.FLEET[config.focusedInput]}>
+                <TextArea
+                  height={395}
+                  value={config.fleetApiConfig}
+                  placeholder={fleetApiConfigPlaceholder}
+                  onChange={(e) => config.setFleetApiConfig(e.target.value)}
+                  onFocus={() => config.setFocusedInput('fleetApiConfig')}
+                  onBlur={() => validateFleetApiConfig(config.fleetApiConfig)}
+                  error={formErrors?.fleetApiConfig}
+                />
+              </ConfigGroup>
+            </Fragment>
+          )}
           <h5 className="SubHeader">OAuth credentials</h5>
           <ConfigGroup tip={inputTips.OAUTH[config.focusedInput]}>
             <TextInput
@@ -135,6 +230,8 @@ function InitialConfigPage() {
               placeholder="OAuth2 client ID"
               onChange={(e) => config.setClientId(e.target.value)}
               onFocus={() => config.setFocusedInput('clientId')}
+              onBlur={() => validateRequired('clientId', config.clientId)}
+              error={formErrors?.clientId}
             />
             <TextInput
               name="clientSecret"
@@ -142,6 +239,10 @@ function InitialConfigPage() {
               placeholder="OAuth2 client secret"
               onChange={(e) => config.setClientSecret(e.target.value)}
               onFocus={() => config.setFocusedInput('clientSecret')}
+              onBlur={() =>
+                validateRequired('clientSecret', config.clientSecret)
+              }
+              error={formErrors?.clientSecret}
             />
             <TextInput
               name="authUrl"
@@ -149,6 +250,8 @@ function InitialConfigPage() {
               placeholder="OAuth2 Auth URI"
               onChange={(e) => config.setAuthUrl(e.target.value)}
               onFocus={() => config.setFocusedInput('authUrl')}
+              onBlur={() => validateRequired('authUrl', config.authUrl)}
+              error={formErrors?.authUrl}
             />
             <TextInput
               name="tokenUrl"
@@ -156,6 +259,8 @@ function InitialConfigPage() {
               placeholder="OAuth2 Token URI"
               onChange={(e) => config.setTokenUrl(e.target.value)}
               onFocus={() => config.setFocusedInput('tokenUrl')}
+              onBlur={() => validateRequired('tokenUrl', config.tokenUrl)}
+              error={formErrors?.tokenUrl}
             />
             <div className="TokenInfo">
               <label>Add the following redirect URI</label>

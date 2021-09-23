@@ -13,6 +13,7 @@ export default function TextArea({
   name,
   placeholder,
   error,
+  height,
 }) {
   const [isFocused, setIsFocused] = useState(false)
   const [isTouched, setIsTouched] = useState(false)
@@ -49,7 +50,7 @@ export default function TextArea({
   }, [isFocused, value, required, disabled, isTouched, className, showError])
 
   return (
-    <div className={`TextInput TextArea ${stateClasses}`}>
+    <div className={`TextInput TextArea ${stateClasses}`} style={{ height }}>
       <textarea
         name={name}
         value={value || ''}
