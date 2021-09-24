@@ -1,7 +1,6 @@
 import { knex } from '../database'
 import GraphQlService from '../services/GraphQlService'
 import { camelCase } from 'lodash'
-import axios from 'axios'
 import OAuth from '../services/OAuth'
 
 export default class VehiclesController {
@@ -102,20 +101,8 @@ export default class VehiclesController {
         return res.status(404).json({ message: 'No vehicle found' })
       }
 
-      const { access_token } = await knex('access_tokens')
-        .where({ id: vehicleId })
-        .first()
-
-      const { token_url, client_id, client_secret } = await knex(
-        'app_config'
-      ).first()
-      await axios.delete(token_url, {
-        data: {
-          token: access_token,
-          client_id,
-          client_secret,
-        },
-      })
+      const accessToken = await OAuth.getAccessToken(vehicleId)
+      await OAuth.revokeToken(accessToken)
 
       await knex('vehicles').where({ id }).delete()
 

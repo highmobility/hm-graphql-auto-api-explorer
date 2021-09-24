@@ -112,6 +112,27 @@ class OAuth {
     // if expired, fetch new and save new
     // return access token
   }
+
+  static async revokeToken(accessToken) {
+    try {
+      const { token_url, client_id, client_secret } = await knex(
+        'app_config'
+      ).first()
+
+      await axios.delete(token_url, {
+        data: {
+          token: accessToken,
+          client_id,
+          client_secret,
+        },
+      })
+
+      return true
+    } catch (e) {
+      console.log('Failed to revoke token', e)
+      return false
+    }
+  }
 }
 
 export default OAuth
