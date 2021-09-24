@@ -5,6 +5,8 @@ export default class ConfigController {
   async get(req, res) {
     try {
       const config = await knex('config').first()
+      if (!config) return null
+
       delete config.basic_auth_password
 
       res.json(config)

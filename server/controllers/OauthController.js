@@ -1,71 +1,9 @@
-import { knex } from '../database'
-import axios from 'axios'
-import GraphQlService from '../services/GraphQlService'
+import OAuth from '../services/OAuth'
 
 export default class OAuthController {
   async callback(req, res) {
     try {
-      if (req.query.error) {
-        throw new Error(`Error during OAuth: ${req.query.error}`)
-      }
-
-      const oAuthCode = req.query.code
-      const config = await knex('app_config').first()
-
-      const { data: tokenResponse } = await axios.post(config.token_url, {
-        grant_type: 'authorization_code',
-        code: oAuthCode,
-        redirect_uri: `https://${req.get('host')}${req.baseUrl}${
-          req._parsedUrl.pathname
-        }`,
-        client_id: config.client_id,
-        client_secret: config.client_secret,
-      })
-
-      const graphQl = new GraphQlService(
-        config.graph_ql_api_config,
-        tokenResponse.access_token
-      )
-      const { universal } = await graphQl.fetchProperties([
-        'universal.brand',
-        'universal.vin',
-      ])
-
-      const vin = (universal && universal.vin && universal.vin.data) || null
-      const brand =
-        (universal && universal.brand && universal.brand.data) || null
-
-      await knex.transaction(async (trx) => {
-        const [vehicleId] = await trx('vehicles').insert(
-          {
-            vin,
-            brand,
-            pending: !vin || !brand,
-          },
-          'id'
-        )
-
-        await trx('access_tokens').insert(
-          {
-            vehicle_id: vehicleId,
-            access_token: tokenResponse.access_token,
-            refresh_token: tokenResponse.refresh_token,
-            scope: tokenResponse.scope,
-          },
-          'access_token'
-        )
-
-        const config = await trx('config').first()
-        if (!config) {
-          await trx('config').insert({
-            selected_vehicle_id: vehicleId,
-          })
-        } else {
-          await trx('config').first().update({
-            selected_vehicle_id: vehicleId,
-          })
-        }
-      })
+      await OAuth.initAccessToken(req)
 
       res.redirect(
         `http://${req.hostname}${

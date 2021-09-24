@@ -2,6 +2,7 @@ import { knex } from '../database'
 import GraphQlService from '../services/GraphQlService'
 import { camelCase } from 'lodash'
 import axios from 'axios'
+import OAuth from '../services/OAuth'
 
 export default class VehiclesController {
   async index(req, res) {
@@ -47,16 +48,14 @@ export default class VehiclesController {
         return res.status(404).json({ message: 'No vehicle found' })
       }
 
-      const { access_token } = await knex('access_tokens')
-        .where('vehicle_id', vehicleId)
-        .first()
+      const accessToken = await OAuth.getAccessToken(vehicleId)
       const appConfig = await knex('app_config').first()
       if (!appConfig) {
         return res.status(404).json({ message: 'No app config found' })
       }
       const graphQl = new GraphQlService(
         appConfig.graph_ql_api_config,
-        access_token
+        accessToken
       )
 
       const propertiesToFetch = req.body.properties
