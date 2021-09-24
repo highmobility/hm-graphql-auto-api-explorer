@@ -19,6 +19,7 @@ const VehicleSelect = () => {
     setVehicleToDelete(null)
     vehicles.remove(id)
     config.setSelectedVehicleId(vehicles.list?.[0]?.id || null)
+    await updateConfig({ selectedVehicleId: vehicles.list?.[0]?.id || null })
   }
 
   const selectedVehicle = vehicles.list.find(
