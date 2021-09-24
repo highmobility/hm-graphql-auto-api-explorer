@@ -11,7 +11,7 @@ import { updateConfig } from '../requests'
 import ConfirmModal from './ConfirmModal'
 
 const VehicleSelect = () => {
-  const { config, vehicles } = useMobx()
+  const { config, vehicles, properties } = useMobx()
   const history = useHistory()
   const [vehicleToDelete, setVehicleToDelete] = useState(null)
   const onConfirmDelete = async (id) => {
@@ -45,6 +45,9 @@ const VehicleSelect = () => {
         </Fragment>
       ),
       onClick: async () => {
+        if (config.selectedVehicleId === vehicle.id) return
+
+        properties.resetValues()
         config.setSelectedVehicleId(vehicle.id)
         await updateConfig({ selectedVehicleId: vehicle.id })
       },
