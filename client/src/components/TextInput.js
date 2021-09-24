@@ -18,7 +18,7 @@ export default function TextInput({
   const [isFocused, setIsFocused] = useState(false)
   const [isTouched, setIsTouched] = useState(false)
   const inputRef = useRef()
-  const showError = !isFocused && isTouched && error
+  const showError = !isFocused && error
 
   const _onBlur = useCallback(
     (e) => {
@@ -67,6 +67,7 @@ export default function TextInput({
       <div className="TextInputIcon">
         <Check />
       </div>
+      {showError && <div className="TextInputError">{error}</div>}
     </div>
   )
 }

@@ -17,6 +17,7 @@ import { useMobx } from '../store/mobx'
 import routes, { PAGES } from '../routes'
 import ConfirmModal from './ConfirmModal'
 import ForkMeOnGithub from './ForkMeOnGithub'
+import Toggle from './Toggle'
 
 function ConfigPage() {
   const [mergedConfig, setMergedConfig] = useState({})
@@ -26,6 +27,12 @@ function ConfigPage() {
   const [googleMapsApiKey, setGoogleMapsApiKey] = useState(
     config.googleMapsApiKey
   )
+  const [basicAuthUsername, setBasicAuthUsername] = useState(null)
+  const [basicAuthPassword, setBasicAuthPassword] = useState(null)
+  const [basicAuthEnabled, setBasicAuthEnabled] = useState(false)
+  const [addingAuth, setAddingAuth] = useState(false)
+  const [removingAuth, setRemovingAuth] = useState(false)
+  const [showErrors, setShowErrors] = useState(false)
 
   useEffect(() => {
     const fetch = async () => {
@@ -35,6 +42,7 @@ function ConfigPage() {
           fetchConfig(),
         ])
         setMergedConfig({ ...appConfig, config })
+        setBasicAuthEnabled(config.basic_auth_enabled)
       } catch (e) {
         console.log('Failed to fetch configs', e)
       }
@@ -44,20 +52,42 @@ function ConfigPage() {
   }, [history])
 
   const onSave = async () => {
-    const keyChanged = config.googleMapsApiKey !== googleMapsApiKey
+    setShowErrors(true)
     config.setGoogleMapsApiKey(googleMapsApiKey)
     const dashboardPath = routes.find(
       (route) => route.name === PAGES.DASHBOARD
     ).path
 
-    await updateConfig({ googleMapsApiKey })
-
-    if (keyChanged) {
-      window.location.href = dashboardPath
+    if (basicAuthEnabled && (!basicAuthUsername || !basicAuthPassword)) {
       return
     }
 
-    history.push(dashboardPath)
+    if (
+      !mergedConfig?.config?.basic_auth_enabled &&
+      basicAuthEnabled &&
+      !addingAuth
+    ) {
+      setAddingAuth(true)
+      return
+    }
+
+    if (
+      mergedConfig?.config?.basic_auth_enabled &&
+      !basicAuthEnabled &&
+      !removingAuth
+    ) {
+      setRemovingAuth(true)
+      return
+    }
+
+    await updateConfig({
+      googleMapsApiKey,
+      basicAuthEnabled,
+      basicAuthUsername,
+      basicAuthPassword,
+    })
+
+    window.location.href = dashboardPath
   }
 
   const onBack = () => {
@@ -127,6 +157,58 @@ function ConfigPage() {
               placeholder="Google maps API key"
               onChange={(e) => setGoogleMapsApiKey(e.target.value)}
             />
+
+            <div className="ConfigPageBasicAuthConfig">
+              <div className="ConfigPagePasswordSubTitle">
+                <h5 className="ConfigPageSubTitle">Basic auth</h5>
+                <Toggle
+                  value={basicAuthEnabled}
+                  onChange={() => setBasicAuthEnabled(!basicAuthEnabled)}
+                />
+              </div>
+              <TextInput
+                disabled={mergedConfig?.config?.basic_auth_enabled}
+                name="basicAuthUsername"
+                value={basicAuthUsername}
+                placeholder={
+                  mergedConfig?.config?.basic_auth_enabled
+                    ? '**********'
+                    : 'Username'
+                }
+                onChange={(e) => {
+                  setBasicAuthEnabled(true)
+                  setBasicAuthUsername(e.target.value)
+                }}
+                error={
+                  basicAuthEnabled &&
+                  !basicAuthUsername &&
+                  showErrors &&
+                  'Field is required'
+                }
+              />
+              <TextInput
+                disabled={mergedConfig?.config?.basic_auth_enabled}
+                name="basicAuthPassword"
+                type="password"
+                value={basicAuthPassword}
+                placeholder={
+                  mergedConfig?.config?.basic_auth_enabled
+                    ? '**********'
+                    : 'Password'
+                }
+                onChange={(e) => {
+                  setBasicAuthEnabled(true)
+                  setBasicAuthPassword(e.target.value)
+                }}
+                error={
+                  basicAuthEnabled &&
+                  !basicAuthPassword &&
+                  showErrors &&
+                  'Field is required'
+                }
+              />
+            </div>
+
             <PrimaryButton
               className="ConfigPageSaveButton"
               onClick={() => onSave()}
@@ -146,6 +228,24 @@ function ConfigPage() {
         descriptionText="Once you confirm, all vehicles and app configuration will be reset."
         confirmText="Yes, reset"
         cancelText="No, don't reset"
+      />
+      <ConfirmModal
+        show={!!addingAuth}
+        close={() => setAddingAuth(false)}
+        onConfirm={() => onSave()}
+        headerText="Do you want to add basic auth for the app?"
+        descriptionText="Once you confirm, you won't be able to access this website without username and password"
+        confirmText="Yes, add"
+        cancelText="No, don't add"
+      />
+      <ConfirmModal
+        show={!!removingAuth}
+        close={() => setRemovingAuth(false)}
+        onConfirm={() => onSave()}
+        headerText="Do you want to remove basic auth?"
+        descriptionText="Once you confirm, the app will be accessible to anyone"
+        confirmText="Yes, remove"
+        cancelText="No, don't remove"
       />
     </div>
   )

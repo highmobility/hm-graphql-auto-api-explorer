@@ -1,5 +1,3 @@
-import { camelCase, startCase } from 'lodash'
-
 export function camelCaseToWords(string = '') {
   if (!string) return ''
 

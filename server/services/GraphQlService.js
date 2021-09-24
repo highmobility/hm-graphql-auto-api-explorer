@@ -16,18 +16,23 @@ export default class GraphQlService {
 
   buildQuery(properties = []) {
     const capabilities = {}
-    properties.forEach((property) => {
-      const [capabilityName, propertyName] = property.split('.')
-      capabilities[capabilityName]
-        ? capabilities[capabilityName].push(propertyName)
-        : (capabilities[capabilityName] = [propertyName])
+    properties.forEach((propertyUniqueId) => {
+      const [capabilityName, propertyName] = propertyUniqueId.split('.')
+      if (capabilities[capabilityName]) {
+        capabilities[capabilityName].push(propertyName)
+      } else {
+        capabilities[capabilityName] = [propertyName]
+      }
     })
 
     const capabilityQueries = Object.entries(capabilities).map(
       ([capabilityName, properties]) => {
-        const capabilityConfig = Object.values(CAPABILITIES).find(
-          (capability) => capability.name_cased === capabilityName
-        )
+        const capabilityConfig =
+          capabilityName === 'universal'
+            ? { properties: UNIVERSAL_PROPERTIES }
+            : Object.values(CAPABILITIES).find(
+                (capability) => capability.name_cased === capabilityName
+              )
         const propertyQueries = properties.map((propertyName) => {
           const propertyConfig =
             capabilityConfig.properties.find(
@@ -119,7 +124,7 @@ export default class GraphQlService {
 
   async fetchProperties(properties = []) {
     if (properties.length === 0) {
-      return []
+      return {}
     }
 
     const validProperties = await this.validateProperties(properties)

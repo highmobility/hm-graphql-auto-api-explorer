@@ -23,28 +23,28 @@ app.use(
 )
 app.use(sslRedirect())
 
-// app.use(
-//   basicAuth({
-//     authorizer: async (username, password) => {
-//       const authorize = async () => {
-//         const config = await knex('config').first()
-//         if (!config.basic_auth_enabled) {
-//           return true
-//         }
+app.use(async (req, res, next) => {
+  if (process.env.NODE_ENV !== 'production') return next()
+  const config = await knex('config').first()
+  if (!config || !config.basic_auth_enabled) return next()
 
-//         const passwordValid = await argon2.verify(
-//           config.basic_auth_password,
-//           password
-//         )
-//         return username === config.basic_auth_username && passwordValid
-//       }
+  return basicAuth({
+    authorizeAsync: true,
+    authorizer: async (username, password, cb) => {
+      const passwordValid = await argon2.verify(
+        config.basic_auth_password,
+        password
+      )
 
-//       const res = await authorize()
-//       return res
-//     },
-//     challenge: true,
-//   })
-// )
+      return cb(
+        null,
+        basicAuth.safeCompare(username, config.basic_auth_username) &&
+          passwordValid
+      )
+    },
+    challenge: true,
+  })(req, res, next)
+})
 
 // Api routes
 app.use(express.json())

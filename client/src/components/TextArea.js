@@ -65,7 +65,7 @@ export default function TextArea({
       <div className="TextInputIcon">
         <Check />
       </div>
-      <div className="TextAreaError">{error}</div>
+      {showError && <div className="TextAreaError">{error}</div>}
     </div>
   )
 }

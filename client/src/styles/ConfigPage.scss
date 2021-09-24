@@ -76,4 +76,18 @@
   .ConfigPageSaveButton {
     align-self: flex-start;
   }
+
+  .ConfigPagePasswordSubTitle {
+    display: flex;
+    align-items: center;
+    padding-bottom: 34px;
+
+    .ConfigPageSubTitle {
+      padding: 0 12px 0 0;
+    }
+  }
+
+  .ConfigPageBasicAuthConfig {
+    margin-bottom: 12px;
+  }
 }
