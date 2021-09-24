@@ -67,7 +67,7 @@ function InitialConfigPage() {
 {
     "inserted_at": "2021-09-22T12:34:00",
     "private_key":
-      "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM42AgEGCCqGSM49AwEHBG0wawIBAQQgzuoeVzHHKv4f3miV\nBwqvnlGDOSlghuBO8MU4QE5OdCuhRANCAAFNa1XKAfpKJbiYirja/HOq58Pd50mh\na0fk2vuURwHjE55hNCdls6ZgAvpMRtl6tD5BgKHPlcPdTvya51WCSFtY\n-----END PRIVATE KEY-----",
+      "-----BEGIN PRIVATE KEY-----\\nMIGHAgEAMBMGByqGSM42AgEGCCqGSM49AwEHBG0wawIBAQQgzuoeVzHHKv4f3miV\\nBwqvnlGDOSlghuBO8MU4QE5OdCuhRANCAAFNa1XKAfpKJbiYirja/HOq58Pd50mh\\na0fk2vuURwHjE55hNCdls6ZgAvpMRtl6tD5BgKHPlcPdTvya51WCSFtY\\n-----END PRIVATE KEY-----",
     "id": "e2b0f57d-df92-4a43-aa0a-c8ab61ec1b21",
 }`.trim()
 
@@ -211,7 +211,7 @@ function InitialConfigPage() {
               <label className="InputHeader">Fleet config</label>
               <ConfigGroup tip={inputTips.FLEET[config.focusedInput]}>
                 <TextArea
-                  height={395}
+                  height={340}
                   value={config.fleetApiConfig}
                   placeholder={fleetApiConfigPlaceholder}
                   onChange={(e) => config.setFleetApiConfig(e.target.value)}
