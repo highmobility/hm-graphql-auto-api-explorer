@@ -30,4 +30,8 @@ export default class Properties {
 
     this.values = { ...newValues }
   }
+
+  resetValues() {
+    this.values = {}
+  }
 }

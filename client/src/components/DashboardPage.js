@@ -60,12 +60,21 @@ function DashboardPage() {
         config.selectedVehicleId,
         config.shownProperties
       )
+
+      if (
+        vehicles.list.find((vehicle) => vehicle.id === config.selectedVehicleId)
+          ?.pending &&
+        vehicleData?.universal
+      ) {
+        await vehicles.fetch()
+      }
+
       properties.setValues(vehicleData)
       setFetchError(false)
     } catch (e) {
       setFetchError(true)
     }
-  }, [properties, config])
+  }, [properties, config, vehicles])
 
   useEffect(() => {
     const fetchInitialData = async () => {

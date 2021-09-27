@@ -124,7 +124,7 @@ export default class GraphQlService {
 
   async fetchProperties(properties = []) {
     if (properties.length === 0) {
-      return []
+      return {}
     }
 
     const validProperties = await this.validateProperties(properties)

@@ -11,14 +11,15 @@ import { updateConfig } from '../requests'
 import ConfirmModal from './ConfirmModal'
 
 const VehicleSelect = () => {
-  const { config, vehicles } = useMobx()
+  const { config, vehicles, properties } = useMobx()
   const history = useHistory()
   const [vehicleToDelete, setVehicleToDelete] = useState(null)
   const onConfirmDelete = async (id) => {
     await vehicles.delete(id)
     setVehicleToDelete(null)
     vehicles.remove(id)
-    config.setSelectedVehicleId(vehicles.list?.[0] || null)
+    config.setSelectedVehicleId(vehicles.list?.[0]?.id || null)
+    await updateConfig({ selectedVehicleId: vehicles.list?.[0]?.id || null })
   }
 
   const selectedVehicle = vehicles.list.find(
@@ -45,6 +46,9 @@ const VehicleSelect = () => {
         </Fragment>
       ),
       onClick: async () => {
+        if (config.selectedVehicleId === vehicle.id) return
+
+        properties.resetValues()
         config.setSelectedVehicleId(vehicle.id)
         await updateConfig({ selectedVehicleId: vehicle.id })
       },
