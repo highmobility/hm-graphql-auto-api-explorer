@@ -1,7 +1,7 @@
 import OAuth from '../services/OAuth'
 
-export default class OAuthController {
-  async callback(req, res) {
+export default class AuthController {
+  async oAuthCallback(req, res) {
     try {
       await OAuth.initAccessToken(req)
 
@@ -17,6 +17,20 @@ export default class OAuthController {
           req.hostname === 'localhost' ? ':3000' : ''
         }/connect?error=${err.message}`
       )
+    }
+  }
+
+  async fleetAuth(req, res) {
+    try {
+      const { vin, brand } = req.body
+      if (!vin || !brand) {
+        return res.status(400).send({ error: 'No vin or brand ' })
+      }
+    } catch (err) {
+      console.log(err)
+      res.status(500).json({
+        error: 'Failed to authorize fleet vehicle',
+      })
     }
   }
 }

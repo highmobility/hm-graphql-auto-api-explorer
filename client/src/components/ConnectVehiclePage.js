@@ -1,7 +1,11 @@
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { AUTH_CALLBACK_URL, fetchAppConfig } from '../requests'
+import {
+  authFleetVehicle,
+  AUTH_CALLBACK_URL,
+  fetchAppConfig,
+} from '../requests'
 import routes, { PAGES } from '../routes'
 import '../styles/ConnectVehiclePage.scss'
 import GrayCircles from './GrayCircles'
@@ -47,14 +51,18 @@ function ConnectVehiclePage() {
     })
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
     if (Object.values(formErrors).some((v) => !!v)) {
       return
     }
 
-    console.log('adding fleet vehicle', vin)
+    try {
+      await authFleetVehicle(vin, brand)
+    } catch (e) {
+      console.log('Failed to auth vehicle', { vin, brand })
+    }
   }
 
   return (
