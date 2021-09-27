@@ -16,6 +16,7 @@ function ConnectVehiclePage() {
   const history = useHistory()
   const error = new URLSearchParams(useLocation().search).get('error')
   const [vin, setVin] = useState('')
+  const [brand, setBrand] = useState('')
   const [formErrors, setFormErrors] = useState({})
 
   useEffect(() => {
@@ -46,6 +47,16 @@ function ConnectVehiclePage() {
     })
   }
 
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    if (Object.values(formErrors).some((v) => !!v)) {
+      return
+    }
+
+    console.log('adding fleet vehicle', vin)
+  }
+
   return (
     <div className="ConnectVehiclePage">
       {error && (
@@ -60,7 +71,12 @@ function ConnectVehiclePage() {
       <div className="ConnectVehiclePageContent">
         <h2 className="ConnectVehiclePageHeader">Connect your vehicle</h2>
         <GrayCircles />
-        <div className="ConnectVehiclePageForm">
+        <form
+          noValidate
+          spellCheck="false"
+          onSubmit={(e) => onSubmit(e)}
+          className="ConnectVehiclePageForm"
+        >
           {appConfig?.app_type === APP_TYPES.FLEET ? (
             <Fragment>
               <TextInput
@@ -70,14 +86,21 @@ function ConnectVehiclePage() {
                 onBlur={() => validateRequired('vin', vin)}
                 error={formErrors?.vin}
               />
-              <PrimaryButton>Add vehicle</PrimaryButton>
+              <TextInput
+                value={brand}
+                placeholder="Vehicle brand"
+                onChange={(e) => setBrand(e.target.value)}
+                onBlur={() => validateRequired('brand', brand)}
+                error={formErrors?.brand}
+              />
+              <PrimaryButton type="submit">Add vehicle</PrimaryButton>
             </Fragment>
           ) : (
             <a href={url?.toString()}>
               <PrimaryButton>Add a vehicle</PrimaryButton>
             </a>
           )}
-        </div>
+        </form>
       </div>
     </div>
   )
