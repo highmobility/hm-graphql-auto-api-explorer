@@ -90,7 +90,7 @@ function ConnectVehiclePage() {
       history.push(routes.find((route) => route.name === PAGES.DASHBOARD).path)
     } catch (e) {
       console.log('Failed to auth vehicle', { vin })
-      setError(e?.response?.data?.error || '')
+      setError(`Failed to authorize vehicle. ${e?.response?.data?.error || ''}`)
       setLoading(false)
     }
   }

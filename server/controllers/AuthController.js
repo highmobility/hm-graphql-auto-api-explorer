@@ -33,7 +33,11 @@ export default class AuthController {
     } catch (err) {
       console.log(err)
       res.status(500).json({
-        error: err.message,
+        error:
+          (err.response &&
+            err.response.data &&
+            err.response.data.error_description) ||
+          err.message,
       })
     }
   }
@@ -43,7 +47,6 @@ export default class AuthController {
       const appConfig = await knex('app_config').first()
       const vehicles = await knex('vehicles').select()
       const authorizedVehicles = await Auth.getFleetVehicles(appConfig)
-      console.log('vehicles', vehicles)
 
       res.send(
         authorizedVehicles.filter(

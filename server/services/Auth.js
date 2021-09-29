@@ -171,6 +171,18 @@ class Auth {
     const authTokenResponse = await Auth.getFleetAuthToken(appConfig)
 
     // TODO: add auth (POST to fleets/vehicles), needs vin, brand and other stuff, if response is pending set vehicle as pending
+    // const { data: vehiclesResponse } = await axios.post(
+    //   'https://api.high-mobility.com/v1/fleets/vehicles',
+    //   {
+    //     vehicles: [{ vin: 'VR3UKZKXZLJ995396', brand: 'peugeot' }],
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${authTokenResponse.auth_token}`,
+    //     },
+    //   }
+    // )
+
     const { data: accessTokenResponse } = await axios.post(
       'https://api.high-mobility.com/v1/fleets/access_tokens',
       {
