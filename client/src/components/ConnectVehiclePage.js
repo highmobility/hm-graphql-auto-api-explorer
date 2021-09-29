@@ -13,14 +13,16 @@ import PrimaryButton from './PrimaryButton'
 import { useLocation } from 'react-use'
 import { APP_TYPES } from '../store/Config'
 import TextInput from './TextInput'
+import ErrorMessage from './ErrorMessage'
 
 function ConnectVehiclePage() {
   const [url, setUrl] = useState(null)
   const [appConfig, setAppConfig] = useState(null)
   const history = useHistory()
-  const error = new URLSearchParams(useLocation().search).get('error')
+  const [error, setError] = useState(
+    new URLSearchParams(useLocation().search).get('error')
+  )
   const [vin, setVin] = useState('')
-  const [brand, setBrand] = useState('')
   const [formErrors, setFormErrors] = useState({})
 
   useEffect(() => {
@@ -45,37 +47,41 @@ function ConnectVehiclePage() {
   }, [history])
 
   const validateRequired = (field, value) => {
-    setFormErrors({
+    const newErrors = {
       ...formErrors,
       [field]: !!value ? null : 'Field is required',
-    })
+    }
+    setFormErrors(newErrors)
+
+    return newErrors
   }
 
   const onSubmit = async (e) => {
     e.preventDefault()
+    validateRequired('vin', vin)
 
     if (Object.values(formErrors).some((v) => !!v)) {
       return
     }
 
     try {
-      await authFleetVehicle(vin, brand)
+      await authFleetVehicle(vin)
+      history.push(routes.find((route) => route.name === PAGES.DASHBOARD).path)
     } catch (e) {
-      console.log('Failed to auth vehicle', { vin, brand })
+      console.log('Failed to auth vehicle', { vin })
+      setError(e?.response?.data?.error || '')
     }
   }
 
   return (
     <div className="ConnectVehiclePage">
-      {error && (
-        <div className="ConnectVehiclePageError">
-          <p>
-            Could not connect vehicle. Make sure to open your emulator if using
-            one
-          </p>
-          <p className="small">{error}</p>
-        </div>
-      )}
+      <ErrorMessage className="ConnectVehiclePageError" show={!!error}>
+        <p>
+          Could not connect vehicle. Make sure to open your emulator if using
+          one
+        </p>
+        <p className="small">{error}</p>
+      </ErrorMessage>
       <div className="ConnectVehiclePageContent">
         <h2 className="ConnectVehiclePageHeader">Connect your vehicle</h2>
         <GrayCircles />
@@ -93,13 +99,6 @@ function ConnectVehiclePage() {
                 onChange={(e) => setVin(e.target.value)}
                 onBlur={() => validateRequired('vin', vin)}
                 error={formErrors?.vin}
-              />
-              <TextInput
-                value={brand}
-                placeholder="Vehicle brand"
-                onChange={(e) => setBrand(e.target.value)}
-                onBlur={() => validateRequired('brand', brand)}
-                error={formErrors?.brand}
               />
               <PrimaryButton type="submit">Add vehicle</PrimaryButton>
             </Fragment>

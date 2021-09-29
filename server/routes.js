@@ -28,6 +28,6 @@ router.post('/vehicles/data/:id', vehiclesController.getData)
 router.delete('/vehicles/:id/delete', vehiclesController.delete)
 
 router.get('/auth/callback', authController.oAuthCallback)
-router.get('/auth/fleet', authController.fleetAuth)
+router.post('/auth/fleet', authController.fleetAuth)
 
 export default router

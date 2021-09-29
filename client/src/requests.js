@@ -71,10 +71,9 @@ export const fetchVehicleData = async (vehicleId, properties) => {
   return data
 }
 
-export const authFleetVehicle = async (vin, brand) => {
+export const authFleetVehicle = async (vin) => {
   const { data = [] } = await axios.post(`${API_URL}/auth/fleet`, {
     vin,
-    brand,
   })
 
   return data
