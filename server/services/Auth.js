@@ -35,18 +35,22 @@ class Auth {
 
     const { vin, brand } = await Auth.getVinAndBrand(
       appConfig,
-      accessTokenResponse.access_token
+      accessTokenResponse
     )
 
     const pending = !vin || !brand
     await Auth.addVehicle(vin, brand, accessTokenResponse, pending)
   }
 
-  static async getVinAndBrand(appConfig, accessToken) {
+  static async getVinAndBrand(appConfig, accessTokenResponse) {
     try {
+      if (accessTokenResponse.status === ACCESS_TOKEN_STATUS.PENDING) {
+        return { vin: null, brand: null }
+      }
+
       const graphQl = new GraphQlService(
         appConfig.graph_ql_api_config,
-        accessToken
+        accessTokenResponse.access_token
       )
 
       const { universal } = await graphQl.fetchProperties([
@@ -164,8 +168,29 @@ class Auth {
 
   static async authorizeFleetVehicle(vin) {
     const appConfig = await knex('app_config').first()
+    const authTokenResponse = await Auth.getFleetAuthToken(appConfig)
 
-    // 1. Generate service account JWT using service account private key and service account api key
+    // TODO: add auth (POST to fleets/vehicles), needs vin, brand and other stuff, if response is pending set vehicle as pending
+    const { data: accessTokenResponse } = await axios.post(
+      'https://api.high-mobility.com/v1/fleets/access_tokens',
+      {
+        vin,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${authTokenResponse.auth_token}`,
+        },
+      }
+    )
+
+    const { brand } = await Auth.getVinAndBrand(appConfig, accessTokenResponse)
+
+    // const pending = !brand || !vin || authorizedVehicle.status === FLEET_AUTH_STATUS.PENDING
+    const pending = !brand || !vin
+    await Auth.addVehicle(vin, brand, accessTokenResponse, pending)
+  }
+
+  static async getFleetAuthToken(appConfig) {
     const serviceAccountPrivateKey = Buffer.from(
       appConfig.fleet_api_config.private_key,
       'utf8'
@@ -182,7 +207,6 @@ class Auth {
       { algorithm: 'ES256' }
     )
 
-    // 2. Get service account auth token using service account jwt
     const { data: authTokenResponse } = await axios.post(
       'https://api.high-mobility.com/v1/auth_tokens',
       {
@@ -190,20 +214,12 @@ class Auth {
       }
     )
 
-    // 3. Give clearance for vehicle using vin and service account auth token
-    await axios.post(
-      'https://api.high-mobility.com/v1/fleets/vehicles',
-      {
-        vehicles: [{ vin }],
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${authTokenResponse.auth_token}`,
-        },
-      }
-    )
+    return authTokenResponse
+  }
 
-    // 4. Get status of vehicles registered for clearance
+  static async getFleetVehicles(appConfig) {
+    const authTokenResponse = await Auth.getFleetAuthToken(appConfig)
+
     const { data: authorizedVehicles } = await axios.get(
       'https://api.high-mobility.com/v1/fleets/vehicles',
       {
@@ -212,42 +228,8 @@ class Auth {
         },
       }
     )
-    const authorizedVehicle = authorizedVehicles.find(
-      (authorizedVehicle) =>
-        authorizedVehicle.vin.toLowerCase() === vin.toLowerCase()
-    )
 
-    if (
-      !authorizedVehicle ||
-      authorizedVehicle.status !== FLEET_AUTH_STATUS.APPROVED
-    ) {
-      throw new Error(
-        `Failed to authorize vehicle, status: ${
-          authorizedVehicle && authorizedVehicle.status
-        }`
-      )
-    }
-
-    // 5. Get fleet access token using vin and service account auth token
-    const { data: accessTokenResponse } = await axios.post(
-      'https://api.high-mobility.com/v1/fleets/access_tokens',
-      {
-        vin,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${authTokenResponse.auth_token}`,
-        },
-      }
-    )
-
-    const { brand } = await Auth.getVinAndBrand(
-      appConfig,
-      accessTokenResponse.access_token
-    )
-
-    const pending = authorizedVehicle.status === FLEET_AUTH_STATUS.PENDING
-    await Auth.addVehicle(vin, brand, accessTokenResponse, pending)
+    return authorizedVehicles
   }
 }
 
