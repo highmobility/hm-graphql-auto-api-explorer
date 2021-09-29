@@ -21,24 +21,14 @@ class OAuth {
       client_secret: appConfig.client_secret,
     })
 
-    const graphQl = new GraphQlService(
-      appConfig.graph_ql_api_config,
-      tokenResponse.access_token
-    )
-    const { universal } = await graphQl.fetchProperties([
-      'universal.brand',
-      'universal.vin',
-    ])
-
-    const vin = (universal && universal.vin && universal.vin.data) || null
-    const brand = (universal && universal.brand && universal.brand.data) || null
+    const { vin, brand } = await OAuth.getVinAndBrand(appConfig, tokenResponse)
 
     await knex.transaction(async (trx) => {
       const [vehicleId] = await trx('vehicles').insert(
         {
           vin,
           brand,
-          pending: !vin || !brand,
+          pending: tokenResponse.status === 'pending' || !vin || !brand,
         },
         'id'
       )
@@ -67,6 +57,34 @@ class OAuth {
         })
       }
     })
+  }
+
+  static async getVinAndBrand(appConfig, tokenResponse) {
+    if (tokenResponse.status === 'pending') {
+      return { vin: null, brand: null }
+    }
+
+    try {
+      const graphQl = new GraphQlService(
+        appConfig.graph_ql_api_config,
+        tokenResponse.access_token
+      )
+
+      const { universal } = await graphQl.fetchProperties([
+        'universal.brand',
+        'universal.vin',
+      ])
+
+      const vin = (universal && universal.vin && universal.vin.data) || null
+      const brand =
+        (universal && universal.brand && universal.brand.data) || null
+
+      return { vin, brand }
+    } catch (e) {
+      console.log('Failed to get vin and brand', e)
+
+      return { vin: null, brand: null }
+    }
   }
 
   static async getAccessToken(vehicleId) {
