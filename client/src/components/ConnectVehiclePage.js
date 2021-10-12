@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   authFleetVehicle,
