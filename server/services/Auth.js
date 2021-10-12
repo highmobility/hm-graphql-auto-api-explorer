@@ -4,10 +4,8 @@ import GraphQlService from './GraphQlService'
 import jwt from 'jsonwebtoken'
 import uuid4 from 'uuid4'
 
-const FLEET_AUTH_STATUS = {
-  REVOKED: 'revoked',
+const ACCESS_TOKEN_STATUS = {
   PENDING: 'pending',
-  REJECTED: 'rejected',
   APPROVED: 'approved',
 }
 

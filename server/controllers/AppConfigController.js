@@ -15,9 +15,10 @@ export default class AppConfigController {
     try {
       await knex.transaction(async (trx) => {
         await trx('app_config').select('*').delete()
+
         await trx('app_config').insert({
-          graph_ql_api_config: graphQlApiConfig,
-          fleet_api_config: fleetApiConfig,
+          graph_ql_api_config: graphQlApiConfig || null,
+          fleet_api_config: fleetApiConfig || null,
           client_id: clientId,
           client_secret: clientSecret,
           auth_url: authUrl,

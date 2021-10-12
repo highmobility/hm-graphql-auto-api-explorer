@@ -110,30 +110,28 @@ function ConnectVehiclePage() {
       <div className="ConnectVehiclePageContent">
         <h2 className="ConnectVehiclePageHeader">Connect your vehicle</h2>
         <GrayCircles />
-        <form
-          noValidate
-          spellCheck="false"
-          onSubmit={(e) => onSubmit(e)}
-          className="ConnectVehiclePageForm"
-        >
-          {appConfig?.app_type === APP_TYPES.FLEET ? (
-            <Fragment>
-              {fleetVehicles?.length === 0 && <label>No vehicles found</label>}
-              {
-                <FleetVehicleSelect
-                  value={vin}
-                  onSelect={(selectedVin) => setVin(selectedVin)}
-                  fleetVehicles={fleetVehicles}
-                />
-              }
-              <PrimaryButton type="submit">Add vehicle</PrimaryButton>
-            </Fragment>
-          ) : (
-            <a href={url?.toString()}>
-              <PrimaryButton>Add a vehicle</PrimaryButton>
-            </a>
-          )}
-        </form>
+        {appConfig?.app_type === APP_TYPES.FLEET ? (
+          <form
+            noValidate
+            spellCheck="false"
+            onSubmit={(e) => onSubmit(e)}
+            className="ConnectVehiclePageForm"
+          >
+            {fleetVehicles?.length === 0 && <label>No vehicles found</label>}
+            {
+              <FleetVehicleSelect
+                value={vin}
+                onSelect={(selectedVin) => setVin(selectedVin)}
+                fleetVehicles={fleetVehicles}
+              />
+            }
+            <PrimaryButton type="submit">Add vehicle</PrimaryButton>
+          </form>
+        ) : (
+          <a href={url?.toString()}>
+            <PrimaryButton>Add a vehicle</PrimaryButton>
+          </a>
+        )}
       </div>
     </div>
   )
