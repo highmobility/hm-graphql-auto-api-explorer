@@ -36,7 +36,11 @@ function FleetVehicleSelect({ value, fleetVehicles = [], onSelect }) {
     <div className="FleetVehicleSelect">
       <Dropdown
         value={value}
-        renderLabel={() => renderSelectItem(value, selectedVehicle?.status)}
+        renderLabel={() =>
+          value
+            ? renderSelectItem(value, selectedVehicle?.status)
+            : 'Select a vehicle'
+        }
         items={fleetVehicleDropdownItems}
       />
     </div>
