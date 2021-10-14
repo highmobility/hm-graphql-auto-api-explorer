@@ -208,7 +208,7 @@ function InitialConfigPage() {
           </ConfigGroup>
           {config.appType === APP_TYPES.FLEET && (
             <Fragment>
-              <label className="InputHeader">Fleet config</label>
+              <label className="InputHeader">SERVICE ACCOUNT CONFIG</label>
               <ConfigGroup tip={inputTips.FLEET[config.focusedInput]}>
                 <TextArea
                   height={340}
@@ -262,13 +262,17 @@ function InitialConfigPage() {
               onBlur={() => validateRequired('tokenUrl', config.tokenUrl)}
               error={formErrors?.tokenUrl}
             />
-            <div className="TokenInfo">
-              <label>Add the following redirect URI</label>
-              <p className="small">{AUTH_CALLBACK_URL}</p>
-            </div>
+            {config.appType === APP_TYPES.DRIVER && (
+              <div className="TokenInfo">
+                <label>Add the following redirect URI</label>
+                <p className="small">{AUTH_CALLBACK_URL}</p>
+              </div>
+            )}
           </ConfigGroup>
           <ConfigGroup>
-            <PrimaryButton type="submit">Get started</PrimaryButton>
+            <PrimaryButton className="SubmitButton" type="submit">
+              Get started
+            </PrimaryButton>
           </ConfigGroup>
         </form>
       </section>
