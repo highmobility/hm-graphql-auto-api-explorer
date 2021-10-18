@@ -2,6 +2,7 @@ import { knex } from '../database'
 import GraphQlService from '../services/GraphQlService'
 import { camelCase } from 'lodash'
 import Auth from '../services/Auth'
+import PropertyValues from '../services/PropertyValues'
 
 export default class VehiclesController {
   async index(req, res) {
@@ -57,23 +58,28 @@ export default class VehiclesController {
         accessToken
       )
 
-      const propertiesToFetch = req.body.properties
+      const propertiesToFetch = (await knex('properties').select()).map(
+        (p) => p.unique_id
+      )
+
       if (vehiclePending) {
         propertiesToFetch.push('universal.brand')
         propertiesToFetch.push('universal.vin')
       }
 
-      const properties = await graphQl.fetchProperties(propertiesToFetch)
+      const graphQlResponse = await graphQl.fetchProperties(propertiesToFetch)
+
+      await PropertyValues.saveValues(vehicleId, graphQlResponse)
 
       if (vehiclePending) {
         const brand =
-          properties.universal &&
-          properties.universal.brand &&
-          properties.universal.brand.data
+          graphQlResponse.universal &&
+          graphQlResponse.universal.brand &&
+          graphQlResponse.universal.brand.data
         const vin =
-          properties.universal &&
-          properties.universal.vin &&
-          properties.universal.vin.data
+          graphQlResponse.universal &&
+          graphQlResponse.universal.vin &&
+          graphQlResponse.universal.vin.data
 
         if (brand && vin) {
           await knex('vehicles').where('id', id).update({
@@ -84,7 +90,10 @@ export default class VehiclesController {
         }
       }
 
-      res.json(properties)
+      const newProperties = await knex('property_values')
+        .where({ vehicle_id: vehicleId })
+        .select()
+      res.json(newProperties)
     } catch (err) {
       console.log('Failed to fetch vehicle data', err)
       res.status(500).json({ error: 'Failed to fetch vehicle data' })
