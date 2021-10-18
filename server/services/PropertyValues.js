@@ -3,8 +3,12 @@ import { knex } from '../database'
 class PropertyValues {
   static async saveValues(vehicleId, graphQlResponse) {
     try {
+      if (!graphQlResponse) return
+
       Object.entries(graphQlResponse).forEach(
         ([capabilityName, properties]) => {
+          if (!properties) return
+
           Object.entries(properties).forEach(
             async ([propertyName, propertyValue]) => {
               await PropertyValues.updateOrCreate(
