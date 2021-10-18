@@ -5,21 +5,21 @@ class PropertyValues {
     try {
       if (!graphQlResponse) return
 
-      Object.entries(graphQlResponse).forEach(
-        ([capabilityName, properties]) => {
-          if (!properties) return
+      for (const [capabilityName, properties] of Object.entries(
+        graphQlResponse
+      )) {
+        if (!properties) return
 
-          Object.entries(properties).forEach(
-            async ([propertyName, propertyValue]) => {
-              await PropertyValues.updateOrCreate(
-                vehicleId,
-                `${capabilityName}.${propertyName}`,
-                propertyValue
-              )
-            }
+        for (const [propertyName, propertyValue] of Object.entries(
+          properties
+        )) {
+          await PropertyValues.updateOrCreate(
+            vehicleId,
+            `${capabilityName}.${propertyName}`,
+            propertyValue
           )
         }
-      )
+      }
     } catch (e) {
       console.log('Failed to save property values:', e)
     }

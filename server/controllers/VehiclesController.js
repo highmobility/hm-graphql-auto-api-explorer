@@ -92,6 +92,7 @@ export default class VehiclesController {
 
       const newProperties = await knex('property_values')
         .where({ vehicle_id: vehicleId })
+        .whereIn('property_unique_id', propertiesToFetch)
         .select()
       res.json(newProperties)
     } catch (err) {
