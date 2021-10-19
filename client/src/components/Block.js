@@ -1,6 +1,8 @@
+import { format, formatDistanceStrict, isBefore, sub } from 'date-fns'
 import { camelCase, startCase, upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import { useInterval } from 'react-use'
 import '../styles/Block.scss'
 import {
   formatUnit,
@@ -10,8 +12,38 @@ import {
 } from '../utils/properties'
 import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
+import find from 'lodash/find'
 
 function Block({ children, property, className = '' }) {
+  const [updatedAt, setUpdatedAt] = useState(null)
+
+  const changeUpdatedAt = useCallback(() => {
+    const timestamp =
+      property.data?.timestamp || find(property.data, 'timestamp')?.timestamp
+
+    if (!timestamp) return
+
+    if (isBefore(new Date(timestamp), sub(new Date(), { hours: 24 }))) {
+      return setUpdatedAt(
+        format(new Date(timestamp), "dd.MM.yyyy 'at' HH:mm zzz")
+      )
+    }
+
+    return setUpdatedAt(
+      formatDistanceStrict(new Date(timestamp), new Date(), {
+        addSuffix: true,
+      })
+    )
+  }, [property?.data])
+
+  useEffect(() => {
+    changeUpdatedAt()
+  }, [property, changeUpdatedAt])
+
+  useInterval(() => {
+    changeUpdatedAt()
+  }, 1000)
+
   const renderBlockMultiValue = (item) => {
     if (typeof item.data === 'object' && item.data !== null) {
       // if property.items > 2, render as label1:value; label2: value2
@@ -109,9 +141,14 @@ function Block({ children, property, className = '' }) {
     <div className={`Block ${className} ${!!property?.data ? '' : 'NoValue'}`}>
       <div className="BlockContent">
         <PinButton propertyId={getPropertyUniqueId(property.config)} />
-        <span className="BlockCapabilityLabel">
-          {camelCaseToWords(property.config.capabilityName)}
-        </span>
+        <div className="BlockLabels">
+          <span className="BlockCapabilityLabel">
+            {camelCaseToWords(property.config.capabilityName)}
+          </span>
+          {updatedAt && (
+            <span className="BlockTimestamp">updated {updatedAt}</span>
+          )}
+        </div>
         <h4 className="BlockPropertyName">
           {upperFirst(camelCaseToWords(property.config.name_cased))}
         </h4>

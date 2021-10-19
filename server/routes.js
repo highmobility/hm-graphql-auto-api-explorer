@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import AppConfigController from './controllers/AppConfigController'
-import OauthController from './controllers/OauthController'
+import AuthController from './controllers/AuthController'
 import VehiclesController from './controllers/VehiclesController'
 import ConfigController from './controllers/ConfigController'
 import PropertiesController from './controllers/PropertiesController'
 
 const appConfigController = new AppConfigController()
-const oAuthController = new OauthController()
+const authController = new AuthController()
 const vehiclesController = new VehiclesController()
 const configController = new ConfigController()
 const propertiesController = new PropertiesController()
@@ -26,6 +26,9 @@ router.put('/properties', propertiesController.update)
 router.get('/vehicles', vehiclesController.index)
 router.post('/vehicles/data/:id', vehiclesController.getData)
 router.delete('/vehicles/:id/delete', vehiclesController.delete)
-router.get('/auth/callback', oAuthController.callback)
+
+router.get('/auth/callback', authController.oAuthCallback)
+router.post('/auth/fleet', authController.fleetAuth)
+router.get('/auth/fleet/vehicles', authController.getFleetVehicles)
 
 export default router

@@ -48,9 +48,9 @@ export default function Dropdown({
               <div
                 className={`DropdownItem ${
                   value === item.value ? 'Selected' : ''
-                }`}
+                } ${item.disabled ? 'Disabled' : ''}`}
                 key={key}
-                onClick={() => onClickItem(item)}
+                onClick={() => !item.disabled && onClickItem(item)}
               >
                 {item.renderLabel() || ''}
               </div>

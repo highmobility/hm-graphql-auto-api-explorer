@@ -52,17 +52,17 @@ export default class GraphQlService {
                           ? `${subItem.name_cased} { value unit }`
                           : subItem.name_cased
                       )
-                      .join(' ')} }`
+                      .join(' ')} timestamp }`
                   }
 
                   return item.unit
                     ? `${item.name_cased} { value unit }`
                     : item.name_cased
                 })
-                .join(' ')} } }`
+                .join(' ')} } timestamp }`
             : `{ data ${
                 propertyConfig.type.includes('unit') ? '{ value, unit }' : ''
-              } }`
+              } timestamp }`
 
           return `${propertyName} ${propertyQuery}`
         })

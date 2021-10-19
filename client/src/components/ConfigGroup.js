@@ -17,7 +17,7 @@ export default function ConfigGroup({ children, tip = null }) {
       <div className="ConfigGroupTips">
         {shownTip && (
           <ConfigGroupTip title={shownTip.title}>
-            {shownTip.text}
+            <span dangerouslySetInnerHTML={{ __html: shownTip.text }} />
           </ConfigGroupTip>
         )}
       </div>

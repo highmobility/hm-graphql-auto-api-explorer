@@ -2,15 +2,19 @@
   text-align: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   background: linear-gradient(#fff 50%, #f7f8fc 50%);
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
 
   .ConnectVehiclePageError {
     text-align: center;
     background: #df4747;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
 
     p {
@@ -18,19 +22,16 @@
     }
   }
 
-  .ConnectVehiclePageContent {
-    position: absolute;
-    top: calc(50% - 40px);
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
   .ConnectVehiclePageHeader {
     margin-bottom: 63px;
-    margin-top: 49px;
   }
 
   .PrimaryButton {
+    width: 278px;
+    margin: 0 auto 20px;
+  }
+
+  .ConnectVehiclePageForm {
     width: 280px;
     margin: 0 auto;
   }

@@ -1,0 +1,34 @@
+.AppTypeSelector {
+  max-width: 540px;
+  background: white;
+  border-radius: 12px;
+  margin: 16px 0;
+  display: flex;
+  padding: 20px;
+  border: 2px solid white;
+  transition: border-color 300ms ease;
+
+  &:hover {
+    cursor: pointer;
+    border-color: #e9ecef;
+
+    .RadioButton:not(.checked) {
+      background: #e0e3e5;
+      border: 1px solid #ced4da;
+    }
+  }
+
+  &.active {
+    border-color: #037be7;
+  }
+
+  .AppTypeSelectorContent {
+  }
+
+  .AppTypeSelectorRadio {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-left: 20px;
+  }
+}

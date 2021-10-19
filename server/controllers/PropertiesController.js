@@ -4,7 +4,6 @@ export default class PropertiesController {
   async get(req, res) {
     try {
       const properties = await knex('properties').select('*')
-
       res.json(properties)
     } catch (err) {
       console.log(err.stack)

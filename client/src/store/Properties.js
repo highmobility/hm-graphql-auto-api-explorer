@@ -23,6 +23,7 @@ export default class Properties {
           newValues[uniqueId] = {
             value: propertyData?.data?.value || propertyData.data,
             unit: propertyData?.data?.unit || null,
+            timestamp: propertyData?.timestamp,
           }
         })
       }

@@ -29,14 +29,20 @@ This repo includes a Node.js app, which features a vehicle dashboard and demonst
 
 Step 0: Make sure you have this sample app deployed. Once you load the root URL, you will be presented to configure it.
 
+#### General Setup
+
 1. Go to [high-mobility.com](https://high-mobility.com) and create an account or sign in
 2. Create a Cloud App under the Develop tab. For exact details, have a look at the [Create App step](https://docs.high-mobility.com/guides/getting-started/graph-ql/#create-app) in our docs.
 3. Choose the Client Certificate tab and then the GraphQL tab as shown in the screenshot below.
 
 <img src="get-graphql-snippet.png" alt="" width="400"/>
 
-5. Second, you need to insert the OAuth2 configuration, which you will find under *My Settings/Team Settings > OAuth Client*. Note that for Cloud Apps created under the Production tab, the OAuth2 configuration is listed directly in the app details view.
+5. Second, you need to insert the OAuth2 configuration, which you will find under _My Settings/Team Settings > OAuth Client_. Note that for Cloud Apps created under the Production tab, the OAuth2 configuration is listed directly in the app details view.
 6. In the same OAuth2 page, add the Redirect URI that is listed at the end of the configuration form of this app. This way you are redirected back to the app once the consent flow has finished.
+
+#### Fleet apps
+
+7. For fleet apps you will also need to insert fleet config. To download the JSON open your production app, then the service account keys tab, then click on the "+" button to download the config.
 
 ## Local setup
 
