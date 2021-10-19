@@ -1,4 +1,4 @@
-import { differenceInHours, format, formatDistanceStrict } from 'date-fns'
+import { format, formatDistanceStrict, isAfter, isBefore, sub } from 'date-fns'
 import { camelCase, startCase, upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
@@ -12,29 +12,33 @@ import {
 } from '../utils/properties'
 import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
+import find from 'lodash/find'
 
 function Block({ children, property, className = '' }) {
-  const [updatedAt, setUpdatedAt] = useState('')
+  const [updatedAt, setUpdatedAt] = useState(null)
 
   const changeUpdatedAt = useCallback(() => {
-    if (!property.value) return ''
+    const timestamp =
+      property.data?.timestamp || find(property.data, 'timestamp')?.timestamp
 
-    if (differenceInHours(new Date(), new Date(property.updated_at)) > 24) {
+    if (!timestamp) return
+
+    if (isBefore(new Date(timestamp), sub(new Date(), { hours: 24 }))) {
       return setUpdatedAt(
-        format(new Date(property.updated_at), "dd.MM.yyyy 'at' HH:mm")
+        format(new Date(timestamp), "dd.MM.yyyy 'at' HH:mm zzz")
       )
     }
 
     return setUpdatedAt(
-      formatDistanceStrict(new Date(property.updated_at), new Date(), {
+      formatDistanceStrict(new Date(timestamp), new Date(), {
         addSuffix: true,
       })
     )
-  }, [property.updated_at, property.value])
+  }, [property?.data])
 
   useEffect(() => {
     changeUpdatedAt()
-  }, [property.updated_at, property.value, changeUpdatedAt])
+  }, [property, changeUpdatedAt])
 
   useInterval(() => {
     changeUpdatedAt()
@@ -141,7 +145,7 @@ function Block({ children, property, className = '' }) {
           <span className="BlockCapabilityLabel">
             {camelCaseToWords(property.config.capabilityName)}
           </span>
-          {property.data && (
+          {updatedAt && (
             <span className="BlockTimestamp">updated {updatedAt}</span>
           )}
         </div>
