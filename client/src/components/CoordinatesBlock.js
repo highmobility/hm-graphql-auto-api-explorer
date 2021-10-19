@@ -14,14 +14,14 @@ export default function CoordinatesBlock({ property }) {
 
   useEffect(() => {
     setLat(
-      Number.isNaN(Number(property?.data?.value.latitude))
+      Number.isNaN(Number(property.value?.data?.latitude))
         ? 0
-        : Number(property?.data?.value.latitude)
+        : Number(property.value?.data?.latitude)
     )
     setLng(
-      Number.isNaN(Number(property?.data?.value.longitude))
+      Number.isNaN(Number(property.value?.data?.longitude))
         ? 0
-        : Number(property?.data?.value.longitude)
+        : Number(property.value?.data?.longitude)
     )
   }, [property])
 

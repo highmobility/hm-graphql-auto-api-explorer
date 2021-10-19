@@ -41,6 +41,7 @@ export default class VehiclesController {
   async getData(req, res) {
     try {
       const { id } = req.params
+      const { properties: propertiesToFetch } = req.body
       const { id: vehicleId, pending: vehiclePending } = await knex('vehicles')
         .where('id', id)
         .first()
@@ -56,10 +57,6 @@ export default class VehiclesController {
       const graphQl = new GraphQlService(
         appConfig.graph_ql_api_config,
         accessToken
-      )
-
-      const propertiesToFetch = (await knex('properties').select()).map(
-        (p) => p.unique_id
       )
 
       if (vehiclePending) {

@@ -8,18 +8,18 @@ import { valueWithBaseUnit } from '../utils/properties'
 
 export default function HeadingBlock({ property }) {
   const [value, setValue] = useState(0)
-  const [unit, setUnit] = useState(property?.data?.unit)
+  const [unit, setUnit] = useState(property.value?.data?.unit)
   const [valueInDegrees, setValueInDegrees] = useState(0)
   const baseRotation = 104 // svg has to be rotated to be facing up
   const animatedValue = useAnimateNumber(value, 500)
 
   useEffect(() => {
-    setValue(Number(property?.data?.value))
-    setUnit(property?.data?.unit)
+    setValue(Number(property.value?.data?.value))
+    setUnit(property.value?.data?.unit)
     setValueInDegrees(
       valueWithBaseUnit(
-        property?.data?.value,
-        property?.data?.unit,
+        property.value?.data?.value,
+        property.value?.data?.unit,
         property.config
       )
     )

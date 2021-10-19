@@ -1,6 +1,8 @@
+import { differenceInHours, format, formatDistanceStrict } from 'date-fns'
 import { camelCase, startCase, upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { Fragment } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import { useInterval } from 'react-use'
 import '../styles/Block.scss'
 import {
   formatUnit,
@@ -12,6 +14,32 @@ import { camelCaseToWords } from '../utils/strings'
 import PinButton from './PinButton'
 
 function Block({ children, property, className = '' }) {
+  const [updatedAt, setUpdatedAt] = useState('')
+
+  const changeUpdatedAt = useCallback(() => {
+    if (!property.value) return ''
+
+    if (differenceInHours(new Date(), new Date(property.updated_at)) > 24) {
+      return setUpdatedAt(
+        format(new Date(property.updated_at), "dd.MM.yyyy 'at' HH:mm")
+      )
+    }
+
+    return setUpdatedAt(
+      formatDistanceStrict(new Date(property.updated_at), new Date(), {
+        addSuffix: true,
+      })
+    )
+  }, [property.updated_at, property.value])
+
+  useEffect(() => {
+    changeUpdatedAt()
+  }, [property.updated_at, property.value, changeUpdatedAt])
+
+  useInterval(() => {
+    changeUpdatedAt()
+  }, 1000)
+
   const renderBlockMultiValue = (item) => {
     if (typeof item.data === 'object' && item.data !== null) {
       // if property.items > 2, render as label1:value; label2: value2
@@ -63,10 +91,10 @@ function Block({ children, property, className = '' }) {
   }
 
   const renderBlockValue = () => {
-    if (Array.isArray(property?.data)) {
+    if (Array.isArray(property.value)) {
       return (
         <div className="BlockMultiValues">
-          {property?.data.map((item, key) => (
+          {property.value?.map((item, key) => (
             <div className="BlockMultiValue" key={key}>
               {renderBlockMultiValue(item)}
             </div>
@@ -76,42 +104,48 @@ function Block({ children, property, className = '' }) {
     }
 
     if (
-      typeof property.data?.value === 'object' &&
-      property.data?.value !== null
+      typeof property.value?.data === 'object' &&
+      property.value.data !== null &&
+      !property?.value?.data?.value
     ) {
       return (
         <div className="BlockMultiValues">
-          {Object.entries(property?.data?.value).map(
-            ([itemName, itemValue]) => (
-              <div className="BlockMultiValue" key={`${itemName}-${itemValue}`}>
-                <div className="BlockMultiValueKey">
-                  {camelCaseToWords(itemName)}
-                </div>
-                <div className="BlockMultiValueValue">
-                  {formatValue(itemValue)}
-                </div>
+          {Object.entries(property.value?.data).map(([itemName, itemValue]) => (
+            <div className="BlockMultiValue" key={`${itemName}-${itemValue}`}>
+              <div className="BlockMultiValueKey">
+                {camelCaseToWords(itemName)}
               </div>
-            )
-          )}
+              <div className="BlockMultiValueValue">
+                {formatValue(itemValue)}
+              </div>
+            </div>
+          ))}
         </div>
       )
     }
 
     return (
       <Fragment>
-        <span className="Num2">{formatValue(property?.data?.value)}</span>{' '}
-        <span className="Num4">{formatUnit(property?.data?.unit)}</span>
+        <span className="Num2">
+          {formatValue(property.value?.data?.value || property.value?.data)}
+        </span>{' '}
+        <span className="Num4">{formatUnit(property.value?.data?.unit)}</span>
       </Fragment>
     )
   }
 
   return (
-    <div className={`Block ${className} ${!!property?.data ? '' : 'NoValue'}`}>
+    <div className={`Block ${className} ${property.value ? '' : 'NoValue'}`}>
       <div className="BlockContent">
         <PinButton propertyId={getPropertyUniqueId(property.config)} />
-        <span className="BlockCapabilityLabel">
-          {camelCaseToWords(property.config.capabilityName)}
-        </span>
+        <div className="BlockLabels">
+          <span className="BlockCapabilityLabel">
+            {camelCaseToWords(property.config.capabilityName)}
+          </span>
+          {property.value && (
+            <span className="BlockTimestamp">updated {updatedAt}</span>
+          )}
+        </div>
         <h4 className="BlockPropertyName">
           {upperFirst(camelCaseToWords(property.config.name_cased))}
         </h4>

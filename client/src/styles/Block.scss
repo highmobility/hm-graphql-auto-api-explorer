@@ -23,22 +23,43 @@
     box-sizing: border-box;
     overflow: hidden;
 
-    .BlockCapabilityLabel {
-      display: inline-flex;
-      flex-direction: row;
-      align-items: flex-start;
-      padding: 3px 6px;
-      background: #e9ecef;
-      border-radius: 6px;
-      text-transform: uppercase;
-      color: #6c757d;
-      font-weight: bold;
-      font-size: 11px;
-      line-height: 13px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .BlockLabels {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
       margin-bottom: 5px;
-      flex-shrink: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: calc(100% - 26px);
+
+      .BlockCapabilityLabel {
+        display: block;
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 3px 6px;
+        background: #e9ecef;
+        border-radius: 6px;
+        text-transform: uppercase;
+        color: #6c757d;
+        font-weight: bold;
+        font-size: 11px;
+        line-height: 13px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        margin-right: 4px;
+      }
+
+      .BlockTimestamp {
+        display: block;
+        font-style: normal;
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: 0.06em;
+        color: #6c757d;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     .BlockPropertyName {

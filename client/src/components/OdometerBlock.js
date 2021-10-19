@@ -11,7 +11,7 @@ export default function OdometerBlock({ property }) {
   )
 
   useEffect(() => {
-    setValue(property?.data?.value || 0)
+    setValue(property.value?.data?.value || 0)
   }, [property])
 
   return (
@@ -26,7 +26,7 @@ export default function OdometerBlock({ property }) {
           <div className="OdometerBlockDigit Num2">{animatedValue[5]}</div>
         </div>
         <div className="OdometerBlockUnit">
-          {formatUnit(property?.data?.unit)}
+          {formatUnit(property.value?.data?.unit)}
         </div>
       </div>
     </Block>

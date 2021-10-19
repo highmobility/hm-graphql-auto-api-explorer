@@ -5,6 +5,10 @@ export default class PropertiesController {
     try {
       const properties = await knex('properties').select('*')
 
+      // If no property values, it's a new app and should show default properties
+      const propertyValues = await knex('property_values').select('*')
+      if (propertyValues.length < 1) return res.json(null)
+
       res.json(properties)
     } catch (err) {
       console.log(err.stack)
