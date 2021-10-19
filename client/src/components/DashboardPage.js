@@ -1,5 +1,6 @@
 import '../styles/DashboardPage.scss'
 import { observer } from 'mobx-react-lite'
+import { getBlockData, getPropertyConfig } from '../utils/properties'
 import Header from './Header'
 import Grid from './Grid'
 import { useMobx } from '../store/mobx'
@@ -12,7 +13,6 @@ import { VIEWS } from '../store/Config'
 import { useInterval } from 'react-use'
 import DashboardMap from './DashboardMap'
 import ErrorMessage from './ErrorMessage'
-import { getBlockData, getPropertyConfig } from '../utils/properties'
 
 function DashboardPage() {
   const [initialDataFetched, setInitialDataFetched] = useState(false)
@@ -21,14 +21,15 @@ function DashboardPage() {
   const { vehicles, config, properties, app } = useMobx()
   const parsedProperties = useMemo(() => {
     return config.shownProperties
-      .map((shownPropertyId) => {
-        const propertyConfig = getPropertyConfig(shownPropertyId)
+      .map((propertyUniqueId) => {
+        const data = properties.values?.[propertyUniqueId]
+        const propertyConfig = getPropertyConfig(propertyUniqueId)
 
         return {
-          id: shownPropertyId,
-          ...properties.values.find((p) => p.id === shownPropertyId),
+          id: propertyUniqueId,
           config: propertyConfig,
           block: getBlockData(config.view, propertyConfig),
+          data,
         }
       })
       .sort((a, b) => {
@@ -47,8 +48,8 @@ function DashboardPage() {
   }, [
     config.pinnedProperties,
     config.shownProperties,
-    properties.values,
     config.view,
+    properties.values,
   ])
 
   const fetchData = useCallback(async () => {
@@ -62,7 +63,8 @@ function DashboardPage() {
 
       if (
         vehicles.list.find((vehicle) => vehicle.id === config.selectedVehicleId)
-          ?.pending
+          ?.pending &&
+        vehicleData?.universal
       ) {
         await vehicles.fetch()
       }
@@ -100,7 +102,7 @@ function DashboardPage() {
       config.setSelectedVehicleId(selected_vehicle_id)
 
       const propertiesData = await fetchProperties()
-      if (propertiesData) {
+      if (propertiesData.length > 0) {
         config.setPinnedProperties(
           propertiesData.filter((p) => p.pinned).map((p) => p.unique_id)
         )
@@ -169,11 +171,11 @@ function DashboardPage() {
     if (!initialDataFetched) return <Spinner />
 
     const coordinatesProperty = parsedProperties.find(
-      (property) => property.id === 'vehicleLocation.coordinates'
+      (parsedProperty) => parsedProperty.id === 'vehicleLocation.coordinates'
     )
 
     const headingProperty = parsedProperties.find(
-      (property) => property.id === 'vehicleLocation.heading'
+      (parsedProperty) => parsedProperty.id === 'vehicleLocation.heading'
     )
 
     return (

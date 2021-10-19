@@ -123,17 +123,16 @@ export default class GraphQlService {
   }
 
   async fetchProperties(properties = []) {
-    if (properties.length === 0) return {}
+    if (properties.length === 0) {
+      return {}
+    }
 
     const validProperties = await this.validateProperties(properties)
-
-    if (validProperties.length === 0) return {}
-
     const query = this.buildQuery(validProperties)
     const jwtToken = this.generateJWT()
 
     const {
-      data: { data, errors, error, reason },
+      data: { data, errors },
     } = await axios.post(
       this.graphQlApiConfig.app_uri,
       {
@@ -151,8 +150,6 @@ export default class GraphQlService {
       errors && Array.isArray(errors) && errors.length > 0 && errors[0].message
     if (errorMessage) {
       throw new Error(errorMessage)
-    } else if (error && reason) {
-      throw new Error(reason)
     }
 
     return data

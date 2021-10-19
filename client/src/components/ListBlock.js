@@ -40,10 +40,10 @@ function ListBlock({ property }) {
   }
 
   const renderValues = () => {
-    if (Array.isArray(property.value)) {
+    if (Array.isArray(property.data)) {
       return (
         <Fragment>
-          {property.value.map((item, key) => (
+          {property.data.map((item, key) => (
             <div className="ListBlockValue" key={key}>
               {renderBlockMultiValue(item)}
             </div>
@@ -53,11 +53,10 @@ function ListBlock({ property }) {
     }
 
     if (
-      typeof property?.value?.data === 'object' &&
-      property?.value?.data !== null &&
-      !property?.value?.data?.value
+      typeof property.data?.value === 'object' &&
+      property.data?.value !== null
     ) {
-      return Object.entries(property.value?.data).map(
+      return Object.entries(property?.data?.value).map(
         ([itemName, itemValue]) => (
           <div className="ListBlockValue" key={`${itemName}-${itemValue}`}>
             {camelCaseToWords(itemName)}: {formatValue(itemValue)}
@@ -68,14 +67,13 @@ function ListBlock({ property }) {
 
     return (
       <Fragment>
-        {formatValue(property.value?.data?.value || property.value?.data)}{' '}
-        {formatUnit(property.value?.data?.unit)}
+        {formatValue(property.data?.value)} {formatUnit(property?.data?.unit)}
       </Fragment>
     )
   }
 
   return (
-    <div className={`ListBlock ${!!property.value ? '' : 'NoValue'}`}>
+    <div className={`ListBlock ${!!property?.data ? '' : 'NoValue'}`}>
       <div className="ListBlockCapability">
         {upperFirst(
           camelCaseToWords(property.config.capabilityName).toLowerCase()

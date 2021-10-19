@@ -36,7 +36,10 @@ export default function Grid({ items, view = VIEWS.GRID }) {
       return true
     }
 
+    let loop = 0
     while (gridItems.length < items.length) {
+      if (loop > 100) break
+
       const itemToAdd = items.find((item) => {
         return (
           !gridItems.some((addedItem) => item.id === addedItem.id) &&
@@ -86,6 +89,8 @@ export default function Grid({ items, view = VIEWS.GRID }) {
           column = 0
         }
       }
+
+      loop++
     }
 
     return [heights, gridItems]

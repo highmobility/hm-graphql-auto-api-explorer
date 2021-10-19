@@ -91,10 +91,10 @@ function Block({ children, property, className = '' }) {
   }
 
   const renderBlockValue = () => {
-    if (Array.isArray(property.value)) {
+    if (Array.isArray(property?.data)) {
       return (
         <div className="BlockMultiValues">
-          {property.value?.map((item, key) => (
+          {property?.data.map((item, key) => (
             <div className="BlockMultiValue" key={key}>
               {renderBlockMultiValue(item)}
             </div>
@@ -104,45 +104,44 @@ function Block({ children, property, className = '' }) {
     }
 
     if (
-      typeof property.value?.data === 'object' &&
-      property.value.data !== null &&
-      !property?.value?.data?.value
+      typeof property.data?.value === 'object' &&
+      property.data?.value !== null
     ) {
       return (
         <div className="BlockMultiValues">
-          {Object.entries(property.value?.data).map(([itemName, itemValue]) => (
-            <div className="BlockMultiValue" key={`${itemName}-${itemValue}`}>
-              <div className="BlockMultiValueKey">
-                {camelCaseToWords(itemName)}
+          {Object.entries(property?.data?.value).map(
+            ([itemName, itemValue]) => (
+              <div className="BlockMultiValue" key={`${itemName}-${itemValue}`}>
+                <div className="BlockMultiValueKey">
+                  {camelCaseToWords(itemName)}
+                </div>
+                <div className="BlockMultiValueValue">
+                  {formatValue(itemValue)}
+                </div>
               </div>
-              <div className="BlockMultiValueValue">
-                {formatValue(itemValue)}
-              </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       )
     }
 
     return (
       <Fragment>
-        <span className="Num2">
-          {formatValue(property.value?.data?.value || property.value?.data)}
-        </span>{' '}
-        <span className="Num4">{formatUnit(property.value?.data?.unit)}</span>
+        <span className="Num2">{formatValue(property?.data?.value)}</span>{' '}
+        <span className="Num4">{formatUnit(property?.data?.unit)}</span>
       </Fragment>
     )
   }
 
   return (
-    <div className={`Block ${className} ${property.value ? '' : 'NoValue'}`}>
+    <div className={`Block ${className} ${!!property?.data ? '' : 'NoValue'}`}>
       <div className="BlockContent">
         <PinButton propertyId={getPropertyUniqueId(property.config)} />
         <div className="BlockLabels">
           <span className="BlockCapabilityLabel">
             {camelCaseToWords(property.config.capabilityName)}
           </span>
-          {property.value && (
+          {property.data && (
             <span className="BlockTimestamp">updated {updatedAt}</span>
           )}
         </div>

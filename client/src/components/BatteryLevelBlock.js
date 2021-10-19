@@ -9,8 +9,8 @@ export default function BatteryLevelBlock({ property }) {
   const animatedValue = useAnimateNumber(Number(percentValue), 500)
 
   useEffect(() => {
-    setValue(property.value?.data || 0)
-  }, [property.value?.data])
+    setValue(property?.data?.value || 0)
+  }, [property])
 
   return (
     <Block className="BatteryLevelBlock" property={property}>

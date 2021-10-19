@@ -4,25 +4,25 @@ import '../styles/DoorsBlock.scss'
 import { ReactComponent as CarSvg } from '../images/car.svg'
 
 export default function DoorsBlock({ property }) {
-  const frontLeftData = property.value?.find(
+  const frontLeftData = property?.data?.find(
     (locationData) => locationData.data.location === 'frontLeft'
   )?.data
   const frontLeft = frontLeftData?.position || frontLeftData?.lockState
   const frontLeftActive = frontLeft === 'open' || frontLeft === 'unlocked'
 
-  const rearLeftData = property.value?.find(
+  const rearLeftData = property?.data?.find(
     (locationData) => locationData.data.location === 'rearLeft'
   )?.data
   const rearLeft = rearLeftData?.position || rearLeftData?.lockState
   const rearLeftActive = rearLeft === 'open' || rearLeft === 'unlocked'
 
-  const frontRightData = property.value?.find(
+  const frontRightData = property?.data?.find(
     (locationData) => locationData.data.location === 'frontRight'
   )?.data
   const frontRight = frontRightData?.position || frontRightData?.lockState
   const frontRightActive = frontRight === 'open' || frontRight === 'unlocked'
 
-  const rearRightData = property.value?.find(
+  const rearRightData = property?.data?.find(
     (locationData) => locationData.data.location === 'rearRight'
   )?.data
   const rearRight = rearRightData?.position || rearRightData?.lockState
