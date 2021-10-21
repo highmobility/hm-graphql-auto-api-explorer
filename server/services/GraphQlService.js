@@ -52,7 +52,7 @@ export default class GraphQlService {
                           ? `${subItem.name_cased} { value unit }`
                           : subItem.name_cased
                       )
-                      .join(' ')} timestamp }`
+                      .join(' ')} }`
                   }
 
                   return item.unit
