@@ -28,7 +28,7 @@ function DashboardPage() {
         return {
           id: propertyUniqueId,
           config: propertyConfig,
-          block: getBlockData(config.view, propertyConfig),
+          block: getBlockData(config.view, propertyConfig, data),
           data,
         }
       })

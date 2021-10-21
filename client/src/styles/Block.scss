@@ -78,23 +78,34 @@
       width: 100%;
       text-overflow: ellipsis;
       white-space: nowrap;
+      flex: 1;
 
       .Num2 {
         line-height: inherit;
       }
     }
 
+    .BlockMultiValueRow {
+      width: 100%;
+      margin-bottom: 6px;
+
+      .BlockMultiValues {
+        flex-wrap: nowrap;
+      }
+    }
+
     .BlockMultiValues {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       width: 100%;
+      overflow: hidden;
 
       .BlockMultiValue {
         flex: 1;
-
-        &:not(:last-child) {
-          margin-right: 4px;
-        }
+        margin-right: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .BlockMultiValueKey {
@@ -106,9 +117,9 @@
       .BlockMultiValueValue {
         font-size: 26px;
         line-height: normal;
-        display: flex;
-        align-items: flex-end;
         color: #495057;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
