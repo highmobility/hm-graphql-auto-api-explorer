@@ -29,6 +29,7 @@ export default class ConfigController {
         google_maps_api_key: req.body.googleMapsApiKey,
         basic_auth_enabled: req.body.basicAuthEnabled,
         basic_auth_username: req.body.basicAuthUsername,
+        continuous_database_logging: req.body.loggingEnabled,
       }
 
       if (req.body.basicAuthPassword) {

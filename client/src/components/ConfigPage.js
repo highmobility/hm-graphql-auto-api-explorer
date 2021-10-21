@@ -30,6 +30,7 @@ function ConfigPage() {
   const [basicAuthUsername, setBasicAuthUsername] = useState(null)
   const [basicAuthPassword, setBasicAuthPassword] = useState(null)
   const [basicAuthEnabled, setBasicAuthEnabled] = useState(false)
+  const [loggingEnabled, setLoggingEnabled] = useState(false)
   const [addingAuth, setAddingAuth] = useState(false)
   const [removingAuth, setRemovingAuth] = useState(false)
   const [showErrors, setShowErrors] = useState(false)
@@ -43,6 +44,7 @@ function ConfigPage() {
         ])
         setMergedConfig({ ...appConfig, config })
         setBasicAuthEnabled(config.basic_auth_enabled)
+        setLoggingEnabled(config.continuous_database_logging)
       } catch (e) {
         console.log('Failed to fetch configs', e)
       }
@@ -85,6 +87,7 @@ function ConfigPage() {
       basicAuthEnabled,
       basicAuthUsername,
       basicAuthPassword,
+      loggingEnabled,
     })
 
     window.location.href = dashboardPath
@@ -159,7 +162,7 @@ function ConfigPage() {
             />
 
             <div className="ConfigPageBasicAuthConfig">
-              <div className="ConfigPagePasswordSubTitle">
+              <div className="ConfigPageToggleRow">
                 <h5 className="ConfigPageSubTitle">Basic auth</h5>
                 <Toggle
                   value={basicAuthEnabled}
@@ -206,6 +209,15 @@ function ConfigPage() {
                   showErrors &&
                   'Field is required'
                 }
+              />
+            </div>
+            <div className="ConfigPageToggleRow">
+              <h5 className="ConfigPageSubTitle">
+                Continuous database logging
+              </h5>
+              <Toggle
+                value={loggingEnabled}
+                onChange={() => setLoggingEnabled(!loggingEnabled)}
               />
             </div>
 
