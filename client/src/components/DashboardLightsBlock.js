@@ -6,7 +6,7 @@ export default function DashboardLightsBlock({ property }) {
   return (
     <Block className="DashboardLightsBlock" property={property}>
       <div className="DashboardLightsValues">
-        {property.data.map((item) => (
+        {(property?.data || []).map((item) => (
           <div className="DashboardLightsItem" key={item?.data?.name}>
             <div className="DashboardLightsItemKey">{item?.data?.name}</div>
             <div className="DashboardLightsItemValue">{item?.data?.state}</div>
