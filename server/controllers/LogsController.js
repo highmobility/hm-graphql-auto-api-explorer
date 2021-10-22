@@ -1,16 +1,10 @@
-import { knex } from '../database'
-import { Parser } from 'json2csv'
 import { format } from 'date-fns'
+import LogsService from '../services/LogsService'
 
 export default class LogsController {
   async csv(req, res) {
     try {
-      const logs = await knex('logs').select()
-      const parser = new Parser({
-        fields: ['vin', 'request_time', 'response'],
-        'default-value': 'DEFAULT_VALUE',
-      })
-      const csv = parser.parse(logs)
+      const csv = await LogsService.createCsv()
 
       const response = res.status(200)
       if (req.query.download !== undefined) {
@@ -19,6 +13,25 @@ export default class LogsController {
         )
       }
       response.send(csv)
+    } catch (err) {
+      console.log('Failed to get logs', err)
+      res.status(500).json({
+        error: 'Failed to get logs',
+      })
+    }
+  }
+
+  async webhook(req, res) {
+    try {
+      const vin = req.body && req.body.vehicle && req.body.vehicle.vin
+      if (!vin) {
+        return res.status(404).end()
+      }
+
+      console.log(`Received webhook for VIN ${vin}`)
+      await LogsService.fetchData(vin)
+
+      await res.json({ message: 'Vehicle data updated' })
     } catch (err) {
       console.log('Failed to get logs', err)
       res.status(500).json({

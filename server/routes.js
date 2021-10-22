@@ -34,5 +34,6 @@ router.post('/auth/fleet', authController.fleetAuth)
 router.get('/auth/fleet/vehicles', authController.getFleetVehicles)
 
 router.get('/logs/csv', logsController.csv)
+router.post('/webhook', logsController.webhook)
 
 export default router
