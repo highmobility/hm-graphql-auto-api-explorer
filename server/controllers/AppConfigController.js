@@ -89,6 +89,7 @@ export default class AppConfigController {
         await trx('config').first().update({ selected_vehicle_id: null })
         await trx('properties').select('*').delete()
         await trx('vehicles').select('*').delete()
+        await trx('logs').select('*').delete()
       })
 
       res.json('App reset')
