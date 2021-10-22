@@ -25,24 +25,8 @@ export default class Config {
   view = VIEWS.GRID
   updateFrequency = 15
   selectedVehicleId = null
-  pinnedProperties = ['diagnostics.speed']
-  shownProperties = [
-    'adas.status',
-    'charging.batteryCurrent',
-    'charging.chargeMode',
-    'diagnostics.engineOilTemperature',
-    'diagnostics.batteryLevel',
-    'diagnostics.speed',
-    'hood.lock',
-    'vehicleLocation.coordinates',
-    'diagnostics.odometer',
-    'doors.positions',
-    'diagnostics.fuelLevel',
-    'vehicleLocation.heading',
-    'seats.personsDetected',
-    'charging.status',
-    'charging.pluggedIn',
-  ]
+  pinnedProperties = []
+  shownProperties = []
   googleMapsApiKey = ''
 
   constructor() {
