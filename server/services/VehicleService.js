@@ -43,7 +43,7 @@ class VehicleService {
 
     await knex('logs').insert({
       vin,
-      response: JSON.stringify(properties),
+      response: JSON.stringify(graphQlResponse),
     })
 
     return graphQlResponse
