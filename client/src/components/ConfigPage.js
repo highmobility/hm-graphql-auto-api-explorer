@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
+  API_URL,
   AUTH_CALLBACK_URL,
   fetchAppConfig,
   fetchConfig,
@@ -220,6 +221,12 @@ function ConfigPage() {
                 onChange={() => setLoggingEnabled(!loggingEnabled)}
               />
             </div>
+            <div className="ConfigPageLabel">Payload URL</div>
+            <p className="ConfigPageValue">{API_URL}/webhook</p>
+            <div className="ConfigPageLabel">Secret key</div>
+            <p className="ConfigPageValue">
+              {mergedConfig?.config?.webhook_secret}
+            </p>
 
             <PrimaryButton
               className="ConfigPageSaveButton"
