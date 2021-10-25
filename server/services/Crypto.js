@@ -1,8 +1,8 @@
 import crypto from 'crypto'
 
 export default class Crypto {
-  static validateSecret(request, secret) {
-    const signature = request.headers['X-HM-Signature']
+  static validateSignature(request, secret) {
+    const signature = request.headers['x-hm-signature']
     if (!signature) {
       return false
     }

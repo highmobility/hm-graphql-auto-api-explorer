@@ -45,8 +45,11 @@ export default class LogsController {
         return res.status(202).json({ message: 'Not logging this event' })
       }
 
-      const validSecret = Crypto.validateSecret(req, config.webhook_secret)
-      if (!validSecret) {
+      const validSignature = Crypto.validateSignature(
+        req,
+        config.webhook_secret
+      )
+      if (!validSignature) {
         return res.status(401).json({ error: 'Invalid secret' })
       }
 
