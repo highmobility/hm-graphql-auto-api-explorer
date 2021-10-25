@@ -15,10 +15,6 @@ export default class LogsService {
 
   static async fetchData(vin) {
     try {
-      const config = await knex('config').first()
-      const shouldFetch = config.continuous_database_logging
-      if (!shouldFetch) return
-
       const vehicle = await knex('vehicles').where({ vin }).first()
       if (!vehicle) return
 

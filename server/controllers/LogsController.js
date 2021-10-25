@@ -41,7 +41,7 @@ export default class LogsController {
         return res.status(401).json({ error: 'No VIN found' })
       }
 
-      if (IGNORED_WEBHOOKS.includes(req.headers['X-HM-Event'])) {
+      if (IGNORED_WEBHOOKS.includes(req.headers['x-hm-event'])) {
         return res.status(202).json({ message: 'Not logging this event' })
       }
 
