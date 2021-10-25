@@ -10,12 +10,8 @@ import http from 'http'
 import fs from 'fs'
 import dotenv from 'dotenv'
 import sslRedirect from 'heroku-ssl-redirect'
-import ContinuousLogging from './services/ContinuousLogging'
 
 dotenv.config()
-
-const continuousLogging = new ContinuousLogging()
-continuousLogging.createJob()
 
 const PORT = process.env.PORT || 3001
 const app = express()
