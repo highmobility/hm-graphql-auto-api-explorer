@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
-import { config } from 'dotenv'
 import Crypto from '../services/Crypto'
 import LogsService from '../services/LogsService'
+import { knex } from '../database'
 
 export default class LogsController {
   async csv(req, res) {
@@ -55,9 +55,9 @@ export default class LogsController {
 
       await res.json({ message: 'Vehicle data updated' })
     } catch (err) {
-      console.log('Failed to get logs', err)
+      console.log('Failed to handle webhook', err)
       res.status(500).json({
-        error: 'Failed to get logs',
+        error: 'Something went wrong',
       })
     }
   }
