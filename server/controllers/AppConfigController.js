@@ -1,4 +1,5 @@
 import { knex } from '../database'
+import Crypto from '../services/Crypto'
 
 const DEFAULT_PROPERTIES = [
   'adas.status',
@@ -42,6 +43,13 @@ export default class AppConfigController {
           token_url: tokenUrl,
           app_type: appType,
         })
+
+        const config = trx('config').first()
+        if (!config) {
+          trx('config').insert({
+            webhook_secret: Crypto.randomString(),
+          })
+        }
 
         await Promise.all(
           DEFAULT_PROPERTIES.map((propertyUniqueId) =>

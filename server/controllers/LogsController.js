@@ -1,4 +1,6 @@
 import { format } from 'date-fns'
+import { config } from 'dotenv'
+import Crypto from '../services/Crypto'
 import LogsService from '../services/LogsService'
 
 export default class LogsController {
@@ -23,9 +25,29 @@ export default class LogsController {
 
   async webhook(req, res) {
     try {
+      const config = await knex('config').first()
+      if (!config.continuous_database_logging) {
+        return res.status(418).json({
+          message: 'Logging is disabled',
+        })
+      }
+
+      const IGNORED_WEBHOOKS = [
+        'authorization_changed',
+        'fleet_clearance_changed',
+      ]
       const vin = req.body && req.body.vehicle && req.body.vehicle.vin
       if (!vin) {
-        return res.status(404).end()
+        return res.status(401).json({ error: 'No VIN found' })
+      }
+
+      if (IGNORED_WEBHOOKS.includes(req.headers['X-HM-Event'])) {
+        return res.status(202).json({ message: 'Not logging this event' })
+      }
+
+      const validSecret = Crypto.validateSecret(req, config.webhook_secret)
+      if (!validSecret) {
+        return res.status(401).json({ error: 'Invalid secret' })
       }
 
       console.log(`Received webhook for VIN ${vin}`)
