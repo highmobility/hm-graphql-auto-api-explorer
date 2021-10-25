@@ -221,10 +221,14 @@ function ConfigPage() {
                 onChange={() => setLoggingEnabled(!loggingEnabled)}
               />
             </div>
+            <p className="small">
+              To configure a webhook for logging, open your app and follow the
+              Webhooks tab, enter the following values:
+            </p>
             <div className="ConfigPageLabel">Payload URL</div>
-            <p className="ConfigPageValue">{API_URL}/webhook</p>
+            <p className="ConfigPageValue NoPadding">{API_URL}/webhook</p>
             <div className="ConfigPageLabel">Secret key</div>
-            <p className="ConfigPageValue">
+            <p className="ConfigPageValue NoPadding">
               {mergedConfig?.config?.webhook_secret}
             </p>
 
