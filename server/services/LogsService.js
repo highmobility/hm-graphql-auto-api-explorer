@@ -76,6 +76,14 @@ export default class LogsService {
         propertyValue?.data,
         fields
       )
+    } else if (typeof propertyValue === 'object' && propertyValue !== null) {
+      Object.entries(propertyValue).forEach(([innerName, innerValue]) => {
+        fields = LogsService.getPropertyValueFields(
+          `${propertyName}.${innerName}`,
+          innerValue,
+          fields
+        )
+      })
     } else {
       fields[`${propertyName}`] = propertyValue
     }
