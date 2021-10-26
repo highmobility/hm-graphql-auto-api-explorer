@@ -7,7 +7,7 @@
     "node": "16"
   },
   "scripts": {
-    "start": "nodemon -r esm server/index.js",
+    "start": "nodemon --exec babel-node server/index.js",
     "build": "cd client && npm install && npm run build",
     "heroku-postbuild": "npm ci && knex migrate:latest && cd client && npm ci && npm run build",
     "migrate:make": "knex migrate:make",
@@ -22,9 +22,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
     "argon2": "^0.28.2",
     "axios": "^0.21.1",
-    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "date-fns": "^2.25.0",
     "dotenv": "^10.0.0",
