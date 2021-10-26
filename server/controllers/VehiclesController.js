@@ -56,6 +56,7 @@ export default class VehiclesController {
 
       res.json(properties)
     } catch (err) {
+      console.log('Failed to fetch vehicle data', err)
       res.status(500).json({ error: 'Failed to fetch vehicle data' })
     }
   }

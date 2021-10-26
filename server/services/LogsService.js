@@ -1,16 +1,86 @@
 import { knex } from '../database'
-import { Parser } from 'json2csv'
 import VehicleService from './VehicleService'
+import { Parser } from 'json2csv'
 
 export default class LogsService {
   static async createCsv() {
     const logs = await knex('logs').select()
-    const parser = new Parser({
-      fields: ['vin', 'request_time', 'response'],
-      'default-value': 'DEFAULT_VALUE',
+
+    const parsedValues = []
+    logs.forEach(({ vin, request_time, response }, rowIndex) => {
+      parsedValues[rowIndex] = { vin, requestTime: request_time }
+      if (!response) return
+      Object.entries(response).forEach(([capabilityName, properties]) => {
+        if (!properties) return
+        Object.entries(properties).forEach(([propertyName, propertyValue]) => {
+          if (!propertyValue) return
+          parsedValues[rowIndex] = {
+            ...parsedValues[rowIndex],
+            ...LogsService.getPropertyValueFields(
+              `${capabilityName}.${propertyName}`,
+              propertyValue
+            ),
+          }
+        })
+      })
     })
 
-    return parser.parse(logs)
+    // return parsedValues
+    const parser = new Parser()
+    return parser.parse(parsedValues)
+  }
+
+  static getPropertyValueFields(propertyName, propertyValue, fields = {}) {
+    if (Array.isArray(propertyValue)) {
+      propertyValue.forEach((innerValue, propertyIndex) => {
+        return LogsService.getPropertyValueFields(
+          `${propertyName}${propertyIndex + 1}`,
+          innerValue,
+          fields
+        )
+      })
+
+      return fields
+    }
+
+    if (propertyValue?.data?.value) {
+      fields[`${propertyName}`] = propertyValue?.data?.value
+
+      if (propertyValue?.data?.unit) {
+        fields[`${propertyName}.unit`] = propertyValue?.data?.unit
+      }
+    } else if (propertyValue?.value) {
+      fields[`${propertyName}`] = propertyValue?.value
+
+      if (propertyValue?.unit) {
+        fields[`${propertyName}.unit`] = propertyValue?.unit
+      }
+    } else if (
+      typeof propertyValue?.data === 'object' &&
+      propertyValue?.data !== null
+    ) {
+      Object.entries(propertyValue?.data).forEach(([innerName, innerValue]) => {
+        fields = LogsService.getPropertyValueFields(
+          `${propertyName}.${innerName}`,
+          innerValue,
+          fields
+        )
+      })
+    } else if (propertyValue?.data) {
+      fields = LogsService.getPropertyValueFields(
+        propertyName,
+        propertyValue?.data,
+        fields
+      )
+    } else {
+      fields[`${propertyName}`] = propertyValue
+    }
+
+    if (propertyValue.timestamp) {
+      fields[`${propertyName}.timestamp`] = propertyValue.timestamp
+    }
+
+    return fields
   }
 
   static async fetchData(vin) {
