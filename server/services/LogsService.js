@@ -25,9 +25,13 @@ export default class LogsService {
       })
     })
 
-    // return parsedValues
+    const sortedValues = parsedValues.sort(
+      (a, b) => a.requestTime - b.requestTime
+    )
+
+    // return sortedValues
     const parser = new Parser()
-    return parser.parse(parsedValues)
+    return parser.parse(sortedValues)
   }
 
   static getPropertyValueFields(propertyName, propertyValue, fields = {}) {
