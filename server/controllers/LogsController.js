@@ -25,13 +25,6 @@ export default class LogsController {
 
   async webhook(req, res) {
     try {
-      const config = await knex('config').first()
-      if (!config.continuous_database_logging) {
-        return res.status(418).json({
-          message: 'Logging is disabled',
-        })
-      }
-
       const IGNORED_WEBHOOKS = [
         'authorization_changed',
         'fleet_clearance_changed',
@@ -45,6 +38,7 @@ export default class LogsController {
         return res.status(202).json({ message: 'Not logging this event' })
       }
 
+      const config = await knex('config').first()
       const validSignature = Crypto.validateSignature(
         req,
         config.webhook_secret
