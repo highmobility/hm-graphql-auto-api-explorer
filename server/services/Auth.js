@@ -3,6 +3,7 @@ import axios from 'axios'
 import GraphQlService from './GraphQlService'
 import jwt from 'jsonwebtoken'
 import uuid4 from 'uuid4'
+import CAPABILITIES from '../../data/capabilities.json'
 
 const ACCESS_TOKEN_STATUS = {
   PENDING: 'pending',
@@ -70,6 +71,7 @@ class Auth {
 
   static async addVehicle(vin, brand, accessTokenResponse, pending = false) {
     await knex.transaction(async (trx) => {
+      const isFirstVehicle = !(await trx('vehicles').first())
       const [vehicleId] = await trx('vehicles').insert(
         {
           vin,
@@ -95,6 +97,30 @@ class Auth {
       await trx('config').first().update({
         selected_vehicle_id: vehicleId,
       })
+
+      if (isFirstVehicle) {
+        const newSelectedProperties = []
+        accessTokenResponse.scope.split(' ').forEach((scopeItem) => {
+          const [capabilityName, , propertyName] = scopeItem.split('.')
+
+          const propertyConfig = CAPABILITIES?.[
+            capabilityName
+          ]?.properties?.find((property) => property.name === propertyName)
+
+          if (!propertyConfig) return
+
+          return newSelectedProperties.push(
+            `${propertyConfig.capabilityName}.${propertyConfig.name_cased}`
+          )
+        })
+
+        for (const newSelectedProperty of newSelectedProperties) {
+          await trx('properties')
+            .insert({ unique_id: newSelectedProperty })
+            .onConflict('unique_id')
+            .merge()
+        }
+      }
     })
   }
 

@@ -15,6 +15,7 @@ This repo includes a Node.js app, which features a vehicle dashboard and demonst
   - [Start client](#2-start-client)
   - [Open in browser](#3-go-to-http://localhost:3000)
   - [Creating and running migrations](#creating-and-running-migrations)
+  - [Generating new config files](#generating-new-config-files)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -73,6 +74,10 @@ Step 0: Make sure you have this sample app deployed. Once you load the root URL,
 `npx knex migrate:latest`
 
 `npx knex migrate:rollback --all`
+
+#### Generating new config files
+
+`node generateConfig && cd client && npm i`
 
 [Full documentation](https://knexjs.org/)
 

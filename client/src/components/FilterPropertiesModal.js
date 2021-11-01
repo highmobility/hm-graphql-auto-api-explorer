@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/FilterPropertiesModal.scss'
 import Modal from './Modal'
-import CAPABILITIES from '../data/capabilities.json'
+import CAPABILITIES from 'data/capabilities.json'
 import { useMobx } from '../store/mobx'
 import Toggle from './Toggle'
 import { observer } from 'mobx-react-lite'

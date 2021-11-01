@@ -1,23 +1,6 @@
 import { knex } from '../database'
 import Crypto from '../services/Crypto'
 
-const DEFAULT_PROPERTIES = [
-  'adas.status',
-  'charging.batteryCurrent',
-  'charging.chargeMode',
-  'diagnostics.engineOilTemperature',
-  'diagnostics.batteryLevel',
-  'diagnostics.speed',
-  'hood.lock',
-  'vehicleLocation.coordinates',
-  'diagnostics.odometer',
-  'doors.positions',
-  'diagnostics.fuelLevel',
-  'vehicleLocation.heading',
-  'seats.personsDetected',
-  'charging.status',
-  'charging.pluggedIn',
-]
 export default class AppConfigController {
   async store(req, res) {
     const {
@@ -50,12 +33,6 @@ export default class AppConfigController {
             webhook_secret: Crypto.randomString(),
           })
         }
-
-        await Promise.all(
-          DEFAULT_PROPERTIES.map((propertyUniqueId) =>
-            trx('properties').insert({ unique_id: propertyUniqueId })
-          )
-        )
       })
 
       res.json({
