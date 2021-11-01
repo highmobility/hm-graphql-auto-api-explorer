@@ -13,6 +13,7 @@ import ListBlock from '../components/ListBlock'
 import { camelCaseToSnakeCase, camelCaseToWords } from './strings'
 import { format } from 'date-fns'
 import { padStart } from 'lodash'
+import DashboardLightsBlock from '../components/DashboardLightsBlock'
 
 const UNITS = {
   kelvin: '°K',
@@ -60,33 +61,26 @@ const UNITS = {
   hours: 'h',
 }
 
+export const BLOCK_SIZE = 165
+export const LIST_BLOCK_HEIGHT = 68
+
 export const BLOCKS = {
   TWO_BY_TWO: {
     columns: 2,
-    rows: 2,
-    width: 330,
-    height: 330,
+    height: 2 * BLOCK_SIZE,
   },
   TWO_BY_ONE: {
     columns: 2,
-    rows: 1,
-    width: 330,
-    height: 165,
-  },
-  SIX_BY_ONE: {
-    columns: 6,
-    rows: 1,
-    width: 680,
-    height: 165,
+    height: BLOCK_SIZE,
   },
   LIST: {
-    height: 68,
+    height: LIST_BLOCK_HEIGHT,
     columns: 1,
-    rows: 1,
   },
+  // CUSTOM
 }
 
-export function getBlockData(view, propertyConfig) {
+export function getBlockData(view, propertyConfig, propertyValue) {
   if (view !== VIEWS.GRID) {
     return {
       ...BLOCKS.LIST,
@@ -150,16 +144,38 @@ export function getBlockData(view, propertyConfig) {
     }
   }
 
-  if (propertyConfig.type === 'string') {
+  if (propertyConfig.name_cased === 'dashboardLights') {
+    const VALUE_ROW_HEIGHT = 56
+    const ITEMS_PER_ROW = 3
+    const itemCount = propertyValue?.length || 0
+
     return {
-      ...BLOCKS.TWO_BY_TWO,
+      columns: 6,
+      height: BLOCK_SIZE + (itemCount / ITEMS_PER_ROW) * VALUE_ROW_HEIGHT,
+      component: DashboardLightsBlock,
+    }
+  }
+
+  if (propertyConfig?.items?.length > 0) {
+    const VALUE_ROW_HEIGHT = 48
+
+    const itemCount = Object.keys(propertyValue?.[0]?.data || {})?.length || 0
+    const heightToAdd =
+      itemCount > 2
+        ? Math.ceil((VALUE_ROW_HEIGHT * propertyValue?.length) / BLOCK_SIZE) *
+          BLOCK_SIZE
+        : 0
+
+    return {
+      columns: 6,
+      height: BLOCK_SIZE + heightToAdd,
       component: Block,
     }
   }
 
-  if (propertyConfig?.items?.length > 1) {
+  if (propertyConfig.type === 'string') {
     return {
-      ...BLOCKS.SIX_BY_ONE,
+      ...BLOCKS.TWO_BY_TWO,
       component: Block,
     }
   }

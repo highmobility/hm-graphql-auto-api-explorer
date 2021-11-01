@@ -44,7 +44,7 @@ function Block({ children, property, className = '' }) {
     changeUpdatedAt()
   }, 1000)
 
-  const renderBlockMultiValue = (item) => {
+  const renderBlockMultiValueRow = (item) => {
     if (typeof item.data === 'object' && item.data !== null) {
       // if property.items > 2, render as label1:value; label2: value2
       if (Object.keys(item.data).length > 2) {
@@ -73,7 +73,7 @@ function Block({ children, property, className = '' }) {
       // With 2 items, first is always "label" and second "value"
       if (Object.keys(item.data).length === 2) {
         return (
-          <Fragment>
+          <div className="BlockMultiValue">
             <div className="BlockMultiValueKey">
               {camelCaseToWords(
                 item.data?.[property.config?.items?.[0]?.name_cased]
@@ -82,12 +82,14 @@ function Block({ children, property, className = '' }) {
             <div className="BlockMultiValueValue">
               {parseCustomValue(item, property.config)}
             </div>
-          </Fragment>
+          </div>
         )
       }
 
       return (
-        <div className="BlockMultiValueValue">{formatValue(item.data)}</div>
+        <div className="BlockMultiValue">
+          <div className="BlockMultiValueValue">{formatValue(item.data)}</div>
+        </div>
       )
     }
 
@@ -99,8 +101,15 @@ function Block({ children, property, className = '' }) {
       return (
         <div className="BlockMultiValues">
           {property?.data.map((item, key) => (
-            <div className="BlockMultiValue" key={key}>
-              {renderBlockMultiValue(item)}
+            <div
+              className={`${
+                Object.keys(item?.data).length > 2
+                  ? 'BlockMultiValueRow'
+                  : 'BlockMultiValue'
+              }`}
+              key={key}
+            >
+              {renderBlockMultiValueRow(item)}
             </div>
           ))}
         </div>
