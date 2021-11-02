@@ -95,18 +95,28 @@ function Block({ children, property, className = '' }) {
     if (Array.isArray(property?.data)) {
       return (
         <div className="BlockMultiValues">
-          {property?.data.map((item, key) => (
-            <div
-              className={`${
-                Object.keys(item?.data).length > 2
-                  ? 'BlockMultiValueRow'
-                  : 'BlockMultiValue'
-              }`}
-              key={key}
-            >
-              {renderBlockMultiValueRow(item)}
-            </div>
-          ))}
+          {property?.data.map((item, key) => {
+            if (property.config.items && item.data) {
+              return (
+                <div
+                  className={`${
+                    Object.keys(item?.data).length > 2
+                      ? 'BlockMultiValueRow'
+                      : 'BlockMultiValue'
+                  }`}
+                  key={key}
+                >
+                  {renderBlockMultiValueRow(item)}
+                </div>
+              )
+            } else {
+              return (
+                <div className="BlockMultiValue" key={key}>
+                  {item?.data}
+                </div>
+              )
+            }
+          })}
         </div>
       )
     }

@@ -14,18 +14,22 @@ import PinButton from './PinButton'
 function ListBlock({ property }) {
   const renderBlockMultiValue = (item) => {
     if (item.data && Object.keys(item.data).length > 2) {
-      return (
-        <Fragment>
-          {property.config.items.map((configItem) => {
-            return (
-              <div className="ListBlockValue" key={configItem?.name_cased}>
-                {prettyName(configItem)}:{' '}
-                {formatValue(item.data?.[configItem?.name_cased])}
-              </div>
-            )
-          })}
-        </Fragment>
-      )
+      if (property.config.items) {
+        return (
+          <Fragment>
+            {property.config.items.map((configItem) => {
+              return (
+                <div className="ListBlockValue" key={configItem?.name_cased}>
+                  {prettyName(configItem)}:{' '}
+                  {formatValue(item.data?.[configItem?.name_cased])}
+                </div>
+              )
+            })}
+          </Fragment>
+        )
+      } else {
+        return <div className="ListBlockValue">{item.data}</div>
+      }
     }
 
     if (typeof item.data === 'object' && item.data !== null) {
