@@ -1,7 +1,7 @@
 import { knex } from '../database'
-import GraphQlService from '../services/GraphQlService'
 import { camelCase } from 'lodash'
 import Auth from '../services/Auth'
+import VehicleService from '../services/VehicleService'
 
 export default class VehiclesController {
   async index(req, res) {
@@ -40,54 +40,24 @@ export default class VehiclesController {
   async getData(req, res) {
     try {
       const { id } = req.params
-      const { id: vehicleId, pending: vehiclePending } = await knex('vehicles')
-        .where('id', id)
-        .first()
+      const {
+        id: vehicleId,
+        pending,
+        vin,
+      } = await knex('vehicles').where('id', id).first()
       if (!vehicleId) {
         return res.status(404).json({ message: 'No vehicle found' })
       }
 
-      const accessToken = await Auth.getAccessToken(vehicleId)
-      const appConfig = await knex('app_config').first()
-      if (!appConfig) {
-        return res.status(404).json({ message: 'No app config found' })
-      }
-      const graphQl = new GraphQlService(
-        appConfig.graph_ql_api_config,
-        accessToken
+      const properties = await VehicleService.fetchProperties(
+        { id, pending, vin },
+        req.body.properties
       )
-
-      const propertiesToFetch = req.body.properties
-      if (vehiclePending) {
-        propertiesToFetch.push('universal.brand')
-        propertiesToFetch.push('universal.vin')
-      }
-
-      const properties = await graphQl.fetchProperties(propertiesToFetch)
-
-      if (vehiclePending) {
-        const brand =
-          properties.universal &&
-          properties.universal.brand &&
-          properties.universal.brand.data
-        const vin =
-          properties.universal &&
-          properties.universal.vin &&
-          properties.universal.vin.data
-
-        if (brand && vin) {
-          await knex('vehicles').where('id', id).update({
-            vin,
-            brand,
-            pending: false,
-          })
-        }
-      }
 
       res.json(properties)
     } catch (err) {
       console.log('Failed to fetch vehicle data', err)
-      res.status(500).json({ error: 'Failed to fetch vehicle data' })
+      res.status(500).json({ error: err.message })
     }
   }
 

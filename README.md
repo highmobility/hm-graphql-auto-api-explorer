@@ -11,11 +11,11 @@ This repo includes a Node.js app, which features a vehicle dashboard and demonst
   - [Where to find config information](#where-to-find-config-information)
 - [Local setup](#local-setup)
   - [Requirements](#0-requirements)
-  - [Run migrations](#1-run-migrations)
-  - [Start API](#2-start-api)
-  - [Start client](#3-start-client)
-  - [Open in browser](#4-go-to)
+  - [Start API](#1-start-api)
+  - [Start client](#2-start-client)
+  - [Open in browser](#3-go-to-http://localhost:3000)
   - [Creating and running migrations](#creating-and-running-migrations)
+  - [Generating new config files](#generating-new-config-files)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -51,30 +51,33 @@ Step 0: Make sure you have this sample app deployed. Once you load the root URL,
 - Node 16
 - Postgres database
 
-#### 1. Run migrations
-
-- `cp .env.example .env`
-- Add database credentials to .env
-- `npm run migrate:up`
-
-#### 2. Start API
+#### 1. Start API
 
 - `npm i`
+- `cp .env.example .env`
+- Add database credentials to .env
+- `npx knex migrate:latest`
 - `npm start`
 
-#### 3. Start client (in new window)
+#### 2. Start client (in new window)
 
 - `cd client`
 - `npm i`
 - `npm start`
 
-#### 4. Go to http://localhost:3000
+#### 3. Go to http://localhost:3000
 
 #### Creating and running migrations
 
-`npm run migrate:make my_first_migration`
+`npx knex migrate:make my_first_migration`
 
-`npm run migrate:up`
+`npx knex migrate:latest`
+
+`npx knex migrate:rollback --all`
+
+#### Generating new config files
+
+`node generateConfig && cd client && npm i`
 
 [Full documentation](https://knexjs.org/)
 

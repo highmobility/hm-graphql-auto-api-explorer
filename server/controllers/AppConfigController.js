@@ -1,4 +1,5 @@
 import { knex } from '../database'
+import Crypto from '../services/Crypto'
 
 export default class AppConfigController {
   async store(req, res) {
@@ -25,6 +26,13 @@ export default class AppConfigController {
           token_url: tokenUrl,
           app_type: appType,
         })
+
+        const config = trx('config').first()
+        if (!config) {
+          trx('config').insert({
+            webhook_secret: Crypto.randomString(),
+          })
+        }
       })
 
       res.json({
@@ -66,6 +74,7 @@ export default class AppConfigController {
         await trx('config').first().update({ selected_vehicle_id: null })
         await trx('properties').select('*').delete()
         await trx('vehicles').select('*').delete()
+        await trx('logs').select('*').delete()
       })
 
       res.json('App reset')

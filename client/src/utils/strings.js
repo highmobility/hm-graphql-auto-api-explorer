@@ -12,3 +12,7 @@ export function camelCaseToWords(string = '') {
 export function camelCaseToSnakeCase(string = '') {
   return string.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)
 }
+
+export function prettyName(propertyConfig) {
+  return propertyConfig?.name_pretty || propertyConfig?.name_cased
+}

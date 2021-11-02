@@ -3,7 +3,7 @@ import Block from '../components/Block'
 import SpeedBlock from '../components/SpeedBlock'
 import TemperatureBlock from '../components/TemperatureBlock'
 import CoordinatesBlock from '../components/CoordinatesBlock'
-import CAPABILITIES from '../data/capabilities.json'
+import CAPABILITIES from 'data/capabilities.json'
 import OdometerBlock from '../components/OdometerBlock'
 import DoorsBlock from '../components/DoorsBlock'
 import FuelLevelBlock from '../components/FuelLevelBlock'
@@ -59,6 +59,9 @@ const UNITS = {
   minutes: 'min',
   seconds: 's',
   hours: 'h',
+  revolutionsPerMinute: 'RPM',
+  degreesPerSecond: 'deg/s',
+  radiansPerSecond: 'rad/s',
 }
 
 export const BLOCK_SIZE = 165
@@ -210,12 +213,12 @@ export function getPropertyUniqueId(property) {
 }
 
 export function formatValue(value) {
-  if (value === null || value === undefined) return ''
+  if (value == null) return ''
   if (typeof value === 'number' && value !== 0) {
     return Number(value).toFixed(2)
   }
 
-  if (value?.value) {
+  if (value?.value != null) {
     return `${formatValue(value?.value)} ${formatUnit(value?.unit) || ''}`
   }
 

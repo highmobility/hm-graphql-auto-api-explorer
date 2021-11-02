@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 import uuid4 from 'uuid4'
 import axios from 'axios'
-import CAPABILITIES from '../../client/src/data/capabilities.json'
-import UNIVERSAL_PROPERTIES from '../../client/src/data/universalProperties.json'
+import CAPABILITIES from '../../data/capabilities.json'
+import UNIVERSAL_PROPERTIES from '../../data/universalProperties.json'
 import cache from '../cache'
 
 export default class GraphQlService {

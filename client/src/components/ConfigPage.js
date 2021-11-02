@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
+  API_URL,
   AUTH_CALLBACK_URL,
   fetchAppConfig,
   fetchConfig,
@@ -159,7 +160,7 @@ function ConfigPage() {
             />
 
             <div className="ConfigPageBasicAuthConfig">
-              <div className="ConfigPagePasswordSubTitle">
+              <div className="ConfigPageToggleRow">
                 <h5 className="ConfigPageSubTitle">Basic auth</h5>
                 <Toggle
                   value={basicAuthEnabled}
@@ -208,6 +209,17 @@ function ConfigPage() {
                 }
               />
             </div>
+            <h5 className="ConfigPageSubTitle">Continuous database logging</h5>
+            <p className="small">
+              To configure a webhook for logging, open your app and follow the
+              Webhooks tab, enter the following values:
+            </p>
+            <div className="ConfigPageLabel">Payload URL</div>
+            <p className="ConfigPageValue NoPadding">{API_URL}/webhook</p>
+            <div className="ConfigPageLabel">Secret key</div>
+            <p className="ConfigPageValue NoPadding">
+              {mergedConfig?.config?.webhook_secret}
+            </p>
 
             <PrimaryButton
               className="ConfigPageSaveButton"

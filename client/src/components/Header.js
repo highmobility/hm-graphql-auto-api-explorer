@@ -13,6 +13,8 @@ import { ReactComponent as CogSvg } from '../images/cog.svg'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import { updateConfig, updateProperties } from '../requests'
+import { ReactComponent as DownloadSvg } from '../images/download.svg'
+import { API_URL } from '../requests'
 
 const Header = () => {
   const { config, app } = useMobx()
@@ -107,8 +109,15 @@ const Header = () => {
           renderLabel={() => `Update every ${config.updateFrequency}s`}
           items={updateFrequencyDropdownItems}
         />
+        <a
+          href={`${API_URL}/logs/csv?download`}
+          download
+          className="HeaderIconButton"
+        >
+          <DownloadSvg />
+        </a>
         <Link to={routes.find((route) => route.name === PAGES.APP_CONFIG).path}>
-          <div className="HeaderAppConfigButton">
+          <div className="HeaderIconButton ConfigButton">
             <CogSvg />
           </div>
         </Link>

@@ -38,7 +38,7 @@ export default function Grid({ items, view = VIEWS.GRID }) {
 
     let loop = 0
     while (gridItems.length < items.length) {
-      if (loop > 100) break
+      if (loop > 1000) break
 
       const itemToAdd = items.find((item) => {
         return (

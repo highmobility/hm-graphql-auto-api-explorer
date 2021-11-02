@@ -66,12 +66,12 @@ const CUSTOM_TYPES_FILE_PATH = `misc/custom_types.yml`
 const EVENTS_FILE_PATH = `misc/events.yml`
 const UNIT_TYPES_FILE_PATH = 'misc/unit_types.yml'
 const UNIVERSAL_PROPERTIES_FILE_PATH = 'misc/universal_properties.yml'
-const CAPABILITIES_DESTINATION_FILE = `${__dirname}/../data/capabilities.json`
-const CUSTOM_TYPES_DESTINATION_FILE = `${__dirname}/../data/customTypes.json`
-const UNIVERSAL_PROPERTIES_DESTINATION_FILE = `${__dirname}/../data/universalProperties.json`
+const CAPABILITIES_DESTINATION_FILE = `${__dirname}/data/capabilities.json`
+const CUSTOM_TYPES_DESTINATION_FILE = `${__dirname}/data/customTypes.json`
+const UNIVERSAL_PROPERTIES_DESTINATION_FILE = `${__dirname}/data/universalProperties.json`
 
 function autoApiPath(path) {
-  return `${__dirname}/../../../../auto-api/${path}`
+  return `${__dirname}/../auto-api/${path}`
 }
 
 function parseConfigurationFiles() {

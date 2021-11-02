@@ -1,5 +1,4 @@
 import { format, formatDistanceStrict, isBefore, sub } from 'date-fns'
-import { camelCase, startCase, upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { useInterval } from 'react-use'
@@ -10,7 +9,7 @@ import {
   getPropertyUniqueId,
   parseCustomValue,
 } from '../utils/properties'
-import { camelCaseToWords } from '../utils/strings'
+import { camelCaseToWords, prettyName } from '../utils/strings'
 import PinButton from './PinButton'
 import find from 'lodash/find'
 
@@ -54,11 +53,7 @@ function Block({ children, property, className = '' }) {
               return (
                 <div className="BlockMultiValue" key={configItem?.name_cased}>
                   <div className="BlockMultiValueKey">
-                    {startCase(
-                      camelCase(
-                        configItem?.name_pretty || configItem?.name_cased
-                      )
-                    )}
+                    {prettyName(configItem)}
                   </div>
                   <div className="BlockMultiValueValue">
                     {formatValue(item.data?.[configItem?.name_cased])}
@@ -100,18 +95,28 @@ function Block({ children, property, className = '' }) {
     if (Array.isArray(property?.data)) {
       return (
         <div className="BlockMultiValues">
-          {property?.data.map((item, key) => (
-            <div
-              className={`${
-                Object.keys(item?.data).length > 2
-                  ? 'BlockMultiValueRow'
-                  : 'BlockMultiValue'
-              }`}
-              key={key}
-            >
-              {renderBlockMultiValueRow(item)}
-            </div>
-          ))}
+          {property?.data.map((item, key) => {
+            if (property.config.items && item.data) {
+              return (
+                <div
+                  className={`${
+                    Object.keys(item?.data).length > 2
+                      ? 'BlockMultiValueRow'
+                      : 'BlockMultiValue'
+                  }`}
+                  key={key}
+                >
+                  {renderBlockMultiValueRow(item)}
+                </div>
+              )
+            } else {
+              return (
+                <div className="BlockMultiValue" key={key}>
+                  {item?.data}
+                </div>
+              )
+            }
+          })}
         </div>
       )
     }
@@ -158,9 +163,7 @@ function Block({ children, property, className = '' }) {
             <span className="BlockTimestamp">updated {updatedAt}</span>
           )}
         </div>
-        <h4 className="BlockPropertyName">
-          {upperFirst(camelCaseToWords(property.config.name_cased))}
-        </h4>
+        <h4 className="BlockPropertyName">{prettyName(property.config)}</h4>
         {children || <div className="BlockValue">{renderBlockValue()}</div>}
       </div>
     </div>

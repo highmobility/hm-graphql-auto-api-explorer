@@ -1,6 +1,6 @@
 import React from 'react'
 import { Loader } from '@googlemaps/js-api-loader'
-import googleMapsTheme from '../data/mapsTheme.json'
+import googleMapsTheme from 'data/mapsTheme.json'
 import '../styles/GoogleMap.scss'
 import { useMobx } from '../store/mobx'
 import { observer } from 'mobx-react-lite'

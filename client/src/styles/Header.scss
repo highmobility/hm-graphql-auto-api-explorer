@@ -18,6 +18,7 @@
   }
 
   .HeaderFilterButton {
+    margin-right: 10px;
     svg {
       margin-right: 10px;
     }
@@ -51,7 +52,7 @@
     }
   }
 
-  .HeaderAppConfigButton {
+  .HeaderIconButton {
     cursor: pointer;
     border: 1px solid #e9ecef;
     border-radius: 12px;
@@ -62,16 +63,20 @@
     color: #6c757d;
     font-weight: bold;
     transition: background-color 300ms ease;
-    margin-right: 24px;
+    margin-right: 10px;
 
     &:hover,
     &:active {
       background: #f8f9fa;
       border: 1px solid #e9ecef;
     }
+
+    &.ConfigButton {
+      margin-right: 24px;
+    }
   }
 
-  @media (max-width: $tablet) {
+  @media (max-width: 1225px) {
     .HeaderShownPropertiesCount {
       display: none;
     }

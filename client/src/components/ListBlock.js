@@ -1,4 +1,4 @@
-import { camelCase, startCase, upperFirst } from 'lodash'
+import { upperFirst } from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { Fragment } from 'react'
 import '../styles/ListBlock.scss'
@@ -8,26 +8,28 @@ import {
   getPropertyUniqueId,
   parseCustomValue,
 } from '../utils/properties'
-import { camelCaseToWords } from '../utils/strings'
+import { camelCaseToWords, prettyName } from '../utils/strings'
 import PinButton from './PinButton'
 
 function ListBlock({ property }) {
   const renderBlockMultiValue = (item) => {
     if (item.data && Object.keys(item.data).length > 2) {
-      return (
-        <Fragment>
-          {property.config.items.map((configItem) => {
-            return (
-              <div className="ListBlockValue" key={configItem?.name_cased}>
-                {startCase(
-                  camelCase(configItem?.name_pretty || configItem?.name_cased)
-                )}
-                : {formatValue(item.data?.[configItem?.name_cased])}
-              </div>
-            )
-          })}
-        </Fragment>
-      )
+      if (property.config.items) {
+        return (
+          <Fragment>
+            {property.config.items.map((configItem) => {
+              return (
+                <div className="ListBlockValue" key={configItem?.name_cased}>
+                  {prettyName(configItem)}:{' '}
+                  {formatValue(item.data?.[configItem?.name_cased])}
+                </div>
+              )
+            })}
+          </Fragment>
+        )
+      } else {
+        return <div className="ListBlockValue">{item.data}</div>
+      }
     }
 
     if (typeof item.data === 'object' && item.data !== null) {

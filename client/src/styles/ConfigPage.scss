@@ -67,6 +67,10 @@
     letter-spacing: -0.01em;
     color: #495057;
     padding-bottom: 38px;
+
+    &.NoPadding {
+      padding: 0;
+    }
   }
 
   .TextInput {
@@ -75,9 +79,10 @@
 
   .ConfigPageSaveButton {
     align-self: flex-start;
+    margin-top: 38px;
   }
 
-  .ConfigPagePasswordSubTitle {
+  .ConfigPageToggleRow {
     display: flex;
     align-items: center;
     padding-bottom: 34px;
@@ -88,6 +93,10 @@
   }
 
   .ConfigPageBasicAuthConfig {
+    margin-bottom: 12px;
+  }
+
+  p {
     margin-bottom: 12px;
   }
 }
