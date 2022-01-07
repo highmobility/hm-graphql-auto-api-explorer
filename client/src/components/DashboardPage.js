@@ -13,6 +13,7 @@ import { VIEWS } from '../store/Config'
 import { useInterval } from 'react-use'
 import DashboardMap from './DashboardMap'
 import ErrorMessage from './ErrorMessage'
+import { useKeyPressEvent } from 'react-use'
 
 function DashboardPage() {
   const [initialDataFetched, setInitialDataFetched] = useState(false)
@@ -136,6 +137,10 @@ function DashboardPage() {
     },
     config.selectedVehicleId ? config.updateFrequency * 1000 : null
   )
+
+  useKeyPressEvent('r', () => {
+    fetchData()
+  })
 
   const renderContent = () => {
     if (!vehiclesFetched) return <Spinner />
