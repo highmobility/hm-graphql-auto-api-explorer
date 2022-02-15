@@ -3,21 +3,17 @@ import { knex } from '../database'
 
 export default class AuthController {
   async oAuthCallback(req, res) {
+    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+    const port = process.env.NODE_ENV === 'production' ? '' : ':3000'
+    const baseUrl = `${protocol}://${req.hostname}${port}`
+
     try {
       await Auth.authorizeVehicle(req)
 
-      res.redirect(
-        `http://${req.hostname}${
-          req.hostname === 'localhost' ? ':3000' : ''
-        }/dashboard`
-      )
+      res.redirect(`${baseUrl}/dashboard`)
     } catch (err) {
       console.log(err)
-      res.redirect(
-        `http://${req.hostname}${
-          req.hostname === 'localhost' ? ':3000' : ''
-        }/connect?error=${err.message}`
-      )
+      res.redirect(`${baseUrl}/connect?error=${err.message}`)
     }
   }
 
