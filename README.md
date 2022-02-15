@@ -81,6 +81,22 @@ Step 0: Make sure you have this sample app deployed. Once you load the root URL,
 
 [Full documentation](https://knexjs.org/)
 
+## Using behind a reverse proxy
+
+When deployed behind a reverse proxy (like haproxy or nginx) requires the rewrite of the host header in the configuration of the reverse proxy, for connections towards the backend.
+
+#### For haproxy
+
+`http-request set-header Host "your.fixed.hostname"`
+
+(see https://www.haproxy.com/documentation/hapee/latest/traffic-routing/rewrites/rewrite-requests/#set-a-header)
+
+#### For nginx
+
+`proxy_set_header Host "your.fixed.hostname";`
+
+(see https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header)
+
 ## Contributing
 
 We would love to accept your patches and contributions to this project. Before getting to work, please first discuss the changes that you wish to make with us via [GitHub Issues](https://github.com/highmobility/hm-graphql-auto-api-explorer/issues) or [Slack](https://slack.high-mobility.com/).
