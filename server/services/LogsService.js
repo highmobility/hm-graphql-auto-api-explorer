@@ -88,8 +88,8 @@ export default class LogsService {
       fields[`${propertyName}`] = propertyValue
     }
 
-    if (propertyValue.timestamp) {
-      fields[`${propertyName}.timestamp`] = propertyValue.timestamp
+    if (propertyValue?.timestamp) {
+      fields[`${propertyName}.timestamp`] = propertyValue?.timestamp
     }
 
     return fields
