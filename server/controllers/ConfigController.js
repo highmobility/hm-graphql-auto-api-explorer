@@ -28,9 +28,14 @@ export default class ConfigController {
         basic_auth_username: req.body.basicAuthUsername,
       }
 
-      if (req.body.basicAuthPassword) {
+      if (req.body.basicAuthEnabled && req.body.basicAuthPassword) {
         const hashedPassword = await argon2.hash(req.body.basicAuthPassword)
         newConfig.basic_auth_password = hashedPassword
+      }
+
+      if (!newConfig.basic_auth_enabled) {
+        newConfig.basic_auth_username = null
+        newConfig.basic_auth_password = null
       }
 
       const config = (await knex('config').first().update(newConfig, '*'))[0]
