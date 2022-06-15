@@ -48,7 +48,7 @@ Step 0: Make sure you have this sample app deployed. Once you load the root URL,
 
 #### 0. Requirements
 
-- Node 16
+- Node 16.14
 - Postgres database
 
 #### 1. Start API
