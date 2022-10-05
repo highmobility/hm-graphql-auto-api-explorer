@@ -12,6 +12,7 @@ const GoogleMap = ({
   className,
   marker = null,
   useArrowIcon = false,
+  customIcon = false,
   panLeft = false,
   ...props
 }) => {
@@ -84,28 +85,35 @@ const GoogleMap = ({
       const { icon, ...markerData } = marker
 
       if (icon) {
-        markerData.icon = {
-          ...marker.icon,
-          ...(useArrowIcon
-            ? {
-                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW, //eslint-disable-line
-                anchor: new google.maps.Point(0.2, 2.4), //eslint-disable-line
-                fillColor: 'white',
-                fillOpacity: 1,
-                strokeWeight: 0,
-                scale: 5,
-              }
-            : {}),
-        }
+        markerData.icon = customIcon
+          ? {
+              ...marker.icon,
+              path: useArrowIcon
+                ? google.maps.SymbolPath.FORWARD_CLOSED_ARROW //eslint-disable-line
+                : google.maps.SymbolPath.CIRCLE, //eslint-disable-line
+              anchor: new google.maps.Point(0.2, 2.4), //eslint-disable-line
+              fillColor: 'white',
+              fillOpacity: 1,
+              strokeWeight: 0,
+              scale: 5,
+            }
+          : {}
       }
 
-      setActiveMarker(
-        // eslint-disable-next-line
-        new google.maps.Marker({
-          ...markerData,
-          map: mapInstance,
+      if (activeMarker && markerData.icon) {
+        activeMarker.setIcon({
+          ...activeMarker.icon,
+          ...markerData.icon,
         })
-      )
+      } else {
+        setActiveMarker(
+          // eslint-disable-next-line
+          new google.maps.Marker({
+            ...markerData,
+            map: mapInstance,
+          })
+        )
+      }
     })
   }, [center, zoom, marker, mapInstance]) // eslint-disable-line
 

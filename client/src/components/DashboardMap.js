@@ -18,7 +18,7 @@ export default function DashboardMap({ open, coordinates, heading }) {
     heading?.config
   )
 
-  if (!lat || !lng || !headingInDegrees) {
+  if (!lat || !lng) {
     return null
   }
 
@@ -43,7 +43,8 @@ export default function DashboardMap({ open, coordinates, heading }) {
           }}
         >
           <GoogleMap
-            useArrowIcon
+            customIcon
+            useArrowIcon={headingInDegrees !== undefined}
             marker={marker}
             center={{ lat, lng }}
             panLeft
