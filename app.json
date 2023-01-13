@@ -4,7 +4,7 @@
   "repository": "https://github.com/highmobility/hm-graphql-auto-api-explorer",
   "logo": "https://avatars.githubusercontent.com/u/16898942",
   "addons": [
-    "heroku-postgresql:hobby-dev"
+    "heroku-postgresql:basic"
   ],
   "buildpacks": [
     {
