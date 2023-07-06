@@ -5,7 +5,6 @@ import {
   authFleetVehicle,
   AUTH_CALLBACK_URL,
   fetchAppConfig,
-  fetchFleetVehicles,
 } from '../requests'
 import routes, { PAGES } from '../routes'
 import '../styles/ConnectVehiclePage.scss'
@@ -14,9 +13,9 @@ import PrimaryButton from './PrimaryButton'
 import { useLocation } from 'react-use'
 import { APP_TYPES } from '../store/Config'
 import ErrorMessage from './ErrorMessage'
-import FleetVehicleSelect from './FleetVehicleSelect'
 import Spinner from './Spinner'
-import { FLEET_AUTH_STATUS } from '../utils/fleet'
+import TextInput from './TextInput'
+import BrandSelect from './BrandSelect'
 
 function ConnectVehiclePage() {
   const [url, setUrl] = useState(null)
@@ -26,7 +25,7 @@ function ConnectVehiclePage() {
     new URLSearchParams(useLocation().search).get('error')
   )
   const [vin, setVin] = useState('')
-  const [fleetVehicles, setFleetVehicles] = useState(null)
+  const [brand, setBrand] = useState('')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -40,6 +39,7 @@ function ConnectVehiclePage() {
         oAuthUrl.searchParams.set('app_id', config.graph_ql_api_config.app_id)
         oAuthUrl.searchParams.set('redirect_uri', AUTH_CALLBACK_URL)
         setUrl(oAuthUrl)
+        setLoading(false)
       } catch (e) {
         history.push(
           routes.find((route) => route.name === PAGES.INITIAL_CONFIG).path
@@ -50,43 +50,16 @@ function ConnectVehiclePage() {
     fetch()
   }, [history])
 
-  useEffect(() => {
-    const fetchVehicles = async () => {
-      try {
-        if (appConfig?.app_type === APP_TYPES.FLEET) {
-          setLoading(true)
-          const vehicles = await fetchFleetVehicles()
-          setFleetVehicles(vehicles)
-          if (vehicles.length > 0) {
-            const vehicleToSelect = vehicles.find(
-              (vehicle) => vehicle.state === FLEET_AUTH_STATUS.APPROVED
-            )
-            if (vehicleToSelect) {
-              setVin(vehicleToSelect.vin)
-            }
-          }
-        }
-        setLoading(false)
-      } catch (e) {
-        console.log('Failed to fetch fleet vehicles', e)
-        setError('Failed to fetch fleet vehicles')
-        setLoading(false)
-      }
-    }
-
-    fetchVehicles()
-  }, [appConfig])
-
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (!vin) {
-      setError('You need to select a vehicle')
+    if (!vin || !brand) {
+      setError('You need to add a vin and a brand')
       return
     }
 
     try {
       setLoading(true)
-      await authFleetVehicle(vin)
+      await authFleetVehicle(vin, brand)
       history.push(routes.find((route) => route.name === PAGES.DASHBOARD).path)
     } catch (e) {
       console.log('Failed to auth vehicle', { vin })
@@ -117,14 +90,13 @@ function ConnectVehiclePage() {
             onSubmit={(e) => onSubmit(e)}
             className="ConnectVehiclePageForm"
           >
-            {fleetVehicles?.length === 0 && <label>No vehicles found</label>}
-            {
-              <FleetVehicleSelect
-                value={vin}
-                onSelect={(selectedVin) => setVin(selectedVin)}
-                fleetVehicles={fleetVehicles}
-              />
-            }
+            <TextInput
+              name="vin"
+              placeholder="Vin"
+              value={vin}
+              onChange={(e) => setVin(e.target.value)}
+            />
+            <BrandSelect value={brand} onSelect={(v) => setBrand(v)} />
             <PrimaryButton type="submit">Add vehicle</PrimaryButton>
           </form>
         ) : (

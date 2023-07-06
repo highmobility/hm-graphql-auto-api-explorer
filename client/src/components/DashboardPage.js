@@ -18,7 +18,7 @@ import { useKeyPressEvent } from 'react-use'
 function DashboardPage() {
   const [initialDataFetched, setInitialDataFetched] = useState(false)
   const [vehiclesFetched, setVehiclesFetched] = useState(false)
-  const [fetchError, setFetchError] = useState(false)
+  const [fetchError, setFetchError] = useState(null)
   const { vehicles, config, properties, app } = useMobx()
   const parsedProperties = useMemo(() => {
     return config.shownProperties
@@ -71,9 +71,12 @@ function DashboardPage() {
       }
 
       properties.setValues(vehicleData)
-      setFetchError(false)
+      setFetchError(null)
     } catch (e) {
-      setFetchError(true)
+      setFetchError(
+        e?.response?.data?.error ||
+          'Failed to fetch data, try removing some properties.'
+      )
     }
   }, [properties, config, vehicles])
 
@@ -197,9 +200,7 @@ function DashboardPage() {
 
   return (
     <div className="DashboardPage">
-      <ErrorMessage show={fetchError}>
-        Failed to fetch data, try removing some properties
-      </ErrorMessage>
+      <ErrorMessage show={fetchError}>{fetchError}</ErrorMessage>
       <Header />
       {renderContent()}
     </div>

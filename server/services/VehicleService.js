@@ -1,9 +1,10 @@
 import { knex } from '../database'
 import GraphQlService from './GraphQlService'
 import Auth from './Auth'
+import { FLEET_AUTH_STATUS } from '../utils/fleet'
 
 class VehicleService {
-  static async fetchProperties({ id, pending, vin }, properties) {
+  static async fetchProperties({ id, fleetClearance, vin }, properties) {
     const accessToken = await Auth.getAccessToken(id)
     const appConfig = await knex('app_config').first()
     if (!appConfig) {
@@ -15,14 +16,14 @@ class VehicleService {
     )
 
     const propertiesToFetch = properties
-    if (pending) {
+    if (fleetClearance === FLEET_AUTH_STATUS.PENDING) {
       propertiesToFetch.push('universal.brand')
       propertiesToFetch.push('universal.vin')
     }
 
     const graphQlResponse = await graphQl.fetchProperties(propertiesToFetch)
 
-    if (pending) {
+    if (fleetClearance === FLEET_AUTH_STATUS.PENDING) {
       const brand =
         graphQlResponse.universal &&
         graphQlResponse.universal.brand &&
@@ -36,7 +37,6 @@ class VehicleService {
         await knex('vehicles').where('id', id).update({
           vin,
           brand,
-          pending: false,
         })
       }
     }

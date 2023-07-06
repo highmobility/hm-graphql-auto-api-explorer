@@ -2,6 +2,7 @@ import { knex } from '../database'
 import { camelCase } from 'lodash'
 import Auth from '../services/Auth'
 import VehicleService from '../services/VehicleService'
+import { FLEET_AUTH_STATUS } from '../utils/fleet'
 
 export default class VehiclesController {
   async index(req, res) {
@@ -10,9 +11,10 @@ export default class VehiclesController {
       const accessTokens = await knex('access_tokens').select()
 
       const response = vehicles.map((vehicle) => {
-        const scopeString = accessTokens.find(
-          (accessToken) => accessToken.vehicle_id === vehicle.id
-        ).scope
+        const scopeString =
+          accessTokens.find(
+            (accessToken) => accessToken.vehicle_id === vehicle.id
+          )?.scope || ''
         const parsedScope = scopeString
           .split(' ')
           .map((item) => {
@@ -43,10 +45,17 @@ export default class VehiclesController {
       const {
         id: vehicleId,
         pending,
+        fleet_clearance: fleetClearance,
         vin,
       } = await knex('vehicles').where('id', id).first()
       if (!vehicleId) {
         return res.status(404).json({ message: 'No vehicle found' })
+      }
+
+      if (fleetClearance && fleetClearance !== FLEET_AUTH_STATUS.APPROVED) {
+        return res.status(403).json({
+          error: `Not authorized`,
+        })
       }
 
       const properties = await VehicleService.fetchProperties(
@@ -56,8 +65,10 @@ export default class VehiclesController {
 
       res.json(properties)
     } catch (err) {
-      console.log('Failed to fetch vehicle data', err)
-      res.status(500).json({ error: err.message })
+      console.log('Failed to fetch vehicle data', err, 'data:', err?.response)
+      res
+        .status(500)
+        .json({ error: 'Failed to fetch data, try removing some properties' })
     }
   }
 
@@ -65,14 +76,23 @@ export default class VehiclesController {
     try {
       const { id } = req.params
 
-      const { id: vehicleId } = await knex('vehicles').where('id', id).first()
+      const vehicle = await knex('vehicles').where('id', id).first()
 
-      if (!vehicleId) {
+      if (!vehicle) {
         return res.status(404).json({ message: 'No vehicle found' })
       }
 
-      const accessToken = await Auth.getAccessToken(vehicleId)
-      await Auth.revokeToken(accessToken)
+      try {
+        if (vehicle.fleet_clearance) {
+          await Auth.revokeFleetClearance(vehicle)
+        }
+
+        const accessToken = await Auth.getAccessToken(vehicle.id)
+
+        await Auth.revokeToken(accessToken)
+      } catch (e) {
+        console.error("Failed to revoke token. Maybe it's already revoked?", e)
+      }
 
       await knex('vehicles').where({ id }).delete()
 
