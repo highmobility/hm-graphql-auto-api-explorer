@@ -64,8 +64,16 @@ export const deleteVehicle = async (vehicleVin) => {
 
 export const fetchVehicleData = async (vehicleId, properties) => {
   const { data = [] } = await axios.post(
-    `${API_URL}/vehicles/data/${vehicleId}`,
+    `${API_URL}/vehicles/${vehicleId}/data`,
     { properties }
+  )
+
+  return data
+}
+
+export const refreshVehicleData = async (vehicleId) => {
+  const { data = [] } = await axios.get(
+    `${API_URL}/vehicles/${vehicleId}/refresh`
   )
 
   return data

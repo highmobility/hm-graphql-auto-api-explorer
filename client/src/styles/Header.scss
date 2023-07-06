@@ -64,15 +64,26 @@
     font-weight: bold;
     transition: background-color 300ms ease;
     margin-right: 10px;
+    height: 46px;
+    box-sizing: border-box;
 
     &:hover,
-    &:active {
+    &:active,
+    &:disabled {
       background: #f8f9fa;
       border: 1px solid #e9ecef;
     }
 
     &.ConfigButton {
       margin-right: 24px;
+    }
+
+    svg {
+      fill: '#6C757D';
+
+      path {
+        fill: '#6C757D';
+      }
     }
   }
 

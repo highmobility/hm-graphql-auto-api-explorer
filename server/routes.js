@@ -28,7 +28,8 @@ router.get('/properties', propertiesController.get)
 router.put('/properties', propertiesController.update)
 
 router.get('/vehicles', vehiclesController.index)
-router.post('/vehicles/data/:id', vehiclesController.getData)
+router.get('/vehicles/:id/refresh', vehiclesController.refresh)
+router.post('/vehicles/:id/data', vehiclesController.getData)
 router.delete('/vehicles/:id/delete', vehiclesController.delete)
 
 router.get('/auth/callback', authController.oAuthCallback)

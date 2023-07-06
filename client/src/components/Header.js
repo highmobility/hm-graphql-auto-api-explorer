@@ -12,12 +12,18 @@ import VehicleSelect from './VehicleSelect'
 import { ReactComponent as CogSvg } from '../images/cog.svg'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
-import { updateConfig, updateProperties } from '../requests'
+import {
+  fetchVehicleData,
+  refreshVehicleData,
+  updateConfig,
+  updateProperties,
+} from '../requests'
 import { ReactComponent as DownloadSvg } from '../images/download.svg'
+import { ReactComponent as RefreshSvg } from '../images/refresh.svg'
 import { API_URL } from '../requests'
 
 const Header = () => {
-  const { config, app } = useMobx()
+  const { config, app, vehicles, properties } = useMobx()
 
   const viewDropdownItems = [
     {
@@ -83,6 +89,21 @@ const Header = () => {
     },
   ]
 
+  const handleRefresh = async () => {
+    if (!config.selectedVehicleId) return
+    try {
+      const refreshResponse = await refreshVehicleData(config.selectedVehicleId)
+      console.log('refreshResponse', refreshResponse)
+      const vehicleData = await fetchVehicleData(
+        config.selectedVehicleId,
+        config.shownProperties
+      )
+      properties.setValues(vehicleData)
+    } catch (e) {
+      console.log('refresh failed', e)
+    }
+  }
+
   return (
     <div className={`Header`}>
       <div className="HeaderContent">
@@ -109,6 +130,13 @@ const Header = () => {
           renderLabel={() => `Update every ${config.updateFrequency}s`}
           items={updateFrequencyDropdownItems}
         />
+        <button
+          className="HeaderIconButton"
+          onClick={handleRefresh}
+          disabled={refreshing}
+        >
+          <RefreshSvg width="24px" height="24px" />
+        </button>
         <a
           href={`${API_URL}/logs/csv?download`}
           download

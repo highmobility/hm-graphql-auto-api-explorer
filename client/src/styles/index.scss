@@ -18,6 +18,23 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+body,
+.App {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 @import 'config.scss';
 @import 'typography.scss';
 @import 'colors.scss';

@@ -72,6 +72,31 @@ export default class VehiclesController {
     }
   }
 
+  async refresh(req, res) {
+    try {
+      const { id } = req.params
+      const vehicle = await knex('vehicles').where('id', id).first()
+      if (!vehicle) {
+        return res.status(404).json({ message: 'No vehicle found' })
+      }
+
+      // TODO
+      // if not fleet vehicle, just refetch properties.
+      // const accessToken = await Auth.getAccessToken(vehicle.id)
+
+      // await VehicleService.fetchProperties(vehicle, req.body.properties)
+
+      res.json({
+        message: 'Vehicle refreshed',
+      })
+    } catch (err) {
+      console.log(err)
+      res.status(500).json({
+        error: 'Failed to refresh vehicle',
+      })
+    }
+  }
+
   async delete(req, res) {
     try {
       const { id } = req.params
