@@ -34,14 +34,10 @@ const VehicleSelect = () => {
           {!vehicle.brand || !vehicle.vin ? (
             <div className="VehicleSelectDropdownBrand">Pending vehicle</div>
           ) : (
-            <div
-              className={`VehicleSelectDropdownItem${
-                vehicle.pending ? ' VehicleSelectDropdownItem__Pending' : ''
-              }`}
-            >
+            <Fragment>
               <div className="VehicleSelectDropdownBrand">{vehicle.brand}</div>
               <div className="VehicleSelectDropdownVin">{vehicle.vin}</div>
-            </div>
+            </Fragment>
           )}
           <CrossSvg
             className="VehicleSelectDropdownDelete"

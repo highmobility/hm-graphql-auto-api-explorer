@@ -13,7 +13,6 @@ export default class Crypto {
         .createHmac('sha1', secret)
         .update(JSON.stringify(request.body))
         .digest('hex')
-    console.log('expectedSignature', expectedSignature);
     const a = Buffer.from(signature)
     const b = Buffer.from(expectedSignature)
     return crypto.timingSafeEqual(a, b)
