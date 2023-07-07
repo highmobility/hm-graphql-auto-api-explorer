@@ -108,7 +108,7 @@ class Auth {
       return
     }
 
-    await knex('access_tokens').where('vehicle_id', vehicle.id).del()
+    await knex('access_tokens').where('vehicle_id', vehicleId).del()
     await knex('access_tokens').insert(
       {
         vehicle_id: vehicleId,
