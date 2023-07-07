@@ -16,6 +16,7 @@ import ErrorMessage from './ErrorMessage'
 import Spinner from './Spinner'
 import TextInput from './TextInput'
 import BrandSelect from './BrandSelect'
+import { useMobx } from '../store/mobx'
 
 function ConnectVehiclePage() {
   const [url, setUrl] = useState(null)
@@ -27,6 +28,7 @@ function ConnectVehiclePage() {
   const [vin, setVin] = useState('')
   const [brand, setBrand] = useState('')
   const [loading, setLoading] = useState(true)
+  const { properties } = useMobx()
 
   useEffect(() => {
     const fetch = async () => {
@@ -60,9 +62,10 @@ function ConnectVehiclePage() {
     try {
       setLoading(true)
       await authFleetVehicle(vin, brand)
+      properties.resetValues()
       history.push(routes.find((route) => route.name === PAGES.DASHBOARD).path)
     } catch (e) {
-      console.log('Failed to auth vehicle', { vin })
+      console.log('Failed to auth vehicle', { vin, e })
       setError(`Failed to authorize vehicle. ${e?.response?.data?.error || ''}`)
       setLoading(false)
     }

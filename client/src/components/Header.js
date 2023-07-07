@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/Header.scss'
 import PrimaryButton from './PrimaryButton'
 import { ReactComponent as FilterSvg } from '../images/filter.svg'
@@ -13,7 +13,7 @@ import { ReactComponent as CogSvg } from '../images/cog.svg'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
 import {
-  fetchVehicleData,
+  fetchProperties,
   refreshVehicleData,
   updateConfig,
   updateProperties,
@@ -23,7 +23,8 @@ import { ReactComponent as RefreshSvg } from '../images/refresh.svg'
 import { API_URL } from '../requests'
 
 const Header = () => {
-  const { config, app, vehicles, properties } = useMobx()
+  const { config, app, vehicles } = useMobx()
+  const [refreshing, setRefreshing] = useState(false)
 
   const viewDropdownItems = [
     {
@@ -91,15 +92,28 @@ const Header = () => {
 
   const handleRefresh = async () => {
     if (!config.selectedVehicleId) return
+
     try {
-      const refreshResponse = await refreshVehicleData(config.selectedVehicleId)
-      console.log('refreshResponse', refreshResponse)
-      const vehicleData = await fetchVehicleData(
-        config.selectedVehicleId,
-        config.shownProperties
+      setRefreshing(true)
+      await refreshVehicleData(config.selectedVehicleId)
+      const [propertiesData] = await Promise.all([
+        fetchProperties(),
+        vehicles.fetch(),
+      ])
+      const selectedVehicle = vehicles.list.find(
+        (v) => v.id === config.selectedVehicleId
       )
-      properties.setValues(vehicleData)
+      if (propertiesData.length > 0) {
+        config.setShownProperties(
+          propertiesData
+            .filter((p) => selectedVehicle?.scope?.includes(p.unique_id))
+            .map((p) => p.unique_id)
+        )
+      }
+
+      setRefreshing(false)
     } catch (e) {
+      setRefreshing(false)
       console.log('refresh failed', e)
     }
   }

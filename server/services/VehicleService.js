@@ -48,6 +48,26 @@ class VehicleService {
 
     return graphQlResponse
   }
+
+  static async refresh(vehicle) {
+    const isFleetVehicle = !!vehicle.fleet_clearance
+    if (!isFleetVehicle) {
+      return
+    }
+    const status = await Auth.checkFleetClearance(vehicle)
+    if (status !== FLEET_AUTH_STATUS.APPROVED) {
+      return
+    }
+
+    const accessTokenResponse = await Auth.getFleetVehicleAccessToken(vehicle)
+    await knex('vehicles')
+      .where({ vin: vehicle.vin })
+      .update({
+        fleet_clearance: status,
+        pending: status !== FLEET_AUTH_STATUS.APPROVED,
+      })
+    await Auth.initProperties(accessTokenResponse)
+  }
 }
 
 export default VehicleService

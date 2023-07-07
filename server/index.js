@@ -26,7 +26,13 @@ app.use(sslRedirect())
 app.use(async (req, res, next) => {
   if (process.env.NODE_ENV !== 'production') return next()
   const config = await knex('config').first()
-  if (!config || !config.basic_auth_enabled) return next()
+  if (
+    !config ||
+    !config.basic_auth_enabled ||
+    req.path.includes('api/redirect')
+  ) {
+    return next()
+  }
 
   return basicAuth({
     authorizeAsync: true,

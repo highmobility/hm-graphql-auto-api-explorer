@@ -29,7 +29,9 @@ export default class WebhookService {
         'handleClearanceChangedWebhook::getting fleet access token for vehicle:',
         { vehicle }
       )
-      await Auth.getFleetVehicleAccessToken(vehicle)
+
+      const accessTokenResponse = await Auth.getFleetVehicleAccessToken(vehicle)
+      await Auth.initProperties(accessTokenResponse)
       const properties = (await knex('properties').select()) || []
       const propertiesToFetch = properties.map((property) => property.unique_id)
       await VehicleService.fetchProperties(vehicle, propertiesToFetch)

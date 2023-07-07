@@ -125,8 +125,9 @@ class Auth {
   }
 
   static async initProperties(accessTokenResponse) {
-    const isFirstVehicle = (await knex('vehicles').count('id')) == 1
-    if (isFirstVehicle) {
+    const { count } = (await knex('properties').count())[0]
+    const noProperties = Number(count) === 0
+    if (noProperties) {
       const newSelectedProperties = []
       accessTokenResponse.scope.split(' ').forEach((scopeItem) => {
         const [capabilityName, , propertyName] = scopeItem.split('.')
@@ -325,6 +326,22 @@ class Auth {
         e
       )
     }
+  }
+
+  static async checkFleetClearance(vehicle) {
+    const appConfig = await knex('app_config').first()
+    const apiUrl = Auth.getApiUrl(appConfig)
+    const authToken = await Auth.getFleetAuthToken(appConfig)
+    const { data } = await axios.get(
+      `${apiUrl}/fleets/vehicles/${vehicle.vin}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken.auth_token}`,
+        },
+      }
+    )
+
+    return data?.status || null
   }
 }
 

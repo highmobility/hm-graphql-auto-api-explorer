@@ -80,11 +80,7 @@ export default class VehiclesController {
         return res.status(404).json({ message: 'No vehicle found' })
       }
 
-      // TODO
-      // if not fleet vehicle, just refetch properties.
-      // const accessToken = await Auth.getAccessToken(vehicle.id)
-
-      // await VehicleService.fetchProperties(vehicle, req.body.properties)
+      await VehicleService.refresh(vehicle)
 
       res.json({
         message: 'Vehicle refreshed',
