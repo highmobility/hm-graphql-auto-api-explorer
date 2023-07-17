@@ -228,9 +228,28 @@ class Auth {
       }
     )
 
-    const fleetClearance =
-      data?.vehicles?.find((v) => v.vin === vin)?.status || null
-    await Auth.addVehicle(vin, brand, null, true, fleetClearance)
+    let fleetClearance = null
+    let accessTokenResponse = null
+    let pending = true
+
+    try {
+      fleetClearance = await Auth.checkFleetClearance(vin)
+      accessTokenResponse = await Auth.getFleetVehicleAccessToken(
+        { vin },
+        false
+      )
+      pending = fleetClearance !== FLEET_AUTH_STATUS.APPROVED
+    } catch (e) {
+      // Doesn't have clearance yet
+    }
+
+    await Auth.addVehicle(
+      vin,
+      brand,
+      accessTokenResponse,
+      pending,
+      fleetClearance
+    )
   }
 
   static async getFleetAuthToken(appConfig) {
@@ -277,7 +296,7 @@ class Auth {
   }
 
   // This can only be called after fleet clearance has been given
-  static async getFleetVehicleAccessToken(vehicle) {
+  static async getFleetVehicleAccessToken(vehicle, insertToken = true) {
     if (!vehicle) return null
 
     const appConfig = await knex('app_config').first()
@@ -294,6 +313,10 @@ class Auth {
         },
       }
     )
+
+    if (!insertToken) {
+      return accessTokenResponse
+    }
 
     await knex('access_tokens').where('vehicle_id', vehicle.id).del()
     await knex('access_tokens').insert({
@@ -328,20 +351,34 @@ class Auth {
     }
   }
 
-  static async checkFleetClearance(vehicle) {
+  static async checkFleetClearance(vin) {
     const appConfig = await knex('app_config').first()
     const apiUrl = Auth.getApiUrl(appConfig)
     const authToken = await Auth.getFleetAuthToken(appConfig)
-    const { data } = await axios.get(
-      `${apiUrl}/fleets/vehicles/${vehicle.vin}`,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken.auth_token}`,
-        },
-      }
-    )
+    const { data } = await axios.get(`${apiUrl}/fleets/vehicles/${vin}`, {
+      headers: {
+        Authorization: `Bearer ${authToken.auth_token}`,
+      },
+    })
 
     return data?.status || null
+  }
+
+  static async getFleetVehiclesWithClearance() {
+    const appConfig = await knex('app_config').first()
+    const apiUrl = Auth.getApiUrl(appConfig)
+    const authToken = await Auth.getFleetAuthToken(appConfig)
+    const { data } = await axios.get(`${apiUrl}/fleets/vehicles`, {
+      headers: {
+        Authorization: `Bearer ${authToken.auth_token}`,
+      },
+    })
+
+    return (
+      data
+        ?.filter((v) => v.status === FLEET_AUTH_STATUS.APPROVED)
+        .map(({ brand, vin }) => ({ brand, vin })) || []
+    )
   }
 }
 

@@ -3,14 +3,22 @@ import Dropdown from './Dropdown'
 import '../styles/BrandSelect.scss'
 import { brands } from '../utils/brands'
 
-function BrandSelect({ value, onSelect }) {
-  const dropdownItems = brands.map((brand) => {
-    return {
-      value: brand.value,
-      onClick: () => onSelect(brand.value),
-      renderLabel: () => renderSelectItem(brand.name, brand.value),
-    }
-  })
+function BrandSelect({ isSandbox, value, onSelect }) {
+  const dropdownItems = brands
+    .filter((b) => {
+      if (isSandbox) {
+        return b.value === 'sandbox'
+      }
+
+      return b.value !== 'sandbox'
+    })
+    .map((brand) => {
+      return {
+        value: brand.value,
+        onClick: () => onSelect(brand.value),
+        renderLabel: () => renderSelectItem(brand.name, brand.value),
+      }
+    })
 
   const selectedBrand = brands.find((brand) => brand.value === value)
 

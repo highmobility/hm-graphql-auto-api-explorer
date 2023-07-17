@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   authFleetVehicle,
   AUTH_CALLBACK_URL,
   fetchAppConfig,
+  fetchClearedFleetVehicles,
 } from '../requests'
 import routes, { PAGES } from '../routes'
 import '../styles/ConnectVehiclePage.scss'
@@ -17,6 +18,8 @@ import Spinner from './Spinner'
 import TextInput from './TextInput'
 import BrandSelect from './BrandSelect'
 import { useMobx } from '../store/mobx'
+import ClearedVehiclesSelect from './ClearedVehiclesSelect'
+import SecondaryButton from './SecondaryButton'
 
 function ConnectVehiclePage() {
   const [url, setUrl] = useState(null)
@@ -29,12 +32,24 @@ function ConnectVehiclePage() {
   const [brand, setBrand] = useState('')
   const [loading, setLoading] = useState(true)
   const { properties } = useMobx()
+  const [clearedFleetVehicles, setClearedFleetVehicles] = useState([])
+  const [addingNew, setAddingNew] = useState(false)
+
+  const [validationErrors, setValidationErrors] = useState({})
+
+  const isSandbox = useMemo(() => {
+    return appConfig?.auth_url?.includes('sandbox')
+  }, [appConfig])
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const config = await fetchAppConfig()
+        const [config, clearedFleetVehicles] = await Promise.all([
+          fetchAppConfig(),
+          fetchClearedFleetVehicles(),
+        ])
         setAppConfig(config)
+        setClearedFleetVehicles(clearedFleetVehicles)
 
         const oAuthUrl = new URL(config.auth_url)
         oAuthUrl.searchParams.set('client_id', config.client_id)
@@ -43,6 +58,7 @@ function ConnectVehiclePage() {
         setUrl(oAuthUrl)
         setLoading(false)
       } catch (e) {
+        console.log('Failed to fetch page data', e)
         history.push(
           routes.find((route) => route.name === PAGES.INITIAL_CONFIG).path
         )
@@ -54,8 +70,12 @@ function ConnectVehiclePage() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
+    if (Object.values(validationErrors).filter(Boolean).length > 0) {
+      return
+    }
+
     if (!vin || !brand) {
-      setError('You need to add a vin and a brand')
+      setError('You need to select a vehicle')
       return
     }
 
@@ -93,13 +113,56 @@ function ConnectVehiclePage() {
             onSubmit={(e) => onSubmit(e)}
             className="ConnectVehiclePageForm"
           >
-            <TextInput
-              name="vin"
-              placeholder="Vin"
-              value={vin}
-              onChange={(e) => setVin(e.target.value)}
-            />
-            <BrandSelect value={brand} onSelect={(v) => setBrand(v)} />
+            {addingNew ? (
+              <>
+                <TextInput
+                  name="vin"
+                  placeholder="VIN"
+                  value={vin}
+                  onChange={(e) => {
+                    if (
+                      e.target.value.length !== 17 ||
+                      e.target.value !== e.target.value.toUpperCase()
+                    ) {
+                      setValidationErrors((v) => ({ ...v, VIN: 'Invalid VIN' }))
+                    } else {
+                      setValidationErrors((v) => ({ ...v, VIN: null }))
+                    }
+
+                    setVin(e.target.value)
+                  }}
+                  error={validationErrors.VIN}
+                />
+                <BrandSelect
+                  isSandbox={isSandbox}
+                  value={brand}
+                  onSelect={(v) => setBrand(v)}
+                />
+                <SecondaryButton
+                  onClick={() => {
+                    setAddingNew(false)
+                    setVin(null)
+                    setBrand(null)
+                  }}
+                >
+                  Cancel
+                </SecondaryButton>
+              </>
+            ) : (
+              <ClearedVehiclesSelect
+                vehicles={clearedFleetVehicles}
+                value={vin}
+                onSelect={(v) => {
+                  setVin(v.vin)
+                  setBrand(v.brand)
+                }}
+                onAddNew={() => {
+                  setVin(null)
+                  setBrand(isSandbox ? 'sandbox' : null)
+                  setAddingNew(true)
+                }}
+              />
+            )}
             <PrimaryButton type="submit">Add vehicle</PrimaryButton>
           </form>
         ) : (

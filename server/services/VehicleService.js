@@ -52,21 +52,24 @@ class VehicleService {
   static async refresh(vehicle) {
     const isFleetVehicle = !!vehicle.fleet_clearance
     if (!isFleetVehicle) {
-      return
+      return null
     }
-    const status = await Auth.checkFleetClearance(vehicle)
-    if (status !== FLEET_AUTH_STATUS.APPROVED) {
-      return
-    }
+    const status = await Auth.checkFleetClearance(vehicle.vin)
 
-    const accessTokenResponse = await Auth.getFleetVehicleAccessToken(vehicle)
     await knex('vehicles')
       .where({ vin: vehicle.vin })
       .update({
         fleet_clearance: status,
         pending: status !== FLEET_AUTH_STATUS.APPROVED,
       })
-    await Auth.initProperties(accessTokenResponse)
+
+    const accessTokenResponse = await Auth.getFleetVehicleAccessToken(vehicle)
+
+    if (status === FLEET_AUTH_STATUS.APPROVED) {
+      await Auth.initProperties(accessTokenResponse)
+    }
+
+    return status
   }
 }
 

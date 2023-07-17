@@ -39,6 +39,19 @@ export default class VehiclesController {
     }
   }
 
+  async clearedFleetVehicles(req, res) {
+    try {
+      const vehicles = await Auth.getFleetVehiclesWithClearance()
+
+      res.json(vehicles)
+    } catch (err) {
+      console.log(err.stack)
+      res.status(500).json({
+        error: 'Failed to get cleared fleet vehicles',
+      })
+    }
+  }
+
   async getData(req, res) {
     try {
       const { id } = req.params
@@ -54,7 +67,7 @@ export default class VehiclesController {
 
       if (fleetClearance && fleetClearance !== FLEET_AUTH_STATUS.APPROVED) {
         return res.status(403).json({
-          error: `Not authorized`,
+          error: `Not authorized. Fleet clearance status: "${fleetClearance}"`,
         })
       }
 

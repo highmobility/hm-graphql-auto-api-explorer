@@ -28,6 +28,7 @@ router.get('/properties', propertiesController.get)
 router.put('/properties', propertiesController.update)
 
 router.get('/vehicles', vehiclesController.index)
+router.get('/vehicles/fleet', vehiclesController.clearedFleetVehicles)
 router.get('/vehicles/:id/refresh', vehiclesController.refresh)
 router.post('/vehicles/:id/data', vehiclesController.getData)
 router.delete('/vehicles/:id/delete', vehiclesController.delete)

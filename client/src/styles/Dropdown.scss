@@ -2,7 +2,6 @@
 
 .Dropdown {
   position: relative;
-  z-index: $dropdownZ;
   user-select: none;
 
   .DropdownButton {
@@ -22,6 +21,8 @@
     box-sizing: border-box;
     white-space: nowrap;
     transition: background-color 300ms ease;
+    z-index: $dropdownZ;
+    position: relative;
 
     span {
       margin-right: 10px;
@@ -83,6 +84,8 @@
   }
 
   &.Open {
+    z-index: $dropdownOpenZ;
+
     .DropdownChevron {
       transform: rotate(180deg) translateY(2px);
     }
