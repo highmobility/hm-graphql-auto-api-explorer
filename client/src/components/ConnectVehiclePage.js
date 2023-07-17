@@ -44,10 +44,11 @@ function ConnectVehiclePage() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const [config, clearedFleetVehicles] = await Promise.all([
-          fetchAppConfig(),
-          fetchClearedFleetVehicles(),
-        ])
+        const config = await fetchAppConfig()
+        const clearedFleetVehicles =
+          config.app_type === APP_TYPES.FLEET
+            ? await fetchClearedFleetVehicles()
+            : []
         setAppConfig(config)
         setClearedFleetVehicles(clearedFleetVehicles)
 
