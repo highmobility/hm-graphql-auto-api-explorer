@@ -209,9 +209,10 @@ function ConfigPage() {
                 }
               />
             </div>
-            <h5 className="ConfigPageSubTitle">Continuous database logging</h5>
-            <p className="small">
-              To configure a webhook for logging, open your app and follow the
+            <h5 className="ConfigPageSubTitle">Webhook</h5>
+            <p className="small ConfigPageTextBlock">
+              To configure a webhook for continuous database logging and
+              updating fleet vehicle clearance , open your app and follow the
               Webhooks tab, enter the following values:
             </p>
             <div className="ConfigPageLabel">Payload URL</div>

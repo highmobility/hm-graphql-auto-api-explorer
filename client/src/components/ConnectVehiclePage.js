@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   authFleetVehicle,
   AUTH_CALLBACK_URL,
   fetchAppConfig,
-  fetchFleetVehicles,
+  fetchClearedFleetVehicles,
 } from '../requests'
 import routes, { PAGES } from '../routes'
 import '../styles/ConnectVehiclePage.scss'
@@ -14,9 +14,12 @@ import PrimaryButton from './PrimaryButton'
 import { useLocation } from 'react-use'
 import { APP_TYPES } from '../store/Config'
 import ErrorMessage from './ErrorMessage'
-import FleetVehicleSelect from './FleetVehicleSelect'
 import Spinner from './Spinner'
-import { FLEET_AUTH_STATUS } from '../utils/fleet'
+import TextInput from './TextInput'
+import BrandSelect from './BrandSelect'
+import { useMobx } from '../store/mobx'
+import ClearedVehiclesSelect from './ClearedVehiclesSelect'
+import SecondaryButton from './SecondaryButton'
 
 function ConnectVehiclePage() {
   const [url, setUrl] = useState(null)
@@ -26,21 +29,37 @@ function ConnectVehiclePage() {
     new URLSearchParams(useLocation().search).get('error')
   )
   const [vin, setVin] = useState('')
-  const [fleetVehicles, setFleetVehicles] = useState(null)
+  const [brand, setBrand] = useState('')
   const [loading, setLoading] = useState(true)
+  const { properties } = useMobx()
+  const [clearedFleetVehicles, setClearedFleetVehicles] = useState([])
+  const [addingNew, setAddingNew] = useState(false)
+
+  const [validationErrors, setValidationErrors] = useState({})
+
+  const isSandbox = useMemo(() => {
+    return appConfig?.auth_url?.includes('sandbox')
+  }, [appConfig])
 
   useEffect(() => {
     const fetch = async () => {
       try {
         const config = await fetchAppConfig()
+        const clearedFleetVehicles =
+          config.app_type === APP_TYPES.FLEET
+            ? await fetchClearedFleetVehicles()
+            : []
         setAppConfig(config)
+        setClearedFleetVehicles(clearedFleetVehicles)
 
         const oAuthUrl = new URL(config.auth_url)
         oAuthUrl.searchParams.set('client_id', config.client_id)
         oAuthUrl.searchParams.set('app_id', config.graph_ql_api_config.app_id)
         oAuthUrl.searchParams.set('redirect_uri', AUTH_CALLBACK_URL)
         setUrl(oAuthUrl)
+        setLoading(false)
       } catch (e) {
+        console.log('Failed to fetch page data', e)
         history.push(
           routes.find((route) => route.name === PAGES.INITIAL_CONFIG).path
         )
@@ -50,46 +69,24 @@ function ConnectVehiclePage() {
     fetch()
   }, [history])
 
-  useEffect(() => {
-    const fetchVehicles = async () => {
-      try {
-        if (appConfig?.app_type === APP_TYPES.FLEET) {
-          setLoading(true)
-          const vehicles = await fetchFleetVehicles()
-          setFleetVehicles(vehicles)
-          if (vehicles.length > 0) {
-            const vehicleToSelect = vehicles.find(
-              (vehicle) => vehicle.state === FLEET_AUTH_STATUS.APPROVED
-            )
-            if (vehicleToSelect) {
-              setVin(vehicleToSelect.vin)
-            }
-          }
-        }
-        setLoading(false)
-      } catch (e) {
-        console.log('Failed to fetch fleet vehicles', e)
-        setError('Failed to fetch fleet vehicles')
-        setLoading(false)
-      }
-    }
-
-    fetchVehicles()
-  }, [appConfig])
-
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (!vin) {
+    if (Object.values(validationErrors).filter(Boolean).length > 0) {
+      return
+    }
+
+    if (!vin || !brand) {
       setError('You need to select a vehicle')
       return
     }
 
     try {
       setLoading(true)
-      await authFleetVehicle(vin)
+      await authFleetVehicle(vin, brand)
+      properties.resetValues()
       history.push(routes.find((route) => route.name === PAGES.DASHBOARD).path)
     } catch (e) {
-      console.log('Failed to auth vehicle', { vin })
+      console.log('Failed to auth vehicle', { vin, e })
       setError(`Failed to authorize vehicle. ${e?.response?.data?.error || ''}`)
       setLoading(false)
     }
@@ -117,14 +114,56 @@ function ConnectVehiclePage() {
             onSubmit={(e) => onSubmit(e)}
             className="ConnectVehiclePageForm"
           >
-            {fleetVehicles?.length === 0 && <label>No vehicles found</label>}
-            {
-              <FleetVehicleSelect
+            {addingNew ? (
+              <>
+                <TextInput
+                  name="vin"
+                  placeholder="VIN"
+                  value={vin}
+                  onChange={(e) => {
+                    if (
+                      e.target.value.length !== 17 ||
+                      e.target.value !== e.target.value.toUpperCase()
+                    ) {
+                      setValidationErrors((v) => ({ ...v, VIN: 'Invalid VIN' }))
+                    } else {
+                      setValidationErrors((v) => ({ ...v, VIN: null }))
+                    }
+
+                    setVin(e.target.value)
+                  }}
+                  error={validationErrors.VIN}
+                />
+                <BrandSelect
+                  isSandbox={isSandbox}
+                  value={brand}
+                  onSelect={(v) => setBrand(v)}
+                />
+                <SecondaryButton
+                  onClick={() => {
+                    setAddingNew(false)
+                    setVin(null)
+                    setBrand(null)
+                  }}
+                >
+                  Cancel
+                </SecondaryButton>
+              </>
+            ) : (
+              <ClearedVehiclesSelect
+                vehicles={clearedFleetVehicles}
                 value={vin}
-                onSelect={(selectedVin) => setVin(selectedVin)}
-                fleetVehicles={fleetVehicles}
+                onSelect={(v) => {
+                  setVin(v.vin)
+                  setBrand(v.brand)
+                }}
+                onAddNew={() => {
+                  setVin(null)
+                  setBrand(isSandbox ? 'sandbox' : null)
+                  setAddingNew(true)
+                }}
               />
-            }
+            )}
             <PrimaryButton type="submit">Add vehicle</PrimaryButton>
           </form>
         ) : (

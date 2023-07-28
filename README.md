@@ -43,6 +43,7 @@ Step 0: Make sure you have this sample app deployed. Once you load the root URL,
 #### Fleet apps
 
 7. For fleet apps you will also need to insert fleet config. To download the JSON open your production app, then the service account keys tab, then click on the "+" button to download the config.
+8. After initializing your app and adding a vehicle, click on the refresh button to refresh the vehicle's fleet clearance status. To automatically update this status, configure a webhook in the settings view.
 
 ## Local setup
 

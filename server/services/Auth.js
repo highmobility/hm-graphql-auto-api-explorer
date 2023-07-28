@@ -4,6 +4,7 @@ import GraphQlService from './GraphQlService'
 import jwt from 'jsonwebtoken'
 import uuid4 from 'uuid4'
 import CAPABILITIES from '../../data/capabilities.json'
+import { FLEET_AUTH_STATUS } from '../utils/fleet'
 
 const ACCESS_TOKEN_STATUS = {
   PENDING: 'pending',
@@ -11,6 +12,18 @@ const ACCESS_TOKEN_STATUS = {
 }
 
 class Auth {
+  static getApiUrl(appConfig) {
+    const sandbox = (appConfig.token_url || '').includes('sandbox')
+
+    const develop = (appConfig.token_url || '').includes('develop')
+    const staging = (appConfig.token_url || '').includes('staging')
+    const production = !develop && !staging
+
+    return `https://${sandbox ? 'sandbox.' : ''}api.${
+      staging ? 'staging.' : ''
+    }high-mobility${production ? '.com' : '.net'}/v1`
+  }
+
   static async authorizeVehicle(req) {
     if (req.query.error) {
       throw new Error(`Error during OAuth: ${req.query.error}`)
@@ -69,59 +82,74 @@ class Auth {
     }
   }
 
-  static async addVehicle(vin, brand, accessTokenResponse, pending = false) {
-    await knex.transaction(async (trx) => {
-      const isFirstVehicle = !(await trx('vehicles').first())
-      const [vehicleId] = await trx('vehicles').insert(
-        {
-          vin,
-          brand,
-          pending,
-        },
-        'id'
-      )
+  static async addVehicle(
+    vin,
+    brand,
+    accessTokenResponse,
+    pending = false,
+    fleetClearance = null
+  ) {
+    await knex('vehicles').where('vin', vin).del()
+    const [vehicleId] = await knex('vehicles').insert(
+      {
+        vin,
+        brand,
+        pending,
+        fleet_clearance: fleetClearance,
+      },
+      'id'
+    )
 
-      await trx('access_tokens').insert(
-        {
-          vehicle_id: vehicleId,
-          access_token: accessTokenResponse.access_token,
-          refresh_token: accessTokenResponse.refresh_token,
-          scope: accessTokenResponse.scope,
-          expires_at: new Date(
-            new Date().getTime() + accessTokenResponse.expires_in * 1000
-          ),
-        },
-        'access_token'
-      )
+    await knex('config').first().update({
+      selected_vehicle_id: vehicleId,
+    })
 
-      await trx('config').first().update({
-        selected_vehicle_id: vehicleId,
+    if (!accessTokenResponse) {
+      return
+    }
+
+    await knex('access_tokens').where('vehicle_id', vehicleId).del()
+    await knex('access_tokens').insert(
+      {
+        vehicle_id: vehicleId,
+        access_token: accessTokenResponse.access_token,
+        refresh_token: accessTokenResponse.refresh_token,
+        scope: accessTokenResponse.scope,
+        expires_at: new Date(
+          new Date().getTime() + accessTokenResponse.expires_in * 1000
+        ),
+      },
+      'access_token'
+    )
+    await Auth.initProperties(accessTokenResponse)
+  }
+
+  static async initProperties(accessTokenResponse) {
+    const { count } = (await knex('properties').count())[0]
+    const noProperties = Number(count) === 0
+    if (noProperties) {
+      const newSelectedProperties = []
+      accessTokenResponse.scope.split(' ').forEach((scopeItem) => {
+        const [capabilityName, , propertyName] = scopeItem.split('.')
+
+        const propertyConfig = CAPABILITIES?.[capabilityName]?.properties?.find(
+          (property) => property.name === propertyName
+        )
+
+        if (!propertyConfig) return
+
+        return newSelectedProperties.push(
+          `${propertyConfig.capabilityName}.${propertyConfig.name_cased}`
+        )
       })
 
-      if (isFirstVehicle) {
-        const newSelectedProperties = []
-        accessTokenResponse.scope.split(' ').forEach((scopeItem) => {
-          const [capabilityName, , propertyName] = scopeItem.split('.')
-
-          const propertyConfig = CAPABILITIES?.[
-            capabilityName
-          ]?.properties?.find((property) => property.name === propertyName)
-
-          if (!propertyConfig) return
-
-          return newSelectedProperties.push(
-            `${propertyConfig.capabilityName}.${propertyConfig.name_cased}`
-          )
-        })
-
-        for (const newSelectedProperty of newSelectedProperties) {
-          await trx('properties')
-            .insert({ unique_id: newSelectedProperty })
-            .onConflict('unique_id')
-            .merge()
-        }
+      for (const newSelectedProperty of newSelectedProperties) {
+        await knex('properties')
+          .insert({ unique_id: newSelectedProperty })
+          .onConflict('unique_id')
+          .merge()
       }
-    })
+    }
   }
 
   static async getAccessToken(vehicleId) {
@@ -183,43 +211,49 @@ class Auth {
     }
   }
 
-  static async authorizeFleetVehicle(vin) {
+  static async authorizeFleetVehicle(vin, brand) {
     const appConfig = await knex('app_config').first()
-    const authTokenResponse = await Auth.getFleetAuthToken(appConfig)
+    const apiUrl = Auth.getApiUrl(appConfig)
 
-    // TODO: add auth (POST to fleets/vehicles), needs vin, brand and other stuff, if response is pending set vehicle as pending
-    // const { data: vehiclesResponse } = await axios.post(
-    //   'https://api.high-mobility.com/v1/fleets/vehicles',
-    //   {
-    //     vehicles: [{ vin: 'VR3UKZKXZLJ995396', brand: 'peugeot' }],
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${authTokenResponse.auth_token}`,
-    //     },
-    //   }
-    // )
-
-    const { data: accessTokenResponse } = await axios.post(
-      'https://api.high-mobility.com/v1/fleets/access_tokens',
+    const authToken = await Auth.getFleetAuthToken(appConfig)
+    const { data } = await axios.post(
+      `${apiUrl}/fleets/vehicles`,
       {
-        vin,
+        vehicles: [{ vin, brand }],
       },
       {
         headers: {
-          Authorization: `Bearer ${authTokenResponse.auth_token}`,
+          Authorization: `Bearer ${authToken.auth_token}`,
         },
       }
     )
 
-    const { brand } = await Auth.getVinAndBrand(appConfig, accessTokenResponse)
+    let fleetClearance = null
+    let accessTokenResponse = null
+    let pending = true
 
-    // const pending = !brand || !vin || authorizedVehicle.status === FLEET_AUTH_STATUS.PENDING
-    const pending = !brand || !vin
-    await Auth.addVehicle(vin, brand, accessTokenResponse, pending)
+    try {
+      fleetClearance = await Auth.checkFleetClearance(vin)
+      accessTokenResponse = await Auth.getFleetVehicleAccessToken(
+        { vin },
+        false
+      )
+      pending = fleetClearance !== FLEET_AUTH_STATUS.APPROVED
+    } catch (e) {
+      // Doesn't have clearance yet
+    }
+
+    await Auth.addVehicle(
+      vin,
+      brand,
+      accessTokenResponse,
+      pending,
+      fleetClearance
+    )
   }
 
   static async getFleetAuthToken(appConfig) {
+    const apiUrl = Auth.getApiUrl(appConfig)
     const serviceAccountPrivateKey = Buffer.from(
       appConfig.fleet_api_config.private_key,
       'utf8'
@@ -227,17 +261,17 @@ class Auth {
     const serviceAccountJWT = jwt.sign(
       {
         iss: appConfig.fleet_api_config.id,
-        aud: 'https://api.high-mobility.com/v1',
+        aud: apiUrl,
         iat: Math.round(Date.now() / 1000),
         jti: uuid4(),
-        ver: 1,
+        ver: 2,
       },
       serviceAccountPrivateKey,
       { algorithm: 'ES256' }
     )
 
     const { data: authTokenResponse } = await axios.post(
-      'https://api.high-mobility.com/v1/auth_tokens',
+      `${apiUrl}/auth_tokens`,
       {
         assertion: serviceAccountJWT,
       }
@@ -247,10 +281,10 @@ class Auth {
   }
 
   static async getFleetVehicles(appConfig) {
+    const apiUrl = Auth.getApiUrl(appConfig)
     const authTokenResponse = await Auth.getFleetAuthToken(appConfig)
-
     const { data: authorizedVehicles } = await axios.get(
-      'https://api.high-mobility.com/v1/fleets/vehicles',
+      `${apiUrl}/fleets/vehicles`,
       {
         headers: {
           Authorization: `Bearer ${authTokenResponse.auth_token}`,
@@ -259,6 +293,92 @@ class Auth {
     )
 
     return authorizedVehicles
+  }
+
+  // This can only be called after fleet clearance has been given
+  static async getFleetVehicleAccessToken(vehicle, insertToken = true) {
+    if (!vehicle) return null
+
+    const appConfig = await knex('app_config').first()
+    const apiUrl = Auth.getApiUrl(appConfig)
+    const authToken = await Auth.getFleetAuthToken(appConfig)
+    const { data: accessTokenResponse } = await axios.post(
+      `${apiUrl}/fleets/access_tokens`,
+      {
+        vin: vehicle.vin,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${authToken.auth_token}`,
+        },
+      }
+    )
+
+    if (!insertToken) {
+      return accessTokenResponse
+    }
+
+    await knex('access_tokens').where('vehicle_id', vehicle.id).del()
+    await knex('access_tokens').insert({
+      vehicle_id: vehicle.id,
+      access_token: accessTokenResponse.access_token,
+      refresh_token: accessTokenResponse.refresh_token,
+      scope: accessTokenResponse.scope,
+      expires_at: new Date(
+        new Date().getTime() + accessTokenResponse.expires_in * 1000
+      ),
+    })
+
+    return accessTokenResponse
+  }
+
+  static async revokeFleetClearance(vehicle) {
+    try {
+      const appConfig = await knex('app_config').first()
+      const apiUrl = Auth.getApiUrl(appConfig)
+      const authToken = await Auth.getFleetAuthToken(appConfig)
+      await axios.delete(`${apiUrl}/fleets/vehicles/${vehicle.vin}`, {
+        headers: {
+          Authorization: `Bearer ${authToken.auth_token}`,
+        },
+      })
+      console.log('Revoked fleet clearance')
+    } catch (e) {
+      console.error(
+        "Failed to revoke fleet clearance. Maybe it's already revoked",
+        e
+      )
+    }
+  }
+
+  static async checkFleetClearance(vin) {
+    const appConfig = await knex('app_config').first()
+    const apiUrl = Auth.getApiUrl(appConfig)
+    const authToken = await Auth.getFleetAuthToken(appConfig)
+    const { data } = await axios.get(`${apiUrl}/fleets/vehicles/${vin}`, {
+      headers: {
+        Authorization: `Bearer ${authToken.auth_token}`,
+      },
+    })
+
+    return data?.status || null
+  }
+
+  static async getFleetVehiclesWithClearance() {
+    const appConfig = await knex('app_config').first()
+    const apiUrl = Auth.getApiUrl(appConfig)
+    const authToken = await Auth.getFleetAuthToken(appConfig)
+    const { data } = await axios.get(`${apiUrl}/fleets/vehicles`, {
+      headers: {
+        Authorization: `Bearer ${authToken.auth_token}`,
+      },
+    })
+
+    return (
+      data
+        ?.filter((v) => v.status === FLEET_AUTH_STATUS.APPROVED)
+        .map(({ brand, vin }) => ({ brand, vin })) || []
+    )
   }
 }
 

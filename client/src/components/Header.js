@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/Header.scss'
 import PrimaryButton from './PrimaryButton'
 import { ReactComponent as FilterSvg } from '../images/filter.svg'
@@ -12,12 +12,19 @@ import VehicleSelect from './VehicleSelect'
 import { ReactComponent as CogSvg } from '../images/cog.svg'
 import { Link } from 'react-router-dom'
 import routes, { PAGES } from '../routes'
-import { updateConfig, updateProperties } from '../requests'
+import {
+  fetchProperties,
+  refreshVehicleData,
+  updateConfig,
+  updateProperties,
+} from '../requests'
 import { ReactComponent as DownloadSvg } from '../images/download.svg'
+import { ReactComponent as RefreshSvg } from '../images/refresh.svg'
 import { API_URL } from '../requests'
 
 const Header = () => {
-  const { config, app } = useMobx()
+  const { config, app, vehicles } = useMobx()
+  const [refreshing, setRefreshing] = useState(false)
 
   const viewDropdownItems = [
     {
@@ -83,6 +90,34 @@ const Header = () => {
     },
   ]
 
+  const handleRefresh = async () => {
+    if (!config.selectedVehicleId) return
+
+    try {
+      setRefreshing(true)
+      await refreshVehicleData(config.selectedVehicleId)
+      const [propertiesData] = await Promise.all([
+        fetchProperties(),
+        vehicles.fetch(),
+      ])
+      const selectedVehicle = vehicles.list.find(
+        (v) => v.id === config.selectedVehicleId
+      )
+      if (propertiesData.length > 0) {
+        config.setShownProperties(
+          propertiesData
+            .filter((p) => selectedVehicle?.scope?.includes(p.unique_id))
+            .map((p) => p.unique_id)
+        )
+      }
+
+      setRefreshing(false)
+    } catch (e) {
+      setRefreshing(false)
+      console.log('refresh failed', e)
+    }
+  }
+
   return (
     <div className={`Header`}>
       <div className="HeaderContent">
@@ -109,6 +144,13 @@ const Header = () => {
           renderLabel={() => `Update every ${config.updateFrequency}s`}
           items={updateFrequencyDropdownItems}
         />
+        <button
+          className="HeaderIconButton"
+          onClick={handleRefresh}
+          disabled={refreshing}
+        >
+          <RefreshSvg width="24px" height="24px" />
+        </button>
         <a
           href={`${API_URL}/logs/csv?download`}
           download

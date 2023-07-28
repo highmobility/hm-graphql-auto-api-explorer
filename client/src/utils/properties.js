@@ -248,10 +248,10 @@ export function valueWithBaseUnit(value, unit, propertyConfig) {
 
 export function parseCustomValue(item, propertyConfig) {
   if (propertyConfig?.items?.[1]?.customType === 'time') {
-    return `${padStart(item.data.time.hour, 2, 0)}:${padStart(
+    return `${padStart(item.data.time.hour, 2, '0')}:${padStart(
       item.data.time.minute,
       2,
-      0
+      '0'
     )}`
   }
 

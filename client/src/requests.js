@@ -54,6 +54,12 @@ export const fetchVehicles = async () => {
   return data
 }
 
+export const fetchClearedFleetVehicles = async () => {
+  const { data = [] } = await axios.get(`${API_URL}/vehicles/fleet`)
+
+  return data
+}
+
 export const deleteVehicle = async (vehicleVin) => {
   const { data = [] } = await axios.delete(
     `${API_URL}/vehicles/${vehicleVin}/delete`
@@ -64,23 +70,26 @@ export const deleteVehicle = async (vehicleVin) => {
 
 export const fetchVehicleData = async (vehicleId, properties) => {
   const { data = [] } = await axios.post(
-    `${API_URL}/vehicles/data/${vehicleId}`,
+    `${API_URL}/vehicles/${vehicleId}/data`,
     { properties }
   )
 
   return data
 }
 
-export const authFleetVehicle = async (vin) => {
-  const { data = [] } = await axios.post(`${API_URL}/auth/fleet`, {
-    vin,
-  })
+export const refreshVehicleData = async (vehicleId) => {
+  const { data = [] } = await axios.get(
+    `${API_URL}/vehicles/${vehicleId}/refresh`
+  )
 
   return data
 }
 
-export const fetchFleetVehicles = async () => {
-  const { data = [] } = await axios.get(`${API_URL}/auth/fleet/vehicles`)
+export const authFleetVehicle = async (vin, brand) => {
+  const { data = [] } = await axios.post(`${API_URL}/auth/fleet`, {
+    vin,
+    brand,
+  })
 
   return data
 }

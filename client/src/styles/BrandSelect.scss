@@ -1,4 +1,4 @@
-.FleetVehicleSelect {
+.BrandSelect {
   margin-bottom: 12px;
 
   .DropdownContent {
@@ -9,23 +9,11 @@
 
   .DropdownButton {
     background: white;
-    height: 74px;
   }
 
-  .FleetVehicle {
+  .Brand {
     text-align: left;
     cursor: pointer;
-  }
-
-  .FleetVehicleVin {
-    font-weight: bold;
-  }
-
-  .FleetVehicleStatus {
-    font-weight: normal;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: normal;
   }
 
   .DropdownButtonLabelWrapper {

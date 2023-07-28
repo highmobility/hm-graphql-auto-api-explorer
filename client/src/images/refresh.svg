@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="8px" viewBox="0 0 8 8" version="1.1" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+  <title>Refresh</title>
+  <g id="ICO-/Refresh/Active-Hover02" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+    stroke-linecap="round" stroke-linejoin="round">
+    <g id="ico_refresh" transform="translate(0.750000, 0.450000)" stroke="#6c757d"
+      stroke-width="0.5">
+      <g id="Group" transform="translate(2.179688, 0.000000)">
+        <path
+          d="M0.677743466,1.78111609 L2.87552869,1.78111609 C3.64767933,1.78111609 4.27370323,2.67950695 4.27370323,3.56149781 C4.27370323,4.44348867 3.64767933,5.33435252 2.87552869,5.33435252"
+          id="Stroke-14042"></path>
+        <polyline id="Stroke-14046"
+          points="1.65845977 0.719642868 0.677743466 1.78442056 1.65845977 2.84919826"></polyline>
+      </g>
+      <g id="Group-2" transform="translate(0.000000, 0.968750)">
+        <path
+          d="M3.59595977,4.36560252 L1.39817454,4.36560252 C0.626023905,4.36560252 0,3.47473867 0,2.59274781 C0,1.71075695 0.626023905,0.812366089 1.39817454,0.812366089"
+          id="Stroke-14044"></path>
+        <polyline id="Stroke-14048"
+          points="2.61524347 3.30412946 3.59595977 4.36890716 2.61524347 5.43368486"></polyline>
+      </g>
+    </g>
+  </g>
+</svg>

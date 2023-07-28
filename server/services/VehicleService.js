@@ -1,9 +1,10 @@
 import { knex } from '../database'
 import GraphQlService from './GraphQlService'
 import Auth from './Auth'
+import { FLEET_AUTH_STATUS } from '../utils/fleet'
 
 class VehicleService {
-  static async fetchProperties({ id, pending, vin }, properties) {
+  static async fetchProperties({ id, fleetClearance, vin }, properties) {
     const accessToken = await Auth.getAccessToken(id)
     const appConfig = await knex('app_config').first()
     if (!appConfig) {
@@ -15,14 +16,14 @@ class VehicleService {
     )
 
     const propertiesToFetch = properties
-    if (pending) {
+    if (fleetClearance === FLEET_AUTH_STATUS.PENDING) {
       propertiesToFetch.push('universal.brand')
       propertiesToFetch.push('universal.vin')
     }
 
     const graphQlResponse = await graphQl.fetchProperties(propertiesToFetch)
 
-    if (pending) {
+    if (fleetClearance === FLEET_AUTH_STATUS.PENDING) {
       const brand =
         graphQlResponse.universal &&
         graphQlResponse.universal.brand &&
@@ -36,7 +37,6 @@ class VehicleService {
         await knex('vehicles').where('id', id).update({
           vin,
           brand,
-          pending: false,
         })
       }
     }
@@ -47,6 +47,29 @@ class VehicleService {
     })
 
     return graphQlResponse
+  }
+
+  static async refresh(vehicle) {
+    const isFleetVehicle = !!vehicle.fleet_clearance
+    if (!isFleetVehicle) {
+      return null
+    }
+    const status = await Auth.checkFleetClearance(vehicle.vin)
+
+    await knex('vehicles')
+      .where({ vin: vehicle.vin })
+      .update({
+        fleet_clearance: status,
+        pending: status !== FLEET_AUTH_STATUS.APPROVED,
+      })
+
+    const accessTokenResponse = await Auth.getFleetVehicleAccessToken(vehicle)
+
+    if (status === FLEET_AUTH_STATUS.APPROVED) {
+      await Auth.initProperties(accessTokenResponse)
+    }
+
+    return status
   }
 }
 

@@ -41,7 +41,7 @@ function InitialConfigPage() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (Object.values(formErrors).some((v) => !!v)) {
+    if (formErrors && Object.values(formErrors).some((v) => !!v)) {
       return
     }
 

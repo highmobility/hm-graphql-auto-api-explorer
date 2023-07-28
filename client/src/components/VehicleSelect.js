@@ -31,7 +31,7 @@ const VehicleSelect = () => {
       value: vehicle.id,
       renderLabel: () => (
         <Fragment>
-          {vehicle.pending ? (
+          {!vehicle.brand || !vehicle.vin ? (
             <div className="VehicleSelectDropdownBrand">Pending vehicle</div>
           ) : (
             <Fragment>
@@ -70,7 +70,7 @@ const VehicleSelect = () => {
   const renderLabel = () => {
     if (!selectedVehicle) return 'No selected vehicle'
 
-    return selectedVehicle?.pending ? (
+    return !selectedVehicle.brand || !selectedVehicle.vin ? (
       <div className="VehicleSelectButtonBrand">Pending vehicle</div>
     ) : (
       <Fragment>

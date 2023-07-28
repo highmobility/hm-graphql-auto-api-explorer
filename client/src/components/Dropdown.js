@@ -17,8 +17,8 @@ export default function Dropdown({
   })
 
   const onClickItem = (item) => {
-    item.onClick()
     setOpen(false)
+    item.onClick()
   }
 
   const transitions = useTransition(open ? [open] : [], {
@@ -32,7 +32,12 @@ export default function Dropdown({
       className={`Dropdown ${className || ''} ${open ? 'Open' : ''}`}
       ref={ref}
     >
-      <div className="DropdownButton" onClick={() => setOpen(!open)}>
+      <div
+        className="DropdownButton"
+        onClick={() => {
+          setOpen(!open)
+        }}
+      >
         <div className="DropdownButtonLabelWrapper">{renderLabel()}</div>
         <ChevronIcon className="DropdownChevron" />
       </div>
@@ -40,6 +45,7 @@ export default function Dropdown({
         <animated.div
           style={{
             opacity,
+            pointerEvents: open ? 'auto' : 'none',
           }}
           className="DropdownValueTransitionWrapper"
         >
@@ -50,7 +56,10 @@ export default function Dropdown({
                   value === item.value ? 'Selected' : ''
                 } ${item.disabled ? 'Disabled' : ''}`}
                 key={key}
-                onClick={() => !item.disabled && onClickItem(item)}
+                onClick={() => {
+                  if (!open) return
+                  !item.disabled && onClickItem(item)
+                }}
               >
                 {item.renderLabel() || ''}
               </div>
