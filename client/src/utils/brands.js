@@ -2,6 +2,10 @@
 
 export const brands = [
   {
+    name: 'Audi',
+    value: 'audi',
+  },  
+  {
     name: 'BMW',
     value: 'bmw',
   },
@@ -38,6 +42,10 @@ export const brands = [
     value: 'jeep',
   },
   {
+    name: 'Kia',
+    value: 'kia',
+  },  
+  {
     name: 'Fiat',
     value: 'fiat',
   },
@@ -54,9 +62,21 @@ export const brands = [
     value: 'renault',
   },
   {
+    name: 'Skoda',
+    value: 'skoda',
+  },
+  {
+    name: 'Tesla',
+    value: 'tesla',
+  },  
+  {
     name: 'Toyota',
     value: 'toyota',
   },
+  {
+    name: 'Volvo Cars',
+    value: 'volvo-cars',
+  },  
   {
     name: 'Sandbox',
     value: 'sandbox',
