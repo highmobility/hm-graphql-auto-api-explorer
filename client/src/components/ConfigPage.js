@@ -31,8 +31,8 @@ function ConfigPage() {
   const [basicAuthUsername, setBasicAuthUsername] = useState(null)
   const [basicAuthPassword, setBasicAuthPassword] = useState(null)
   const [basicAuthEnabled, setBasicAuthEnabled] = useState(false)
-  const [addingAuth, setAddingAuth] = useState(false)
-  const [removingAuth, setRemovingAuth] = useState(false)
+  const [showAddingAuthModal, setShowAddingAuthModal] = useState(false)
+  const [showRemovingAuthModal, setShowRemovingAuthModal] = useState(false)
   const [showErrors, setShowErrors] = useState(false)
 
   useEffect(() => {
@@ -59,25 +59,24 @@ function ConfigPage() {
       (route) => route.name === PAGES.DASHBOARD
     ).path
 
-    if (basicAuthEnabled && (!basicAuthUsername || !basicAuthPassword)) {
-      return
-    }
-
     if (
       !mergedConfig?.config?.basic_auth_enabled &&
       basicAuthEnabled &&
-      !addingAuth
+      !showAddingAuthModal
     ) {
-      setAddingAuth(true)
+      // Changed from no auth to auth
+      if (!basicAuthUsername || !basicAuthPassword) return
+      setShowAddingAuthModal(true)
       return
     }
 
     if (
       mergedConfig?.config?.basic_auth_enabled &&
       !basicAuthEnabled &&
-      !removingAuth
+      !showRemovingAuthModal
     ) {
-      setRemovingAuth(true)
+      // Changed from auth to no auth
+      setShowRemovingAuthModal(true)
       return
     }
 
@@ -183,6 +182,7 @@ function ConfigPage() {
                 error={
                   basicAuthEnabled &&
                   !basicAuthUsername &&
+                  !mergedConfig?.config?.basic_auth_enabled &&
                   showErrors &&
                   'Field is required'
                 }
@@ -204,6 +204,7 @@ function ConfigPage() {
                 error={
                   basicAuthEnabled &&
                   !basicAuthPassword &&
+                  !mergedConfig?.config?.basic_auth_enabled &&
                   showErrors &&
                   'Field is required'
                 }
@@ -243,8 +244,8 @@ function ConfigPage() {
         cancelText="No, don't reset"
       />
       <ConfirmModal
-        show={!!addingAuth}
-        close={() => setAddingAuth(false)}
+        show={!!showAddingAuthModal}
+        close={() => setShowAddingAuthModal(false)}
         onConfirm={() => onSave()}
         headerText="Do you want to add basic auth for the app?"
         descriptionText="Once you confirm, you won't be able to access this website without username and password"
@@ -252,8 +253,8 @@ function ConfigPage() {
         cancelText="No, don't add"
       />
       <ConfirmModal
-        show={!!removingAuth}
-        close={() => setRemovingAuth(false)}
+        show={!!showRemovingAuthModal}
+        close={() => setShowRemovingAuthModal(false)}
         onConfirm={() => onSave()}
         headerText="Do you want to remove basic auth?"
         descriptionText="Once you confirm, the app will be accessible to anyone"
